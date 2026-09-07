@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForceMetric</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo-mark" aria-hidden="true">F</div>
+        <div class="brand-text">
+          <div class="logo-text">ForceMetric</div>
+          <div class="logo-badge">Performance Telemetry</div>
+        </div>
+      </div>
+      <div class="header-credit">
+        <span class="header-credit-label">Created by</span>
+        <span class="header-credit-name"><em>Jorge Guerra</em></span>
+      </div>
+    </header>
+
+    <div class="top-grid">
+      <!-- Vehicle Parameters -->
+      <section class="card">
+        <div class="card-title">Vehicle Parameters</div>
+        <label class="field"><span>Horsepower</span><input type="number" id="hp" value="450" step="1" /></label>
+        <label class="field"><span>Weight lbs</span><input type="number" id="weight" value="3800" step="1" /></label>
+        <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
+        <label class="field"><span>Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
+        <label class="field"><span>Drivetrain Loss %</span><input type="number" id="loss" value="15" step="0.1" /></label>
+        <label class="field">
+          <span>Tire Type</span>
+          <select id="tireType">
+            <option value="0" selected>Street</option>
+            <option value="1">Drag Tire</option>
+            <option value="2">Slick</option>
+            <option value="3">Perfect Traction</option>
+          </select>
+        </label>
+        <div class="check-row">
+          <label><input type="checkbox" id="chkNA" /> Naturally Aspirated</label>
+          <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
+          <label><input type="checkbox" id="chkAwd" /> AWD Mode</label>
+          <label><input type="checkbox" id="chkEv" /> (EV Vehicle)</label>
+        </div>
+        <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
+      </section>
+
+      <!-- Weather Presets -->
+      <section class="card">
+        <div class="card-title">Weather Presets</div>
+        <label class="field">
+          <span>Preset</span>
+          <select id="weatherPreset">
+            <option value="0" selected>Custom</option>
+            <option value="1">Standard Day (59°F, 0%, 29.92 inHg)</option>
+            <option value="2">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
+            <option value="3">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
+          </select>
+        </label>
+        <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
+        <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
+        <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+        <label class="field"><span>Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
+      </section>
+
+      <!-- DA Calculator -->
+      <section class="card">
+        <div class="card-title">DA Calculator</div>
+        <label class="field"><span>Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
+        <label class="field"><span>Humidity (%)</span><input type="number" id="calcHumidity" value="40" step="0.1" /></label>
+        <label class="field"><span>Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
+        <div class="da-result" id="calcDAResult">—</div>
+        <button type="button" class="btn btn-generate" id="btnGenerateDA">Generate</button>
+      </section>
+
+      <!-- Results -->
+      <section class="card results-card">
+        <div class="card-title">Results</div>
+        <pre class="results-out" id="resultsOut">ForceMetric ready.
+Enter your car, weather, and hit Test.</pre>
+      </section>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+      <div class="gauge-wrap">
+        <canvas id="speedGauge" width="260" height="260"></canvas>
+      </div>
+
+      <div class="controls-col">
+        <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
+        <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
+        <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
+        <div class="run-timer" id="runTimer">0.00 s</div>
+        <button type="button" class="btn btn-test" id="btnTest">Test</button>
+      </div>
+
+      <div class="chart-card">
+        <div class="progress-wrap">
+          <div class="progress-labels">
+            <span>0'</span><span>60'</span><span>330'</span><span>660'</span><span>1000'</span><span>1320'</span><span>1 mi</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="distanceFill"></div></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="speedChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <div class="footer-credit">Created by <span>Jorge Guerra</span></div>
+      <div class="footer-disclaimer">
+        Simulation estimates for comparison only — not dyno or track certified.
+        Physics port of ForceMetric PerformanceCalc (CalibrationFactor 0.81).
+      </div>
+    </footer>
+  </div>
+
+  <!-- Garage Modal -->
+  <div class="modal-backdrop" id="garageModal" role="dialog" aria-modal="true" aria-labelledby="garageTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="garageTitle">ForceMetric Garage</h2>
+        <button type="button" class="btn btn-close-modal" id="btnGarageX" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="garage-search">
+          <label for="garageSearch">Search Cars:</label>
+          <input type="text" id="garageSearch" placeholder="Type to filter…" autocomplete="off" />
+        </div>
+        <ul class="car-list" id="carList"></ul>
+      </div>
+      <div class="car-editor" id="carEditor">
+        <div class="editor-title" id="editorTitle">Edit Vehicle</div>
+        <div class="editor-grid">
+          <label class="field"><span>Name</span><input type="text" id="editName" autocomplete="off" /></label>
+          <label class="field"><span>Horsepower</span><input type="number" id="editHp" step="1" /></label>
+          <label class="field"><span>Weight lbs</span><input type="number" id="editWeight" step="1" /></label>
+          <label class="field"><span>Drag Coefficient</span><input type="number" id="editCd" step="0.01" /></label>
+          <label class="field"><span>Frontal Area sq ft</span><input type="number" id="editArea" step="0.1" /></label>
+          <label class="field"><span>Drivetrain Loss %</span><input type="number" id="editLoss" step="0.1" /></label>
+          <label class="field">
+            <span>Tire Type</span>
+            <select id="editTireType">
+              <option value="0">Street</option>
+              <option value="1">Drag Tire</option>
+              <option value="2">Slick</option>
+            </select>
+          </label>
+        </div>
+        <div class="editor-actions">
+          <button type="button" class="btn btn-load" id="btnSaveCar">Save</button>
+          <button type="button" class="btn btn-close-modal" id="btnCancelCar">Cancel</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-load" id="btnLoadVehicle">Load Vehicle</button>
+        <button type="button" class="btn btn-add" id="btnAddVehicle">Add Vehicle</button>
+        <button type="button" class="btn btn-edit" id="btnEditVehicle">Edit Vehicle</button>
+        <button type="button" class="btn btn-close-modal" id="btnCloseGarage">Close Garage</button>
+      </div>
+      <div class="garage-reset-row">
+        <button type="button" class="link-reset" id="btnResetGarage">Reset garage to site defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/garage-data.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/gauge.js"></script>
+  <script src="js/speed-chart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

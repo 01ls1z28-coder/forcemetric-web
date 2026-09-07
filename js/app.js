@@ -1,0 +1,604 @@
+/**
+ * ForceMetric v1 — UI wiring, garage CRUD, playback (MainForm timer logic)
+ */
+(function () {
+  'use strict';
+
+  var Physics = window.ForceMetricPhysics;
+  var GARAGE_STORAGE_KEY = 'forcemetric-garage';
+
+  // Clear any leftover permanent garage saves from older builds.
+  try {
+    localStorage.removeItem(GARAGE_STORAGE_KEY);
+  } catch (e) { /* ignore */ }
+
+  // Session-only garage: always start from baked defaults.
+  var garageData = (window.GARAGE_DATA || []).slice();
+
+  // ---- Elements ----
+  var el = {
+    hp: document.getElementById('hp'),
+    weight: document.getElementById('weight'),
+    cd: document.getElementById('cd'),
+    area: document.getElementById('area'),
+    loss: document.getElementById('loss'),
+    tireType: document.getElementById('tireType'),
+    chkNA: document.getElementById('chkNA'),
+    chkFI: document.getElementById('chkFI'),
+    chkAwd: document.getElementById('chkAwd'),
+    chkEv: document.getElementById('chkEv'),
+    weatherPreset: document.getElementById('weatherPreset'),
+    temp: document.getElementById('temp'),
+    humidity: document.getElementById('humidity'),
+    pressure: document.getElementById('pressure'),
+    da: document.getElementById('da'),
+    calcTemp: document.getElementById('calcTemp'),
+    calcHumidity: document.getElementById('calcHumidity'),
+    calcPressure: document.getElementById('calcPressure'),
+    calcDAResult: document.getElementById('calcDAResult'),
+    resultsOut: document.getElementById('resultsOut'),
+    runTimer: document.getElementById('runTimer'),
+    distanceFill: document.getElementById('distanceFill'),
+    garageModal: document.getElementById('garageModal'),
+    garageSearch: document.getElementById('garageSearch'),
+    carList: document.getElementById('carList'),
+    carEditor: document.getElementById('carEditor'),
+    editName: document.getElementById('editName'),
+    editHp: document.getElementById('editHp'),
+    editWeight: document.getElementById('editWeight'),
+    editCd: document.getElementById('editCd'),
+    editArea: document.getElementById('editArea'),
+    editLoss: document.getElementById('editLoss'),
+    editTireType: document.getElementById('editTireType'),
+    editorTitle: document.getElementById('editorTitle')
+  };
+
+  var previousTireTypeIndex = 0;
+  var selectedGarageIndex = -1;
+  var filteredCars = garageData.slice();
+  var editorMode = null; // 'add' | 'edit' | null
+  var editingOriginalIndex = -1; // index in garageData for edit
+  // ---- Gauge ----
+  var gauge = new window.ForceMetricGauge(document.getElementById('speedGauge'));
+
+  // ---- Speed chart (Canvas2D, no Chart.js) ----
+  var speedChart = new window.ForceMetricSpeedChart(document.getElementById('speedChart'));
+
+  function ensureChartSized() {
+    try {
+      speedChart.resize();
+    } catch (e) { /* ignore */ }
+  }
+
+  // ---- Playback state (mirrors MainForm) ----
+  var playbackResult = null;
+  var playbackIndex = 0;
+  var playbackStart = 0;
+  var playbackRaf = null;
+  var playbackRunning = false
+
+  function parseNum(input, name) {
+    var v = parseFloat(String(input.value).trim());
+    if (!isFinite(v)) throw new Error('Invalid value for ' + name + '.');
+    return v;
+  }
+
+  function mapTireIndex(idx) {
+    // MainForm: 0 Street, 1 DragTire, 2 Slick, 3 Perfect Traction → Slick
+    switch (idx) {
+      case 0: return Physics.TireType.Street;
+      case 1: return Physics.TireType.DragTire;
+      case 2: return Physics.TireType.Slick;
+      case 3: return Physics.TireType.Slick;
+      default: return Physics.TireType.Street;
+    }
+  }
+
+  function tireLabelFromEnum(t) {
+    if (t === 1 || t === 'DragTire') return '1';
+    if (t === 2 || t === 'Slick') return '2';
+    return '0';
+  }
+
+  function fmt2(n) {
+    return n.toFixed(2);
+  }
+
+  function fmt1(n) {
+    return n.toFixed(1);
+  }
+
+  function renderResult(result) {
+    var lines = [];
+    lines.push('Run Time: ' + result.Timestamp.toLocaleString());
+    lines.push('========================================');
+
+    if (result.ZeroToSixty != null) lines.push('0–60 mph: ' + fmt2(result.ZeroToSixty) + ' s');
+    if (result.ZeroToHundred != null) lines.push('0–100 mph: ' + fmt2(result.ZeroToHundred) + ' s');
+    if (result.ZeroToOneThirty != null) lines.push('0–130 mph: ' + fmt2(result.ZeroToOneThirty) + ' s');
+    if (result.SixtyToOneThirty != null) lines.push('60–130 mph: ' + fmt2(result.SixtyToOneThirty) + ' s');
+    if (result.HundredToOneFifty != null) lines.push('100–150 mph: ' + fmt2(result.HundredToOneFifty) + ' s');
+    if (result.HundredToTwoHundredKmh != null) lines.push('100–200 km/h: ' + fmt2(result.HundredToTwoHundredKmh) + ' s');
+    if (result.TwoHundredToTwoFiftyKmh != null) lines.push('200–250 km/h: ' + fmt2(result.TwoHundredToTwoFiftyKmh) + ' s');
+
+    lines.push('');
+    lines.push('Vmax: ' + fmt1(result.VmaxMph) + ' mph');
+    lines.push('');
+
+    function appendDist(markerFt, label) {
+      var val = result.DistanceMarkers[markerFt];
+      if (val && val.Time >= 0) {
+        lines.push(label + ': ' + fmt2(val.Time) + ' s @ ' + fmt1(val.SpeedMph) + ' mph');
+      }
+    }
+
+    appendDist(60, '60 ft');
+    appendDist(330, '330 ft');
+    appendDist(660, '1/8 mile (660 ft)');
+    appendDist(1000, '1000 ft');
+    appendDist(1320, '1/4 mile (1320 ft)');
+    appendDist(2640, '1/2 mile (2640 ft)');
+    appendDist(5280, '1 mile (5280 ft)');
+
+    lines.push('');
+    lines.push('0–X mph breakdown:');
+    var keys = Object.keys(result.ZeroToMphTimes).map(Number).sort(function (a, b) { return a - b; });
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      var tv = result.ZeroToMphTimes[k];
+      if (k >= 0 && tv >= 0) {
+        lines.push('0–' + k + ' mph: ' + fmt2(tv) + ' s');
+      }
+    }
+
+    el.resultsOut.textContent = lines.join('\n');
+  }
+
+  function stopPlaybackLoop() {
+    playbackRunning = false;
+    if (playbackRaf) {
+      cancelAnimationFrame(playbackRaf);
+      playbackRaf = null;
+    }
+  }
+
+  function startPlayback(result) {
+    if (!result || !result.Steps || !result.Steps.length) return;
+
+    stopPlaybackLoop();
+
+    playbackResult = result;
+    playbackIndex = 0;
+
+    gauge.setValue(0);
+    el.runTimer.textContent = '0.00 s';
+    el.distanceFill.style.width = '0%';
+
+    // Full curve immediately — do not wait for playback end
+    speedChart.clear();
+    speedChart.setSeries(result.Steps);
+    speedChart.setPlaybackTime(0);
+    ensureChartSized();
+
+    playbackStart = performance.now();
+    playbackRunning = true;
+    playbackRaf = requestAnimationFrame(playbackTick);
+  }
+
+  function playbackTick(now) {
+    if (!playbackRunning) return;
+
+    if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) {
+      stopPlaybackLoop();
+      return;
+    }
+
+    var steps = playbackResult.Steps;
+    if (playbackIndex >= steps.length) {
+      speedChart.setPlaybackTime(steps[steps.length - 1].Time);
+      stopPlaybackLoop();
+      return;
+    }
+
+    var elapsed = (now - playbackStart) / 1000.0;
+    var advanced = false;
+    var lastStep = steps[playbackIndex];
+
+    while (playbackIndex < steps.length && steps[playbackIndex].Time <= elapsed) {
+      lastStep = steps[playbackIndex];
+      playbackIndex++;
+      advanced = true;
+    }
+
+    if (advanced) {
+      var mph = Math.round(lastStep.SpeedMph);
+      mph = Math.max(0, Math.min(mph, gauge.maxValue));
+      gauge.setValue(mph);
+
+      el.runTimer.textContent = fmt2(lastStep.Time) + ' s';
+
+      var ft = Math.max(0, Math.min(lastStep.DistanceFt, 5280));
+      el.distanceFill.style.width = ((ft / 5280) * 100).toFixed(2) + '%';
+
+      speedChart.setPlaybackTime(lastStep.Time);
+    }
+
+    if (playbackIndex >= steps.length) {
+      speedChart.setPlaybackTime(steps[steps.length - 1].Time);
+      stopPlaybackLoop();
+      return;
+    }
+
+    playbackRaf = requestAnimationFrame(playbackTick);
+  }
+
+  function runTest() {
+    try {
+      var horsepower = parseNum(el.hp, 'Horsepower');
+      var weight = parseNum(el.weight, 'Weight');
+      var cd = parseNum(el.cd, 'Drag Coefficient');
+      var frontalArea = parseNum(el.area, 'Frontal Area');
+      var drivetrainLossPercent = parseNum(el.loss, 'Drivetrain Loss');
+      var tempF = parseNum(el.temp, 'Temperature');
+      var humidity = parseNum(el.humidity, 'Humidity');
+      var pressure = parseNum(el.pressure, 'Pressure');
+
+      var daInput = NaN;
+      if (String(el.da.value).trim() !== '') {
+        daInput = parseNum(el.da, 'Density Altitude');
+      }
+
+      var tireType = mapTireIndex(parseInt(el.tireType.value, 10));
+
+      var result = Physics.calculate({
+        hp: horsepower,
+        weightLbs: weight,
+        tireType: tireType,
+        Cd: cd,
+        frontalAreaSqFt: frontalArea,
+        drivetrainLoss: drivetrainLossPercent,
+        isAwd: el.chkAwd.checked,
+        isEv: el.chkEv.checked,
+        tempF: tempF,
+        humidity: humidity,
+        pressureInHg: pressure,
+        densityAltitudeFtInput: daInput,
+        isNA: el.chkNA.checked,
+        isFI: el.chkFI.checked,
+        timestamp: new Date()
+      });
+
+      renderResult(result);
+      startPlayback(result);
+    } catch (err) {
+      alert(err.message || String(err));
+    }
+  }
+
+  // ---- Events ----
+  document.getElementById('btnTest').addEventListener('click', runTest);
+  document.getElementById('btnGenerateDA').addEventListener('click', function () {
+    try {
+      var tempF = parseNum(el.calcTemp, 'Calc Temp');
+      var humidity = parseNum(el.calcHumidity, 'Calc Humidity');
+      var pressure = parseNum(el.calcPressure, 'Calc Pressure');
+      var daFt = Physics.computeDensityAltitude(tempF, humidity, pressure);
+      el.calcDAResult.textContent = Math.round(daFt).toString();
+      el.da.value = Math.round(daFt).toString();
+    } catch (err) {
+      alert(err.message || String(err));
+    }
+  });
+
+  el.weatherPreset.addEventListener('change', function () {
+    switch (parseInt(el.weatherPreset.value, 10)) {
+      case 1:
+        el.temp.value = '59';
+        el.humidity.value = '0';
+        el.pressure.value = '29.92';
+        el.da.value = '';
+        break;
+      case 2:
+        el.temp.value = '90';
+        el.humidity.value = '60';
+        el.pressure.value = '29.50';
+        el.da.value = '';
+        break;
+      case 3:
+        el.temp.value = '50';
+        el.humidity.value = '40';
+        el.pressure.value = '30.10';
+        el.da.value = '';
+        break;
+    }
+  });
+
+  function weatherFieldChanged() {
+    el.da.value = '';
+  }
+  el.temp.addEventListener('input', weatherFieldChanged);
+  el.humidity.addEventListener('input', weatherFieldChanged);
+  el.pressure.addEventListener('input', weatherFieldChanged);
+
+  el.chkNA.addEventListener('change', function () {
+    if (el.chkNA.checked) el.chkFI.checked = false;
+  });
+  el.chkFI.addEventListener('change', function () {
+    if (el.chkFI.checked) el.chkNA.checked = false;
+  });
+
+  el.chkEv.addEventListener('change', function () {
+    if (el.chkEv.checked) {
+      previousTireTypeIndex = parseInt(el.tireType.value, 10);
+      el.chkNA.checked = false;
+      el.chkFI.checked = false;
+      el.chkNA.disabled = true;
+      el.chkFI.disabled = true;
+      el.loss.value = '8';
+      el.tireType.value = '3'; // Perfect Traction
+      el.resultsOut.textContent += '\nEV Mode enabled.';
+    } else {
+      el.chkNA.disabled = false;
+      el.chkFI.disabled = false;
+      el.tireType.value = String(previousTireTypeIndex);
+      el.resultsOut.textContent += '\nEV Mode disabled.';
+    }
+  });
+
+  el.chkAwd.addEventListener('change', function () {
+    el.resultsOut.textContent += el.chkAwd.checked ? '\nAWD Mode enabled.' : '\nAWD Mode disabled.';
+  });
+
+  document.getElementById('btnPlay').addEventListener('click', function () {
+    if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) return;
+    if (playbackIndex >= playbackResult.Steps.length) return;
+    var currentTime = playbackResult.Steps[playbackIndex].Time;
+    playbackStart = performance.now() - currentTime * 1000;
+    if (!playbackRunning) {
+      playbackRunning = true;
+      playbackRaf = requestAnimationFrame(playbackTick);
+    }
+  });
+
+  document.getElementById('btnPause').addEventListener('click', function () {
+    stopPlaybackLoop();
+  });
+
+  document.getElementById('btnReplay').addEventListener('click', function () {
+    if (!playbackResult) return;
+    startPlayback(playbackResult);
+  });
+
+  // ---- Garage (session-only; no localStorage persistence) ----
+  function refreshFilteredFromSearch() {
+    var q = (el.garageSearch.value || '').toLowerCase();
+    filteredCars = garageData.filter(function (c) {
+      return String(c.Name).toLowerCase().indexOf(q) !== -1;
+    });
+  }
+
+  function openGarage() {
+    el.garageSearch.value = '';
+    filteredCars = garageData.slice();
+    selectedGarageIndex = -1;
+    hideCarEditor();
+    renderCarList();
+    el.garageModal.classList.add('open');
+    el.garageSearch.focus();
+    setTimeout(ensureChartSized, 0);
+  }
+
+  function closeGarage() {
+    hideCarEditor();
+    el.garageModal.classList.remove('open');
+    setTimeout(ensureChartSized, 50);
+  }
+
+  function renderCarList() {
+    var html = '';
+    for (var i = 0; i < filteredCars.length; i++) {
+      var c = filteredCars[i];
+      var sel = i === selectedGarageIndex ? ' selected' : '';
+      html += '<li class="' + sel.trim() + '" data-idx="' + i + '">' + escapeHtml(c.Name) + '</li>';
+    }
+    el.carList.innerHTML = html || '<li style="color:#666;cursor:default">No matches</li>';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function indexInGarageData(car) {
+    return garageData.indexOf(car);
+  }
+
+  el.carList.addEventListener('click', function (e) {
+    var li = e.target.closest('li[data-idx]');
+    if (!li) return;
+    selectedGarageIndex = parseInt(li.getAttribute('data-idx'), 10);
+    renderCarList();
+  });
+
+  el.carList.addEventListener('dblclick', function (e) {
+    var li = e.target.closest('li[data-idx]');
+    if (!li) return;
+    selectedGarageIndex = parseInt(li.getAttribute('data-idx'), 10);
+    loadSelectedVehicle();
+  });
+
+  el.garageSearch.addEventListener('input', function () {
+    refreshFilteredFromSearch();
+    selectedGarageIndex = -1;
+    renderCarList();
+  });
+
+  function loadSelectedVehicle() {
+    if (selectedGarageIndex < 0 || selectedGarageIndex >= filteredCars.length) {
+      alert('Please select a vehicle first.');
+      return;
+    }
+    var car = filteredCars[selectedGarageIndex];
+    el.hp.value = car.Horsepower;
+    el.weight.value = car.WeightLbs;
+    el.cd.value = car.DragCoefficient;
+    el.area.value = car.FrontalAreaSqFt;
+    el.loss.value = car.DrivetrainLossPercent;
+    el.tireType.value = tireLabelFromEnum(car.TireType);
+    el.resultsOut.textContent = 'Loaded: ' + car.Name + '\nReady to simulate.';
+    closeGarage();
+  }
+
+  function defaultCar() {
+    return {
+      Name: '',
+      Horsepower: 450,
+      WeightLbs: 3800,
+      DragCoefficient: 0.32,
+      FrontalAreaSqFt: 22,
+      DrivetrainLossPercent: 15,
+      TireType: 0
+    };
+  }
+
+  function showCarEditor(mode, car) {
+    editorMode = mode;
+    el.editorTitle.textContent = mode === 'add' ? 'Add Vehicle' : 'Edit Vehicle';
+    el.editName.value = car.Name || '';
+    el.editHp.value = car.Horsepower;
+    el.editWeight.value = car.WeightLbs;
+    el.editCd.value = car.DragCoefficient;
+    el.editArea.value = car.FrontalAreaSqFt;
+    el.editLoss.value = car.DrivetrainLossPercent;
+    el.editTireType.value = String(car.TireType == null ? 0 : car.TireType);
+    el.carEditor.classList.add('open');
+    el.editName.focus();
+  }
+
+  function hideCarEditor() {
+    editorMode = null;
+    editingOriginalIndex = -1;
+    el.carEditor.classList.remove('open');
+  }
+
+  function readEditorCar() {
+    var name = String(el.editName.value || '').trim();
+    if (!name) throw new Error('Name is required.');
+    var hp = parseFloat(el.editHp.value);
+    var weight = parseFloat(el.editWeight.value);
+    var cd = parseFloat(el.editCd.value);
+    var area = parseFloat(el.editArea.value);
+    var loss = parseFloat(el.editLoss.value);
+    var tire = parseInt(el.editTireType.value, 10);
+    if (!isFinite(hp)) throw new Error('Invalid Horsepower.');
+    if (!isFinite(weight)) throw new Error('Invalid Weight.');
+    if (!isFinite(cd)) throw new Error('Invalid Drag Coefficient.');
+    if (!isFinite(area)) throw new Error('Invalid Frontal Area.');
+    if (!isFinite(loss)) throw new Error('Invalid Drivetrain Loss.');
+    if (!(tire === 0 || tire === 1 || tire === 2)) tire = 0;
+    return {
+      Name: name,
+      Horsepower: hp,
+      WeightLbs: weight,
+      DragCoefficient: cd,
+      FrontalAreaSqFt: area,
+      DrivetrainLossPercent: loss,
+      TireType: tire
+    };
+  }
+
+  function refreshList(preferName) {
+    refreshFilteredFromSearch();
+    selectedGarageIndex = -1;
+    if (preferName) {
+      for (var i = 0; i < filteredCars.length; i++) {
+        if (filteredCars[i].Name === preferName) {
+          selectedGarageIndex = i;
+          break;
+        }
+      }
+    }
+    renderCarList();
+  }
+
+  document.getElementById('btnAddVehicle').addEventListener('click', function () {
+    editingOriginalIndex = -1;
+    showCarEditor('add', defaultCar());
+  });
+
+  document.getElementById('btnEditVehicle').addEventListener('click', function () {
+    if (selectedGarageIndex < 0 || selectedGarageIndex >= filteredCars.length) {
+      alert('Please select a vehicle to edit.');
+      return;
+    }
+    var car = filteredCars[selectedGarageIndex];
+    editingOriginalIndex = indexInGarageData(car);
+    if (editingOriginalIndex < 0) {
+      alert('Could not find vehicle in garage.');
+      return;
+    }
+    showCarEditor('edit', car);
+  });
+
+  document.getElementById('btnSaveCar').addEventListener('click', function () {
+    try {
+      var car = readEditorCar();
+      if (editorMode === 'add') {
+        garageData.push(car);
+      } else if (editorMode === 'edit' && editingOriginalIndex >= 0) {
+        garageData[editingOriginalIndex] = car;
+      } else {
+        throw new Error('Nothing to save.');
+      }
+      hideCarEditor();
+      refreshList(car.Name);
+    } catch (err) {
+      alert(err.message || String(err));
+    }
+  });
+
+  document.getElementById('btnCancelCar').addEventListener('click', function () {
+    hideCarEditor();
+  });
+
+  document.getElementById('btnResetGarage').addEventListener('click', function () {
+    if (!confirm('Reset garage to site defaults for this session?')) return;
+    garageData = (window.GARAGE_DATA || []).slice();
+    hideCarEditor();
+    refreshList(null);
+    el.resultsOut.textContent = 'Garage reset to defaults (' + garageData.length + ' vehicles).';
+  });
+
+  document.getElementById('btnGarage').addEventListener('click', openGarage);
+  document.getElementById('btnCloseGarage').addEventListener('click', closeGarage);
+  document.getElementById('btnGarageX').addEventListener('click', closeGarage);
+  document.getElementById('btnLoadVehicle').addEventListener('click', loadSelectedVehicle);
+
+  el.garageModal.addEventListener('click', function (e) {
+    if (e.target === el.garageModal) closeGarage();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && el.garageModal.classList.contains('open')) {
+      if (el.carEditor.classList.contains('open')) {
+        hideCarEditor();
+      } else {
+        closeGarage();
+      }
+    }
+  });
+
+  // Resize gauge/chart on window resize
+  window.addEventListener('resize', function () {
+    gauge._resize();
+    ensureChartSized();
+  });
+
+  // Expose helpers for node unit-check (optional)
+  window.ForceMetricApp = {
+    speedChart: speedChart
+  };
+})();
