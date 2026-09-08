@@ -573,7 +573,9 @@
     setDriveType(car.DriveType || 'RWD');
     setEvChecked(looksLikeEv(car.Name));
     setActiveVehicleLabel(car.Name);
-    el.resultsOut.textContent = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + (looksLikeEv(car.Name) ? ', EV' : '') + ')\nReady to simulate.';
+    var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + (looksLikeEv(car.Name) ? ', EV' : '') + ')\nReady to simulate.';
+    if (car.Source) loadMsg += '\nSource: ' + car.Source;
+    el.resultsOut.textContent = loadMsg;
     closeGarage();
   }
 
