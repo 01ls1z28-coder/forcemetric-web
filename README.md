@@ -34,7 +34,7 @@ Double-click `index.html` (or open it in any modern browser).
 | `js/app.js` | Wiring + garage + playback |
 | `js/chart.umd.min.js` | Vendored Chart.js |
 | `js/garage-data.js` | `window.GARAGE_DATA` |
-| `data/garage.json` | Source garage copy |
+| `(removed — garage baked into js/garage-data.js only)` | Source garage copy |
 | `VERIFY.txt` | Physics sanity check |
 | `VERIFY_RACE.txt` | Sample Mustang vs Camaro ZL1 race |
 
