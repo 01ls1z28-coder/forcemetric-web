@@ -292,6 +292,14 @@ input[type="text"] {
   accent-color: var(--accent);
 }
 
+.field-hint {
+  margin: 0 0 6px;
+  padding: 0 2px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
 /* ── Buttons ── */
 .btn {
   border: none;

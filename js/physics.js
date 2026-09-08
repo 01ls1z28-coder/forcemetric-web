@@ -114,19 +114,22 @@
     if (!isEv) {
       var standardDensity = 1.225;
       var densityFactor = airDensity / standardDensity;
-      wheelHp *= densityFactor;
-
       var daForLoss = Math.max(0.0, densityAltitudeFt);
-      var thousands = daForLoss / 1000.0;
+      var daThousands = daForLoss / 1000.0;
 
       if (isNaturallyAspirated && !isForcedInduction) {
-        var lossFactorNA = 1.0 - 0.03 * thousands;
-        lossFactorNA = Math.max(0.30, lossFactorNA);
-        wheelHp *= lossFactorNA;
+        // NA: full density hit + slight peak-rating haircut + 3%/1k DA derate
+        wheelHp *= densityFactor;
+        wheelHp *= 0.985;
+        wheelHp *= Math.max(0.30, 1.0 - 0.03 * daThousands);
       } else if (isForcedInduction && !isNaturallyAspirated) {
-        var lossFactorFI = 1.0 - 0.015 * thousands;
-        lossFactorFI = Math.max(0.40, lossFactorFI);
-        wheelHp *= lossFactorFI;
+        // FI: holds power better as density drops + slight usable-power edge + 1.5%/1k DA derate
+        wheelHp *= (0.55 + 0.45 * densityFactor);
+        wheelHp *= 1.015;
+        wheelHp *= Math.max(0.40, 1.0 - 0.015 * daThousands);
+      } else {
+        // neither: density only (legacy)
+        wheelHp *= densityFactor;
       }
     }
 

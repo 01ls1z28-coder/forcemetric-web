@@ -164,6 +164,16 @@
     lines.push('Run Time: ' + result.Timestamp.toLocaleString());
     lines.push('========================================');
 
+    var engineLabel = 'Unspecified';
+    if (el.chkEv.checked) {
+      engineLabel = 'EV';
+    } else if (el.chkNA.checked && !el.chkFI.checked) {
+      engineLabel = 'Naturally aspirated';
+    } else if (el.chkFI.checked && !el.chkNA.checked) {
+      engineLabel = 'Forced induction';
+    }
+    lines.push('Engine: ' + engineLabel);
+
     if (result.ZeroToSixty != null) lines.push('0–60 mph: ' + fmt2(result.ZeroToSixty) + ' s');
     if (result.ZeroToHundred != null) lines.push('0–100 mph: ' + fmt2(result.ZeroToHundred) + ' s');
     if (result.ZeroToOneThirty != null) lines.push('0–130 mph: ' + fmt2(result.ZeroToOneThirty) + ' s');

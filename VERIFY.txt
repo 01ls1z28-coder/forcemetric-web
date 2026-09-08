@@ -23,3 +23,16 @@ Same Mustang GT (street tires, standard weather):
   FWD 0–60: 3.96 s  (mu *= 0.92)
   AWD 0–60: 3.15 s  (mu *= 1.45 + slick path)
 Case A RWD (455/3685): 0–60 3.76 s (parity with former non-AWD)
+
+NA / FI power delivery (Case A 455/3685 RWD Street)
+---------------------------------------------------
+Sea-level / Standard Day (DA≈0): neither and NA/FI no longer identical.
+  neither 0–60: 3.75 s  (density only; near former 3.76)
+  NA      0–60: 3.77 s  (density × 0.985 × DA derate)
+  FI      0–60: 3.73 s  (soft density × 1.015 × softer DA derate)
+Hot / High DA (90°F / 60% / 29.50 → DA≈2530 ft):
+  neither 0–60: 3.78 s
+  NA      0–60: 3.94 s
+  FI      0–60: 3.80 s
+NA–FI gap widens at high DA (0.04 s → 0.14 s); FI holds up better.
+UI: muted hint under NA/FI; results show Engine: Naturally aspirated / Forced induction / Unspecified.
