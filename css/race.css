@@ -1,0 +1,529 @@
+/* ForceMetric Drag Racing — arcade motorsport overlay */
+
+.race-page {
+  --you: #b8ff3c;
+  --you-glow: rgba(184, 255, 60, 0.45);
+  --opp: #22d3ee;
+  --opp-glow: rgba(34, 211, 238, 0.45);
+  --neon-pink: #ff2d95;
+}
+
+.race-app {
+  max-width: 1480px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  background: var(--panel-2);
+  color: #e8ecf1;
+  border: 1px solid var(--panel-border-strong);
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 650;
+  font-size: 13px;
+}
+
+.btn-back:hover {
+  background: #1c222b;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Setup */
+.weather-strip {
+  margin-bottom: 4px;
+}
+
+.weather-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.lanes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.lane-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.lane-card.lane-you {
+  border-color: rgba(184, 255, 60, 0.28);
+  box-shadow: 0 0 0 1px rgba(184, 255, 60, 0.08), var(--shadow-card);
+}
+
+.lane-card.lane-opp {
+  border-color: rgba(34, 211, 238, 0.28);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.08), var(--shadow-card);
+}
+
+.lane-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.lane-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.lane-tag.you {
+  background: rgba(184, 255, 60, 0.15);
+  color: var(--you);
+  border: 1px solid rgba(184, 255, 60, 0.35);
+}
+
+.lane-tag.opp {
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--opp);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.lane-name {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.opp-garage {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.race-car-list {
+  max-height: 160px;
+  margin: 8px 0;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  overflow-y: auto;
+}
+
+.race-car-list li {
+  padding: 7px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.race-car-list li:hover,
+.race-car-list li.selected {
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--opp);
+}
+
+.launch-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0 8px;
+}
+
+.setup-hint {
+  color: var(--text-muted);
+  font-size: 12px;
+  min-height: 1.2em;
+}
+
+.btn-launch {
+  background: linear-gradient(180deg, #ff4d6d, #e11d48);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 18px 56px;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 0 32px rgba(225, 29, 72, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: launchPulse 1.6s ease-in-out infinite;
+}
+
+.btn-launch:hover {
+  background: linear-gradient(180deg, #ff6b88, #f43f5e);
+}
+
+@keyframes launchPulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.2) inset, 0 0 28px rgba(225,29,72,0.4), 0 8px 24px rgba(0,0,0,0.4); }
+  50% { box-shadow: 0 0 0 1px rgba(255,255,255,0.25) inset, 0 0 42px rgba(225,29,72,0.65), 0 8px 28px rgba(0,0,0,0.45); }
+}
+
+/* Race view */
+.race-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.winner-banner {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--panel-border);
+  background: var(--surface);
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.winner-banner.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.winner-banner.win-you {
+  color: var(--you);
+  border-color: rgba(184, 255, 60, 0.45);
+  box-shadow: 0 0 40px var(--you-glow);
+  text-shadow: 0 0 18px var(--you-glow);
+}
+
+.winner-banner.win-opp {
+  color: var(--opp);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 40px var(--opp-glow);
+  text-shadow: 0 0 18px var(--opp-glow);
+}
+
+.winner-banner.win-tie {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 0 36px rgba(251, 191, 36, 0.35);
+}
+
+.race-names {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.race-name {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.race-name.you {
+  color: var(--you);
+  border-color: rgba(184, 255, 60, 0.3);
+  text-align: right;
+}
+
+.race-name.opp {
+  color: var(--opp);
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.race-vs {
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.track-board {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%),
+    var(--surface);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 16px 18px 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lane-strip {
+  display: grid;
+  grid-template-columns: 72px 1fr 140px;
+  gap: 10px;
+  align-items: center;
+}
+
+.strip-label {
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.you-strip .strip-label { color: var(--you); }
+.opp-strip .strip-label { color: var(--opp); }
+
+.strip-track {
+  position: relative;
+  height: 28px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 0,
+      rgba(255,255,255,0.04) 2px,
+      transparent 2px,
+      transparent 12.5%
+    ),
+    #0a0c0f;
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.strip-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+
+.you-strip .strip-fill {
+  background: linear-gradient(90deg, rgba(184,255,60,0.15), rgba(184,255,60,0.75));
+  box-shadow: 0 0 16px var(--you-glow);
+}
+
+.opp-strip .strip-fill {
+  background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(34,211,238,0.75));
+  box-shadow: 0 0 16px var(--opp-glow);
+}
+
+.strip-marker {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 10px;
+  margin-left: -5px;
+  left: 0%;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  transition: left 0.05s linear;
+}
+
+.you-strip .strip-marker { background: var(--you); }
+.opp-strip .strip-marker { background: var(--opp); }
+
+.strip-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  gap: 2px;
+}
+
+.lead-callout {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--panel-border);
+  min-height: 2.4em;
+}
+
+.track-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  padding: 0 72px 0 72px;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.race-chart-wrap {
+  height: 220px;
+  position: relative;
+}
+
+.race-chart-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.results-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.result-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-card);
+}
+
+.result-card.you {
+  border-color: rgba(184, 255, 60, 0.28);
+}
+
+.result-card.opp {
+  border-color: rgba(34, 211, 238, 0.28);
+}
+
+.result-card h3 {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.result-card.you h3 { color: var(--you); }
+.result-card.opp h3 { color: var(--opp); }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stat-pill {
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+
+.stat-pill .lbl {
+  display: block;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.stat-pill .val {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gap-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--panel-border);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.race-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 6px 0 4px;
+}
+
+.race-actions .btn-ctrl {
+  width: auto;
+  min-width: 140px;
+}
+
+.btn-drag {
+  background: linear-gradient(180deg, #56f0ff, #22d3ee);
+  color: #041016;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 12px 18px;
+  min-width: 120px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 0 20px rgba(34, 211, 238, 0.35),
+    0 6px 16px rgba(34, 211, 238, 0.2);
+  margin-top: 8px;
+  width: 100%;
+}
+
+.btn-drag:hover {
+  background: linear-gradient(180deg, #7af5ff, #67e8f9);
+}
+
+.controls-col .btn-drag {
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .lanes-grid,
+  .charts-row,
+  .results-board,
+  .weather-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lane-strip {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .strip-stats {
+    grid-column: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .track-scale {
+    padding: 0 56px 0 56px;
+  }
+}

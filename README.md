@@ -14,6 +14,7 @@ Double-click `index.html` (or open it in any modern browser).
 - Modes: Naturally Aspirated, Forced Induction, AWD, EV
 - Weather presets + Density Altitude calculator
 - **Test** runs an exact JS port of `PerformanceCalc.cs` (CalibrationFactor 0.81, dt=0.01, 1-mile loop)
+- **Drag Racing** (`race.html`): dual-lane head-to-head using the same physics; arcade playback to 1/4 mile with live lead, dual charts, and ET/trap cards
 - Results panel matching `MainForm.RenderResult`
 - Speed gauge (canvas), speed-vs-time chart (Chart.js), distance progress
 - Play / Pause / Replay playback timed to real elapsed seconds
@@ -23,7 +24,10 @@ Double-click `index.html` (or open it in any modern browser).
 
 | Path | Role |
 |------|------|
-| `index.html` | UI shell |
+| `index.html` | UI shell (Test + Drag Racing entry) |
+| `race.html` | Drag Racing setup + race view |
+| `css/race.css` | Motorsport race UI |
+| `js/race.js` | Dual-lane race wiring + playback |
 | `css/styles.css` | Dark tool theme |
 | `js/physics.js` | `window.ForceMetricPhysics.calculate(...)` |
 | `js/gauge.js` | Canvas gauge |
@@ -32,6 +36,7 @@ Double-click `index.html` (or open it in any modern browser).
 | `js/garage-data.js` | `window.GARAGE_DATA` |
 | `data/garage.json` | Source garage copy |
 | `VERIFY.txt` | Physics sanity check |
+| `VERIFY_RACE.txt` | Sample Mustang vs Camaro ZL1 race |
 
 ## Disclaimer
 
@@ -42,3 +47,9 @@ Factory `DriveType` is baked into garage data (see `DATA_DRIVETRAIN.txt`). Load 
 
 ## Active vehicle label
 `#activeVehicleLabel` above the gauge shows make/model/year from the loaded Name (or full Name if year missing). Default: Custom setup.
+
+## Drag Racing
+Open via the cyan **Drag Racing** button under Test on `index.html` (or open `race.html` directly).
+The active vehicle tune is stashed in `sessionStorage` (`forcemetric-race-vehicle`) before navigate.
+On the race page: retune **Your car** and pick an **Opponent** from the baked garage, set shared weather, then **LAUNCH**.
+Playback uses `ForceMetricPhysics.calculate` twice; winner is first to 1320 ft (lower 1/4-mile ET). Session-only — does not alter the Test page or persist garage edits.

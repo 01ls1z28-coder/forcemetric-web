@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForceMetric — Drag Racing</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/race.css" />
+</head>
+<body class="race-page">
+  <div class="app race-app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo-mark" aria-hidden="true">F</div>
+        <div class="brand-text">
+          <div class="logo-text">ForceMetric</div>
+          <div class="logo-badge">Drag Racing · 1/4 Mile</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-back" href="index.html">← Back to ForceMetric</a>
+      </div>
+    </header>
+
+    <!-- SETUP -->
+    <div id="setupView" class="setup-view">
+      <div class="weather-strip card">
+        <div class="card-title">Shared Weather</div>
+        <div class="weather-row">
+          <label class="field"><span>Preset</span>
+            <select id="weatherPreset">
+              <option value="0">Custom</option>
+              <option value="1" selected>Standard Day (59°F, 0%, 29.92 inHg)</option>
+              <option value="2">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
+              <option value="3">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
+            </select>
+          </label>
+          <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
+          <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="0" step="0.1" /></label>
+          <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+        </div>
+      </div>
+
+      <div class="lanes-grid">
+        <!-- YOUR CAR -->
+        <section class="card lane-card lane-you">
+          <div class="lane-header">
+            <span class="lane-tag you">YOUR CAR</span>
+            <div class="lane-name" id="youNameLabel">Custom setup</div>
+          </div>
+          <label class="field"><span>Name</span><input type="text" id="youName" value="Custom setup" autocomplete="off" /></label>
+          <label class="field"><span>Horsepower</span><input type="number" id="youHp" value="450" step="1" /></label>
+          <label class="field"><span>Weight lbs</span><input type="number" id="youWeight" value="3800" step="1" /></label>
+          <label class="field"><span>Drag Coefficient</span><input type="number" id="youCd" value="0.32" step="0.01" /></label>
+          <label class="field"><span>Frontal Area sq ft</span><input type="number" id="youArea" value="22" step="0.1" /></label>
+          <label class="field"><span>Drivetrain Loss %</span><input type="number" id="youLoss" value="15" step="0.1" /></label>
+          <label class="field">
+            <span>Tire Type</span>
+            <select id="youTire">
+              <option value="0" selected>Street</option>
+              <option value="1">Drag Tire</option>
+              <option value="2">Slick</option>
+              <option value="3">Perfect Traction</option>
+            </select>
+          </label>
+          <div class="check-row">
+            <label><input type="checkbox" id="youNA" /> Naturally Aspirated</label>
+            <label><input type="checkbox" id="youFI" /> Forced Induction</label>
+            <label><input type="checkbox" id="youEv" /> (EV Vehicle)</label>
+          </div>
+          <div class="drive-row">
+            <span class="drive-label">Drivetrain</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Your drivetrain">
+              <label class="drive-opt"><input type="radio" name="youDrive" id="youFWD" value="FWD" /><span>FWD</span></label>
+              <label class="drive-opt"><input type="radio" name="youDrive" id="youRWD" value="RWD" checked /><span>RWD</span></label>
+              <label class="drive-opt"><input type="radio" name="youDrive" id="youAWD" value="AWD" /><span>AWD</span></label>
+            </div>
+          </div>
+        </section>
+
+        <!-- OPPONENT -->
+        <section class="card lane-card lane-opp">
+          <div class="lane-header">
+            <span class="lane-tag opp">OPPONENT</span>
+            <div class="lane-name" id="oppNameLabel">Pick from garage</div>
+          </div>
+          <div class="opp-garage">
+            <label class="field"><span>Garage search</span>
+              <input type="text" id="oppSearch" placeholder="Type to filter…" autocomplete="off" />
+            </label>
+            <ul class="car-list race-car-list" id="oppCarList"></ul>
+            <button type="button" class="btn btn-load" id="btnLoadOpp">Load into Opponent</button>
+          </div>
+          <label class="field"><span>Name</span><input type="text" id="oppName" value="" autocomplete="off" /></label>
+          <label class="field"><span>Horsepower</span><input type="number" id="oppHp" value="450" step="1" /></label>
+          <label class="field"><span>Weight lbs</span><input type="number" id="oppWeight" value="3800" step="1" /></label>
+          <label class="field"><span>Drag Coefficient</span><input type="number" id="oppCd" value="0.32" step="0.01" /></label>
+          <label class="field"><span>Frontal Area sq ft</span><input type="number" id="oppArea" value="22" step="0.1" /></label>
+          <label class="field"><span>Drivetrain Loss %</span><input type="number" id="oppLoss" value="15" step="0.1" /></label>
+          <label class="field">
+            <span>Tire Type</span>
+            <select id="oppTire">
+              <option value="0" selected>Street</option>
+              <option value="1">Drag Tire</option>
+              <option value="2">Slick</option>
+              <option value="3">Perfect Traction</option>
+            </select>
+          </label>
+          <div class="check-row">
+            <label><input type="checkbox" id="oppNA" /> Naturally Aspirated</label>
+            <label><input type="checkbox" id="oppFI" /> Forced Induction</label>
+            <label><input type="checkbox" id="oppEv" /> (EV Vehicle)</label>
+          </div>
+          <div class="drive-row">
+            <span class="drive-label">Drivetrain</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Opponent drivetrain">
+              <label class="drive-opt"><input type="radio" name="oppDrive" id="oppFWD" value="FWD" /><span>FWD</span></label>
+              <label class="drive-opt"><input type="radio" name="oppDrive" id="oppRWD" value="RWD" checked /><span>RWD</span></label>
+              <label class="drive-opt"><input type="radio" name="oppDrive" id="oppAWD" value="AWD" /><span>AWD</span></label>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="launch-bar">
+        <p class="setup-hint" id="setupHint"></p>
+        <button type="button" class="btn btn-launch" id="btnLaunch">LAUNCH</button>
+      </div>
+    </div>
+
+    <!-- RACE VIEW -->
+    <div id="raceView" class="race-view hidden">
+      <div class="winner-banner" id="winnerBanner" aria-live="polite"></div>
+
+      <div class="race-names">
+        <div class="race-name you" id="liveYouName">—</div>
+        <div class="race-vs">VS</div>
+        <div class="race-name opp" id="liveOppName">—</div>
+      </div>
+
+      <div class="track-board">
+        <div class="lane-strip you-strip">
+          <div class="strip-label" id="stripYouLabel">YOU</div>
+          <div class="strip-track">
+            <div class="strip-fill" id="youFill"></div>
+            <div class="strip-marker" id="youMarker"></div>
+          </div>
+          <div class="strip-stats">
+            <span id="youSpeed">0 mph</span>
+            <span id="youDist">0 ft</span>
+          </div>
+        </div>
+        <div class="lane-strip opp-strip">
+          <div class="strip-label" id="stripOppLabel">OPP</div>
+          <div class="strip-track">
+            <div class="strip-fill" id="oppFill"></div>
+            <div class="strip-marker" id="oppMarker"></div>
+          </div>
+          <div class="strip-stats">
+            <span id="oppSpeed">0 mph</span>
+            <span id="oppDist">0 ft</span>
+          </div>
+        </div>
+        <div class="lead-callout" id="leadCallout">Staging…</div>
+        <div class="track-scale">
+          <span>0'</span><span>330'</span><span>660'</span><span>1000'</span><span>1320'</span>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-panel card">
+          <div class="card-title">Speed vs Time</div>
+          <div class="race-chart-wrap"><canvas id="chartTime"></canvas></div>
+        </div>
+        <div class="chart-panel card">
+          <div class="card-title">Speed vs Distance</div>
+          <div class="race-chart-wrap"><canvas id="chartDist"></canvas></div>
+        </div>
+      </div>
+
+      <div class="results-board" id="resultsBoard"></div>
+
+      <div class="race-actions">
+        <button type="button" class="btn btn-ctrl" id="btnReplayRace">Replay</button>
+        <button type="button" class="btn btn-ctrl" id="btnRematch">Rematch / Retune</button>
+        <a class="btn btn-back" href="index.html">← Back to ForceMetric</a>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <div class="footer-credit">Created by <span>Jorge Guerra</span></div>
+      <div class="footer-disclaimer">
+        Simulation estimates for comparison only — not dyno or track certified.
+        Physics port of ForceMetric PerformanceCalc (CalibrationFactor 0.81).
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/garage-data.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/race.js"></script>
+</body>
+</html>

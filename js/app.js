@@ -338,6 +338,44 @@
 
   // ---- Events ----
   document.getElementById('btnTest').addEventListener('click', runTest);
+
+  function snapshotActiveVehicle() {
+    var label = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || 'Custom setup';
+    return {
+      Name: label,
+      Horsepower: parseFloat(el.hp.value) || 450,
+      WeightLbs: parseFloat(el.weight.value) || 3800,
+      DragCoefficient: parseFloat(el.cd.value) || 0.32,
+      FrontalAreaSqFt: parseFloat(el.area.value) || 22,
+      DrivetrainLossPercent: parseFloat(el.loss.value) || 15,
+      TireType: parseInt(el.tireType.value, 10) || 0,
+      DriveType: getDriveType(),
+      isNA: !!(el.chkNA && el.chkNA.checked),
+      isFI: !!(el.chkFI && el.chkFI.checked),
+      isEv: !!(el.chkEv && el.chkEv.checked),
+      tempF: parseFloat(el.temp.value),
+      humidity: parseFloat(el.humidity.value),
+      pressureInHg: parseFloat(el.pressure.value),
+      weatherPreset: el.weatherPreset ? el.weatherPreset.value : '0'
+    };
+  }
+
+  var btnDrag = document.getElementById('btnDragRace');
+  if (btnDrag) {
+    btnDrag.addEventListener('click', function () {
+      try {
+        var snap = snapshotActiveVehicle();
+        sessionStorage.setItem('forcemetric-race-vehicle', JSON.stringify(snap));
+      } catch (e) { /* ignore quota / private mode */ }
+      var q = '';
+      try {
+        var n = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || '';
+        if (n && n !== 'Custom setup') q = '?car=' + encodeURIComponent(n);
+      } catch (e2) { /* ignore */ }
+      window.location.href = 'race.html' + q;
+    });
+  }
+
   document.getElementById('btnGenerateDA').addEventListener('click', function () {
     try {
       var tempF = parseNum(el.calcTemp, 'Calc Temp');

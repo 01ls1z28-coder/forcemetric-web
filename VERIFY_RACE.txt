@@ -1,0 +1,39 @@
+ForceMetric — Drag Racing verification
+======================================
+Date: 2026-09-07 (America/Chicago)
+Physics: js/physics.js ForceMetricPhysics.calculate (CalibrationFactor 0.81)
+Weather: Standard Day (59°F, 0%, 29.92 inHg), Street tires, neither NA/FI
+
+Sample head-to-head
+-------------------
+Lane You:  2020 Ford Mustang GT
+  HP 460  Weight 3705 lb  Cd 0.36  Area 24  Loss 15%  RWD
+Lane Opp:  2023 Chevrolet Camaro ZL1
+  HP 650  Weight 3886 lb  Cd 0.35  Area 23.5  Loss 17%  RWD
+
+Mustang GT
+  0–60:        3.75 s
+  0–100:       8.86 s
+  1/8 mile:    7.93 s @ 94.5 mph
+  1/4 mile:   12.17 s @ 116.4 mph
+
+Camaro ZL1
+  0–60:        3.48 s
+  0–100:       7.22 s
+  1/8 mile:    7.59 s @ 103.0 mph
+  1/4 mile:   11.46 s @ 127.7 mph
+
+Elapsed gaps (Mustang − Camaro; negative = Mustang ahead)
+  0–60:      +0.27 s  (Camaro ahead)
+  0–100:     +1.64 s  (Camaro ahead)
+  1/8 mile:  +0.34 s  (Camaro ahead)
+  1/4 mile:  +0.71 s  (Camaro ahead)
+
+WINNER: 2023 Chevrolet Camaro ZL1  by 0.71 s at 1320 ft
+(Different ETs confirmed; not a spreadsheet — race view shows live lead/deficit + result cards.)
+
+Navigation check
+----------------
+index.html → cyan Drag Racing button (under lime Test) → race.html
+Active vehicle snapshot stored in sessionStorage key forcemetric-race-vehicle
+(and optional ?car= query). Test page behavior unchanged.

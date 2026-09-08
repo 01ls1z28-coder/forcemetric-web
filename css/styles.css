@@ -364,6 +364,28 @@ input[type="text"] {
     0 6px 20px rgba(184, 255, 60, 0.28);
 }
 
+.btn-drag {
+  background: linear-gradient(180deg, #56f0ff, #22d3ee);
+  color: #041016;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 12px 18px;
+  min-width: 120px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 10px;
+  margin-top: 8px;
+  width: 100%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 0 20px rgba(34, 211, 238, 0.35),
+    0 6px 16px rgba(34, 211, 238, 0.2);
+}
+
+.btn-drag:hover {
+  background: linear-gradient(180deg, #7af5ff, #67e8f9);
+}
+
 .btn-ctrl {
   background: var(--panel-2);
   color: #e8ecf1;
