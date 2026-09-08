@@ -278,8 +278,9 @@
 
       el.runTimer.textContent = fmt2(lastStep.Time) + ' s';
 
-      var ft = Math.max(0, Math.min(lastStep.DistanceFt, 5280));
-      el.distanceFill.style.width = ((ft / 5280) * 100).toFixed(2) + '%';
+      // Progress bar is a 0–1320' (1/4 mile) scale so marks and fill stay in sync
+      var ft = Math.max(0, Math.min(lastStep.DistanceFt, 1320));
+      el.distanceFill.style.width = ((ft / 1320) * 100).toFixed(2) + '%';
 
       speedChart.setPlaybackTime(lastStep.Time);
     }

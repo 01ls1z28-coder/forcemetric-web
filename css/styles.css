@@ -178,7 +178,7 @@ html, body {
   /* Vehicle | Atmosphere (DA+Weather) | Results (expanded) */
   grid-template-columns: minmax(220px, 1.05fr) minmax(220px, 1fr) minmax(320px, 1.55fr);
   gap: 12px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .card {
@@ -460,15 +460,20 @@ input[type="text"] {
   box-shadow: 0 0 18px rgba(34, 211, 238, 0.06) inset;
 }
 
-/* Results panel — fixed height + internal scroll (no resize on Test) */
+/* Results panel — fixed size before/after Test; always scroll, no reflow */
 .results-card {
+  align-self: start;
+  flex: none;
   height: 420px;
   min-height: 420px;
   max-height: 420px;
+  overflow: hidden;
 }
 
 .results-out {
-  flex: 1 1 auto;
+  flex: none !important;
+  box-sizing: border-box;
+  width: 100%;
   height: 360px;
   min-height: 360px;
   max-height: 360px;
@@ -484,7 +489,8 @@ input[type="text"] {
   color: #e8eef7;
   white-space: pre-wrap;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.03),
     inset 0 0 28px rgba(0, 0, 0, 0.35);
