@@ -57,35 +57,36 @@
         <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
       </section>
 
-      <!-- Weather Presets -->
-      <section class="card">
-        <div class="card-title">Weather Presets</div>
-        <label class="field">
-          <span>Preset</span>
-          <select id="weatherPreset">
-            <option value="0" selected>Custom</option>
-            <option value="1">Standard Day (59°F, 0%, 29.92 inHg)</option>
-            <option value="2">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
-            <option value="3">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
-          </select>
-        </label>
-        <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
-        <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
-        <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
-        <label class="field"><span>Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
+      <!-- Atmosphere: DA Calculator above Weather Presets -->
+      <section class="card atmosphere-card">
+        <div class="card-section da-section">
+          <div class="card-title">DA Calculator</div>
+          <label class="field"><span>Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
+          <label class="field"><span>Humidity (%)</span><input type="number" id="calcHumidity" value="40" step="0.1" /></label>
+          <label class="field"><span>Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
+          <div class="da-result" id="calcDAResult">—</div>
+          <button type="button" class="btn btn-generate" id="btnGenerateDA">Generate</button>
+        </div>
+        <div class="card-divider" role="separator" aria-hidden="true"></div>
+        <div class="card-section weather-section">
+          <div class="card-title">Weather Presets</div>
+          <label class="field">
+            <span>Preset</span>
+            <select id="weatherPreset">
+              <option value="0" selected>Custom</option>
+              <option value="1">Standard Day (59°F, 0%, 29.92 inHg)</option>
+              <option value="2">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
+              <option value="3">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
+            </select>
+          </label>
+          <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
+          <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
+          <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+          <label class="field"><span>Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
+        </div>
       </section>
 
-      <!-- DA Calculator -->
-      <section class="card">
-        <div class="card-title">DA Calculator</div>
-        <label class="field"><span>Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
-        <label class="field"><span>Humidity (%)</span><input type="number" id="calcHumidity" value="40" step="0.1" /></label>
-        <label class="field"><span>Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
-        <div class="da-result" id="calcDAResult">—</div>
-        <button type="button" class="btn btn-generate" id="btnGenerateDA">Generate</button>
-      </section>
-
-      <!-- Results -->
+      <!-- Results (expanded into freed column) -->
       <section class="card results-card">
         <div class="card-title">Results</div>
         <pre class="results-out" id="resultsOut">ForceMetric ready.
