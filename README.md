@@ -36,3 +36,9 @@ Double-click `index.html` (or open it in any modern browser).
 ## Disclaimer
 
 Simulation estimates for comparison only — not dyno or track certified.
+
+## Drivetrain (FWD / RWD / AWD)
+Factory `DriveType` is baked into garage data (see `DATA_DRIVETRAIN.txt`). Load Vehicle sets the segmented control; users can override. Physics uses `driveType` for traction compensation (RWD baseline, FWD ×0.92, AWD existing boost).
+
+## Active vehicle label
+`#activeVehicleLabel` above the gauge shows make/model/year from the loaded Name (or full Name if year missing). Default: Custom setup.

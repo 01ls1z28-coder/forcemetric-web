@@ -1,0 +1,25 @@
+ForceMetric — verification notes
+================================
+Date: 2026-09-08 (America/Chicago)
+Garage: session-only (no Delete, no localStorage persist; clears old key on load)
+
+DriveType bake (DATA_DRIVETRAIN.txt)
+------------------------------------
+Counts: FWD=14  RWD=219  AWD=80  (313 cars)
+Spot-checks:
+  2020 Ford Mustang GT → RWD
+  2023 BMW i7 xDrive60 → AWD
+  2018 Honda Civic Type R → FWD
+
+Label parse
+-----------
+  "2020 Ford Mustang GT" → year 2020, make Ford, model Mustang GT
+  Default label when nothing loaded: "Custom setup"
+
+Physics (driveType: FWD | RWD | AWD)
+------------------------------------
+Same Mustang GT (street tires, standard weather):
+  RWD 0–60: 3.75 s  (baseline)
+  FWD 0–60: 3.96 s  (mu *= 0.92)
+  AWD 0–60: 3.15 s  (mu *= 1.45 + slick path)
+Case A RWD (455/3685): 0–60 3.76 s (parity with former non-AWD)

@@ -25,8 +25,12 @@
     tireType: document.getElementById('tireType'),
     chkNA: document.getElementById('chkNA'),
     chkFI: document.getElementById('chkFI'),
-    chkAwd: document.getElementById('chkAwd'),
     chkEv: document.getElementById('chkEv'),
+    driveFWD: document.getElementById('driveFWD'),
+    driveRWD: document.getElementById('driveRWD'),
+    driveAWD: document.getElementById('driveAWD'),
+    activeVehicleLabel: document.getElementById('activeVehicleLabel'),
+    editDriveType: document.getElementById('editDriveType'),
     weatherPreset: document.getElementById('weatherPreset'),
     temp: document.getElementById('temp'),
     humidity: document.getElementById('humidity'),
@@ -98,6 +102,53 @@
     if (t === 1 || t === 'DragTire') return '1';
     if (t === 2 || t === 'Slick') return '2';
     return '0';
+  }
+
+  function getDriveType() {
+    if (el.driveAWD && el.driveAWD.checked) return 'AWD';
+    if (el.driveFWD && el.driveFWD.checked) return 'FWD';
+    return 'RWD';
+  }
+
+  function setDriveType(dt) {
+    var v = String(dt || 'RWD').toUpperCase();
+    if (v !== 'FWD' && v !== 'RWD' && v !== 'AWD') v = 'RWD';
+    if (el.driveFWD) el.driveFWD.checked = (v === 'FWD');
+    if (el.driveRWD) el.driveRWD.checked = (v === 'RWD');
+    if (el.driveAWD) el.driveAWD.checked = (v === 'AWD');
+  }
+
+  /** Parse "2020 Ford Mustang GT" → { year, make, model, label } */
+  function parseVehicleName(name) {
+    var raw = String(name || '').trim();
+    if (!raw) {
+      return { year: null, make: null, model: null, label: 'Custom setup' };
+    }
+    var m = raw.match(/^(\d{4})\s+(.+)$/);
+    if (!m) {
+      return { year: null, make: null, model: null, label: raw };
+    }
+    var year = m[1];
+    var rest = m[2].trim();
+    var parts = rest.split(/\s+/);
+    if (parts.length < 2) {
+      return { year: year, make: null, model: rest, label: raw };
+    }
+    var make = parts[0];
+    var model = parts.slice(1).join(' ');
+    return {
+      year: year,
+      make: make,
+      model: model,
+      label: year + ' ' + make + ' ' + model
+    };
+  }
+
+  function setActiveVehicleLabel(name) {
+    if (!el.activeVehicleLabel) return;
+    var parsed = parseVehicleName(name);
+    el.activeVehicleLabel.textContent = parsed.label || 'Custom setup';
+    el.activeVehicleLabel.title = parsed.label || 'Custom setup';
   }
 
   function fmt2(n) {
@@ -257,7 +308,7 @@
         Cd: cd,
         frontalAreaSqFt: frontalArea,
         drivetrainLoss: drivetrainLossPercent,
-        isAwd: el.chkAwd.checked,
+        driveType: getDriveType(),
         isEv: el.chkEv.checked,
         tempF: tempF,
         humidity: humidity,
@@ -345,9 +396,12 @@
     }
   });
 
-  el.chkAwd.addEventListener('change', function () {
-    el.resultsOut.textContent += el.chkAwd.checked ? '\nAWD Mode enabled.' : '\nAWD Mode disabled.';
-  });
+  function onDriveTypeChange() {
+    el.resultsOut.textContent += '\nDrivetrain: ' + getDriveType() + '.';
+  }
+  if (el.driveFWD) el.driveFWD.addEventListener('change', onDriveTypeChange);
+  if (el.driveRWD) el.driveRWD.addEventListener('change', onDriveTypeChange);
+  if (el.driveAWD) el.driveAWD.addEventListener('change', onDriveTypeChange);
 
   document.getElementById('btnPlay').addEventListener('click', function () {
     if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) return;
@@ -448,7 +502,9 @@
     el.area.value = car.FrontalAreaSqFt;
     el.loss.value = car.DrivetrainLossPercent;
     el.tireType.value = tireLabelFromEnum(car.TireType);
-    el.resultsOut.textContent = 'Loaded: ' + car.Name + '\nReady to simulate.';
+    setDriveType(car.DriveType || 'RWD');
+    setActiveVehicleLabel(car.Name);
+    el.resultsOut.textContent = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ')\nReady to simulate.';
     closeGarage();
   }
 
@@ -460,7 +516,8 @@
       DragCoefficient: 0.32,
       FrontalAreaSqFt: 22,
       DrivetrainLossPercent: 15,
-      TireType: 0
+      TireType: 0,
+      DriveType: 'RWD'
     };
   }
 
@@ -474,6 +531,11 @@
     el.editArea.value = car.FrontalAreaSqFt;
     el.editLoss.value = car.DrivetrainLossPercent;
     el.editTireType.value = String(car.TireType == null ? 0 : car.TireType);
+    if (el.editDriveType) {
+      var dt = String(car.DriveType || 'RWD').toUpperCase();
+      if (dt !== 'FWD' && dt !== 'RWD' && dt !== 'AWD') dt = 'RWD';
+      el.editDriveType.value = dt;
+    }
     el.carEditor.classList.add('open');
     el.editName.focus();
   }
@@ -499,6 +561,11 @@
     if (!isFinite(area)) throw new Error('Invalid Frontal Area.');
     if (!isFinite(loss)) throw new Error('Invalid Drivetrain Loss.');
     if (!(tire === 0 || tire === 1 || tire === 2)) tire = 0;
+    var driveType = 'RWD';
+    if (el.editDriveType) {
+      driveType = String(el.editDriveType.value || 'RWD').toUpperCase();
+      if (driveType !== 'FWD' && driveType !== 'RWD' && driveType !== 'AWD') driveType = 'RWD';
+    }
     return {
       Name: name,
       Horsepower: hp,
@@ -506,7 +573,8 @@
       DragCoefficient: cd,
       FrontalAreaSqFt: area,
       DrivetrainLossPercent: loss,
-      TireType: tire
+      TireType: tire,
+      DriveType: driveType
     };
   }
 
@@ -599,6 +667,9 @@
 
   // Expose helpers for node unit-check (optional)
   window.ForceMetricApp = {
-    speedChart: speedChart
+    speedChart: speedChart,
+    parseVehicleName: parseVehicleName,
+    getDriveType: getDriveType,
+    setDriveType: setDriveType
   };
 })();

@@ -1,0 +1,33 @@
+ForceMetric — factory DriveType inference (baked garage)
+============================================================
+Generated for data/garage.json + js/garage-data.js (window.GARAGE_DATA).
+Field: DriveType = "FWD" | "RWD" | "AWD"
+
+Priority (first match wins)
+---------------------------
+1) AWD markers in Name:
+   AWD, 4WD, 4x4, Quattro, xDrive, 4Matic, SH-AWD, All-Wheel,
+   Dual Motor / Tri-Motor / Quad Motor / Twin Motor, Plaid,
+   e-4ORCE, GT-R / Skyline GT-R, Evolution / Evo, WRX / STI,
+   Golf R, GR Corolla, GT-Four, Eclipse GSX, GTI-R,
+   Raptor, TRX, Trackhawk, Rubicon, Mach-E,
+   plus known AWD EVs / Audis RS/S / BMW M xDrive SUVs / Subarus, etc.
+
+2) FWD platforms (only if not already AWD):
+   Civic, Type R, Accord, Camry, Corolla (non-GR), Golf/GTI (non-R),
+   Focus (non-RS), Mazda3 / MazdaSpeed3, Integra, Si, Prelude, RSX,
+   Scion tC, Eclipse GT (FWD), some single-motor EVs called out as FWD.
+
+3) Else default RWD:
+   Muscle/sports (Mustang, Camaro, Challenger, Charger, Corvette, Viper,
+   GTO, etc.), most exotics, motorcycles, unknown performance cars.
+   Explicit "RWD" in name → RWD. EQS 450+ → RWD.
+
+Spot-checks
+-----------
+- Mustang / Camaro → RWD
+- Quattro / xDrive / Plaid / Dual Motor → AWD
+- Civic Type R → FWD
+- WRX STI → AWD (caught before FWD hatch rules)
+
+Counts after bake: FWD=14  RWD=219  AWD=80  (total 313)

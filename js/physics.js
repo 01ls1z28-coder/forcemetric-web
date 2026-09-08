@@ -61,7 +61,17 @@
     var dragCoefficient = opts.Cd;
     var frontalAreaSqFt = opts.frontalAreaSqFt;
     var drivetrainLossPercent = opts.drivetrainLoss;
-    var isAwd = !!opts.isAwd;
+    var driveType;
+    if (opts.driveType != null && String(opts.driveType).trim() !== '') {
+      driveType = String(opts.driveType).toUpperCase();
+    } else if (opts.isAwd) {
+      driveType = 'AWD'; // legacy isAwd fallback
+    } else {
+      driveType = 'RWD';
+    }
+    if (driveType !== 'FWD' && driveType !== 'RWD' && driveType !== 'AWD') {
+      driveType = 'RWD';
+    }
     var isEv = !!opts.isEv;
     var temperatureF = opts.tempF;
     var humidityPercent = opts.humidity;
@@ -124,9 +134,15 @@
 
     var mu = getTireGrip(tireType);
 
-    if (isAwd) {
+    // Traction compensation by drivetrain (client-side mu model)
+    // RWD: baseline (no extra multiply) — former non-AWD behavior
+    // FWD: slightly less drive traction under accel / weight transfer
+    // AWD: existing boost + force slick-level tire physics
+    if (driveType === 'AWD') {
       mu *= isEv ? 1.85 : 1.45;
       tireType = TireType.Slick;
+    } else if (driveType === 'FWD') {
+      mu *= 0.92;
     }
 
     var tractionLimitN = mu * massKg * g;

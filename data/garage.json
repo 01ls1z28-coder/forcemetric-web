@@ -1,2819 +1,3132 @@
 [
   {
     "Name": "2020 Ford Mustang GT",
-    "Horsepower": 460.0,
-    "WeightLbs": 3705.0,
+    "Horsepower": 460,
+    "WeightLbs": 3705,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 Ford Mustang GT PP2",
-    "Horsepower": 460.0,
-    "WeightLbs": 3705.0,
+    "Horsepower": 460,
+    "WeightLbs": 3705,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Chevrolet Camaro SS",
-    "Horsepower": 455.0,
-    "WeightLbs": 3685.0,
+    "Horsepower": 455,
+    "WeightLbs": 3685,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Dodge Challenger R/T Scat Pack",
-    "Horsepower": 485.0,
-    "WeightLbs": 4232.0,
+    "Horsepower": 485,
+    "WeightLbs": 4232,
     "DragCoefficient": 0.39,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Dodge Challenger Hellcat",
-    "Horsepower": 717.0,
-    "WeightLbs": 4449.0,
+    "Horsepower": 717,
+    "WeightLbs": 4449,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2024 Ford Mustang Dark Horse",
-    "Horsepower": 500.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 500,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Chevrolet Camaro ZL1",
-    "Horsepower": 650.0,
-    "WeightLbs": 3886.0,
+    "Horsepower": 650,
+    "WeightLbs": 3886,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Dodge Charger Hellcat Redeye",
-    "Horsepower": 797.0,
-    "WeightLbs": 4590.0,
+    "Horsepower": 797,
+    "WeightLbs": 4590,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Ford Mustang GT350R",
-    "Horsepower": 526.0,
-    "WeightLbs": 3650.0,
+    "Horsepower": 526,
+    "WeightLbs": 3650,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2015 Dodge Challenger Hellcat",
-    "Horsepower": 707.0,
-    "WeightLbs": 4449.0,
+    "Horsepower": 707,
+    "WeightLbs": 4449,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Chevrolet Camaro Z/28",
-    "Horsepower": 505.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 505,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Ford Mustang Boss 302",
-    "Horsepower": 444.0,
-    "WeightLbs": 3632.0,
+    "Horsepower": 444,
+    "WeightLbs": 3632,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Chevrolet Corvette ZR1",
-    "Horsepower": 638.0,
-    "WeightLbs": 3333.0,
+    "Horsepower": 638,
+    "WeightLbs": 3333,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Dodge Challenger SRT8",
-    "Horsepower": 425.0,
-    "WeightLbs": 4140.0,
+    "Horsepower": 425,
+    "WeightLbs": 4140,
     "DragCoefficient": 0.39,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Pontiac G8 GXP",
-    "Horsepower": 415.0,
-    "WeightLbs": 3995.0,
+    "Horsepower": 415,
+    "WeightLbs": 3995,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 Pontiac GTO",
-    "Horsepower": 350.0,
-    "WeightLbs": 3725.0,
+    "Horsepower": 350,
+    "WeightLbs": 3725,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2003 Ford Mustang Cobra (Terminator)",
-    "Horsepower": 390.0,
-    "WeightLbs": 3665.0,
+    "Horsepower": 390,
+    "WeightLbs": 3665,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2002 Chevrolet Camaro SS",
-    "Horsepower": 325.0,
-    "WeightLbs": 3475.0,
+    "Horsepower": 325,
+    "WeightLbs": 3475,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1996 Chevrolet Impala SS",
-    "Horsepower": 260.0,
-    "WeightLbs": 4218.0,
+    "Horsepower": 260,
+    "WeightLbs": 4218,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Dodge Charger Scat Pack",
-    "Horsepower": 485.0,
-    "WeightLbs": 4350.0,
+    "Horsepower": 485,
+    "WeightLbs": 4350,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Ford Mustang Shelby GT500",
-    "Horsepower": 760.0,
-    "WeightLbs": 4225.0,
+    "Horsepower": 760,
+    "WeightLbs": 4225,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Chevrolet Camaro ZL1",
-    "Horsepower": 580.0,
-    "WeightLbs": 4120.0,
+    "Horsepower": 580,
+    "WeightLbs": 4120,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 25.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 25,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Ford Mustang GT 5.0",
-    "Horsepower": 412.0,
-    "WeightLbs": 3605.0,
+    "Horsepower": 412,
+    "WeightLbs": 3605,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Dodge Challenger SRT8",
-    "Horsepower": 425.0,
-    "WeightLbs": 4140.0,
+    "Horsepower": 425,
+    "WeightLbs": 4140,
     "DragCoefficient": 0.39,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2001 Pontiac Firebird Trans Am WS6",
-    "Horsepower": 325.0,
-    "WeightLbs": 3460.0,
+    "Horsepower": 325,
+    "WeightLbs": 3460,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1996 Ford Mustang SVT Cobra",
-    "Horsepower": 305.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 305,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1993 Chevrolet Camaro Z28",
-    "Horsepower": 275.0,
-    "WeightLbs": 3460.0,
+    "Horsepower": 275,
+    "WeightLbs": 3460,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1987 Buick GNX",
-    "Horsepower": 276.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 276,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1979 Pontiac Firebird Trans Am",
-    "Horsepower": 220.0,
-    "WeightLbs": 3660.0,
+    "Horsepower": 220,
+    "WeightLbs": 3660,
     "DragCoefficient": 0.42,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1985 Chevrolet Camaro IROC-Z",
-    "Horsepower": 215.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 215,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.37,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1987 Ford Mustang 5.0 LX",
-    "Horsepower": 225.0,
-    "WeightLbs": 3080.0,
+    "Horsepower": 225,
+    "WeightLbs": 3080,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1994 Pontiac Firebird Formula",
-    "Horsepower": 275.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 275,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2000 Chevrolet Camaro SS",
-    "Horsepower": 320.0,
-    "WeightLbs": 3475.0,
+    "Horsepower": 320,
+    "WeightLbs": 3475,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Ford Mustang GT",
-    "Horsepower": 300.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 300,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Chevrolet Camaro LT",
-    "Horsepower": 304.0,
-    "WeightLbs": 3750.0,
+    "Horsepower": 304,
+    "WeightLbs": 3750,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1984 Chevrolet Corvette C4",
-    "Horsepower": 205.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 205,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1992 Ford Mustang LX 5.0",
-    "Horsepower": 225.0,
-    "WeightLbs": 3080.0,
+    "Horsepower": 225,
+    "WeightLbs": 3080,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1998 Pontiac Firebird Formula",
-    "Horsepower": 305.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 305,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Dodge Charger R/T",
-    "Horsepower": 340.0,
-    "WeightLbs": 4020.0,
+    "Horsepower": 340,
+    "WeightLbs": 4020,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Chevrolet Camaro LT",
-    "Horsepower": 312.0,
-    "WeightLbs": 3750.0,
+    "Horsepower": 312,
+    "WeightLbs": 3750,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Ford Mustang V6",
-    "Horsepower": 305.0,
-    "WeightLbs": 3510.0,
+    "Horsepower": 305,
+    "WeightLbs": 3510,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1982 Pontiac Firebird Trans Am",
-    "Horsepower": 165.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 165,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1991 Chevrolet Camaro Z28",
-    "Horsepower": 245.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 245,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1994 Ford Mustang GT",
-    "Horsepower": 215.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 215,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2002 Pontiac Firebird WS6",
-    "Horsepower": 325.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 325,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Dodge Challenger R/T",
-    "Horsepower": 372.0,
-    "WeightLbs": 4100.0,
+    "Horsepower": 372,
+    "WeightLbs": 4100,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Ford Mustang Boss 302 Laguna Seca",
-    "Horsepower": 444.0,
-    "WeightLbs": 3632.0,
+    "Horsepower": 444,
+    "WeightLbs": 3632,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1981 Chevrolet Camaro Z28",
-    "Horsepower": 175.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 175,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1989 Ford Mustang GT 5.0",
-    "Horsepower": 225.0,
-    "WeightLbs": 3150.0,
+    "Horsepower": 225,
+    "WeightLbs": 3150,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1993 Pontiac Firebird Formula",
-    "Horsepower": 275.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 275,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 Ford Mustang Mach 1",
-    "Horsepower": 305.0,
-    "WeightLbs": 3650.0,
+    "Horsepower": 305,
+    "WeightLbs": 3650,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Dodge Charger SRT8",
-    "Horsepower": 425.0,
-    "WeightLbs": 4250.0,
+    "Horsepower": 425,
+    "WeightLbs": 4250,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Chevrolet SS",
-    "Horsepower": 415.0,
-    "WeightLbs": 3995.0,
+    "Horsepower": 415,
+    "WeightLbs": 3995,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2022 Tesla Model S Plaid",
-    "Horsepower": 1020.0,
-    "WeightLbs": 4766.0,
+    "Horsepower": 1020,
+    "WeightLbs": 4766,
     "DragCoefficient": 0.208,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Tesla Model 3 Performance",
-    "Horsepower": 510.0,
-    "WeightLbs": 4072.0,
+    "Horsepower": 510,
+    "WeightLbs": 4072,
     "DragCoefficient": 0.23,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2022 Porsche Taycan Turbo S",
-    "Horsepower": 750.0,
-    "WeightLbs": 5121.0,
+    "Horsepower": 750,
+    "WeightLbs": 5121,
     "DragCoefficient": 0.22,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Lucid Air Sapphire",
-    "Horsepower": 1234.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 1234,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.197,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Hyundai Ioniq 5 N",
-    "Horsepower": 641.0,
-    "WeightLbs": 4700.0,
+    "Horsepower": 641,
+    "WeightLbs": 4700,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2022 Ford F-150 Lightning",
-    "Horsepower": 580.0,
-    "WeightLbs": 6500.0,
+    "Horsepower": 580,
+    "WeightLbs": 6500,
     "DragCoefficient": 0.44,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 19.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 19,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Tesla Model Y Performance",
-    "Horsepower": 456.0,
-    "WeightLbs": 4416.0,
+    "Horsepower": 456,
+    "WeightLbs": 4416,
     "DragCoefficient": 0.23,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2022 Tesla Model X Plaid",
-    "Horsepower": 1020.0,
-    "WeightLbs": 5328.0,
+    "Horsepower": 1020,
+    "WeightLbs": 5328,
     "DragCoefficient": 0.25,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Kia EV6 GT",
-    "Horsepower": 576.0,
-    "WeightLbs": 4780.0,
+    "Horsepower": 576,
+    "WeightLbs": 4780,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Polestar 2 Performance",
-    "Horsepower": 476.0,
-    "WeightLbs": 4650.0,
+    "Horsepower": 476,
+    "WeightLbs": 4650,
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 24.5,
-    "DrivetrainLossPercent": 22.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 22,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2022 BMW iX M60",
-    "Horsepower": 610.0,
-    "WeightLbs": 5750.0,
+    "Horsepower": 610,
+    "WeightLbs": 5750,
     "DragCoefficient": 0.25,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Mercedes EQE AMG 53",
-    "Horsepower": 677.0,
-    "WeightLbs": 5400.0,
+    "Horsepower": 677,
+    "WeightLbs": 5400,
     "DragCoefficient": 0.23,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Cadillac Lyriq AWD",
-    "Horsepower": 500.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 500,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Tesla Cybertruck Tri-Motor",
-    "Horsepower": 845.0,
-    "WeightLbs": 6800.0,
+    "Horsepower": 845,
+    "WeightLbs": 6800,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 35.0,
-    "DrivetrainLossPercent": 11.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 35,
+    "DrivetrainLossPercent": 11,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Genesis GV60 Performance",
-    "Horsepower": 429.0,
-    "WeightLbs": 4750.0,
+    "Horsepower": 429,
+    "WeightLbs": 4750,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Volvo EX90 Twin Motor",
-    "Horsepower": 496.0,
-    "WeightLbs": 6100.0,
+    "Horsepower": 496,
+    "WeightLbs": 6100,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Audi Q4 e-tron",
-    "Horsepower": 295.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 295,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2022 Mercedes EQB 350",
-    "Horsepower": 288.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 288,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 28.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 28,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Tesla Model X Long Range",
-    "Horsepower": 670.0,
-    "WeightLbs": 5185.0,
+    "Horsepower": 670,
+    "WeightLbs": 5185,
     "DragCoefficient": 0.24,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Nissan Ariya e-4ORCE",
-    "Horsepower": 389.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 389,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Subaru Solterra",
-    "Horsepower": 215.0,
-    "WeightLbs": 4650.0,
+    "Horsepower": 215,
+    "WeightLbs": 4650,
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 27.5,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Toyota bZ4X AWD",
-    "Horsepower": 214.0,
-    "WeightLbs": 4500.0,
+    "Horsepower": 214,
+    "WeightLbs": 4500,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Fisker Ocean Extreme",
-    "Horsepower": 564.0,
-    "WeightLbs": 5400.0,
+    "Horsepower": 564,
+    "WeightLbs": 5400,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 28.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 28,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Hyundai Ioniq 6 AWD",
-    "Horsepower": 320.0,
-    "WeightLbs": 4400.0,
+    "Horsepower": 320,
+    "WeightLbs": 4400,
     "DragCoefficient": 0.22,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 VW ID.4 AWD Pro",
-    "Horsepower": 295.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 295,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Chevrolet Blazer EV SS",
-    "Horsepower": 557.0,
-    "WeightLbs": 5400.0,
+    "Horsepower": 557,
+    "WeightLbs": 5400,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Ford Mustang Mach-E GT",
-    "Horsepower": 480.0,
-    "WeightLbs": 4900.0,
+    "Horsepower": 480,
+    "WeightLbs": 4900,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 28.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 28,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 BMW i5 M60",
-    "Horsepower": 590.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 590,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.23,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Rivian R1S Quad Motor",
-    "Horsepower": 835.0,
-    "WeightLbs": 7100.0,
+    "Horsepower": 835,
+    "WeightLbs": 7100,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 BMW i7 xDrive60",
-    "Horsepower": 536.0,
-    "WeightLbs": 5950.0,
+    "Horsepower": 536,
+    "WeightLbs": 5950,
     "DragCoefficient": 0.24,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Mercedes EQS 450+",
-    "Horsepower": 355.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 355,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.2,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Audi e-tron GT",
-    "Horsepower": 522.0,
-    "WeightLbs": 5100.0,
+    "Horsepower": 522,
+    "WeightLbs": 5100,
     "DragCoefficient": 0.24,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Lucid Air Touring",
-    "Horsepower": 620.0,
-    "WeightLbs": 4900.0,
+    "Horsepower": 620,
+    "WeightLbs": 4900,
     "DragCoefficient": 0.21,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2024 Tesla Model S Long Range",
-    "Horsepower": 670.0,
-    "WeightLbs": 4760.0,
+    "Horsepower": 670,
+    "WeightLbs": 4760,
     "DragCoefficient": 0.21,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2023 Hyundai Kona Electric",
-    "Horsepower": 201.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 201,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2024 Kia Niro EV",
-    "Horsepower": 201.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 201,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2023 Mercedes EQS 580 SUV",
-    "Horsepower": 536.0,
-    "WeightLbs": 6200.0,
+    "Horsepower": 536,
+    "WeightLbs": 6200,
     "DragCoefficient": 0.27,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2024 Volvo XC40 Recharge",
-    "Horsepower": 402.0,
-    "WeightLbs": 4700.0,
+    "Horsepower": 402,
+    "WeightLbs": 4700,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 28.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 28,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Ferrari SF90 Stradale",
-    "Horsepower": 986.0,
-    "WeightLbs": 3461.0,
+    "Horsepower": 986,
+    "WeightLbs": 3461,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Porsche 911 Turbo S",
-    "Horsepower": 640.0,
-    "WeightLbs": 3616.0,
+    "Horsepower": 640,
+    "WeightLbs": 3616,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Lamborghini Huracán EVO",
-    "Horsepower": 631.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 631,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 McLaren 765LT",
-    "Horsepower": 755.0,
-    "WeightLbs": 2950.0,
+    "Horsepower": 755,
+    "WeightLbs": 2950,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Ferrari 812 Superfast",
-    "Horsepower": 789.0,
-    "WeightLbs": 3593.0,
+    "Horsepower": 789,
+    "WeightLbs": 3593,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 McLaren 600LT",
-    "Horsepower": 592.0,
-    "WeightLbs": 2844.0,
+    "Horsepower": 592,
+    "WeightLbs": 2844,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Lamborghini Huracán Performante",
-    "Horsepower": 631.0,
-    "WeightLbs": 3047.0,
+    "Horsepower": 631,
+    "WeightLbs": 3047,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Porsche 911 GT2 RS",
-    "Horsepower": 700.0,
-    "WeightLbs": 3241.0,
+    "Horsepower": 700,
+    "WeightLbs": 3241,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Ferrari 488 GTB",
-    "Horsepower": 661.0,
-    "WeightLbs": 3252.0,
+    "Horsepower": 661,
+    "WeightLbs": 3252,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2015 McLaren P1",
-    "Horsepower": 903.0,
-    "WeightLbs": 3470.0,
+    "Horsepower": 903,
+    "WeightLbs": 3470,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Ferrari F12 Berlinetta",
-    "Horsepower": 731.0,
-    "WeightLbs": 3593.0,
+    "Horsepower": 731,
+    "WeightLbs": 3593,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 McLaren MP4-12C",
-    "Horsepower": 616.0,
-    "WeightLbs": 3161.0,
+    "Horsepower": 616,
+    "WeightLbs": 3161,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Lamborghini Gallardo LP570-4",
-    "Horsepower": 562.0,
-    "WeightLbs": 3296.0,
+    "Horsepower": 562,
+    "WeightLbs": 3296,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2010 Ferrari 458 Italia",
-    "Horsepower": 562.0,
-    "WeightLbs": 3274.0,
+    "Horsepower": 562,
+    "WeightLbs": 3274,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Ford GT",
-    "Horsepower": 550.0,
-    "WeightLbs": 3485.0,
+    "Horsepower": 550,
+    "WeightLbs": 3485,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 Porsche Carrera GT",
-    "Horsepower": 605.0,
-    "WeightLbs": 3043.0,
+    "Horsepower": 605,
+    "WeightLbs": 3043,
     "DragCoefficient": 0.39,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2002 Ferrari Enzo",
-    "Horsepower": 651.0,
-    "WeightLbs": 3263.0,
+    "Horsepower": 651,
+    "WeightLbs": 3263,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Lamborghini Murciélago LP640",
-    "Horsepower": 631.0,
-    "WeightLbs": 3671.0,
+    "Horsepower": 631,
+    "WeightLbs": 3671,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Nissan GT-R",
-    "Horsepower": 480.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 480,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.27,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2012 Audi R8 V10",
-    "Horsepower": 525.0,
-    "WeightLbs": 3571.0,
+    "Horsepower": 525,
+    "WeightLbs": 3571,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2001 Lamborghini Diablo VT 6.0",
-    "Horsepower": 550.0,
-    "WeightLbs": 3470.0,
+    "Horsepower": 550,
+    "WeightLbs": 3470,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2003 Ferrari 360 Modena",
-    "Horsepower": 400.0,
-    "WeightLbs": 3064.0,
+    "Horsepower": 400,
+    "WeightLbs": 3064,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Porsche 911 Turbo",
-    "Horsepower": 480.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 480,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Aston Martin DBS",
-    "Horsepower": 510.0,
-    "WeightLbs": 3737.0,
+    "Horsepower": 510,
+    "WeightLbs": 3737,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Mercedes SLS AMG",
-    "Horsepower": 563.0,
-    "WeightLbs": 3924.0,
+    "Horsepower": 563,
+    "WeightLbs": 3924,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2005 Ferrari F430",
-    "Horsepower": 483.0,
-    "WeightLbs": 3197.0,
+    "Horsepower": 483,
+    "WeightLbs": 3197,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Lamborghini Gallardo LP560-4",
-    "Horsepower": 552.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 552,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2010 Aston Martin V12 Vantage",
-    "Horsepower": 510.0,
-    "WeightLbs": 3700.0,
+    "Horsepower": 510,
+    "WeightLbs": 3700,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 SRT Viper GTS",
-    "Horsepower": 640.0,
-    "WeightLbs": 3354.0,
+    "Horsepower": 640,
+    "WeightLbs": 3354,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Porsche 911 Carrera S",
-    "Horsepower": 400.0,
-    "WeightLbs": 3150.0,
+    "Horsepower": 400,
+    "WeightLbs": 3150,
     "DragCoefficient": 0.29,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2002 Porsche 911 Turbo (996)",
-    "Horsepower": 415.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 415,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Ferrari 612 Scaglietti",
-    "Horsepower": 533.0,
-    "WeightLbs": 4050.0,
+    "Horsepower": 533,
+    "WeightLbs": 4050,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Lamborghini Reventón",
-    "Horsepower": 650.0,
-    "WeightLbs": 3700.0,
+    "Horsepower": 650,
+    "WeightLbs": 3700,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 McLaren MP4-12C HS",
-    "Horsepower": 616.0,
-    "WeightLbs": 3161.0,
+    "Horsepower": 616,
+    "WeightLbs": 3161,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2015 Aston Martin V12 Vantage S",
-    "Horsepower": 565.0,
-    "WeightLbs": 3700.0,
+    "Horsepower": 565,
+    "WeightLbs": 3700,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 14.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 14,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Bugatti Chiron",
-    "Horsepower": 1479.0,
-    "WeightLbs": 4398.0,
+    "Horsepower": 1479,
+    "WeightLbs": 4398,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 2
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 2,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 McLaren 720S",
-    "Horsepower": 710.0,
-    "WeightLbs": 3228.0,
+    "Horsepower": 710,
+    "WeightLbs": 3228,
     "DragCoefficient": 0.27,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Lamborghini Aventador SVJ",
-    "Horsepower": 759.0,
-    "WeightLbs": 3472.0,
+    "Horsepower": 759,
+    "WeightLbs": 3472,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 13.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 13,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Rimac Nevera",
-    "Horsepower": 1914.0,
-    "WeightLbs": 4750.0,
+    "Horsepower": 1914,
+    "WeightLbs": 4750,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2015 Koenigsegg One:1",
-    "Horsepower": 1341.0,
-    "WeightLbs": 2998.0,
+    "Horsepower": 1341,
+    "WeightLbs": 2998,
     "DragCoefficient": 0.45,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Koenigsegg Jesko",
-    "Horsepower": 1281.0,
-    "WeightLbs": 3131.0,
+    "Horsepower": 1281,
+    "WeightLbs": 3131,
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Bugatti Veyron Super Sport",
-    "Horsepower": 1200.0,
-    "WeightLbs": 4387.0,
+    "Horsepower": 1200,
+    "WeightLbs": 4387,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2005 Bugatti Veyron",
-    "Horsepower": 1001.0,
-    "WeightLbs": 4480.0,
+    "Horsepower": 1001,
+    "WeightLbs": 4480,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2011 Koenigsegg Agera R",
-    "Horsepower": 1140.0,
-    "WeightLbs": 3130.0,
+    "Horsepower": 1140,
+    "WeightLbs": 3130,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Saleen S7 Twin Turbo",
-    "Horsepower": 750.0,
-    "WeightLbs": 2950.0,
+    "Horsepower": 750,
+    "WeightLbs": 2950,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Pagani Zonda R",
-    "Horsepower": 740.0,
-    "WeightLbs": 2350.0,
+    "Horsepower": 740,
+    "WeightLbs": 2350,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 19.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 2
+    "FrontalAreaSqFt": 19,
+    "DrivetrainLossPercent": 12,
+    "TireType": 2,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 Maserati MC12",
-    "Horsepower": 621.0,
-    "WeightLbs": 3263.0,
+    "Horsepower": 621,
+    "WeightLbs": 3263,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Gumpert Apollo Sport",
-    "Horsepower": 690.0,
-    "WeightLbs": 2635.0,
+    "Horsepower": 690,
+    "WeightLbs": 2635,
     "DragCoefficient": 0.39,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Hennessey Venom GT",
-    "Horsepower": 1244.0,
-    "WeightLbs": 2743.0,
+    "Horsepower": 1244,
+    "WeightLbs": 2743,
     "DragCoefficient": 0.44,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 Zenvo TSR-S",
-    "Horsepower": 1177.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 1177,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Koenigsegg CCX",
-    "Horsepower": 806.0,
-    "WeightLbs": 3130.0,
+    "Horsepower": 806,
+    "WeightLbs": 3130,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Pagani Huayra",
-    "Horsepower": 720.0,
-    "WeightLbs": 2970.0,
+    "Horsepower": 720,
+    "WeightLbs": 2970,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Bugatti Chiron Sport",
-    "Horsepower": 1500.0,
-    "WeightLbs": 4400.0,
+    "Horsepower": 1500,
+    "WeightLbs": 4400,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2019 McLaren Speedtail",
-    "Horsepower": 1035.0,
-    "WeightLbs": 3150.0,
+    "Horsepower": 1035,
+    "WeightLbs": 3150,
     "DragCoefficient": 0.27,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Koenigsegg Regera",
-    "Horsepower": 1500.0,
-    "WeightLbs": 3515.0,
+    "Horsepower": 1500,
+    "WeightLbs": 3515,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Pagani Huayra BC",
-    "Horsepower": 745.0,
-    "WeightLbs": 2685.0,
+    "Horsepower": 745,
+    "WeightLbs": 2685,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 Bugatti Divo",
-    "Horsepower": 1500.0,
-    "WeightLbs": 4300.0,
+    "Horsepower": 1500,
+    "WeightLbs": 4300,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 McLaren Elva",
-    "Horsepower": 804.0,
-    "WeightLbs": 2800.0,
+    "Horsepower": 804,
+    "WeightLbs": 2800,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Koenigsegg Agera S",
-    "Horsepower": 1030.0,
-    "WeightLbs": 3130.0,
+    "Horsepower": 1030,
+    "WeightLbs": 3130,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Bugatti Chiron",
-    "Horsepower": 1479.0,
-    "WeightLbs": 4400.0,
+    "Horsepower": 1479,
+    "WeightLbs": 4400,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2019 Pagani Huayra Roadster BC",
-    "Horsepower": 791.0,
-    "WeightLbs": 2750.0,
+    "Horsepower": 791,
+    "WeightLbs": 2750,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 McLaren Sabre",
-    "Horsepower": 824.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 824,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1998 Toyota Supra Turbo (Mk4)",
-    "Horsepower": 320.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 320,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2002 Nissan Skyline GT-R R34",
-    "Horsepower": 276.0,
-    "WeightLbs": 3439.0,
+    "Horsepower": 276,
+    "WeightLbs": 3439,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 Subaru WRX STI",
-    "Horsepower": 310.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 310,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2018 Honda Civic Type R",
-    "Horsepower": 306.0,
-    "WeightLbs": 3117.0,
+    "Horsepower": 306,
+    "WeightLbs": 3117,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2008 Mitsubishi Lancer Evolution X",
-    "Horsepower": 291.0,
-    "WeightLbs": 3550.0,
+    "Horsepower": 291,
+    "WeightLbs": 3550,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2006 Subaru WRX STI",
-    "Horsepower": 300.0,
-    "WeightLbs": 3380.0,
+    "Horsepower": 300,
+    "WeightLbs": 3380,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2005 Nissan 350Z",
-    "Horsepower": 287.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 287,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 BMW 135i",
-    "Horsepower": 300.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 300,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Mazda RX-8 R3",
-    "Horsepower": 232.0,
-    "WeightLbs": 3064.0,
+    "Horsepower": 232,
+    "WeightLbs": 3064,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2003 Mitsubishi Lancer Evolution VIII",
-    "Horsepower": 271.0,
-    "WeightLbs": 3263.0,
+    "Horsepower": 271,
+    "WeightLbs": 3263,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "1999 Subaru Impreza 22B STI",
-    "Horsepower": 276.0,
-    "WeightLbs": 2800.0,
+    "Horsepower": 276,
+    "WeightLbs": 2800,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2001 Honda S2000",
-    "Horsepower": 240.0,
-    "WeightLbs": 2835.0,
+    "Horsepower": 240,
+    "WeightLbs": 2835,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 Mazda RX-8",
-    "Horsepower": 238.0,
-    "WeightLbs": 3020.0,
+    "Horsepower": 238,
+    "WeightLbs": 3020,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1995 Nissan Silvia S14",
-    "Horsepower": 217.0,
-    "WeightLbs": 2800.0,
+    "Horsepower": 217,
+    "WeightLbs": 2800,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1991 Nissan 240SX (S13)",
-    "Horsepower": 155.0,
-    "WeightLbs": 2700.0,
+    "Horsepower": 155,
+    "WeightLbs": 2700,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1998 Honda Prelude Type SH",
-    "Horsepower": 200.0,
-    "WeightLbs": 3000.0,
+    "Horsepower": 200,
+    "WeightLbs": 3000,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2003 Acura RSX Type-S",
-    "Horsepower": 200.0,
-    "WeightLbs": 2770.0,
+    "Horsepower": 200,
+    "WeightLbs": 2770,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2007 MazdaSpeed3",
-    "Horsepower": 263.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 263,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2013 Scion FR-S",
-    "Horsepower": 200.0,
-    "WeightLbs": 2760.0,
+    "Horsepower": 200,
+    "WeightLbs": 2760,
     "DragCoefficient": 0.28,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1990 Mazda Miata NA",
-    "Horsepower": 116.0,
-    "WeightLbs": 2100.0,
+    "Horsepower": 116,
+    "WeightLbs": 2100,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 18.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 18,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1997 Honda Civic Type R EK9",
-    "Horsepower": 182.0,
-    "WeightLbs": 2380.0,
+    "Horsepower": 182,
+    "WeightLbs": 2380,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 19.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 19,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2002 Subaru WRX Wagon",
-    "Horsepower": 227.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 227,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2005 Mitsubishi Eclipse GT",
-    "Horsepower": 263.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 263,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2012 Scion tC",
-    "Horsepower": 180.0,
-    "WeightLbs": 3100.0,
+    "Horsepower": 180,
+    "WeightLbs": 3100,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "1992 Nissan Pulsar GTI-R",
-    "Horsepower": 227.0,
-    "WeightLbs": 2700.0,
+    "Horsepower": 227,
+    "WeightLbs": 2700,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "1998 Toyota Celica GT-Four",
-    "Horsepower": 255.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 255,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2001 Mitsubishi Eclipse GSX",
-    "Horsepower": 210.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 210,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2006 Honda Accord Euro R",
-    "Horsepower": 220.0,
-    "WeightLbs": 3000.0,
+    "Horsepower": 220,
+    "WeightLbs": 3000,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2010 Hyundai Genesis Coupe 3.8",
-    "Horsepower": 306.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 306,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1991 Toyota Soarer GT-T",
-    "Horsepower": 276.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 276,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1994 Nissan 180SX Type X",
-    "Horsepower": 205.0,
-    "WeightLbs": 2700.0,
+    "Horsepower": 205,
+    "WeightLbs": 2700,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1999 Honda Prelude SH",
-    "Horsepower": 200.0,
-    "WeightLbs": 3000.0,
+    "Horsepower": 200,
+    "WeightLbs": 3000,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2008 Subaru Legacy GT Spec.B",
-    "Horsepower": 243.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 243,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2011 MazdaSpeed6",
-    "Horsepower": 274.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 274,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Kawasaki Ninja ZX-10R",
-    "Horsepower": 203.0,
-    "WeightLbs": 454.0,
+    "Horsepower": 203,
+    "WeightLbs": 454,
     "DragCoefficient": 0.6,
     "FrontalAreaSqFt": 3.9,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
-    "Horsepower": 197.0,
-    "WeightLbs": 449.0,
+    "Horsepower": 197,
+    "WeightLbs": 449,
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Suzuki GSX-R1000",
-    "Horsepower": 199.0,
-    "WeightLbs": 445.0,
+    "Horsepower": 199,
+    "WeightLbs": 445,
     "DragCoefficient": 0.59,
     "FrontalAreaSqFt": 3.9,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 Suzuki GSX-R1000R",
-    "Horsepower": 202.0,
-    "WeightLbs": 443.0,
+    "Horsepower": 202,
+    "WeightLbs": 443,
     "DragCoefficient": 0.59,
     "FrontalAreaSqFt": 3.9,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 Yamaha YZF-R1",
-    "Horsepower": 197.0,
-    "WeightLbs": 448.0,
+    "Horsepower": 197,
+    "WeightLbs": 448,
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Yamaha YZF-R1M",
-    "Horsepower": 200.0,
-    "WeightLbs": 443.0,
+    "Horsepower": 200,
+    "WeightLbs": 443,
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 BMW S1000RR",
-    "Horsepower": 205.0,
-    "WeightLbs": 434.0,
+    "Horsepower": 205,
+    "WeightLbs": 434,
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 3.7,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Honda CBR1000RR-R Fireblade",
-    "Horsepower": 214.0,
-    "WeightLbs": 443.0,
+    "Horsepower": 214,
+    "WeightLbs": 443,
     "DragCoefficient": 0.6,
     "FrontalAreaSqFt": 3.9,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2022 Suzuki Hayabusa",
-    "Horsepower": 187.0,
-    "WeightLbs": 582.0,
+    "Horsepower": 187,
+    "WeightLbs": 582,
     "DragCoefficient": 0.56,
     "FrontalAreaSqFt": 4.2,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Kawasaki Ninja ZX-14R",
-    "Horsepower": 208.0,
-    "WeightLbs": 593.0,
+    "Horsepower": 208,
+    "WeightLbs": 593,
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 4.3,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Ducati Panigale V4",
-    "Horsepower": 214.0,
-    "WeightLbs": 436.0,
+    "Horsepower": 214,
+    "WeightLbs": 436,
     "DragCoefficient": 0.61,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Kawasaki Ninja H2",
-    "Horsepower": 228.0,
-    "WeightLbs": 525.0,
+    "Horsepower": 228,
+    "WeightLbs": 525,
     "DragCoefficient": 0.62,
-    "FrontalAreaSqFt": 4.0,
-    "DrivetrainLossPercent": 10.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 4,
+    "DrivetrainLossPercent": 10,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Ford F-150 Raptor",
-    "Horsepower": 450.0,
-    "WeightLbs": 5697.0,
+    "Horsepower": 450,
+    "WeightLbs": 5697,
     "DragCoefficient": 0.45,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Ram TRX",
-    "Horsepower": 702.0,
-    "WeightLbs": 6350.0,
+    "Horsepower": 702,
+    "WeightLbs": 6350,
     "DragCoefficient": 0.52,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Chevrolet Silverado ZR2",
-    "Horsepower": 420.0,
-    "WeightLbs": 5950.0,
+    "Horsepower": 420,
+    "WeightLbs": 5950,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2020 Chevrolet Silverado 6.2",
-    "Horsepower": 420.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 420,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Ford F-250 6.7 PowerStroke",
-    "Horsepower": 450.0,
-    "WeightLbs": 7300.0,
+    "Horsepower": 450,
+    "WeightLbs": 7300,
     "DragCoefficient": 0.55,
-    "FrontalAreaSqFt": 36.0,
-    "DrivetrainLossPercent": 22.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 36,
+    "DrivetrainLossPercent": 22,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2021 Toyota Tundra",
-    "Horsepower": 381.0,
-    "WeightLbs": 5800.0,
+    "Horsepower": 381,
+    "WeightLbs": 5800,
     "DragCoefficient": 0.43,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 Ford F-150 5.0",
-    "Horsepower": 395.0,
-    "WeightLbs": 4700.0,
+    "Horsepower": 395,
+    "WeightLbs": 4700,
     "DragCoefficient": 0.44,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Chevrolet Silverado 5.3",
-    "Horsepower": 355.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 355,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Ram 1500 5.7 Hemi",
-    "Horsepower": 395.0,
-    "WeightLbs": 5100.0,
+    "Horsepower": 395,
+    "WeightLbs": 5100,
     "DragCoefficient": 0.49,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Toyota Tacoma V6",
-    "Horsepower": 236.0,
-    "WeightLbs": 3950.0,
+    "Horsepower": 236,
+    "WeightLbs": 3950,
     "DragCoefficient": 0.42,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Ford F-150 EcoBoost",
-    "Horsepower": 365.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 365,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.44,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Ram 1500 5.7 Hemi",
-    "Horsepower": 395.0,
-    "WeightLbs": 5100.0,
+    "Horsepower": 395,
+    "WeightLbs": 5100,
     "DragCoefficient": 0.49,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Chevrolet Avalanche 5.3",
-    "Horsepower": 320.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 320,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Toyota Tundra 5.7",
-    "Horsepower": 381.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 381,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.43,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Ford F-150 Harley-Davidson",
-    "Horsepower": 300.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 300,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 GMC Sierra Denali 6.2",
-    "Horsepower": 403.0,
-    "WeightLbs": 5400.0,
+    "Horsepower": 403,
+    "WeightLbs": 5400,
     "DragCoefficient": 0.49,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Nissan Titan 5.6",
-    "Horsepower": 317.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 317,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.46,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Toyota Sequoia 5.7",
-    "Horsepower": 381.0,
-    "WeightLbs": 5800.0,
+    "Horsepower": 381,
+    "WeightLbs": 5800,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Ford F-150 4.6 Triton",
-    "Horsepower": 248.0,
-    "WeightLbs": 4800.0,
+    "Horsepower": 248,
+    "WeightLbs": 4800,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Chevrolet Silverado 6.0 Vortec Max",
-    "Horsepower": 367.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 367,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.49,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Toyota Tacoma 4.0 V6",
-    "Horsepower": 236.0,
-    "WeightLbs": 3950.0,
+    "Horsepower": 236,
+    "WeightLbs": 3950,
     "DragCoefficient": 0.42,
-    "FrontalAreaSqFt": 30.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 30,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2015 Nissan Frontier 4.0",
-    "Horsepower": 261.0,
-    "WeightLbs": 4300.0,
+    "Horsepower": 261,
+    "WeightLbs": 4300,
     "DragCoefficient": 0.43,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2005 Ford F-250 V10",
-    "Horsepower": 362.0,
-    "WeightLbs": 6400.0,
+    "Horsepower": 362,
+    "WeightLbs": 6400,
     "DragCoefficient": 0.55,
-    "FrontalAreaSqFt": 36.0,
-    "DrivetrainLossPercent": 22.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 36,
+    "DrivetrainLossPercent": 22,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Chevrolet Silverado 2500HD 6.0",
-    "Horsepower": 300.0,
-    "WeightLbs": 6200.0,
+    "Horsepower": 300,
+    "WeightLbs": 6200,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 35.0,
-    "DrivetrainLossPercent": 22.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 35,
+    "DrivetrainLossPercent": 22,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Toyota Tundra 4.7",
-    "Horsepower": 271.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 271,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.43,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2012 Nissan Titan Pro-4X",
-    "Horsepower": 317.0,
-    "WeightLbs": 5400.0,
+    "Horsepower": 317,
+    "WeightLbs": 5400,
     "DragCoefficient": 0.46,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1969 Dodge Charger 440",
-    "Horsepower": 375.0,
-    "WeightLbs": 4100.0,
+    "Horsepower": 375,
+    "WeightLbs": 4100,
     "DragCoefficient": 0.53,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1967 Ford Mustang GT 390",
-    "Horsepower": 320.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 320,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1970 Chevrolet Chevelle SS 454",
-    "Horsepower": 450.0,
-    "WeightLbs": 3960.0,
+    "Horsepower": 450,
+    "WeightLbs": 3960,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1970 Dodge Challenger 426 Hemi",
-    "Horsepower": 425.0,
-    "WeightLbs": 3750.0,
+    "Horsepower": 425,
+    "WeightLbs": 3750,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1969 Chevrolet Camaro SS 396",
-    "Horsepower": 375.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 375,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1971 Dodge Demon 340",
-    "Horsepower": 275.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 275,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.46,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1966 Ford GT40 MkII",
-    "Horsepower": 485.0,
-    "WeightLbs": 2685.0,
+    "Horsepower": 485,
+    "WeightLbs": 2685,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1965 Shelby Cobra 427",
-    "Horsepower": 425.0,
-    "WeightLbs": 2420.0,
+    "Horsepower": 425,
+    "WeightLbs": 2420,
     "DragCoefficient": 0.45,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1970 Plymouth Road Runner 440",
-    "Horsepower": 390.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 390,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1968 Dodge Dart GTS 383",
-    "Horsepower": 300.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 300,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1964 Pontiac GTO",
-    "Horsepower": 348.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 348,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1965 Chevrolet Chevelle SS396",
-    "Horsepower": 375.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 375,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1963 Corvette Stingray 327",
-    "Horsepower": 360.0,
-    "WeightLbs": 3100.0,
+    "Horsepower": 360,
+    "WeightLbs": 3100,
     "DragCoefficient": 0.45,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1972 Oldsmobile 442",
-    "Horsepower": 300.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 300,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1962 Chevrolet Impala SS 409",
-    "Horsepower": 409.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 409,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1967 Plymouth GTX 440",
-    "Horsepower": 375.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 375,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1973 Ford Torino 351",
-    "Horsepower": 248.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 248,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1978 Dodge Magnum XE",
-    "Horsepower": 195.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 195,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1957 Chevrolet Bel Air 283",
-    "Horsepower": 220.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 220,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.55,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1960 Ford Galaxie 352",
-    "Horsepower": 300.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 300,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.52,
-    "FrontalAreaSqFt": 27.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 27,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1974 Pontiac Firebird 400",
-    "Horsepower": 225.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 225,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1977 Chevrolet Monte Carlo",
-    "Horsepower": 170.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 170,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 26.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 26,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1955 Ford Thunderbird",
-    "Horsepower": 193.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 193,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.5,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1961 Chevrolet Corvette 283",
-    "Horsepower": 270.0,
-    "WeightLbs": 3100.0,
+    "Horsepower": 270,
+    "WeightLbs": 3100,
     "DragCoefficient": 0.48,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1968 Mercury Cougar XR-7",
-    "Horsepower": 335.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 335,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.47,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1975 Chevrolet Nova 350",
-    "Horsepower": 145.0,
-    "WeightLbs": 3500.0,
+    "Horsepower": 145,
+    "WeightLbs": 3500,
     "DragCoefficient": 0.46,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2022 Volkswagen Golf R",
-    "Horsepower": 315.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 315,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 Toyota GR Corolla",
-    "Horsepower": 300.0,
-    "WeightLbs": 3250.0,
+    "Horsepower": 300,
+    "WeightLbs": 3250,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 BMW M5 Competition",
-    "Horsepower": 617.0,
-    "WeightLbs": 4300.0,
+    "Horsepower": 617,
+    "WeightLbs": 4300,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 Audi RS7",
-    "Horsepower": 591.0,
-    "WeightLbs": 4500.0,
+    "Horsepower": 591,
+    "WeightLbs": 4500,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 25.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 25,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2018 BMW M3 Competition",
-    "Horsepower": 444.0,
-    "WeightLbs": 3540.0,
+    "Horsepower": 444,
+    "WeightLbs": 3540,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2017 Mercedes-AMG C63 S",
-    "Horsepower": 503.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 503,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Audi RS5 Sportback",
-    "Horsepower": 444.0,
-    "WeightLbs": 3968.0,
+    "Horsepower": 444,
+    "WeightLbs": 3968,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Jeep Trackhawk",
-    "Horsepower": 707.0,
-    "WeightLbs": 5350.0,
+    "Horsepower": 707,
+    "WeightLbs": 5350,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2023 BMW X5M Competition",
-    "Horsepower": 617.0,
-    "WeightLbs": 5300.0,
+    "Horsepower": 617,
+    "WeightLbs": 5300,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2020 Dodge Durango SRT",
-    "Horsepower": 475.0,
-    "WeightLbs": 5300.0,
+    "Horsepower": 475,
+    "WeightLbs": 5300,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2022 Cadillac Escalade V",
-    "Horsepower": 682.0,
-    "WeightLbs": 6200.0,
+    "Horsepower": 682,
+    "WeightLbs": 6200,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 35.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 35,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2021 Range Rover Sport SVR",
-    "Horsepower": 575.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 575,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2019 Dodge Durango R/T",
-    "Horsepower": 360.0,
-    "WeightLbs": 5100.0,
+    "Horsepower": 360,
+    "WeightLbs": 5100,
     "DragCoefficient": 0.37,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2018 Jeep Grand Cherokee SRT",
-    "Horsepower": 475.0,
-    "WeightLbs": 5200.0,
+    "Horsepower": 475,
+    "WeightLbs": 5200,
     "DragCoefficient": 0.38,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2017 BMW X6M",
-    "Horsepower": 567.0,
-    "WeightLbs": 5150.0,
+    "Horsepower": 567,
+    "WeightLbs": 5150,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2012 Chevrolet Tahoe 5.3",
-    "Horsepower": 320.0,
-    "WeightLbs": 5300.0,
+    "Horsepower": 320,
+    "WeightLbs": 5300,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 34.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 34,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Ford Expedition 5.4",
-    "Horsepower": 310.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 310,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.42,
-    "FrontalAreaSqFt": 35.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 35,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Jeep Wrangler Rubicon",
-    "Horsepower": 285.0,
-    "WeightLbs": 4300.0,
+    "Horsepower": 285,
+    "WeightLbs": 4300,
     "DragCoefficient": 0.51,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 22.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 22,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2009 Toyota 4Runner V8",
-    "Horsepower": 260.0,
-    "WeightLbs": 4400.0,
+    "Horsepower": 260,
+    "WeightLbs": 4400,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Chevrolet Suburban 5.3",
-    "Horsepower": 320.0,
-    "WeightLbs": 5600.0,
+    "Horsepower": 320,
+    "WeightLbs": 5600,
     "DragCoefficient": 0.42,
-    "FrontalAreaSqFt": 35.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 35,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Jeep Liberty 3.7",
-    "Horsepower": 210.0,
-    "WeightLbs": 4200.0,
+    "Horsepower": 210,
+    "WeightLbs": 4200,
     "DragCoefficient": 0.45,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Toyota Highlander V6",
-    "Horsepower": 270.0,
-    "WeightLbs": 4100.0,
+    "Horsepower": 270,
+    "WeightLbs": 4100,
     "DragCoefficient": 0.35,
-    "FrontalAreaSqFt": 31.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 31,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Honda Pilot",
-    "Horsepower": 250.0,
-    "WeightLbs": 4400.0,
+    "Horsepower": 250,
+    "WeightLbs": 4400,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 32.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 32,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Jeep Commander 5.7",
-    "Horsepower": 357.0,
-    "WeightLbs": 5100.0,
+    "Horsepower": 357,
+    "WeightLbs": 5100,
     "DragCoefficient": 0.4,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1994 Toyota Supra Twin Turbo",
-    "Horsepower": 320.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 320,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1999 Nissan Skyline GT-R R34",
-    "Horsepower": 276.0,
-    "WeightLbs": 3439.0,
+    "Horsepower": 276,
+    "WeightLbs": 3439,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "1992 Honda NSX",
-    "Horsepower": 270.0,
-    "WeightLbs": 3010.0,
+    "Horsepower": 270,
+    "WeightLbs": 3010,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1990 Nissan 300ZX NA",
-    "Horsepower": 222.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 222,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1989 Toyota MR2 Supercharged",
-    "Horsepower": 145.0,
-    "WeightLbs": 2600.0,
+    "Horsepower": 145,
+    "WeightLbs": 2600,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 19.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 19,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 BMW 335i",
-    "Horsepower": 300.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 300,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
-    "Horsepower": 451.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 451,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Audi S5",
-    "Horsepower": 354.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 354,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "1986 Toyota Corolla AE86",
-    "Horsepower": 128.0,
-    "WeightLbs": 2300.0,
+    "Horsepower": 128,
+    "WeightLbs": 2300,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 19.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 19,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "1990 Mazda RX-7 FC Turbo",
-    "Horsepower": 200.0,
-    "WeightLbs": 2800.0,
+    "Horsepower": 200,
+    "WeightLbs": 2800,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1995 Mitsubishi Eclipse GSX",
-    "Horsepower": 210.0,
-    "WeightLbs": 3200.0,
+    "Horsepower": 210,
+    "WeightLbs": 3200,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 18.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "1985 Mazda RX-7 GSL-SE",
-    "Horsepower": 135.0,
-    "WeightLbs": 2600.0,
+    "Horsepower": 135,
+    "WeightLbs": 2600,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 19.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 19,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1993 Honda Accord SiR",
-    "Horsepower": 190.0,
-    "WeightLbs": 2900.0,
+    "Horsepower": 190,
+    "WeightLbs": 2900,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "1997 Toyota Chaser Tourer V",
-    "Horsepower": 276.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 276,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1983 Toyota Supra (Mk2)",
-    "Horsepower": 160.0,
-    "WeightLbs": 3000.0,
+    "Horsepower": 160,
+    "WeightLbs": 3000,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1987 Nissan Skyline GTS-R",
-    "Horsepower": 210.0,
-    "WeightLbs": 3000.0,
+    "Horsepower": 210,
+    "WeightLbs": 3000,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "1996 Honda Integra SiR",
-    "Horsepower": 180.0,
-    "WeightLbs": 2600.0,
+    "Horsepower": 180,
+    "WeightLbs": 2600,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 20.0,
-    "DrivetrainLossPercent": 17.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 20,
+    "DrivetrainLossPercent": 17,
+    "TireType": 0,
+    "DriveType": "FWD"
   },
   {
     "Name": "2018 Mercedes-AMG GT R",
-    "Horsepower": 577.0,
-    "WeightLbs": 3540.0,
+    "Horsepower": 577,
+    "WeightLbs": 3540,
     "DragCoefficient": 0.36,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2019 Porsche 911 GT3",
-    "Horsepower": 500.0,
-    "WeightLbs": 3153.0,
+    "Horsepower": 500,
+    "WeightLbs": 3153,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 12,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2016 Audi TT RS",
-    "Horsepower": 400.0,
-    "WeightLbs": 3300.0,
+    "Horsepower": 400,
+    "WeightLbs": 3300,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 21.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 21,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2015 BMW M4",
-    "Horsepower": 425.0,
-    "WeightLbs": 3535.0,
+    "Horsepower": 425,
+    "WeightLbs": 3535,
     "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2014 Mercedes CLA45 AMG",
-    "Horsepower": 355.0,
-    "WeightLbs": 3450.0,
+    "Horsepower": 355,
+    "WeightLbs": 3450,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 22.0,
-    "DrivetrainLossPercent": 16.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 22,
+    "DrivetrainLossPercent": 16,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2012 BMW M5",
-    "Horsepower": 560.0,
-    "WeightLbs": 4350.0,
+    "Horsepower": 560,
+    "WeightLbs": 4350,
     "DragCoefficient": 0.33,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2013 Audi RS4 Avant",
-    "Horsepower": 450.0,
-    "WeightLbs": 3950.0,
+    "Horsepower": 450,
+    "WeightLbs": 3950,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2011 Mercedes E63 AMG",
-    "Horsepower": 518.0,
-    "WeightLbs": 4200.0,
+    "Horsepower": 518,
+    "WeightLbs": 4200,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 BMW 335i",
-    "Horsepower": 300.0,
-    "WeightLbs": 3600.0,
+    "Horsepower": 300,
+    "WeightLbs": 3600,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
-    "Horsepower": 451.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 451,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Audi S5",
-    "Horsepower": 354.0,
-    "WeightLbs": 3850.0,
+    "Horsepower": 354,
+    "WeightLbs": 3850,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2007 BMW 550i",
-    "Horsepower": 360.0,
-    "WeightLbs": 3900.0,
+    "Horsepower": 360,
+    "WeightLbs": 3900,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2009 Mercedes CLS550",
-    "Horsepower": 382.0,
-    "WeightLbs": 4050.0,
+    "Horsepower": 382,
+    "WeightLbs": 4050,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2011 Audi A7 3.0T",
-    "Horsepower": 310.0,
-    "WeightLbs": 4200.0,
+    "Horsepower": 310,
+    "WeightLbs": 4200,
     "DragCoefficient": 0.3,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2004 BMW 330Ci ZHP",
-    "Horsepower": 235.0,
-    "WeightLbs": 3400.0,
+    "Horsepower": 235,
+    "WeightLbs": 3400,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 23.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 23,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2006 Mercedes CLK55 AMG",
-    "Horsepower": 362.0,
-    "WeightLbs": 3800.0,
+    "Horsepower": 362,
+    "WeightLbs": 3800,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2007 Audi S6 V10",
-    "Horsepower": 435.0,
-    "WeightLbs": 4300.0,
+    "Horsepower": 435,
+    "WeightLbs": 4300,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2003 BMW M3 E46",
-    "Horsepower": 333.0,
-    "WeightLbs": 3415.0,
+    "Horsepower": 333,
+    "WeightLbs": 3415,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2005 Mercedes E55 AMG",
-    "Horsepower": 469.0,
-    "WeightLbs": 4100.0,
+    "Horsepower": 469,
+    "WeightLbs": 4100,
     "DragCoefficient": 0.31,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "RWD"
   },
   {
     "Name": "2008 Audi RS4",
-    "Horsepower": 420.0,
-    "WeightLbs": 3950.0,
+    "Horsepower": 420,
+    "WeightLbs": 3950,
     "DragCoefficient": 0.32,
-    "FrontalAreaSqFt": 24.0,
-    "DrivetrainLossPercent": 15.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 15,
+    "TireType": 0,
+    "DriveType": "AWD"
   },
   {
     "Name": "2011 - 2014 Ford F-150 Enrique's 3.5EB",
-    "Horsepower": 462.0,
-    "WeightLbs": 5688.0,
+    "Horsepower": 462,
+    "WeightLbs": 5688,
     "DragCoefficient": 0.44,
-    "FrontalAreaSqFt": 33.0,
-    "DrivetrainLossPercent": 20.0,
-    "TireType": 0
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "RWD"
   }
 ]

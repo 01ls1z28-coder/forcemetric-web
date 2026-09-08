@@ -43,8 +43,15 @@
         <div class="check-row">
           <label><input type="checkbox" id="chkNA" /> Naturally Aspirated</label>
           <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
-          <label><input type="checkbox" id="chkAwd" /> AWD Mode</label>
           <label><input type="checkbox" id="chkEv" /> (EV Vehicle)</label>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Drivetrain</span>
+          <div class="drive-seg" role="radiogroup" aria-label="Drivetrain">
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveFWD" value="FWD" /><span>FWD</span></label>
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveRWD" value="RWD" checked /><span>RWD</span></label>
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveAWD" value="AWD" /><span>AWD</span></label>
+          </div>
         </div>
         <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
       </section>
@@ -88,6 +95,7 @@ Enter your car, weather, and hit Test.</pre>
     <!-- Dashboard -->
     <div class="dashboard">
       <div class="gauge-wrap">
+        <div class="active-vehicle-label" id="activeVehicleLabel">Custom setup</div>
         <canvas id="speedGauge" width="260" height="260"></canvas>
       </div>
 
@@ -151,6 +159,14 @@ Enter your car, weather, and hit Test.</pre>
               <option value="0">Street</option>
               <option value="1">Drag Tire</option>
               <option value="2">Slick</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Drive Type</span>
+            <select id="editDriveType">
+              <option value="FWD">FWD</option>
+              <option value="RWD" selected>RWD</option>
+              <option value="AWD">AWD</option>
             </select>
           </label>
         </div>
