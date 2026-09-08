@@ -112,10 +112,21 @@ Enter your car, weather, and hit Test.</pre>
 
       <div class="chart-card">
         <div class="progress-wrap">
-          <div class="progress-labels">
-            <span>0'</span><span>60'</span><span>330'</span><span>660'</span><span>1000'</span><span>1320'</span><span>1 mi</span>
+          <div class="progress-labels" aria-hidden="true">
+            <span class="progress-mark" style="left:0%" data-ft="0">0'</span>
+            <span class="progress-mark" style="left:1.136%" data-ft="60">60'</span>
+            <span class="progress-mark" style="left:6.25%" data-ft="330">330'</span>
+            <span class="progress-mark" style="left:12.5%" data-ft="660">660'</span>
+            <span class="progress-mark" style="left:18.939%" data-ft="1000">1000'</span>
+            <span class="progress-mark" style="left:25%" data-ft="1320">1320'</span>
+            <span class="progress-mark progress-mark-end" style="left:100%" data-ft="5280">1 mi</span>
           </div>
-          <div class="progress-bar"><div class="progress-fill" id="distanceFill"></div></div>
+          <div class="progress-bar">
+            <div class="progress-ticks" aria-hidden="true">
+              <i style="left:1.136%"></i><i style="left:6.25%"></i><i style="left:12.5%"></i><i style="left:18.939%"></i><i style="left:25%"></i>
+            </div>
+            <div class="progress-fill" id="distanceFill"></div>
+          </div>
         </div>
         <div class="chart-wrap">
           <canvas id="speedChart"></canvas>

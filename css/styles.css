@@ -460,13 +460,18 @@ input[type="text"] {
   box-shadow: 0 0 18px rgba(34, 211, 238, 0.06) inset;
 }
 
-/* Results panel — wider column, taller scroll area */
+/* Results panel — fixed height + internal scroll (no resize on Test) */
 .results-card {
+  height: 420px;
   min-height: 420px;
+  max-height: 420px;
 }
 
 .results-out {
-  flex: 1;
+  flex: 1 1 auto;
+  height: 360px;
+  min-height: 360px;
+  max-height: 360px;
   background:
     linear-gradient(180deg, rgba(76, 201, 240, 0.04), transparent 28%),
     #05070a;
@@ -478,9 +483,8 @@ input[type="text"] {
   line-height: 1.55;
   color: #e8eef7;
   white-space: pre-wrap;
-  overflow: auto;
-  min-height: 380px;
-  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.03),
     inset 0 0 28px rgba(0, 0, 0, 0.35);
@@ -582,15 +586,32 @@ input[type="text"] {
 }
 
 .progress-labels {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  height: 14px;
   font-size: 10px;
   color: var(--text-muted);
   font-family: var(--mono);
   letter-spacing: 0.02em;
 }
 
+.progress-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.progress-mark[data-ft="0"] {
+  transform: none;
+  left: 0 !important;
+}
+
+.progress-mark-end {
+  transform: translateX(-100%);
+}
+
 .progress-bar {
+  position: relative;
   height: 8px;
   background: #0a0c0f;
   border-radius: 999px;
@@ -599,7 +620,25 @@ input[type="text"] {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.progress-ticks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.progress-ticks i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateX(-50%);
+}
+
 .progress-fill {
+  position: relative;
+  z-index: 2;
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #16a34a, var(--lime));

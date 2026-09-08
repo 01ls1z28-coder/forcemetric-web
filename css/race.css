@@ -370,12 +370,27 @@
 }
 
 .track-scale {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  height: 14px;
   font-size: 10px;
   color: var(--text-dim);
   font-family: var(--mono);
-  padding: 0 72px 0 72px;
+  margin: 0 72px;
+}
+
+.track-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.track-mark[style="left:0%"] {
+  transform: none;
+}
+
+.track-mark-end {
+  transform: translateX(-100%);
 }
 
 .charts-row {
@@ -524,6 +539,6 @@
   }
 
   .track-scale {
-    padding: 0 56px 0 56px;
+    margin: 0 56px;
   }
 }
