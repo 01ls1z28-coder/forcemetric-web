@@ -538,6 +538,25 @@
     renderCarList();
   });
 
+  function looksLikeEv(name) {
+    var n = String(name || '').toLowerCase();
+    return /\btesla\b|\blucid\b|\brivian\b|\bpolestar\b|\brimac\b|\btaycan\b|\bcybertruck\b|\bplaid\b|e-tron|ioniq|\beq[sbe]\b|mach-e|\bev\b|electric|ariya|solterra|bz4x|lyriq|blazer ev|fisker|kona electric|niro ev|id\.4|ex90|gv60|lightning/.test(n);
+  }
+
+  function setEvChecked(on) {
+    if (!el.chkEv) return;
+    el.chkEv.checked = !!on;
+    if (on) {
+      el.chkNA.checked = false;
+      el.chkFI.checked = false;
+      el.chkNA.disabled = true;
+      el.chkFI.disabled = true;
+    } else {
+      el.chkNA.disabled = false;
+      el.chkFI.disabled = false;
+    }
+  }
+
   function loadSelectedVehicle() {
     if (selectedGarageIndex < 0 || selectedGarageIndex >= filteredCars.length) {
       alert('Please select a vehicle first.');
@@ -551,8 +570,9 @@
     el.loss.value = car.DrivetrainLossPercent;
     el.tireType.value = tireLabelFromEnum(car.TireType);
     setDriveType(car.DriveType || 'RWD');
+    setEvChecked(looksLikeEv(car.Name));
     setActiveVehicleLabel(car.Name);
-    el.resultsOut.textContent = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ')\nReady to simulate.';
+    el.resultsOut.textContent = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + (looksLikeEv(car.Name) ? ', EV' : '') + ')\nReady to simulate.';
     closeGarage();
   }
 

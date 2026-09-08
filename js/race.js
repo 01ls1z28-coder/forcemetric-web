@@ -239,6 +239,11 @@
     return n.slice(0, 26) + '…';
   }
 
+  function looksLikeEv(name) {
+    var n = String(name || '').toLowerCase();
+    return /\btesla\b|\blucid\b|\brivian\b|\bpolestar\b|\brimac\b|\btaycan\b|\bcybertruck\b|\bplaid\b|e-tron|ioniq|\beq[sbe]\b|mach-e|\bev\b|electric|ariya|solterra|bz4x|lyriq|blazer ev|fisker|kona electric|niro ev|id\.4|ex90|gv60|lightning/.test(n);
+  }
+
   // ---- Fill lane from snapshot / car ----
   function applyTune(prefix, snap) {
     if (!snap) return;
@@ -251,9 +256,20 @@
     var tire = snap.TireType != null ? snap.TireType : (snap.tireType != null ? snap.tireType : 0);
     if (typeof tire === 'string') tire = parseInt(tire, 10) || 0;
     $(prefix + 'Tire').value = String(tire);
-    $(prefix + 'NA').checked = !!(snap.isNA || snap.chkNA);
-    $(prefix + 'FI').checked = !!(snap.isFI || snap.chkFI);
-    $(prefix + 'Ev').checked = !!(snap.isEv || snap.chkEv);
+    var evOn = !!(snap.isEv || snap.chkEv);
+    if (!evOn && looksLikeEv(snap.Name || snap.name)) evOn = true;
+    $(prefix + 'Ev').checked = evOn;
+    if (evOn) {
+      $(prefix + 'NA').checked = false;
+      $(prefix + 'FI').checked = false;
+      $(prefix + 'NA').disabled = true;
+      $(prefix + 'FI').disabled = true;
+    } else {
+      $(prefix + 'NA').checked = !!(snap.isNA || snap.chkNA);
+      $(prefix + 'FI').checked = !!(snap.isFI || snap.chkFI);
+      $(prefix + 'NA').disabled = false;
+      $(prefix + 'FI').disabled = false;
+    }
     setDrive(prefix, snap.DriveType || snap.driveType || 'RWD');
     updateLaneLabel(prefix);
   }
@@ -310,7 +326,7 @@
       DriveType: car.DriveType || 'RWD',
       isNA: false,
       isFI: false,
-      isEv: false
+      isEv: looksLikeEv(car.Name)
     });
   }
 
@@ -406,13 +422,18 @@
     $('oppFill').style.width = oppPct.toFixed(2) + '%';
     $('youMarker').style.left = youPct.toFixed(2) + '%';
     $('oppMarker').style.left = oppPct.toFixed(2) + '%';
-    $('youSpeed').textContent = Math.round(ys.SpeedMph) + ' mph';
-    $('oppSpeed').textContent = Math.round(os.SpeedMph) + ' mph';
-    $('youDist').textContent = Math.round(youFt) + ' ft';
-    $('oppDist').textContent = Math.round(oppFt) + ' ft';
 
     var youDone = ys.DistanceFt >= TRACK_FT;
     var oppDone = os.DistanceFt >= TRACK_FT;
+    // Freeze lane mph at true 1320 trap once past finish (don't keep climbing with wall-clock Steps)
+    var youMph = ys.SpeedMph;
+    var oppMph = os.SpeedMph;
+    if (youDone && raceMeta && raceMeta.youTrapMph != null) youMph = raceMeta.youTrapMph;
+    if (oppDone && raceMeta && raceMeta.oppTrapMph != null) oppMph = raceMeta.oppTrapMph;
+    $('youSpeed').textContent = Math.round(youMph) + ' mph';
+    $('oppSpeed').textContent = Math.round(oppMph) + ' mph';
+    $('youDist').textContent = Math.round(youFt) + ' ft';
+    $('oppDist').textContent = Math.round(oppFt) + ' ft';
     var bothDone = youDone && oppDone;
     // Also end when sim time past both finish ETs
     var youET = raceMeta.youET1320;
@@ -626,7 +647,9 @@
         youName: you.Name,
         oppName: opp.Name,
         youET1320: youM ? youM.Time : null,
-        oppET1320: oppM ? oppM.Time : null
+        oppET1320: oppM ? oppM.Time : null,
+        youTrapMph: youM ? youM.SpeedMph : null,
+        oppTrapMph: oppM ? oppM.SpeedMph : null
       };
 
       $('setupView').classList.add('hidden');
@@ -681,7 +704,7 @@
             DrivetrainLossPercent: garageData[i].DrivetrainLossPercent,
             TireType: garageData[i].TireType,
             DriveType: garageData[i].DriveType,
-            isNA: false, isFI: false, isEv: false
+            isNA: false, isFI: false, isEv: looksLikeEv(garageData[i].Name)
           };
           break;
         }
