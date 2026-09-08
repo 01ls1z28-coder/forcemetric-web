@@ -717,7 +717,7 @@
       if (isFinite(snap.humidity)) $('humidity').value = snap.humidity;
       if (isFinite(snap.pressureInHg)) $('pressure').value = snap.pressureInHg;
       if (snap.weatherPreset != null) $('weatherPreset').value = String(snap.weatherPreset);
-      $('setupHint').textContent = 'Loaded your car from ForceMetric. Pick an opponent and LAUNCH.';
+      $('setupHint').textContent = 'Loaded your car from VelocityBench. Pick an opponent and LAUNCH.';
     } else {
       // default first garage car as "your" suggestion
       if (garageData.length) {

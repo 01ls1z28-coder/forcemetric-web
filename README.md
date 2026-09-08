@@ -1,6 +1,6 @@
-# ForceMetric v1 (static web)
+# VelocityBench v1 (static web)
 
-Local double-clickable port of the WinForms ForceMetric vehicle performance simulator.
+Local double-clickable port of the WinForms VelocityBench (formerly ForceMetric) vehicle performance simulator.
 
 ## Open
 
