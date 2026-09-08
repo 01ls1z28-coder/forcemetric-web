@@ -183,27 +183,17 @@
 
       if (isEv) {
         var mphEv = mpsToMph(v);
-        // EV launch torque: stronger off the line (was soft 0.90 + launch limiter)
+        // EV curve calibrated to Car and Driver stock Tesla 0-60 / 1/4 targets
+        // (launch stronger than legacy soft 0.90; no separate launch limiter)
         var powerMult =
-          mphEv < 40 ? 1.25 :
-          mphEv < 70 ? 1.10 :
-          mphEv < 100 ? 1.20 :
-          mphEv < 120 ? 1.10 :
+          mphEv < 40 ? 1.20 :
+          mphEv < 70 ? 1.00 :
+          mphEv < 100 ? 1.18 :
+          mphEv < 120 ? 1.15 :
           mphEv < 140 ? 1.15 :
-          mphEv < 160 ? 0.75 :
-                        0.85;
+          mphEv < 160 ? 0.85 :
+                        0.93;
         forceFromPowerN *= powerMult;
-      }
-
-      if (isEv) {
-        // No soft launch limiter — full available force from 0 mph (traction still caps)
-        var speedMphCurrent = mpsToMph(v);
-        var limiter =
-          speedMphCurrent < 1 ? 1.00 :
-          speedMphCurrent < 5 ? 1.00 :
-          speedMphCurrent < 10 ? 1.00 :
-                                 1.00;
-        forceFromPowerN *= limiter;
       }
 
       var driveForceN = Math.min(forceFromPowerN, tractionLimitN);
