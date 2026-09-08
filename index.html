@@ -101,16 +101,15 @@ Enter your car, weather, and hit Test.</pre>
         <canvas id="speedGauge" width="260" height="260"></canvas>
       </div>
 
-      <div class="controls-col">
-        <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
-        <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
-        <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
-        <div class="run-timer" id="runTimer">0.00 s</div>
-        <button type="button" class="btn btn-test" id="btnTest">Test</button>
-        <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
-      </div>
-
       <div class="chart-card">
+        <div class="control-strip" role="toolbar" aria-label="Run controls">
+          <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
+          <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
+          <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
+          <div class="run-timer" id="runTimer">0.00 s</div>
+          <button type="button" class="btn btn-test" id="btnTest">Test</button>
+          <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
+        </div>
         <div class="progress-wrap">
           <div class="progress-labels" aria-hidden="true">
             <span class="progress-mark" style="left:0%" data-ft="0">0'</span>
