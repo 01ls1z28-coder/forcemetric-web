@@ -33,11 +33,28 @@
       <!-- Vehicle Parameters -->
       <section class="card vehicle-card">
         <div class="card-title">Vehicle Parameters</div>
-        <label class="field"><span>Horsepower</span><input type="number" id="hp" value="450" step="1" /></label>
-        <label class="field"><span>Weight lbs</span><input type="number" id="weight" value="3800" step="1" /></label>
+        <div class="drive-row hp-source-row">
+          <span class="drive-label">HP Source</span>
+          <div class="drive-seg" role="radiogroup" aria-label="HP Source">
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpEngine" value="engine" checked /><span>Engine HP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpDynoJet" value="dynojet" /><span>DynoJet WHP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpMustang" value="mustang" /><span>Mustang WHP</span></label>
+          </div>
+        </div>
+        <label class="field"><span id="hpLabel">Engine HP</span><input type="number" id="hp" value="450" step="1" /></label>
+        <label class="field"><span>Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
+        <label class="field"><span>Driver Weight (lbs)</span><input type="number" id="driverWeight" value="0" step="1" min="0" /></label>
         <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
         <label class="field"><span>Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
+        <div class="drive-row tx-row">
+          <span class="drive-label">Transmission</span>
+          <div class="drive-seg" role="radiogroup" aria-label="Transmission">
+            <label class="drive-opt"><input type="radio" name="transmission" id="txAuto" value="auto" checked /><span>Automatic</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txManual" value="manual" /><span>Manual</span></label>
+          </div>
+        </div>
         <label class="field"><span>Drivetrain Loss %</span><input type="number" id="loss" value="15" step="0.1" /></label>
+        <p class="field-hint" id="lossHint">Effective loss: 15.0% · model estimates, not dyno-certified.</p>
         <label class="field">
           <span>Tire Type</span>
           <select id="tireType">

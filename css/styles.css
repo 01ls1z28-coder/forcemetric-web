@@ -1277,3 +1277,27 @@ input[type="text"] {
   border-color: rgba(76, 201, 240, 0.55);
   box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.12);
 }
+
+/* HP source / transmission / locked loss (Seraph #2) */
+.hp-source-row .drive-opt span,
+.tx-row .drive-opt span {
+  font-size: 10px;
+  padding: 6px 6px;
+  letter-spacing: 0.02em;
+}
+
+#loss.is-locked,
+#loss:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: rgba(20, 24, 32, 0.85);
+}
+
+#lossHint {
+  margin-top: -0.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.tx-row {
+  margin-top: 0.15rem;
+}
