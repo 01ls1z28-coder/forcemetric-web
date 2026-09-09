@@ -178,18 +178,39 @@ html, body {
 }
 
 
-/* UI Scale control */
+/* Header layout + scale controls */
+.header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.layout-density,
 .ui-scale {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex: 1 1 auto;
-  justify-content: center;
   min-width: 0;
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(180, 200, 230, 0.14);
+}
+
+.layout-density select {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: var(--sans);
+  cursor: pointer;
+  max-width: 140px;
 }
 
 .ui-scale-label {
@@ -217,10 +238,18 @@ html, body {
 }
 
 @media (max-width: 700px) {
-  .ui-scale {
+  .header-controls {
     order: 3;
     width: 100%;
+  }
+  .layout-density,
+  .ui-scale {
+    flex: 1 1 auto;
     justify-content: stretch;
+  }
+  .layout-density select {
+    flex: 1;
+    max-width: none;
   }
   .ui-scale input[type="range"] {
     flex: 1;
@@ -1071,6 +1100,100 @@ input[type="text"] {
   box-shadow: 0 0 14px rgba(184, 255, 60, 0.35);
 }
 
+
+
+/* ── Layout density presets (box shape, not zoom) ── */
+html[data-layout="comfortable"] .top-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+html[data-layout="compact"] .top-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+html[data-layout="compact"] .card {
+  padding: 8px 9px 8px;
+  gap: 4px;
+}
+
+html[data-layout="compact"] .card-title {
+  margin-bottom: 2px;
+  letter-spacing: 0.08em;
+}
+
+html[data-layout="compact"] .field {
+  gap: 4px 8px;
+}
+
+html[data-layout="compact"] .field input,
+html[data-layout="compact"] .field select {
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+html[data-layout="compact"] .atmosphere-card .card-section {
+  gap: 4px;
+}
+
+html[data-layout="compact"] .atmosphere-card .da-section {
+  padding-bottom: 6px;
+}
+
+html[data-layout="compact"] .atmosphere-card .weather-section {
+  padding-top: 6px;
+}
+
+html[data-layout="compact"] .check-row {
+  gap: 4px 8px;
+  padding: 2px 0;
+}
+
+html[data-layout="compact"] .field-hint {
+  font-size: 10px;
+  margin: 0;
+}
+
+html[data-layout="compact"] .dashboard {
+  gap: 8px;
+  min-height: 260px;
+}
+
+html[data-layout="compact"] .results-out,
+html[data-layout="compact"] .results-out.track-slip {
+  padding: 6px 8px;
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+
+html[data-layout="wide-slip"] .top-grid {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 1.5fr);
+  gap: 12px;
+}
+
+html[data-layout="wide-slip"] .results-out,
+html[data-layout="wide-slip"] .results-out.track-slip {
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  html[data-layout="wide-slip"] .top-grid,
+  html[data-layout="compact"] .top-grid,
+  html[data-layout="comfortable"] .top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  html[data-layout="wide-slip"] .top-grid,
+  html[data-layout="compact"] .top-grid,
+  html[data-layout="comfortable"] .top-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* Mobile / narrow: Time Slip may grow with content (desktop stays fixed+scroll) */
 @media (max-width: 800px) {
