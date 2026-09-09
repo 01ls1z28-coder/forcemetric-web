@@ -159,58 +159,94 @@
     return n.toFixed(1);
   }
 
+  function padL(s, n) {
+    s = String(s);
+    while (s.length < n) s = ' ' + s;
+    return s;
+  }
+
+  function padR(s, n) {
+    s = String(s);
+    while (s.length < n) s = s + ' ';
+    return s;
+  }
+
+  function slipLine(label, value) {
+    return padR(label, 18) + padL(value, 14);
+  }
+
   function renderResult(result) {
     var lines = [];
-    lines.push('Run Time: ' + result.Timestamp.toLocaleString());
-    lines.push('========================================');
+    var vehicle = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || 'Custom setup';
+    lines.push('  VELOCITYBENCH TIME SLIP');
+    lines.push('  -----------------------');
+    lines.push(slipLine('VEHICLE', vehicle.slice(0, 22)));
+    lines.push(slipLine('PRINTED', result.Timestamp.toLocaleString()));
 
     var engineLabel = 'Unspecified';
     if (el.chkEv.checked) {
       engineLabel = 'EV';
     } else if (el.chkNA.checked && !el.chkFI.checked) {
-      engineLabel = 'Naturally aspirated';
+      engineLabel = 'N/A';
     } else if (el.chkFI.checked && !el.chkNA.checked) {
-      engineLabel = 'Forced induction';
+      engineLabel = 'Forced ind.';
     }
-    lines.push('Engine: ' + engineLabel);
+    lines.push(slipLine('ENGINE', engineLabel));
+    lines.push('  -----------------------');
 
-    if (result.ZeroToSixty != null) lines.push('0–60 mph: ' + fmt2(result.ZeroToSixty) + ' s');
-    if (result.ZeroToHundred != null) lines.push('0–100 mph: ' + fmt2(result.ZeroToHundred) + ' s');
-    if (result.ZeroToOneThirty != null) lines.push('0–130 mph: ' + fmt2(result.ZeroToOneThirty) + ' s');
-    if (result.SixtyToOneThirty != null) lines.push('60–130 mph: ' + fmt2(result.SixtyToOneThirty) + ' s');
-    if (result.HundredToOneFifty != null) lines.push('100–150 mph: ' + fmt2(result.HundredToOneFifty) + ' s');
-    if (result.HundredToTwoHundredKmh != null) lines.push('100–200 km/h: ' + fmt2(result.HundredToTwoHundredKmh) + ' s');
-    if (result.TwoHundredToTwoFiftyKmh != null) lines.push('200–250 km/h: ' + fmt2(result.TwoHundredToTwoFiftyKmh) + ' s');
-
-    lines.push('');
-    lines.push('Vmax: ' + fmt1(result.VmaxMph) + ' mph');
-    lines.push('');
-
-    function appendDist(markerFt, label) {
-      var val = result.DistanceMarkers[markerFt];
+    function mark(ft, label) {
+      var val = result.DistanceMarkers[ft];
       if (val && val.Time >= 0) {
-        lines.push(label + ': ' + fmt2(val.Time) + ' s @ ' + fmt1(val.SpeedMph) + ' mph');
+        lines.push(slipLine(label, fmt2(val.Time) + ' s'));
+        lines.push(slipLine(label + ' MPH', fmt1(val.SpeedMph)));
+      } else {
+        lines.push(slipLine(label, '--'));
       }
     }
 
-    appendDist(60, '60 ft');
-    appendDist(330, '330 ft');
-    appendDist(660, '1/8 mile (660 ft)');
-    appendDist(1000, '1000 ft');
-    appendDist(1320, '1/4 mile (1320 ft)');
-    appendDist(2640, '1/2 mile (2640 ft)');
-    appendDist(5280, '1 mile (5280 ft)');
+    mark(60, '60 FT');
+    mark(330, '330 FT');
+    mark(660, '1/8');
+    mark(1000, '1000 FT');
+    mark(1320, '1/4');
+    mark(2640, '1/2');
+    mark(5280, '1 MILE');
 
-    lines.push('');
-    lines.push('0–X mph breakdown:');
+    lines.push('  -----------------------');
+    if (result.ZeroToSixty != null) lines.push(slipLine('0-60 MPH', fmt2(result.ZeroToSixty) + ' s'));
+    if (result.ZeroToHundred != null) lines.push(slipLine('0-100 MPH', fmt2(result.ZeroToHundred) + ' s'));
+    if (result.ZeroToOneThirty != null) lines.push(slipLine('0-130 MPH', fmt2(result.ZeroToOneThirty) + ' s'));
+    if (result.SixtyToOneThirty != null) lines.push(slipLine('60-130', fmt2(result.SixtyToOneThirty) + ' s'));
+    if (result.HundredToOneFifty != null) lines.push(slipLine('100-150', fmt2(result.HundredToOneFifty) + ' s'));
+    if (result.HundredToTwoHundredKmh != null) lines.push(slipLine('100-200 KM/H', fmt2(result.HundredToTwoHundredKmh) + ' s'));
+    if (result.TwoHundredToTwoFiftyKmh != null) lines.push(slipLine('200-250 KM/H', fmt2(result.TwoHundredToTwoFiftyKmh) + ' s'));
+
+    lines.push('  -----------------------');
+    lines.push(slipLine('MECH VMAX', fmt1(result.VmaxMph) + ' mph'));
+    if (result.RunDistanceFt != null) {
+      lines.push(slipLine('RUN DIST', fmt1(result.RunDistanceFt) + ' ft'));
+    }
+    if (result.RunTimeS != null) {
+      lines.push(slipLine('RUN TIME', fmt2(result.RunTimeS) + ' s'));
+    }
+    if (result.StopReason === 'vmax') {
+      lines.push(slipLine('STOP', 'mech top speed'));
+    } else if (result.StopReason === 'safety') {
+      lines.push(slipLine('STOP', 'safety limit'));
+    }
+
+    lines.push('  -----------------------');
+    lines.push('  0-X MPH BREAKDOWN');
     var keys = Object.keys(result.ZeroToMphTimes).map(Number).sort(function (a, b) { return a - b; });
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
       var tv = result.ZeroToMphTimes[k];
       if (k >= 0 && tv >= 0) {
-        lines.push('0–' + k + ' mph: ' + fmt2(tv) + ' s');
+        lines.push(slipLine('0-' + k, fmt2(tv) + ' s'));
       }
     }
+    lines.push('  -----------------------');
+    lines.push('  Estimates — not lab ET');
 
     el.resultsOut.textContent = lines.join('\n');
   }

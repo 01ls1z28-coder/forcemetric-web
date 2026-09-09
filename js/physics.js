@@ -1,6 +1,6 @@
 /**
  * Exact JS port of ForceMetric PerformanceCalc.cs
- * CalibrationFactor 0.81, grip, DA, EV curves, dt=0.01, 1-mile loop
+ * CalibrationFactor 0.81, grip, DA, EV curves, dt=0.01, run to mechanical Vmax
  */
 (function (global) {
   'use strict';
@@ -175,8 +175,15 @@
     var time250 = 0;
 
     var steps = [];
+    // Stop at mechanical top speed (drive force ≈ aero drag → accel ≈ 0).
+    // Safety caps keep the browser from hanging on edge cases.
+    var maxSimTimeS = 300;
+    var maxDistFt = 5280 * 10;
+    var eqSteps = 0;
+    var eqNeed = 25; // 0.25 s at equilibrium
+    var stopReason = 'safety';
 
-    while (metersToFeet(x) < 5280) {
+    while (true) {
       var dragN = 0.5 * airDensity * dragCoefficient * frontalAreaM2 * v * v;
 
       var forceFromPowerN = v < 0.1 ? wheelWatts / 0.1 : wheelWatts / v;
@@ -241,11 +248,30 @@
         hit250 = true;
         time250 = t;
       }
+
+      // Mechanical Vmax: net accel ≈ 0 (same force model — no formula change)
+      if (accel < 0.05 || driveForceN <= dragN + 1e-6) {
+        eqSteps += 1;
+        if (eqSteps >= eqNeed && v > 1) {
+          stopReason = 'vmax';
+          break;
+        }
+      } else {
+        eqSteps = 0;
+      }
+
+      if (t >= maxSimTimeS || distanceFt >= maxDistFt) {
+        stopReason = 'safety';
+        break;
+      }
     }
 
     var result = {
       Timestamp: timestamp,
       VmaxMph: vmax,
+      StopReason: stopReason,
+      RunDistanceFt: metersToFeet(x),
+      RunTimeS: t,
       ZeroToMphTimes: zeroToMph,
       DistanceMarkers: dist,
       Steps: steps,
