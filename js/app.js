@@ -392,7 +392,16 @@
         driverWeight = parseNum(el.driverWeight, 'Driver Weight');
       }
       if (driverWeight < 0) throw new Error('Driver Weight must be ≥ 0.');
-      var weight = curbWeight + driverWeight;
+      /* Cars: curb already includes ~200 lb driver baseline in Dragy-matched specs.
+         Subtract 200 then add Driver Weight so Driver 200 ≈ old mass; Driver 0 = 200 lb lighter.
+         Light curb (≤1500 lb, bikes etc.) skips the −200. */
+      var weight;
+      if (curbWeight > 1500) {
+        weight = curbWeight - 200 + driverWeight;
+      } else {
+        weight = curbWeight + driverWeight;
+      }
+      if (weight < 100) weight = 100;
       var cd = parseNum(el.cd, 'Drag Coefficient');
       var frontalArea = parseNum(el.area, 'Frontal Area');
       syncHpLossUi();
