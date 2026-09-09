@@ -47,10 +47,13 @@
             <option value="3">Perfect Traction</option>
           </select>
         </label>
-        <div class="check-row">
-          <label><input type="checkbox" id="chkNA" /> Naturally Aspirated</label>
-          <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
-          <label><input type="checkbox" id="chkEv" /> (Electric Vehicle)</label>
+        <div class="check-garage-row">
+          <div class="check-row">
+            <label><input type="checkbox" id="chkNA" /> Naturally Aspirated</label>
+            <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
+            <label><input type="checkbox" id="chkEv" /> (Electric Vehicle)</label>
+          </div>
+          <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
         </div>
         <p class="field-hint">Affects power delivery and how hard density altitude hits; FI holds up better as DA rises.</p>
         <div class="drive-row">
@@ -61,7 +64,6 @@
             <label class="drive-opt"><input type="radio" name="driveType" id="driveAWD" value="AWD" /><span>AWD</span></label>
           </div>
         </div>
-        <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
       </section>
 
       <!-- Atmosphere: DA Calculator above Weather Presets -->

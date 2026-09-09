@@ -434,11 +434,29 @@ input[type="text"] {
   transform: translateY(1px);
 }
 
+.check-garage-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.check-garage-row .check-row {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 2px 0;
+}
+
 .btn-garage {
   background: linear-gradient(180deg, #ff3d54, var(--red));
   color: #fff;
-  width: 100%;
-  margin-top: 6px;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 72px;
+  margin-top: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  align-self: center;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 4px 14px rgba(239, 35, 60, 0.28);
 }
 
