@@ -434,12 +434,13 @@ input[type="text"] {
   transform: translateY(1px);
 }
 
-/* Garage = square sibling to the RIGHT of a vertical NA/FI/EV stack */
+/* Garage: fixed 74×74 square beside vertical NA/FI/EV — never % height */
 .check-garage-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: stretch;
-  column-gap: 8px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 8px;
   width: 100%;
   flex-shrink: 0;
 }
@@ -452,7 +453,9 @@ input[type="text"] {
   justify-content: center;
   gap: 4px;
   padding: 0;
+  margin: 0;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .check-garage-row .check-row label {
@@ -462,24 +465,25 @@ input[type="text"] {
   padding: 3px 6px;
 }
 
+#btnGarage.btn-garage,
 .btn-garage {
   background: linear-gradient(180deg, #ff3d54, var(--red));
   color: #fff;
-  grid-column: 2;
-  grid-row: 1;
   box-sizing: border-box;
-  width: auto !important;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  min-width: 0;
-  max-width: none;
-  margin: 0;
-  padding: 0;
+  width: 74px !important;
+  height: 74px !important;
+  min-width: 74px !important;
+  max-width: 74px !important;
+  min-height: 74px !important;
+  max-height: 74px !important;
+  flex: 0 0 74px !important;
+  margin: 0 !important;
+  padding: 0 !important;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
@@ -488,6 +492,10 @@ input[type="text"] {
 
 .btn-garage:hover {
   background: linear-gradient(180deg, #ff556a, var(--red-hover));
+}
+
+.vehicle-card {
+  overflow: visible !important;
 }
 
 .btn-generate {
@@ -1161,16 +1169,16 @@ input[type="text"] {
   .top-grid > .card,
   .top-grid > .atmosphere-card,
   .top-grid > .results-card {
-    height: auto;
+    height: auto !important;
     min-height: 481px;
-    max-height: none;
+    max-height: none !important;
     box-sizing: border-box;
-    overflow: visible;
+    overflow: visible !important;
   }
 
-  /* Vehicle card must fully contain Garage + Drivetrain */
-  .top-grid > .card:first-child {
-    overflow: visible;
+  .vehicle-card {
+    height: auto !important;
+    overflow: visible !important;
   }
 
   .dashboard {
