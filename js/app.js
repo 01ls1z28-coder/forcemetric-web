@@ -783,6 +783,10 @@
     });
   }
 
+  // Drop legacy layout-density attribute / storage (Comfortable sizes are default)
+  try { localStorage.removeItem('velocitybench-layout-density'); } catch (e) { /* ignore */ }
+  document.documentElement.removeAttribute('data-layout');
+
   (function initUiScale() {
     var saved = null;
     try { saved = localStorage.getItem(UI_SCALE_KEY); } catch (e) { saved = null; }
@@ -793,36 +797,6 @@
       });
       uiScaleInput.addEventListener('change', function () {
         applyUiScale(uiScaleInput.value, true);
-      });
-    }
-  })();
-
-  // ---- Layout density presets (box widths/padding; persist) ----
-  var LAYOUT_KEY = 'velocitybench-layout-density';
-  var layoutSelect = document.getElementById('layoutDensity');
-  var LAYOUTS = { comfortable: 1, compact: 1, 'wide-slip': 1 };
-
-  function applyLayoutDensity(name, persist) {
-    var key = String(name || 'comfortable');
-    if (!LAYOUTS[key]) key = 'comfortable';
-    document.documentElement.setAttribute('data-layout', key);
-    if (layoutSelect) layoutSelect.value = key;
-    if (persist !== false) {
-      try { localStorage.setItem(LAYOUT_KEY, key); } catch (e) { /* ignore */ }
-    }
-    requestAnimationFrame(function () {
-      if (gauge && gauge._resize) gauge._resize();
-      if (typeof ensureChartSized === 'function') ensureChartSized();
-    });
-  }
-
-  (function initLayoutDensity() {
-    var saved = null;
-    try { saved = localStorage.getItem(LAYOUT_KEY); } catch (e) { saved = null; }
-    applyLayoutDensity(saved != null ? saved : 'comfortable', false);
-    if (layoutSelect) {
-      layoutSelect.addEventListener('change', function () {
-        applyLayoutDensity(layoutSelect.value, true);
       });
     }
   })();

@@ -6,6 +6,7 @@
 
 :root {
   --ui-scale: 1;
+  --desk-content-w: 904px; /* 280 + 12 + 280 + 12 + 320 */
   --bg: #050607;
   --bg-elevated: #0a0c10;
   --surface: #0e1218;
@@ -189,7 +190,6 @@ html, body {
   flex-wrap: wrap;
 }
 
-.layout-density,
 .ui-scale {
   display: flex;
   align-items: center;
@@ -199,18 +199,6 @@ html, body {
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(180, 200, 230, 0.14);
-}
-
-.layout-density select {
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  color: var(--text);
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-family: var(--sans);
-  cursor: pointer;
-  max-width: 140px;
 }
 
 .ui-scale-label {
@@ -242,14 +230,9 @@ html, body {
     order: 3;
     width: 100%;
   }
-  .layout-density,
   .ui-scale {
     flex: 1 1 auto;
     justify-content: stretch;
-  }
-  .layout-density select {
-    flex: 1;
-    max-width: none;
   }
   .ui-scale input[type="range"] {
     flex: 1;
@@ -1102,141 +1085,60 @@ input[type="text"] {
 
 
 
-/* ── Layout density presets (box shape, not zoom) ── */
-/* Comfortable desktop targets (Jorge): top 280/280/320 × 481; dash 280/140/459 × 375 */
-html[data-layout="comfortable"] .top-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
+/* ── Desktop fixed sizes (baked Comfortable) + centered column ── */
 @media (min-width: 1101px) {
-  html[data-layout="comfortable"] .top-grid {
+  .app {
+    width: var(--desk-content-w);
+    max-width: var(--desk-content-w);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header,
+  .top-grid,
+  .dashboard,
+  .app-footer {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .top-grid {
     grid-template-columns: 280px 280px 320px;
     gap: 12px;
     justify-content: start;
-    width: max-content;
-    max-width: 100%;
   }
 
-  html[data-layout="comfortable"] .top-grid > .card,
-  html[data-layout="comfortable"] .top-grid > .atmosphere-card,
-  html[data-layout="comfortable"] .top-grid > .results-card {
-    width: auto;
+  .top-grid > .card,
+  .top-grid > .atmosphere-card,
+  .top-grid > .results-card {
     height: 481px;
     max-height: 481px;
     box-sizing: border-box;
   }
 
-  html[data-layout="comfortable"] .dashboard {
+  .dashboard {
     grid-template-columns: 280px 140px 459px;
     gap: 12px;
     justify-content: start;
-    width: max-content;
-    max-width: 100%;
     height: 375px;
     min-height: 375px;
     max-height: 375px;
     flex: 0 0 375px;
   }
 
-  html[data-layout="comfortable"] .gauge-wrap,
-  html[data-layout="comfortable"] .controls-col,
-  html[data-layout="comfortable"] .chart-card {
+  .gauge-wrap,
+  .controls-col,
+  .chart-card {
     height: 375px;
     max-height: 375px;
     box-sizing: border-box;
     overflow: hidden;
   }
 
-  html[data-layout="comfortable"] .gauge-wrap {
+  .gauge-wrap {
     padding: 8px 10px 12px;
-  }
-}
-
-html[data-layout="compact"] .top-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-html[data-layout="compact"] .card {
-  padding: 8px 9px 8px;
-  gap: 4px;
-}
-
-html[data-layout="compact"] .card-title {
-  margin-bottom: 2px;
-  letter-spacing: 0.08em;
-}
-
-html[data-layout="compact"] .field {
-  gap: 4px 8px;
-}
-
-html[data-layout="compact"] .field input,
-html[data-layout="compact"] .field select {
-  padding: 5px 8px;
-  font-size: 12px;
-}
-
-html[data-layout="compact"] .atmosphere-card .card-section {
-  gap: 4px;
-}
-
-html[data-layout="compact"] .atmosphere-card .da-section {
-  padding-bottom: 6px;
-}
-
-html[data-layout="compact"] .atmosphere-card .weather-section {
-  padding-top: 6px;
-}
-
-html[data-layout="compact"] .check-row {
-  gap: 4px 8px;
-  padding: 2px 0;
-}
-
-html[data-layout="compact"] .field-hint {
-  font-size: 10px;
-  margin: 0;
-}
-
-html[data-layout="compact"] .dashboard {
-  gap: 8px;
-  min-height: 260px;
-}
-
-html[data-layout="compact"] .results-out,
-html[data-layout="compact"] .results-out.track-slip {
-  padding: 6px 8px;
-  font-size: 10.5px;
-  line-height: 1.35;
-}
-
-html[data-layout="wide-slip"] .top-grid {
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 1.5fr);
-  gap: 12px;
-}
-
-html[data-layout="wide-slip"] .results-out,
-html[data-layout="wide-slip"] .results-out.track-slip {
-  padding: 10px 14px;
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-@media (max-width: 1100px) {
-  html[data-layout="wide-slip"] .top-grid,
-  html[data-layout="compact"] .top-grid,
-  html[data-layout="comfortable"] .top-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  html[data-layout="wide-slip"] .top-grid,
-  html[data-layout="compact"] .top-grid,
-  html[data-layout="comfortable"] .top-grid {
-    grid-template-columns: 1fr;
   }
 }
 
