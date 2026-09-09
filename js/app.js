@@ -168,8 +168,9 @@
       el.loss.disabled = lockLoss;
       el.loss.classList.toggle('is-locked', lockLoss);
     }
-    if (el.txAuto) el.txAuto.disabled = lockLoss;
-    if (el.txManual) el.txManual.disabled = lockLoss;
+    /* Transmission stays selectable on all HP sources; Manual −2 pts still Engine-only. */
+    if (el.txAuto) el.txAuto.disabled = false;
+    if (el.txManual) el.txManual.disabled = false;
   }
 
   /** Parse "2020 Ford Mustang GT" → { year, make, model, label } */
@@ -394,12 +395,13 @@
       if (driverWeight < 0) throw new Error('Driver Weight must be ≥ 0.');
       /* Cars: curb already includes ~200 lb driver baseline in Dragy-matched specs.
          Subtract 200 then add Driver Weight so Driver 200 ≈ old mass; Driver 0 = 200 lb lighter.
-         Light curb (≤1500 lb, bikes etc.) skips the −200. */
+         Light curb (≤1500 lb, bikes etc.) uses −115 instead. */
       var weight;
       if (curbWeight > 1500) {
         weight = curbWeight - 200 + driverWeight;
       } else {
-        weight = curbWeight + driverWeight;
+        /* Light curb (bikes etc.): same baseline idea as cars, −115. */
+        weight = curbWeight - 115 + driverWeight;
       }
       if (weight < 100) weight = 100;
       var cd = parseNum(el.cd, 'Drag Coefficient');
