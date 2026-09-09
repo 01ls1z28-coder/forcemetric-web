@@ -434,29 +434,43 @@ input[type="text"] {
   transform: translateY(1px);
 }
 
+/* Garage = sibling to the RIGHT of a vertical NA/FI/EV stack (red-box slot) */
 .check-garage-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .check-garage-row .check-row {
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 4px;
+  padding: 0;
   min-width: 0;
-  padding: 2px 0;
+}
+
+.check-garage-row .check-row label {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .btn-garage {
   background: linear-gradient(180deg, #ff3d54, var(--red));
   color: #fff;
-  flex: 0 0 auto;
-  width: auto;
-  min-width: 72px;
-  margin-top: 0;
-  padding: 8px 10px;
+  grid-column: 2;
+  grid-row: 1;
+  width: auto !important;
+  min-width: 74px;
+  max-width: 88px;
+  margin: 0;
+  padding: 10px 12px;
   font-size: 12px;
-  align-self: center;
+  white-space: nowrap;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 4px 14px rgba(239, 35, 60, 0.28);
 }
 
