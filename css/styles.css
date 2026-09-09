@@ -5,6 +5,7 @@
 }
 
 :root {
+  --ui-scale: 1;
   --bg: #050607;
   --bg-elevated: #0a0c10;
   --surface: #0e1218;
@@ -44,6 +45,10 @@
   --mono: ui-monospace, "Cascadia Code", Consolas, "Courier New", monospace;
   --sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px rgba(76, 201, 240, 0.55);
+}
+
+html {
+  zoom: var(--ui-scale);
 }
 
 html, body {
@@ -170,6 +175,57 @@ html, body {
 .header-credit-name em {
   font-style: normal;
   color: var(--lime);
+}
+
+
+/* UI Scale control */
+.ui-scale {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(180, 200, 230, 0.14);
+}
+
+.ui-scale-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.ui-scale input[type="range"] {
+  width: min(160px, 28vw);
+  accent-color: var(--lime);
+  cursor: pointer;
+}
+
+.ui-scale-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--lime);
+  min-width: 3.2em;
+  text-align: right;
+}
+
+@media (max-width: 700px) {
+  .ui-scale {
+    order: 3;
+    width: 100%;
+    justify-content: stretch;
+  }
+  .ui-scale input[type="range"] {
+    flex: 1;
+    width: auto;
+  }
 }
 
 /* ── Top grid ── */

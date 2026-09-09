@@ -759,6 +759,44 @@
     }
   });
 
+  // ---- UI Scale (whole-page zoom; persist) ----
+  var UI_SCALE_KEY = 'velocitybench-ui-scale';
+  var uiScaleInput = document.getElementById('uiScale');
+  var uiScaleVal = document.getElementById('uiScaleVal');
+
+  function applyUiScale(pct, persist) {
+    var n = Math.round(Number(pct));
+    if (!(n >= 75 && n <= 125)) n = 100;
+    // snap to step 5
+    n = Math.round(n / 5) * 5;
+    var scale = n / 100;
+    document.documentElement.style.setProperty('--ui-scale', String(scale));
+    if (uiScaleInput) uiScaleInput.value = String(n);
+    if (uiScaleVal) uiScaleVal.textContent = n + '%';
+    if (persist !== false) {
+      try { localStorage.setItem(UI_SCALE_KEY, String(n)); } catch (e) { /* ignore */ }
+    }
+    // canvases need a reflow after zoom
+    requestAnimationFrame(function () {
+      if (gauge && gauge._resize) gauge._resize();
+      if (typeof ensureChartSized === 'function') ensureChartSized();
+    });
+  }
+
+  (function initUiScale() {
+    var saved = null;
+    try { saved = localStorage.getItem(UI_SCALE_KEY); } catch (e) { saved = null; }
+    applyUiScale(saved != null ? saved : 100, false);
+    if (uiScaleInput) {
+      uiScaleInput.addEventListener('input', function () {
+        applyUiScale(uiScaleInput.value, true);
+      });
+      uiScaleInput.addEventListener('change', function () {
+        applyUiScale(uiScaleInput.value, true);
+      });
+    }
+  })();
+
   // Resize gauge/chart on window resize
   window.addEventListener('resize', function () {
     gauge._resize();
