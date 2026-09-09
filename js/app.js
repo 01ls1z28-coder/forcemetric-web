@@ -29,7 +29,6 @@
     txAuto: document.getElementById('txAuto'),
     txManual: document.getElementById('txManual'),
     loss: document.getElementById('loss'),
-    lossHint: document.getElementById('lossHint'),
     tireType: document.getElementById('tireType'),
     chkNA: document.getElementById('chkNA'),
     chkFI: document.getElementById('chkFI'),
@@ -136,23 +135,23 @@
     return 'auto';
   }
 
-  /** Seraph #2: Engine = base ± Manual; DynoJet = 0; Mustang = 5. Clamp 0–35. */
+  /** Engine = base ± Manual; DynoJet/Mustang WHP = loss 0. Clamp 0–35. */
   function computeEffectiveLoss() {
     var source = getHpSource();
-    var eff;
-    if (source === 'dynojet') {
-      eff = 0;
-    } else if (source === 'mustang') {
-      eff = 5;
-    } else {
-      var base = parseFloat(el.loss.value);
-      if (Number.isNaN(base)) base = 15;
-      var manualDelta = getTransmission() === 'manual' ? -2 : 0;
-      eff = base + manualDelta;
-    }
+    if (source === 'dynojet' || source === 'mustang') return 0;
+    var base = parseFloat(el.loss.value);
+    if (Number.isNaN(base)) base = 15;
+    var manualDelta = getTransmission() === 'manual' ? -2 : 0;
+    var eff = base + manualDelta;
     if (eff < 0) eff = 0;
     if (eff > 35) eff = 35;
     return eff;
+  }
+
+  /** Mustang Dyno WHP: typed × 1.05 boost; DynoJet/Engine unchanged. */
+  function resolveRunHorsepower(typedHp) {
+    if (getHpSource() === 'mustang') return typedHp * 1.05;
+    return typedHp;
   }
 
   function syncHpLossUi() {
@@ -171,24 +170,6 @@
     }
     if (el.txAuto) el.txAuto.disabled = lockLoss;
     if (el.txManual) el.txManual.disabled = lockLoss;
-
-    var eff = computeEffectiveLoss();
-    if (el.lossHint) {
-      var note;
-      if (source === 'dynojet') {
-        note = 'Effective loss: 0% (wheel HP) · model estimates, not dyno-certified.';
-      } else if (source === 'mustang') {
-        note = 'Effective loss: 5.0% (Mustang estimate) · model estimates, not dyno-certified.';
-      } else if (getTransmission() === 'manual') {
-        var baseShow = parseFloat(el.loss.value);
-        if (Number.isNaN(baseShow)) baseShow = 0;
-        note = 'Effective loss: ' + eff.toFixed(1) + '% (base ' +
-          baseShow.toFixed(1) + ' − 2 Manual) · model estimates, not dyno-certified.';
-      } else {
-        note = 'Effective loss: ' + eff.toFixed(1) + '% · model estimates, not dyno-certified.';
-      }
-      el.lossHint.textContent = note;
-    }
   }
 
   /** Parse "2020 Ford Mustang GT" → { year, make, model, label } */
@@ -262,7 +243,6 @@
     var srcLabel = src === 'dynojet' ? 'DynoJet WHP' : (src === 'mustang' ? 'Mustang WHP' : 'Engine HP');
     lines.push(slipLine('HP SOURCE', srcLabel));
     lines.push(slipLine('TRANS', getTransmission() === 'manual' ? 'Manual' : 'Automatic'));
-    lines.push(slipLine('EFF LOSS', computeEffectiveLoss().toFixed(1) + '%'));
     var dw = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
     if (dw > 0) lines.push(slipLine('DRIVER WT', Math.round(dw) + ' lb'));
     lines.push('  -----------------------');
@@ -417,6 +397,7 @@
       var frontalArea = parseNum(el.area, 'Frontal Area');
       syncHpLossUi();
       var drivetrainLossPercent = computeEffectiveLoss();
+      horsepower = resolveRunHorsepower(horsepower);
       var tempF = parseNum(el.temp, 'Temperature');
       var humidity = parseNum(el.humidity, 'Humidity');
       var pressure = parseNum(el.pressure, 'Pressure');
