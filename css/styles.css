@@ -1103,9 +1103,54 @@ input[type="text"] {
 
 
 /* ── Layout density presets (box shape, not zoom) ── */
+/* Comfortable desktop targets (Jorge): top 280/280/320 × 481; dash 280/140/459 × 375 */
 html[data-layout="comfortable"] .top-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+}
+
+@media (min-width: 1101px) {
+  html[data-layout="comfortable"] .top-grid {
+    grid-template-columns: 280px 280px 320px;
+    gap: 12px;
+    justify-content: start;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  html[data-layout="comfortable"] .top-grid > .card,
+  html[data-layout="comfortable"] .top-grid > .atmosphere-card,
+  html[data-layout="comfortable"] .top-grid > .results-card {
+    width: auto;
+    height: 481px;
+    max-height: 481px;
+    box-sizing: border-box;
+  }
+
+  html[data-layout="comfortable"] .dashboard {
+    grid-template-columns: 280px 140px 459px;
+    gap: 12px;
+    justify-content: start;
+    width: max-content;
+    max-width: 100%;
+    height: 375px;
+    min-height: 375px;
+    max-height: 375px;
+    flex: 0 0 375px;
+  }
+
+  html[data-layout="comfortable"] .gauge-wrap,
+  html[data-layout="comfortable"] .controls-col,
+  html[data-layout="comfortable"] .chart-card {
+    height: 375px;
+    max-height: 375px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  html[data-layout="comfortable"] .gauge-wrap {
+    padding: 8px 10px 12px;
+  }
 }
 
 html[data-layout="compact"] .top-grid {
