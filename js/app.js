@@ -96,12 +96,11 @@
   }
 
   function mapTireIndex(idx) {
-    // MainForm: 0 Street, 1 DragTire, 2 Slick, 3 Perfect Traction → Slick
+    // MainForm: 0 Street, 1 DragTire, 2 Slick
     switch (idx) {
       case 0: return Physics.TireType.Street;
       case 1: return Physics.TireType.DragTire;
       case 2: return Physics.TireType.Slick;
-      case 3: return Physics.TireType.Slick;
       default: return Physics.TireType.Street;
     }
   }
@@ -552,7 +551,7 @@
       el.chkNA.disabled = true;
       el.chkFI.disabled = true;
       el.loss.value = '8';
-      el.tireType.value = '3'; // Perfect Traction
+      el.tireType.value = '2'; // Slick
       el.resultsOut.textContent += '\nEV Mode enabled.';
     } else {
       el.chkNA.disabled = false;

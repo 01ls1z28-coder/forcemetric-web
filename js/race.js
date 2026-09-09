@@ -190,7 +190,6 @@
       case 0: return Physics.TireType.Street;
       case 1: return Physics.TireType.DragTire;
       case 2: return Physics.TireType.Slick;
-      case 3: return Physics.TireType.Slick;
       default: return Physics.TireType.Street;
     }
   }
@@ -770,7 +769,7 @@
         $(prefix + 'NA').disabled = true;
         $(prefix + 'FI').disabled = true;
         $(prefix + 'Loss').value = '8';
-        $(prefix + 'Tire').value = '3';
+        $(prefix + 'Tire').value = '2'; // Slick
       } else {
         $(prefix + 'NA').disabled = false;
         $(prefix + 'FI').disabled = false;
