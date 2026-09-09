@@ -159,20 +159,13 @@
     return n.toFixed(1);
   }
 
-  function padL(s, n) {
-    s = String(s);
-    while (s.length < n) s = ' ' + s;
-    return s;
-  }
-
-  function padR(s, n) {
-    s = String(s);
-    while (s.length < n) s = s + ' ';
-    return s;
-  }
-
   function slipLine(label, value) {
-    return padR(label, 18) + padL(value, 14);
+    label = String(label);
+    value = String(value);
+    var width = 34; // monospace columns — fills slip, less empty right
+    var dots = width - label.length - value.length;
+    if (dots < 2) dots = 2;
+    return '  ' + label + ' ' + Array(dots + 1).join('.') + ' ' + value;
   }
 
   function renderResult(result) {

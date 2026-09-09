@@ -189,10 +189,10 @@ html, body {
     var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  padding: 12px 12px 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
@@ -235,7 +235,7 @@ html, body {
 .atmosphere-card .card-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .atmosphere-card .da-section {
@@ -263,15 +263,16 @@ html, body {
 
 .field {
   display: grid;
-  grid-template-columns: 1fr 108px;
+  grid-template-columns: max-content minmax(96px, 1fr);
   align-items: center;
-  gap: 8px;
+  gap: 8px 10px;
 }
 
 .field > span {
   color: var(--text-muted);
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .field input,
@@ -509,11 +510,11 @@ input[type="text"] {
     linear-gradient(180deg, #f7ecd4 0%, #efe0bc 48%, #e8d4a8 100%);
   border: 1px dashed rgba(90, 60, 20, 0.45);
   border-radius: 2px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font-family: "Courier New", Courier, ui-monospace, monospace;
   font-size: 11px;
-  line-height: 1.45;
-  letter-spacing: 0.02em;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
   color: #1a140c;
   white-space: pre;
   overflow-x: auto;
@@ -1014,6 +1015,28 @@ input[type="text"] {
   box-shadow: 0 0 14px rgba(184, 255, 60, 0.35);
 }
 
+
+/* Mobile / narrow: Time Slip may grow with content (desktop stays fixed+scroll) */
+@media (max-width: 800px) {
+  .results-card {
+    overflow: visible;
+    max-height: none;
+    align-self: stretch;
+  }
+  .results-out,
+  .results-out.track-slip {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: auto;
+    scrollbar-gutter: auto;
+  }
+  .field {
+    grid-template-columns: max-content minmax(88px, 1fr);
+  }
+}
+
 @media (max-width: 1100px) {
   .top-grid {
     grid-template-columns: 1fr 1fr;
@@ -1045,7 +1068,7 @@ input[type="text"] {
     grid-template-columns: 1fr;
   }
   .field {
-    grid-template-columns: 1fr 90px;
+    grid-template-columns: max-content minmax(80px, 1fr);
   }
   .brand {
     flex-direction: column;
