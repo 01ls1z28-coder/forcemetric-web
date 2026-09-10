@@ -2,6 +2,7 @@
  * Baked garage vehicles for VelocityBench (session defaults).
  * IsEv / IsForcedInduction audited for Phase 2 powertrain locks.
  * Phase 3: TireType enum (Street=0,Sport=1,Drag=2,Slick=3), EngineLayout, Differential, MaxSpeedMph.
+ * Phase 4 batch 1: DrivetrainLossPercent calibrated to published 0-60 / 1/4 (driver 175, Standard Day).
  */
 window.GARAGE_DATA = [
   {
@@ -10,13 +11,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3705,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 28.5,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Edmunds/AutoGuide Mustang GT ~4.3–4.6 0-60; class ~12.5@114 (Auto, loss calib)"
   },
   {
     "Name": "2018 Ford Mustang GT PP2",
@@ -38,13 +40,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3685,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 23.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Chevy catalog SS auto 4.0 / 12.3@116 (loss calib)"
   },
   {
     "Name": "2020 Dodge Challenger R/T Scat Pack",
@@ -52,13 +55,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4232,
     "DragCoefficient": 0.39,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 17,
+    "DrivetrainLossPercent": 24.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D Scat Pack auto 4.2 / 12.6@114 (loss calib)"
   },
   {
     "Name": "2020 Dodge Challenger Hellcat",
@@ -66,13 +70,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4449,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 31.2,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D Hellcat auto 3.6 / 11.7@126 (loss calib)"
   },
   {
     "Name": "2024 Ford Mustang Dark Horse",
@@ -80,13 +85,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3900,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D 2024 Dark Horse MT 4.1 / 12.5@115 (loss calib)"
   },
   {
     "Name": "2023 Chevrolet Camaro ZL1",
@@ -94,13 +100,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3886,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 17,
+    "DrivetrainLossPercent": 29,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D ZL1 1LE 3.4 / 11.5@124 (loss calib)"
   },
   {
     "Name": "2021 Dodge Charger Hellcat Redeye",
@@ -108,13 +115,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4590,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 27.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D Hellcat Redeye ~3.6 / 11.8@125 (loss calib)"
   },
   {
     "Name": "2016 Ford Mustang GT350R",
@@ -122,13 +130,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3650,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: MT GT350R 4.0 / 12.2@119 (MT, loss calib)"
   },
   {
     "Name": "2015 Dodge Challenger Hellcat",
@@ -178,13 +187,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3333,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D C6 ZR1 ~3.4 / ~11.5@126 (loss calib)"
   },
   {
     "Name": "2010 Dodge Challenger SRT8",
@@ -290,13 +300,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4225,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 17,
+    "DrivetrainLossPercent": 17.5,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D 2020 GT500 3.6 / 11.4@132 (loss calib)"
   },
   {
     "Name": "2012 Chevrolet Camaro ZL1",
@@ -752,14 +763,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4766,
     "DragCoefficient": 0.208,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 8.3,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "MaxSpeedMph": 200
+    "MaxSpeedMph": 200,
+    "Source": "Perf: C&D Model S Plaid 2.1 / 9.4@151 (loss calib)"
   },
   {
     "Name": "2024 Tesla Model 3 Performance",
@@ -767,14 +779,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4072,
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 16,
+    "DrivetrainLossPercent": 16.5,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "MaxSpeedMph": 162
+    "MaxSpeedMph": 162,
+    "Source": "Perf: C&D 2024 Model 3 Perf 2.8 / 11.0@125 (loss calib)"
   },
   {
     "Name": "2022 Porsche Taycan Turbo S",
@@ -782,14 +795,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 5121,
     "DragCoefficient": 0.22,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 21.1,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
     "Differential": "Electronic",
-    "MaxSpeedMph": 161
+    "MaxSpeedMph": 161,
+    "Source": "Perf: C&D Taycan Turbo S 2.4 / 10.5@130 (loss calib)"
   },
   {
     "Name": "2024 Lucid Air Sapphire",
@@ -797,14 +811,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 5200,
     "DragCoefficient": 0.197,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 6.3,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "MaxSpeedMph": 205
+    "MaxSpeedMph": 205,
+    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss calib; DriveType RWD flagged)"
   },
   {
     "Name": "2023 Hyundai Ioniq 5 N",
@@ -842,14 +857,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4416,
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 27,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 23.5,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "MaxSpeedMph": 155
+    "MaxSpeedMph": 155,
+    "Source": "Perf: C&D Model Y Perf ~3.5–3.6 / 12.0–12.1@113–114 (loss calib)"
   },
   {
     "Name": "2022 Tesla Model X Plaid",
@@ -857,14 +873,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 5328,
     "DragCoefficient": 0.25,
     "FrontalAreaSqFt": 30,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "MaxSpeedMph": 163
+    "MaxSpeedMph": 163,
+    "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~10.4@128 (loss calib)"
   },
   {
     "Name": "2023 Kia EV6 GT",
@@ -1304,13 +1321,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3461,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 27.3,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D SF90 2.0 / 9.5@148 (loss calib)"
   },
   {
     "Name": "2021 Porsche 911 Turbo S",
@@ -1318,13 +1336,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3616,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 13,
+    "DrivetrainLossPercent": 7.4,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D 2021 911 Turbo S 2.2 / 10.1@137 (loss calib; DriveType RWD flagged)"
   },
   {
     "Name": "2020 Lamborghini Huracán EVO",
@@ -2173,13 +2192,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 28.5,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: period Mk4 TT class ~4.9 / ~13.4@105 (loss calib)"
   },
   {
     "Name": "2002 Nissan Skyline GT-R R34",
@@ -2201,13 +2221,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 31,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D/MT WRX STI ~4.8 / ~13.3@103 (MT, loss calib)"
   },
   {
     "Name": "2018 Honda Civic Type R",
@@ -2215,13 +2236,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3117,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "FWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D FK8 CTR ~5.0 / 13.5@106 (MT, loss calib)"
   },
   {
     "Name": "2008 Mitsubishi Lancer Evolution X",
@@ -2649,13 +2671,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 454,
     "DragCoefficient": 0.6,
     "FrontalAreaSqFt": 3.9,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (MT, loss calib)"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
@@ -2733,13 +2756,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 434,
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 3.7,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Cycle World/peer S1000RR ~2.7 / ~9.9@150 (MT, loss calib)"
   },
   {
     "Name": "2021 Honda CBR1000RR-R Fireblade",
@@ -2761,13 +2785,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 582,
     "DragCoefficient": 0.56,
     "FrontalAreaSqFt": 4.2,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 24.7,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Cycle World Hayabusa class ~2.7 / ~9.9@145 (MT, loss calib)"
   },
   {
     "Name": "2020 Kawasaki Ninja ZX-14R",
@@ -2817,13 +2842,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5697,
     "DragCoefficient": 0.45,
     "FrontalAreaSqFt": 32,
-    "DrivetrainLossPercent": 20,
+    "DrivetrainLossPercent": 30.6,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "Locker"
+    "Differential": "Locker",
+    "Source": "Perf: C&D 2020 F-150 Raptor 5.3 / 14.0@97 (loss calib)"
   },
   {
     "Name": "2021 Ram TRX",
@@ -2831,13 +2857,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 6350,
     "DragCoefficient": 0.52,
     "FrontalAreaSqFt": 34,
-    "DrivetrainLossPercent": 20,
+    "DrivetrainLossPercent": 21.9,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "Locker"
+    "Differential": "Locker",
+    "Source": "Perf: C&D 2021 Ram TRX 3.7 / 12.3@110 (loss calib; IsFI flagged supercharged)"
   },
   {
     "Name": "2023 Chevrolet Silverado ZR2",
@@ -3545,13 +3572,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 17,
+    "DrivetrainLossPercent": 16.7,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D Golf R ~4.1 / ~12.6@110 (loss calib)"
   },
   {
     "Name": "2023 Toyota GR Corolla",
@@ -3559,13 +3587,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3250,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 17,
+    "DrivetrainLossPercent": 29,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D GR Corolla MT ~4.5 / ~13.1@104 (loss calib)"
   },
   {
     "Name": "2021 BMW M5 Competition",
@@ -3573,13 +3602,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4300,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 14.3,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "Electronic"
+    "Differential": "Electronic",
+    "Source": "Perf: C&D 2021 M5 Competition 2.8 / 10.9@128 (loss calib)"
   },
   {
     "Name": "2020 Audi RS7",
@@ -3643,13 +3673,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5350,
     "DragCoefficient": 0.4,
     "FrontalAreaSqFt": 32,
-    "DrivetrainLossPercent": 20,
+    "DrivetrainLossPercent": 27.5,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D/MT Trackhawk ~3.5 / ~11.8@116 (loss calib)"
   },
   {
     "Name": "2023 BMW X5M Competition",
@@ -4133,13 +4164,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3153,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 16.2,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D 911 GT3 class ~3.0 / ~11.1@126 (loss calib)"
   },
   {
     "Name": "2016 Audi TT RS",
@@ -4413,10 +4445,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3197,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 15,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump.",
+    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump. | Perf: C&D 2023 GT3 RS 2.7 / 10.9@127 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
@@ -4443,10 +4475,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3400,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 16.8,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5).",
+    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5). | Perf: C&D GR Supra auto ~3.7 / ~12.2@116 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
@@ -4458,10 +4490,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3536,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 30.8,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe.",
+    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe. | Perf: C&D Nissan Z MT ~4.3 / ~12.8@112 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
@@ -4473,10 +4505,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3814,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 8.9,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe.",
+    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe. | Perf: C&D 2024 M2 ~3.4 / ~11.7@120 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
@@ -4488,10 +4520,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3366,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 11.9,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight).",
+    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight). | Perf: C&D C8 Stingray Z51 2.8 / 11.2@122 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
@@ -4578,10 +4610,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3666,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 12,
+    "DrivetrainLossPercent": 20.6,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports.",
+    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss calib; IsFI flagged NA LT6)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
@@ -4593,10 +4625,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3219,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "FWD",
-    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22).",
+    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22). | Perf: C&D Integra Type S MT ~5.0 / ~13.5@106 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
@@ -4638,10 +4670,10 @@ window.GARAGE_DATA = [
     "WeightLbs": 3649,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 8.8,
     "TireType": 1,
     "DriveType": "AWD",
-    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan.",
+    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan. | Perf: C&D Audi RS 3 ~3.3 / ~11.6@119 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
@@ -4668,13 +4700,13 @@ window.GARAGE_DATA = [
     "WeightLbs": 3188,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
     "DriveType": "FWD",
-    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22).",
+    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 CTR MT 4.9 / 13.5@106 (loss calib)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD"
   }
-];
+]
