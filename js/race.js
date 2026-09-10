@@ -188,17 +188,21 @@
   function mapTireIndex(idx) {
     switch (idx) {
       case 0: return Physics.TireType.Street;
-      case 1: return Physics.TireType.DragTire;
-      case 2: return Physics.TireType.Slick;
+      case 1: return Physics.TireType.Sport;
+      case 2: return Physics.TireType.DragTire;
+      case 3: return Physics.TireType.Slick;
       default: return Physics.TireType.Street;
     }
   }
 
   function tireLabelFromEnum(t) {
-    if (t === 1 || t === 'DragTire') return '1';
-    if (t === 2 || t === 'Slick') return '2';
+    if (t === 1 || t === 'Sport') return '1';
+    if (t === 2 || t === 'DragTire') return '2';
+    if (t === 3 || t === 'Slick') return '3';
     return '0';
   }
+
+  var laneExtras = { you: {}, opp: {} };
 
   function getDrive(prefix) {
     if ($(prefix + 'AWD') && $(prefix + 'AWD').checked) return 'AWD';
@@ -270,6 +274,12 @@
       $(prefix + 'FI').disabled = false;
     }
     setDrive(prefix, snap.DriveType || snap.driveType || 'RWD');
+    laneExtras[prefix] = {
+      engineLayout: snap.EngineLayout || snap.engineLayout || 'Front',
+      differential: snap.Differential || snap.differential || 'LSD',
+      maxSpeedMph: (snap.MaxSpeedMph != null && isFinite(snap.MaxSpeedMph) && snap.MaxSpeedMph > 0)
+        ? Number(snap.MaxSpeedMph) : null
+    };
     updateLaneLabel(prefix);
   }
 
@@ -292,6 +302,10 @@
       drivetrainLoss: parseNum($(prefix + 'Loss'), prefix + ' Loss'),
       tireType: mapTireIndex(parseInt($(prefix + 'Tire').value, 10)),
       driveType: getDrive(prefix),
+      engineLayout: (laneExtras[prefix] && laneExtras[prefix].engineLayout) || 'Front',
+      differential: (laneExtras[prefix] && laneExtras[prefix].differential) || 'LSD',
+      maxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
+        ? laneExtras[prefix].maxSpeedMph : null,
       isNA: $(prefix + 'NA').checked,
       isFI: $(prefix + 'FI').checked,
       isEv: $(prefix + 'Ev').checked
@@ -323,9 +337,12 @@
       DrivetrainLossPercent: car.DrivetrainLossPercent,
       TireType: tireLabelFromEnum(car.TireType),
       DriveType: car.DriveType || 'RWD',
+      EngineLayout: car.EngineLayout || 'Front',
+      Differential: car.Differential || 'LSD',
+      MaxSpeedMph: car.MaxSpeedMph,
       isNA: false,
       isFI: false,
-      isEv: looksLikeEv(car.Name)
+      isEv: !!(car.IsEv || looksLikeEv(car.Name))
     });
   }
 
@@ -612,6 +629,9 @@
         frontalAreaSqFt: you.frontalAreaSqFt,
         drivetrainLoss: you.drivetrainLoss,
         driveType: you.driveType,
+        engineLayout: you.engineLayout,
+        differential: you.differential,
+        maxSpeedMph: you.maxSpeedMph,
         isEv: you.isEv,
         isNA: you.isNA,
         isFI: you.isFI,
@@ -630,6 +650,9 @@
         frontalAreaSqFt: opp.frontalAreaSqFt,
         drivetrainLoss: opp.drivetrainLoss,
         driveType: opp.driveType,
+        engineLayout: opp.engineLayout,
+        differential: opp.differential,
+        maxSpeedMph: opp.maxSpeedMph,
         isEv: opp.isEv,
         isNA: opp.isNA,
         isFI: opp.isFI,

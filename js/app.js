@@ -37,6 +37,13 @@
     driveFWD: document.getElementById('driveFWD'),
     driveRWD: document.getElementById('driveRWD'),
     driveAWD: document.getElementById('driveAWD'),
+    layoutFront: document.getElementById('layoutFront'),
+    layoutMid: document.getElementById('layoutMid'),
+    layoutRear: document.getElementById('layoutRear'),
+    diffOpen: document.getElementById('diffOpen'),
+    diffLSD: document.getElementById('diffLSD'),
+    diffElectronic: document.getElementById('diffElectronic'),
+    diffLocker: document.getElementById('diffLocker'),
     activeVehicleLabel: document.getElementById('activeVehicleLabel'),
     editDriveType: document.getElementById('editDriveType'),
     weatherPreset: document.getElementById('weatherPreset'),
@@ -95,19 +102,53 @@
   }
 
   function mapTireIndex(idx) {
-    // MainForm: 0 Street, 1 DragTire, 2 Slick
+    // Phase 3: 0 Street, 1 Sport, 2 DragTire, 3 Slick
     switch (idx) {
       case 0: return Physics.TireType.Street;
-      case 1: return Physics.TireType.DragTire;
-      case 2: return Physics.TireType.Slick;
+      case 1: return Physics.TireType.Sport;
+      case 2: return Physics.TireType.DragTire;
+      case 3: return Physics.TireType.Slick;
       default: return Physics.TireType.Street;
     }
   }
 
   function tireLabelFromEnum(t) {
-    if (t === 1 || t === 'DragTire') return '1';
-    if (t === 2 || t === 'Slick') return '2';
+    if (t === 1 || t === 'Sport') return '1';
+    if (t === 2 || t === 'DragTire') return '2';
+    if (t === 3 || t === 'Slick') return '3';
     return '0';
+  }
+
+  var activeMaxSpeedMph = null;
+
+  function getEngineLayout() {
+    if (el.layoutMid && el.layoutMid.checked) return 'Mid';
+    if (el.layoutRear && el.layoutRear.checked) return 'Rear';
+    return 'Front';
+  }
+
+  function setEngineLayout(v) {
+    var L = String(v || 'Front');
+    if (L !== 'Front' && L !== 'Mid' && L !== 'Rear') L = 'Front';
+    if (el.layoutFront) el.layoutFront.checked = (L === 'Front');
+    if (el.layoutMid) el.layoutMid.checked = (L === 'Mid');
+    if (el.layoutRear) el.layoutRear.checked = (L === 'Rear');
+  }
+
+  function getDifferential() {
+    if (el.diffOpen && el.diffOpen.checked) return 'Open';
+    if (el.diffElectronic && el.diffElectronic.checked) return 'Electronic';
+    if (el.diffLocker && el.diffLocker.checked) return 'Locker';
+    return 'LSD';
+  }
+
+  function setDifferential(v) {
+    var D = String(v || 'LSD');
+    if (D !== 'Open' && D !== 'LSD' && D !== 'Electronic' && D !== 'Locker') D = 'LSD';
+    if (el.diffOpen) el.diffOpen.checked = (D === 'Open');
+    if (el.diffLSD) el.diffLSD.checked = (D === 'LSD');
+    if (el.diffElectronic) el.diffElectronic.checked = (D === 'Electronic');
+    if (el.diffLocker) el.diffLocker.checked = (D === 'Locker');
   }
 
   function getDriveType() {
@@ -419,7 +460,7 @@
 
       var tireType = mapTireIndex(parseInt(el.tireType.value, 10));
 
-      var result = Physics.calculate({
+      var calcOpts = {
         hp: horsepower,
         weightLbs: weight,
         tireType: tireType,
@@ -427,6 +468,8 @@
         frontalAreaSqFt: frontalArea,
         drivetrainLoss: drivetrainLossPercent,
         driveType: getDriveType(),
+        engineLayout: getEngineLayout(),
+        differential: getDifferential(),
         isEv: el.chkEv.checked,
         tempF: tempF,
         humidity: humidity,
@@ -435,7 +478,11 @@
         isNA: el.chkNA.checked,
         isFI: el.chkFI.checked,
         timestamp: new Date()
-      });
+      };
+      if (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph) && activeMaxSpeedMph > 0) {
+        calcOpts.maxSpeedMph = activeMaxSpeedMph;
+      }
+      var result = Physics.calculate(calcOpts);
 
       renderResult(result);
       startPlayback(result);
@@ -458,9 +505,12 @@
       DrivetrainLossPercent: parseFloat(el.loss.value) || 15,
       TireType: parseInt(el.tireType.value, 10) || 0,
       DriveType: getDriveType(),
+      EngineLayout: getEngineLayout(),
+      Differential: getDifferential(),
       isNA: !!(el.chkNA && el.chkNA.checked),
       isFI: !!(el.chkFI && el.chkFI.checked),
       isEv: !!(el.chkEv && el.chkEv.checked),
+      MaxSpeedMph: (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph)) ? activeMaxSpeedMph : undefined,
       tempF: parseFloat(el.temp.value),
       humidity: parseFloat(el.humidity.value),
       pressureInHg: parseFloat(el.pressure.value),
@@ -754,6 +804,10 @@
     el.loss.value = car.DrivetrainLossPercent;
     el.tireType.value = tireLabelFromEnum(car.TireType);
     setDriveType(car.DriveType || 'RWD');
+    setEngineLayout(car.EngineLayout || 'Front');
+    setDifferential(car.Differential || 'LSD');
+    activeMaxSpeedMph = (car.MaxSpeedMph != null && isFinite(car.MaxSpeedMph) && car.MaxSpeedMph > 0)
+      ? Number(car.MaxSpeedMph) : null;
     applyGaragePowertrain(car);
     syncTransmissionForCurb();
     setActiveVehicleLabel(car.Name);
@@ -778,6 +832,8 @@
       DrivetrainLossPercent: 15,
       TireType: 0,
       DriveType: 'RWD',
+      EngineLayout: 'Front',
+      Differential: 'LSD',
       IsEv: false,
       IsForcedInduction: false
     };
@@ -822,7 +878,7 @@
     if (!isFinite(cd)) throw new Error('Invalid Drag Coefficient.');
     if (!isFinite(area)) throw new Error('Invalid Frontal Area.');
     if (!isFinite(loss)) throw new Error('Invalid Drivetrain Loss.');
-    if (!(tire === 0 || tire === 1 || tire === 2)) tire = 0;
+    if (!(tire === 0 || tire === 1 || tire === 2 || tire === 3)) tire = 0;
     var driveType = 'RWD';
     if (el.editDriveType) {
       driveType = String(el.editDriveType.value || 'RWD').toUpperCase();
@@ -836,7 +892,16 @@
       if (typeof prev.IsForcedInduction === 'boolean') isFi = prev.IsForcedInduction;
       if (isEv) isFi = false;
     }
-    return {
+    var engineLayout = 'Front';
+    var differential = 'LSD';
+    var maxSpeedMph = undefined;
+    if (editorMode === 'edit' && editingOriginalIndex >= 0 && garageData[editingOriginalIndex]) {
+      var prev2 = garageData[editingOriginalIndex];
+      if (prev2.EngineLayout) engineLayout = prev2.EngineLayout;
+      if (prev2.Differential) differential = prev2.Differential;
+      if (prev2.MaxSpeedMph != null && isFinite(prev2.MaxSpeedMph)) maxSpeedMph = prev2.MaxSpeedMph;
+    }
+    var out = {
       Name: name,
       Horsepower: hp,
       WeightLbs: weight,
@@ -845,9 +910,13 @@
       DrivetrainLossPercent: loss,
       TireType: tire,
       DriveType: driveType,
+      EngineLayout: engineLayout,
+      Differential: differential,
       IsEv: isEv,
       IsForcedInduction: isFi
     };
+    if (maxSpeedMph != null) out.MaxSpeedMph = maxSpeedMph;
+    return out;
   }
 
   function refreshList(preferName) {

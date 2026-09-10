@@ -9,18 +9,36 @@
 
   var TireType = {
     Street: 0,
-    DragTire: 1,
-    Slick: 2
+    Sport: 1,
+    DragTire: 2,
+    Slick: 3
   };
 
   function getTireGrip(t) {
     switch (t) {
       case TireType.Street: return 0.80;
+      case TireType.Sport: return 0.98;
       case TireType.DragTire: return 1.15;
       case TireType.Slick: return 1.42;
       default: return 0.80;
     }
   }
+
+  function layoutMuMult(layout) {
+    var L = String(layout || 'Front');
+    if (L === 'Mid') return 1.00;
+    if (L === 'Rear') return 1.03;
+    return 0.95; // Front default
+  }
+
+  function differentialMuMult(diff) {
+    var D = String(diff || 'LSD');
+    if (D === 'Open') return 0.92;
+    if (D === 'Electronic') return 1.04;
+    if (D === 'Locker') return 1.06;
+    return 1.00; // LSD
+  }
+
 
   function airDensityFromDA(daFt) {
     var rho0 = 1.225;
@@ -57,7 +75,7 @@
   function calculate(opts) {
     var horsepower = opts.hp;
     var weightLbs = opts.weightLbs;
-    var tireType = opts.tireType; // 0 Street, 1 DragTire, 2 Slick
+    var tireType = opts.tireType; // 0 Street, 1 Sport, 2 DragTire, 3 Slick
     var dragCoefficient = opts.Cd;
     var frontalAreaSqFt = opts.frontalAreaSqFt;
     var drivetrainLossPercent = opts.drivetrainLoss;
@@ -73,6 +91,10 @@
       driveType = 'RWD';
     }
     var isEv = !!opts.isEv;
+    var engineLayout = opts.engineLayout || 'Front';
+    var differential = opts.differential || 'LSD';
+    var maxSpeedMph = (opts.maxSpeedMph != null && isFinite(opts.maxSpeedMph) && opts.maxSpeedMph > 0)
+      ? Number(opts.maxSpeedMph) : null;
     var temperatureF = opts.tempF;
     var humidityPercent = opts.humidity;
     var pressureInHg = opts.pressureInHg;
@@ -105,10 +127,6 @@
       airDensity = airDensityFromDA(densityAltitudeFt);
     }
 
-    if (isEv) {
-      tireType = TireType.Street;
-    }
-
     var wheelHp = horsepower * (1.0 - drivetrainLossPercent / 100.0);
 
     if (!isEv) {
@@ -137,15 +155,25 @@
 
     var mu = getTireGrip(tireType);
 
+    // Engine layout traction (after tire grip)
+    mu *= layoutMuMult(engineLayout);
+
+    // Differential traction
+    mu *= differentialMuMult(differential);
+
     // Traction compensation by drivetrain (client-side mu model)
     // RWD: baseline (no extra multiply) — former non-AWD behavior
     // FWD: slightly less drive traction under accel / weight transfer
-    // AWD: existing boost + force slick-level tire physics
+    // AWD: existing boost (no tire overwrite — grip already from selected tire)
     if (driveType === 'AWD') {
       mu *= isEv ? 1.85 : 1.45;
-      tireType = TireType.Slick;
     } else if (driveType === 'FWD') {
       mu *= 0.92;
+    }
+
+    // EV traction-control assist (stack with drive/layout/diff)
+    if (isEv) {
+      mu *= 1.06;
     }
 
     var tractionLimitN = mu * massKg * g;
@@ -208,6 +236,13 @@
       var accel = netForceN / massKg;
 
       v += accel * dt;
+      if (maxSpeedMph != null) {
+        var maxVMps = maxSpeedMph / 2.2369362920544;
+        if (v > maxVMps) {
+          v = maxVMps;
+          accel = 0;
+        }
+      }
       x += v * dt;
       t += dt;
 
@@ -249,8 +284,15 @@
         time250 = t;
       }
 
-      // Mechanical Vmax: net accel ≈ 0 (same force model — no formula change)
-      if (accel < 0.05 || driveForceN <= dragN + 1e-6) {
+      // Speed limiter: at cap with no further accel
+      if (maxSpeedMph != null && mpsToMph(v) >= maxSpeedMph - 0.05 && accel < 0.05) {
+        eqSteps += 1;
+        if (eqSteps >= eqNeed && v > 1) {
+          stopReason = 'limiter';
+          break;
+        }
+      } else if (accel < 0.05 || driveForceN <= dragN + 1e-6) {
+        // Mechanical Vmax: net accel ≈ 0 (same force model — no formula change)
         eqSteps += 1;
         if (eqSteps >= eqNeed && v > 1) {
           stopReason = 'vmax';

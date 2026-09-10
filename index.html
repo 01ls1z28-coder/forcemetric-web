@@ -58,8 +58,9 @@
           <span>Tire Type</span>
           <select id="tireType">
             <option value="0" selected>Street</option>
-            <option value="1">Drag Tire</option>
-            <option value="2">Slick</option>
+            <option value="1">Sport</option>
+            <option value="2">Drag Tire</option>
+            <option value="3">Slick</option>
           </select>
         </label>
         <div class="check-garage-row">
@@ -76,6 +77,23 @@
             <label class="drive-opt"><input type="radio" name="driveType" id="driveFWD" value="FWD" /><span>FWD</span></label>
             <label class="drive-opt"><input type="radio" name="driveType" id="driveRWD" value="RWD" checked /><span>RWD</span></label>
             <label class="drive-opt"><input type="radio" name="driveType" id="driveAWD" value="AWD" /><span>AWD</span></label>
+          </div>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Engine Layout</span>
+          <div class="drive-seg" role="radiogroup" aria-label="Engine Layout">
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutFront" value="Front" checked /><span>Front</span></label>
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutMid" value="Mid" /><span>Mid</span></label>
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutRear" value="Rear" /><span>Rear</span></label>
+          </div>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Differential</span>
+          <div class="drive-seg" role="radiogroup" aria-label="Differential">
+            <label class="drive-opt"><input type="radio" name="differential" id="diffOpen" value="Open" /><span>Open</span></label>
+            <label class="drive-opt"><input type="radio" name="differential" id="diffLSD" value="LSD" checked /><span>LSD</span></label>
+            <label class="drive-opt"><input type="radio" name="differential" id="diffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+            <label class="drive-opt"><input type="radio" name="differential" id="diffLocker" value="Locker" /><span>Locker</span></label>
           </div>
         </div>
       </section>
@@ -195,8 +213,9 @@
             <span>Tire Type</span>
             <select id="editTireType">
               <option value="0">Street</option>
-              <option value="1">Drag Tire</option>
-              <option value="2">Slick</option>
+              <option value="1">Sport</option>
+              <option value="2">Drag Tire</option>
+              <option value="3">Slick</option>
             </select>
           </label>
           <label class="field">

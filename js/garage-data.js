@@ -1,6 +1,7 @@
 /**
  * Baked garage vehicles for VelocityBench (session defaults).
  * IsEv / IsForcedInduction audited for Phase 2 powertrain locks.
+ * Phase 3: TireType enum (Street=0,Sport=1,Drag=2,Slick=3), EngineLayout, Differential, MaxSpeedMph.
  */
 window.GARAGE_DATA = [
   {
@@ -10,10 +11,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 Ford Mustang GT PP2",
@@ -22,10 +25,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Chevrolet Camaro SS",
@@ -34,10 +39,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Dodge Challenger R/T Scat Pack",
@@ -46,10 +53,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.39,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Dodge Challenger Hellcat",
@@ -58,10 +67,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Ford Mustang Dark Horse",
@@ -70,10 +81,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Chevrolet Camaro ZL1",
@@ -82,10 +95,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Dodge Charger Hellcat Redeye",
@@ -94,10 +109,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Ford Mustang GT350R",
@@ -106,10 +123,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2015 Dodge Challenger Hellcat",
@@ -118,10 +137,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25.5,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Chevrolet Camaro Z/28",
@@ -130,10 +151,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 Ford Mustang Boss 302",
@@ -142,10 +165,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Chevrolet Corvette ZR1",
@@ -154,10 +179,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Dodge Challenger SRT8",
@@ -169,7 +196,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2009 Pontiac G8 GXP",
@@ -181,7 +210,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2004 Pontiac GTO",
@@ -193,7 +224,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2003 Ford Mustang Cobra (Terminator)",
@@ -202,10 +235,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2002 Chevrolet Camaro SS",
@@ -214,10 +249,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1996 Chevrolet Impala SS",
@@ -229,7 +266,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2023 Dodge Charger Scat Pack",
@@ -238,10 +277,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Ford Mustang Shelby GT500",
@@ -250,10 +291,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Chevrolet Camaro ZL1",
@@ -262,10 +305,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 25,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 Ford Mustang GT 5.0",
@@ -274,10 +319,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Dodge Challenger SRT8",
@@ -289,7 +336,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2001 Pontiac Firebird Trans Am WS6",
@@ -298,10 +347,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1996 Ford Mustang SVT Cobra",
@@ -310,10 +361,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1993 Chevrolet Camaro Z28",
@@ -325,7 +378,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1987 Buick GNX",
@@ -334,10 +389,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.37,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1979 Pontiac Firebird Trans Am",
@@ -349,7 +406,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1985 Chevrolet Camaro IROC-Z",
@@ -361,7 +420,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1987 Ford Mustang 5.0 LX",
@@ -373,7 +434,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1994 Pontiac Firebird Formula",
@@ -385,7 +448,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2000 Chevrolet Camaro SS",
@@ -394,10 +459,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 Ford Mustang GT",
@@ -406,10 +473,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Chevrolet Camaro LT",
@@ -421,7 +490,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1984 Chevrolet Corvette C4",
@@ -433,7 +504,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1992 Ford Mustang LX 5.0",
@@ -445,7 +518,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1998 Pontiac Firebird Formula",
@@ -457,7 +532,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2006 Dodge Charger R/T",
@@ -469,7 +546,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 Chevrolet Camaro LT",
@@ -481,7 +560,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 Ford Mustang V6",
@@ -493,7 +574,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1982 Pontiac Firebird Trans Am",
@@ -505,7 +588,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1991 Chevrolet Camaro Z28",
@@ -517,7 +602,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1994 Ford Mustang GT",
@@ -526,10 +613,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2002 Pontiac Firebird WS6",
@@ -538,10 +627,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2009 Dodge Challenger R/T",
@@ -550,10 +641,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Ford Mustang Boss 302 Laguna Seca",
@@ -562,10 +655,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1981 Chevrolet Camaro Z28",
@@ -577,7 +672,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1989 Ford Mustang GT 5.0",
@@ -586,10 +683,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1993 Pontiac Firebird Formula",
@@ -601,7 +700,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2004 Ford Mustang Mach 1",
@@ -613,7 +714,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 Dodge Charger SRT8",
@@ -625,7 +728,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Chevrolet SS",
@@ -637,7 +742,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2022 Tesla Model S Plaid",
@@ -646,10 +753,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.208,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 200
   },
   {
     "Name": "2024 Tesla Model 3 Performance",
@@ -661,7 +771,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 162
   },
   {
     "Name": "2022 Porsche Taycan Turbo S",
@@ -670,10 +783,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.22,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 161
   },
   {
     "Name": "2024 Lucid Air Sapphire",
@@ -682,10 +798,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.197,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 205
   },
   {
     "Name": "2023 Hyundai Ioniq 5 N",
@@ -694,10 +813,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.29,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 162
   },
   {
     "Name": "2022 Ford F-150 Lightning",
@@ -709,7 +831,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 110
   },
   {
     "Name": "2023 Tesla Model Y Performance",
@@ -721,7 +846,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2022 Tesla Model X Plaid",
@@ -730,10 +858,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.25,
     "FrontalAreaSqFt": 30,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 163
   },
   {
     "Name": "2023 Kia EV6 GT",
@@ -742,10 +873,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Polestar 2 Performance",
@@ -757,7 +890,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 127
   },
   {
     "Name": "2022 BMW iX M60",
@@ -766,10 +902,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.25,
     "FrontalAreaSqFt": 31,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2023 Mercedes EQE AMG 53",
@@ -781,7 +920,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 149
   },
   {
     "Name": "2024 Cadillac Lyriq AWD",
@@ -793,7 +935,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Tesla Cybertruck Tri-Motor",
@@ -805,7 +949,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 130
   },
   {
     "Name": "2023 Genesis GV60 Performance",
@@ -817,7 +964,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Volvo EX90 Twin Motor",
@@ -829,7 +978,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2023 Audi Q4 e-tron",
@@ -841,7 +992,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2022 Mercedes EQB 350",
@@ -853,7 +1006,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Tesla Model X Long Range",
@@ -865,7 +1020,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2023 Nissan Ariya e-4ORCE",
@@ -877,7 +1035,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Subaru Solterra",
@@ -889,7 +1049,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2023 Toyota bZ4X AWD",
@@ -901,7 +1063,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Fisker Ocean Extreme",
@@ -913,7 +1077,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Hyundai Ioniq 6 AWD",
@@ -925,7 +1091,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2023 VW ID.4 AWD Pro",
@@ -937,7 +1105,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Chevrolet Blazer EV SS",
@@ -949,7 +1119,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2023 Ford Mustang Mach-E GT",
@@ -958,10 +1130,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.29,
     "FrontalAreaSqFt": 28,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 149
   },
   {
     "Name": "2024 BMW i5 M60",
@@ -970,10 +1145,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Rivian R1S Quad Motor",
@@ -985,7 +1162,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 135
   },
   {
     "Name": "2023 BMW i7 xDrive60",
@@ -994,10 +1174,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.24,
     "FrontalAreaSqFt": 27,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2024 Mercedes EQS 450+",
@@ -1009,7 +1192,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 130
   },
   {
     "Name": "2023 Audi e-tron GT",
@@ -1018,10 +1204,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.24,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Lucid Air Touring",
@@ -1033,7 +1221,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2024 Tesla Model S Long Range",
@@ -1045,7 +1236,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 155
   },
   {
     "Name": "2023 Hyundai Kona Electric",
@@ -1057,7 +1251,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Kia Niro EV",
@@ -1069,7 +1265,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2023 Mercedes EQS 580 SUV",
@@ -1081,7 +1279,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 130
   },
   {
     "Name": "2024 Volvo XC40 Recharge",
@@ -1093,7 +1294,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Ferrari SF90 Stradale",
@@ -1102,10 +1305,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Porsche 911 Turbo S",
@@ -1114,22 +1319,26 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
-    "Name": "2020 Lamborghini Hurac\u00e1n EVO",
+    "Name": "2020 Lamborghini Huracán EVO",
     "Horsepower": 631,
     "WeightLbs": 3400,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 McLaren 765LT",
@@ -1138,10 +1347,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2017 Ferrari 812 Superfast",
@@ -1150,10 +1361,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 McLaren 600LT",
@@ -1162,22 +1375,26 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
-    "Name": "2019 Lamborghini Hurac\u00e1n Performante",
+    "Name": "2019 Lamborghini Huracán Performante",
     "Horsepower": 631,
     "WeightLbs": 3047,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2017 Porsche 911 GT2 RS",
@@ -1186,10 +1403,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Ferrari 488 GTB",
@@ -1198,10 +1417,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2015 McLaren P1",
@@ -1210,10 +1431,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Ferrari F12 Berlinetta",
@@ -1222,10 +1445,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 McLaren MP4-12C",
@@ -1234,10 +1459,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Lamborghini Gallardo LP570-4",
@@ -1246,10 +1473,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Ferrari 458 Italia",
@@ -1258,10 +1487,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2006 Ford GT",
@@ -1270,10 +1501,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2004 Porsche Carrera GT",
@@ -1282,10 +1515,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.39,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2002 Ferrari Enzo",
@@ -1294,22 +1529,26 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
-    "Name": "2007 Lamborghini Murci\u00e9lago LP640",
+    "Name": "2007 Lamborghini Murciélago LP640",
     "Horsepower": 631,
     "WeightLbs": 3671,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2009 Nissan GT-R",
@@ -1318,10 +1557,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Audi R8 V10",
@@ -1330,10 +1571,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2001 Lamborghini Diablo VT 6.0",
@@ -1342,10 +1585,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2003 Ferrari 360 Modena",
@@ -1354,10 +1599,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 Porsche 911 Turbo",
@@ -1366,10 +1613,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Aston Martin DBS",
@@ -1381,7 +1630,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2011 Mercedes SLS AMG",
@@ -1393,7 +1644,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2005 Ferrari F430",
@@ -1402,10 +1655,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2009 Lamborghini Gallardo LP560-4",
@@ -1414,10 +1669,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Aston Martin V12 Vantage",
@@ -1429,7 +1686,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 SRT Viper GTS",
@@ -1438,10 +1697,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.37,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 14,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Porsche 911 Carrera S",
@@ -1453,7 +1714,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2002 Porsche 911 Turbo (996)",
@@ -1462,10 +1725,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2006 Ferrari 612 Scaglietti",
@@ -1474,22 +1739,26 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 14,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
-    "Name": "2008 Lamborghini Revent\u00f3n",
+    "Name": "2008 Lamborghini Reventón",
     "Horsepower": 650,
     "WeightLbs": 3700,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 McLaren MP4-12C HS",
@@ -1498,10 +1767,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2015 Aston Martin V12 Vantage S",
@@ -1513,7 +1784,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 Bugatti Chiron",
@@ -1522,10 +1795,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 12,
-    "TireType": 2,
+    "TireType": 3,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 McLaren 720S",
@@ -1534,10 +1809,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 Lamborghini Aventador SVJ",
@@ -1546,10 +1823,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 13,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Rimac Nevera",
@@ -1558,10 +1837,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "Electronic",
+    "MaxSpeedMph": 258
   },
   {
     "Name": "2015 Koenigsegg One:1",
@@ -1570,10 +1852,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.45,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 Koenigsegg Jesko",
@@ -1582,10 +1866,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 21.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 Bugatti Veyron Super Sport",
@@ -1594,10 +1880,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2005 Bugatti Veyron",
@@ -1606,10 +1894,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 Koenigsegg Agera R",
@@ -1618,10 +1908,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2006 Saleen S7 Twin Turbo",
@@ -1630,10 +1922,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Pagani Zonda R",
@@ -1642,10 +1936,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 19,
     "DrivetrainLossPercent": 12,
-    "TireType": 2,
+    "TireType": 3,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2004 Maserati MC12",
@@ -1654,10 +1950,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Gumpert Apollo Sport",
@@ -1666,10 +1964,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.39,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Hennessey Venom GT",
@@ -1678,10 +1978,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.44,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 Zenvo TSR-S",
@@ -1693,7 +1995,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Koenigsegg CCX",
@@ -1705,7 +2009,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 Pagani Huayra",
@@ -1714,10 +2020,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2017 Bugatti Chiron Sport",
@@ -1726,10 +2034,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 McLaren Speedtail",
@@ -1738,10 +2048,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Koenigsegg Regera",
@@ -1753,7 +2065,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2017 Pagani Huayra BC",
@@ -1762,10 +2076,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 Bugatti Divo",
@@ -1777,7 +2093,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 McLaren Elva",
@@ -1786,10 +2104,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2014 Koenigsegg Agera S",
@@ -1798,10 +2118,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Bugatti Chiron",
@@ -1810,10 +2132,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 Pagani Huayra Roadster BC",
@@ -1822,10 +2146,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 McLaren Sabre",
@@ -1834,10 +2160,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "1998 Toyota Supra Turbo (Mk4)",
@@ -1846,10 +2174,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2002 Nissan Skyline GT-R R34",
@@ -1858,10 +2188,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Subaru WRX STI",
@@ -1870,10 +2202,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 Honda Civic Type R",
@@ -1882,10 +2216,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Mitsubishi Lancer Evolution X",
@@ -1897,7 +2233,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2006 Subaru WRX STI",
@@ -1906,10 +2244,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2005 Nissan 350Z",
@@ -1918,10 +2258,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21.5,
     "DrivetrainLossPercent": 16,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 BMW 135i",
@@ -1933,7 +2275,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Mazda RX-8 R3",
@@ -1945,7 +2289,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2003 Mitsubishi Lancer Evolution VIII",
@@ -1957,7 +2303,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1999 Subaru Impreza 22B STI",
@@ -1966,10 +2314,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2001 Honda S2000",
@@ -1978,10 +2328,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2004 Mazda RX-8",
@@ -1993,7 +2345,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1995 Nissan Silvia S14",
@@ -2005,7 +2359,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1991 Nissan 240SX (S13)",
@@ -2017,7 +2373,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1998 Honda Prelude Type SH",
@@ -2026,10 +2384,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2003 Acura RSX Type-S",
@@ -2041,7 +2401,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 MazdaSpeed3",
@@ -2053,7 +2415,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2013 Scion FR-S",
@@ -2062,10 +2426,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1990 Mazda Miata NA",
@@ -2077,7 +2443,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1997 Honda Civic Type R EK9",
@@ -2086,10 +2454,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 19,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2002 Subaru WRX Wagon",
@@ -2101,7 +2471,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2005 Mitsubishi Eclipse GT",
@@ -2113,7 +2485,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2012 Scion tC",
@@ -2125,7 +2499,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1992 Nissan Pulsar GTI-R",
@@ -2137,7 +2513,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1998 Toyota Celica GT-Four",
@@ -2149,7 +2527,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2001 Mitsubishi Eclipse GSX",
@@ -2161,7 +2541,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2006 Honda Accord Euro R",
@@ -2173,7 +2555,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2010 Hyundai Genesis Coupe 3.8",
@@ -2185,7 +2569,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1991 Toyota Soarer GT-T",
@@ -2197,7 +2583,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1994 Nissan 180SX Type X",
@@ -2209,7 +2597,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1999 Honda Prelude SH",
@@ -2221,7 +2611,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2008 Subaru Legacy GT Spec.B",
@@ -2233,7 +2625,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2011 MazdaSpeed6",
@@ -2245,7 +2639,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Kawasaki Ninja ZX-10R",
@@ -2254,10 +2650,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.6,
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
@@ -2266,10 +2664,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Suzuki GSX-R1000",
@@ -2278,10 +2678,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.59,
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Suzuki GSX-R1000R",
@@ -2290,10 +2692,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.59,
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Yamaha YZF-R1",
@@ -2302,10 +2706,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Yamaha YZF-R1M",
@@ -2314,10 +2720,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 BMW S1000RR",
@@ -2326,10 +2734,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 3.7,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Honda CBR1000RR-R Fireblade",
@@ -2338,10 +2748,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.6,
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2022 Suzuki Hayabusa",
@@ -2350,10 +2762,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.56,
     "FrontalAreaSqFt": 4.2,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Kawasaki Ninja ZX-14R",
@@ -2362,10 +2776,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 4.3,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Ducati Panigale V4",
@@ -2374,10 +2790,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.61,
     "FrontalAreaSqFt": 3.8,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Kawasaki Ninja H2",
@@ -2386,10 +2804,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.62,
     "FrontalAreaSqFt": 4,
     "DrivetrainLossPercent": 10,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2020 Ford F-150 Raptor",
@@ -2398,10 +2818,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.45,
     "FrontalAreaSqFt": 32,
     "DrivetrainLossPercent": 20,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Locker"
   },
   {
     "Name": "2021 Ram TRX",
@@ -2410,10 +2832,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.52,
     "FrontalAreaSqFt": 34,
     "DrivetrainLossPercent": 20,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Locker"
   },
   {
     "Name": "2023 Chevrolet Silverado ZR2",
@@ -2425,7 +2849,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Locker"
   },
   {
     "Name": "2020 Chevrolet Silverado 6.2",
@@ -2437,7 +2863,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2019 Ford F-250 6.7 PowerStroke",
@@ -2449,7 +2877,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2021 Toyota Tundra",
@@ -2461,7 +2891,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2018 Ford F-150 5.0",
@@ -2473,7 +2905,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2017 Chevrolet Silverado 5.3",
@@ -2485,7 +2919,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2016 Ram 1500 5.7 Hemi",
@@ -2497,7 +2933,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2014 Toyota Tacoma V6",
@@ -2509,7 +2947,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2012 Ford F-150 EcoBoost",
@@ -2521,7 +2961,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2013 Ram 1500 5.7 Hemi",
@@ -2533,7 +2975,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2011 Chevrolet Avalanche 5.3",
@@ -2545,7 +2989,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2010 Toyota Tundra 5.7",
@@ -2557,7 +3003,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2008 Ford F-150 Harley-Davidson",
@@ -2569,7 +3017,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2009 GMC Sierra Denali 6.2",
@@ -2581,7 +3031,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2010 Nissan Titan 5.6",
@@ -2593,7 +3045,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2013 Toyota Sequoia 5.7",
@@ -2605,7 +3059,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2007 Ford F-150 4.6 Triton",
@@ -2617,7 +3073,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2008 Chevrolet Silverado 6.0 Vortec Max",
@@ -2629,7 +3087,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2011 Toyota Tacoma 4.0 V6",
@@ -2641,7 +3101,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2015 Nissan Frontier 4.0",
@@ -2653,7 +3115,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2005 Ford F-250 V10",
@@ -2665,7 +3129,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2006 Chevrolet Silverado 2500HD 6.0",
@@ -2677,7 +3143,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2007 Toyota Tundra 4.7",
@@ -2689,7 +3157,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2012 Nissan Titan Pro-4X",
@@ -2701,7 +3171,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1969 Dodge Charger 440",
@@ -2713,7 +3185,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1967 Ford Mustang GT 390",
@@ -2722,10 +3196,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.48,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 20,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1970 Chevrolet Chevelle SS 454",
@@ -2737,7 +3213,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1970 Dodge Challenger 426 Hemi",
@@ -2749,7 +3227,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1969 Chevrolet Camaro SS 396",
@@ -2758,10 +3238,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.47,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 20,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1971 Dodge Demon 340",
@@ -2773,7 +3255,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1966 Ford GT40 MkII",
@@ -2782,10 +3266,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "Open"
   },
   {
     "Name": "1965 Shelby Cobra 427",
@@ -2794,10 +3280,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.45,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1970 Plymouth Road Runner 440",
@@ -2809,7 +3297,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1968 Dodge Dart GTS 383",
@@ -2821,7 +3311,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1964 Pontiac GTO",
@@ -2833,7 +3325,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1965 Chevrolet Chevelle SS396",
@@ -2845,7 +3339,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1963 Corvette Stingray 327",
@@ -2857,7 +3353,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1972 Oldsmobile 442",
@@ -2869,7 +3367,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1962 Chevrolet Impala SS 409",
@@ -2881,7 +3381,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1967 Plymouth GTX 440",
@@ -2893,7 +3395,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1973 Ford Torino 351",
@@ -2905,7 +3409,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1978 Dodge Magnum XE",
@@ -2917,7 +3423,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1957 Chevrolet Bel Air 283",
@@ -2929,7 +3437,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1960 Ford Galaxie 352",
@@ -2941,7 +3451,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1974 Pontiac Firebird 400",
@@ -2953,7 +3465,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1977 Chevrolet Monte Carlo",
@@ -2965,7 +3479,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1955 Ford Thunderbird",
@@ -2977,7 +3493,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1961 Chevrolet Corvette 283",
@@ -2989,7 +3507,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1968 Mercury Cougar XR-7",
@@ -3001,7 +3521,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1975 Chevrolet Nova 350",
@@ -3013,7 +3535,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2022 Volkswagen Golf R",
@@ -3022,10 +3546,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Toyota GR Corolla",
@@ -3034,10 +3560,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 BMW M5 Competition",
@@ -3046,10 +3574,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2020 Audi RS7",
@@ -3058,10 +3588,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 25,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 BMW M3 Competition",
@@ -3070,10 +3602,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2017 Mercedes-AMG C63 S",
@@ -3082,10 +3616,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2019 Audi RS5 Sportback",
@@ -3094,10 +3630,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Jeep Trackhawk",
@@ -3106,10 +3644,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.4,
     "FrontalAreaSqFt": 32,
     "DrivetrainLossPercent": 20,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 BMW X5M Competition",
@@ -3118,10 +3658,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 31,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2020 Dodge Durango SRT",
@@ -3133,7 +3675,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2022 Cadillac Escalade V",
@@ -3145,7 +3689,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2021 Range Rover Sport SVR",
@@ -3154,10 +3700,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 32,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2019 Dodge Durango R/T",
@@ -3169,7 +3717,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2018 Jeep Grand Cherokee SRT",
@@ -3181,7 +3731,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2017 BMW X6M",
@@ -3190,10 +3742,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 31,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2012 Chevrolet Tahoe 5.3",
@@ -3205,7 +3759,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2013 Ford Expedition 5.4",
@@ -3217,7 +3773,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2014 Jeep Wrangler Rubicon",
@@ -3229,7 +3787,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Locker"
   },
   {
     "Name": "2009 Toyota 4Runner V8",
@@ -3241,7 +3801,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2010 Chevrolet Suburban 5.3",
@@ -3253,7 +3815,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2011 Jeep Liberty 3.7",
@@ -3265,7 +3829,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2008 Toyota Highlander V6",
@@ -3277,7 +3843,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2009 Honda Pilot",
@@ -3289,7 +3857,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2010 Jeep Commander 5.7",
@@ -3301,7 +3871,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1994 Toyota Supra Twin Turbo",
@@ -3313,7 +3885,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1999 Nissan Skyline GT-R R34",
@@ -3322,10 +3896,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1992 Honda NSX",
@@ -3334,10 +3910,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "1990 Nissan 300ZX NA",
@@ -3349,7 +3927,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1989 Toyota MR2 Supercharged",
@@ -3358,10 +3938,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 19,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "Open"
   },
   {
     "Name": "2009 BMW 335i",
@@ -3373,7 +3955,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
@@ -3385,7 +3969,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Audi S5",
@@ -3397,7 +3983,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "1986 Toyota Corolla AE86",
@@ -3409,7 +3997,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1990 Mazda RX-7 FC Turbo",
@@ -3418,10 +4008,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1995 Mitsubishi Eclipse GSX",
@@ -3433,7 +4025,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1985 Mazda RX-7 GSL-SE",
@@ -3442,10 +4036,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 19,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1993 Honda Accord SiR",
@@ -3457,7 +4053,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1997 Toyota Chaser Tourer V",
@@ -3469,7 +4067,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1983 Toyota Supra (Mk2)",
@@ -3481,7 +4081,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1987 Nissan Skyline GTS-R",
@@ -3490,10 +4092,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 17,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "1996 Honda Integra SiR",
@@ -3505,7 +4109,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2018 Mercedes-AMG GT R",
@@ -3514,10 +4120,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2019 Porsche 911 GT3",
@@ -3526,10 +4134,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2016 Audi TT RS",
@@ -3538,10 +4148,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2015 BMW M4",
@@ -3550,10 +4162,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2014 Mercedes CLA45 AMG",
@@ -3565,7 +4179,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2012 BMW M5",
@@ -3574,10 +4190,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2013 Audi RS4 Avant",
@@ -3586,10 +4204,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 Mercedes E63 AMG",
@@ -3601,7 +4221,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2009 BMW 335i",
@@ -3613,7 +4235,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
@@ -3625,7 +4249,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Audi S5",
@@ -3637,7 +4263,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 BMW 550i",
@@ -3649,7 +4277,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2009 Mercedes CLS550",
@@ -3661,7 +4291,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 Audi A7 3.0T",
@@ -3673,7 +4305,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2004 BMW 330Ci ZHP",
@@ -3685,7 +4319,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2006 Mercedes CLK55 AMG",
@@ -3697,7 +4333,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2007 Audi S6 V10",
@@ -3709,7 +4347,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2003 BMW M3 E46",
@@ -3718,10 +4358,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2005 Mercedes E55 AMG",
@@ -3733,7 +4375,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2008 Audi RS4",
@@ -3742,10 +4386,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2011 - 2014 Ford F-150 Enrique's 3.5EB",
@@ -3757,7 +4403,9 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open"
   },
   {
     "Name": "2024 Porsche 911 GT3 RS",
@@ -3766,11 +4414,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Porsche 718 Cayman GT4 RS",
@@ -3779,11 +4429,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.9,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m\u00b2 (\u224821.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF.",
+    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m² (≈21.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Toyota GR Supra 3.0",
@@ -3792,11 +4444,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5).",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Nissan Z Performance",
@@ -3805,11 +4459,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 BMW M2",
@@ -3818,11 +4474,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe.",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic"
   },
   {
     "Name": "2024 Chevrolet Corvette Stingray",
@@ -3831,11 +4489,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight).",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Mazda MX-5 Miata Club",
@@ -3844,11 +4504,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 18,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 181: Mazda USA 2023 MX-5 pricing/packaging. Curb 2341 lb: KBB/TheCarConnection Club soft-top. Cd/area: class estimate matching bake NA Miata peers.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Lexus LC 500 Coupe",
@@ -3857,11 +4519,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 471 @ 7100 / curb 4340 lb coupe: U.S. News / KBB 2024 LC 500 Coupe specs. Cd/area: class estimate grand tourer coupe.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Ford Bronco Raptor",
@@ -3870,11 +4534,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.55,
     "FrontalAreaSqFt": 32,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s).",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Locker"
   },
   {
     "Name": "2024 Toyota GR86",
@@ -3883,11 +4549,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 228: Toyota 2024 GR86 eBrochure. Curb 2811 lb MT base: Car and Driver / Toyota curb tables. Cd/area: class estimate RWD sports coupe (no OEM Cd published in brochure excerpt).",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Subaru BRZ",
@@ -3896,11 +4564,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 20.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 228 / Premium MT curb 2820 lb: Subaru 2024 BRZ brochure. Cd/area: class estimate twin of GR86 (no OEM Cd in brochure).",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Chevrolet Corvette Z06",
@@ -3909,11 +4579,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 12,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb \u2014 using C&D curb, not dry). Cd/area: class estimate mid-engine sports.",
+    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports.",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Mid",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Acura Integra Type S",
@@ -3922,11 +4594,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "FWD",
     "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22).",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Acura TLX Type S",
@@ -3935,11 +4609,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Lexus IS 500",
@@ -3948,11 +4624,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 23,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 472 @ 7100 / curb 3891 lb: Cars.com / Auto123 / C&D curb tables for 2024 IS 500 F SPORT Performance. Cd/area: class estimate compact RWD sedan.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Audi RS 3",
@@ -3961,11 +4639,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22.5,
     "DrivetrainLossPercent": 18,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan.",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2024 Lexus RC F",
@@ -3974,11 +4654,13 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 23.5,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "RWD",
     "Source": "HP 472: Lexus USA Newsroom 2024 RC F. Curb 3902 lb: Carbuzz / AutomartUSA 2024 RC F curb. Cd/area: class estimate RWD coupe.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   },
   {
     "Name": "2023 Honda Civic Type R",
@@ -3987,10 +4669,12 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
     "DrivetrainLossPercent": 15,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "FWD",
     "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22).",
     "IsEv": false,
-    "IsForcedInduction": true
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD"
   }
 ];
