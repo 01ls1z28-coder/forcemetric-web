@@ -130,6 +130,19 @@
           <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
           <label class="field"><span id="daLabel">Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
         </div>
+        <div class="card-divider run-controls-divider" role="separator" aria-hidden="true"></div>
+        <div class="run-controls" role="toolbar" aria-label="Run controls">
+          <div class="run-controls-playback">
+            <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
+            <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
+            <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
+          </div>
+          <div class="run-timer" id="runTimer">0.00 s</div>
+          <div class="run-controls-actions">
+            <button type="button" class="btn btn-test" id="btnTest">Test</button>
+            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
+          </div>
+        </div>
       </section>
 
       <!-- Results (expanded into freed column) -->
@@ -147,15 +160,6 @@
       <div class="gauge-wrap">
         <div class="active-vehicle-label" id="activeVehicleLabel">Custom setup</div>
         <canvas id="speedGauge" width="260" height="260"></canvas>
-      </div>
-
-      <div class="controls-col">
-        <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
-        <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
-        <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
-        <div class="run-timer" id="runTimer">0.00 s</div>
-        <button type="button" class="btn btn-test" id="btnTest">Test</button>
-        <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
       </div>
 
       <div class="chart-card">
@@ -184,7 +188,11 @@
     <footer class="app-footer">
       <div class="footer-credit">Created by <span>Jorge Guerra</span></div>
       <div class="footer-hub">
-        <a class="hub-link" href="https://01ls1z28-coder.github.io/guerra-tools-hub/" rel="noopener">More tools</a>
+        <a class="hub-link" href="https://01ls1z28-coder.github.io/guerra-tools-hub/" rel="noopener">
+          <span class="hub-link-badge" aria-hidden="true">HUB</span>
+          <span class="hub-link-text">More tools</span>
+          <span class="hub-link-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
       <div class="footer-disclaimer">
         Simulation estimates for comparison only — not dyno or track certified.

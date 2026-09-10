@@ -344,6 +344,8 @@ html, body {
 
 .atmosphere-card {
   gap: 0;
+  /* fill equal-height column so run-controls sit in the empty band under Weather */
+  justify-content: flex-start;
 }
 
 .atmosphere-card .card-section {
@@ -613,6 +615,56 @@ input[type="text"] {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+/* Run controls — compact strip under Weather Presets (atmosphere column) */
+.run-controls {
+  margin-top: auto;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.run-controls-divider {
+  margin-top: 10px;
+}
+
+.run-controls-playback {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.run-controls-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.run-controls .btn-ctrl {
+  width: 100%;
+  padding: 7px 6px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.run-controls .run-timer {
+  font-size: 16px;
+  padding: 7px 6px;
+  margin: 0;
+}
+
+.run-controls .btn-test,
+.run-controls .btn-drag {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0;
+  padding: 10px 8px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  border-radius: 8px;
+}
+
 .da-result {
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(34, 211, 238, 0.22);
@@ -695,7 +747,8 @@ input[type="text"] {
 /* ── Dashboard ── */
 .dashboard {
   display: grid;
-  grid-template-columns: 280px 140px 1fr;
+  /* gauge | chart — chart stretches into former controls strip */
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 12px;
   align-items: stretch;
   flex: 1;
@@ -703,7 +756,6 @@ input[type="text"] {
 }
 
 .gauge-wrap,
-.controls-col,
 .chart-card {
   background:
     linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
@@ -744,15 +796,6 @@ input[type="text"] {
   height: 260px;
   max-width: 100%;
   margin-top: 2px;
-}
-
-.controls-col {
-  padding: 14px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: stretch;
-  justify-content: center;
 }
 
 .run-timer {
@@ -1180,22 +1223,85 @@ input[type="text"] {
 }
 
 .footer-hub {
-  margin: 4px 0 2px;
+  margin: 6px 0 4px;
 }
 
 .hub-link {
-  color: #7dd3fc;
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  color: #e8fbff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  letter-spacing: 0.04em;
-  opacity: 0.85;
+  background:
+    linear-gradient(180deg, rgba(45, 226, 230, 0.16), rgba(45, 226, 230, 0.05)),
+    rgba(8, 14, 20, 0.85);
+  border: 1px solid rgba(45, 226, 230, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 18px rgba(45, 226, 230, 0.22),
+    0 0 28px rgba(200, 255, 74, 0.08);
+  animation: hub-pulse 2.8s ease-in-out infinite;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.hub-link-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 3px 6px;
+  border-radius: 999px;
+  color: #061018;
+  background: linear-gradient(180deg, #7af5ff, var(--cyan));
+  box-shadow: 0 0 10px rgba(45, 226, 230, 0.45);
+}
+
+.hub-link-text {
+  color: #dffcff;
+}
+
+.hub-link-arrow {
+  color: var(--lime);
+  font-size: 14px;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(200, 255, 74, 0.45);
 }
 
 .hub-link:hover {
-  color: #bae6fd;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  opacity: 1;
+  color: #fff;
+  text-decoration: none;
+  border-color: rgba(200, 255, 74, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 0 24px rgba(45, 226, 230, 0.35),
+    0 0 32px rgba(200, 255, 74, 0.18);
+  transform: translateY(-1px);
+}
+
+@keyframes hub-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 0 14px rgba(45, 226, 230, 0.18),
+      0 0 22px rgba(200, 255, 74, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+      0 0 22px rgba(45, 226, 230, 0.32),
+      0 0 34px rgba(200, 255, 74, 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-link {
+    animation: none;
+  }
 }
 
 
@@ -1314,7 +1420,8 @@ input[type="text"] {
   }
 
   .dashboard {
-    grid-template-columns: 280px 140px 459px;
+    /* 280 + 12 + 611 = 903 ≈ desk content width; chart takes former 140px strip */
+    grid-template-columns: 280px 611px;
     gap: 12px;
     justify-content: start;
     height: 375px;
@@ -1324,7 +1431,6 @@ input[type="text"] {
   }
 
   .gauge-wrap,
-  .controls-col,
   .chart-card {
     height: 375px;
     max-height: 375px;
@@ -1366,10 +1472,7 @@ input[type="text"] {
     grid-column: 1 / -1;
   }
   .dashboard {
-    grid-template-columns: 1fr 1fr;
-  }
-  .chart-card {
-    grid-column: 1 / -1;
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
   }
   .header {
     flex-wrap: wrap;
