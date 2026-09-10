@@ -3,6 +3,7 @@
  * IsEv / IsForcedInduction audited for Phase 2 powertrain locks.
  * Phase 3: TireType enum (Street=0,Sport=1,Drag=2,Slick=3), EngineLayout, Differential, MaxSpeedMph.
  * Phase 4 batch 1–7: DrivetrainLossPercent calibrated to published 0-60 / 1/4 (driver 175, Standard Day).
+ * Phase 4 leftover: FI/NA/drive flag corrections + re-calib.
  */
 window.GARAGE_DATA = [
   {
@@ -2781,10 +2782,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 180SX Type X SR20DET MT ~6.8 / ~15.2@91 (MT, loss calib; IsFI false (Type X typically SR20DET turbo))"
+    "Source": "Perf: peer 180SX Type X SR20DET MT ~6.8 / ~15.2@91 (MT, loss calib; FI SR20DET turbo corrected)"
   },
   {
     "Name": "1999 Honda Prelude SH",
@@ -3392,14 +3393,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5400,
     "DragCoefficient": 0.46,
     "FrontalAreaSqFt": 33,
-    "DrivetrainLossPercent": 27.8,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Titan Pro-4X ~7.5 / ~15.8@88 (loss calib; DriveType RWD (Pro-4X typically 4WD))"
+    "Source": "Perf: peer Titan Pro-4X ~7.5 / ~15.8@88 (loss calib; AWD/4WD corrected)"
   },
   {
     "Name": "1969 Dodge Charger 440",
@@ -3486,10 +3487,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Demon 340 MT ~6.5 / ~14.9@94 (MT, loss calib; IsFI true (NA 340 small-block))"
+    "Source": "Perf: peer Demon 340 MT ~6.5 / ~14.9@94 (MT, loss calib; NA 340 small-block corrected)"
   },
   {
     "Name": "1966 Ford GT40 MkII",
@@ -4279,12 +4280,12 @@ window.GARAGE_DATA = [
     "FrontalAreaSqFt": 19,
     "DrivetrainLossPercent": 32,
     "TireType": 0,
-    "DriveType": "FWD",
+    "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer AE86 Levin/Trueno MT ~8.8 / ~16.8@82 (MT, loss calib; DriveType FWD (AE86 should be RWD))"
+    "Source": "Perf: peer AE86 Levin/Trueno MT ~8.8 / ~16.8@82 (MT, loss calib; RWD corrected)"
   },
   {
     "Name": "1990 Mazda RX-7 FC Turbo",
@@ -4356,10 +4357,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Chaser Tourer V 1JZ MT ~6.2 / ~14.6@96 (MT, loss calib; IsFI false (1JZ-GTE twin-turbo))"
+    "Source": "Perf: peer Chaser Tourer V 1JZ MT ~6.2 / ~14.6@96 (MT, loss calib; FI 1JZ-GTE twin-turbo corrected)"
   },
   {
     "Name": "1983 Toyota Supra (Mk2)",
@@ -4371,10 +4372,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Celica Supra Mk2 MT ~8.5 / ~16.5@85 (MT, loss calib; IsFI true (NA 5M-GE / US Celica Supra typically))"
+    "Source": "Perf: peer Celica Supra Mk2 MT ~8.5 / ~16.5@85 (MT, loss calib; NA 5M-GE / US Celica Supra corrected)"
   },
   {
     "Name": "1987 Nissan Skyline GTS-R",
@@ -4386,10 +4387,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Skyline GTS-R RB20DET MT ~6.5 / ~15.0@93 (MT, loss calib; IsFI false (RB20DET turbo))"
+    "Source": "Perf: peer Skyline GTS-R RB20DET MT ~6.5 / ~15.0@93 (MT, loss calib; FI RB20DET turbo corrected)"
   },
   {
     "Name": "1996 Honda Integra SiR",
@@ -4637,14 +4638,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3800,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 21,
+    "DrivetrainLossPercent": 18.6,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D CLK55 AMG 4.7 / 13.2@107 (loss calib; IsFI true (CLK55 M113 is NA V8))"
+    "Source": "Perf: C&D CLK55 AMG 4.7 / 13.2@107 (loss calib; NA M113 V8 corrected)"
   },
   {
     "Name": "2007 Audi S6 V10",
@@ -4712,14 +4713,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5688,
     "DragCoefficient": 0.44,
     "FrontalAreaSqFt": 33,
-    "DrivetrainLossPercent": 10.5,
+    "DrivetrainLossPercent": 13.1,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer tuned F-150 3.5EB 462hp ~5.0 / ~13.5@102 (loss calib; IsFI false (EcoBoost twin-turbo))"
+    "Source": "Perf: peer tuned F-150 3.5EB 462hp ~5.0 / ~13.5@102 (loss calib; FI EcoBoost twin-turbo corrected)"
   },
   {
     "Name": "2024 Porsche 911 GT3 RS",
