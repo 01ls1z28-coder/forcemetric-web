@@ -1867,14 +1867,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3700,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 31.9,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Reventón (Murciélago LP640 class) ~3.4 / ~11.5@125 (loss calib; DriveType RWD (should be AWD))"
+    "Source": "Perf: peer Reventón (Murciélago LP640 class) ~3.4 / ~11.5@125 (loss calib; AWD corrected)"
   },
   {
     "Name": "2011 McLaren MP4-12C HS",
@@ -2149,10 +2149,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Pagani Huayra ~3.2 / ~11.0@135 (loss calib; IsFI false (twin-turbo))"
+    "Source": "Perf: peer Pagani Huayra ~3.2 / ~11.0@135 (loss calib; FI twin-turbo corrected)"
   },
   {
     "Name": "2017 Bugatti Chiron Sport",
@@ -2206,9 +2206,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: FI flag fixed (FI twin-turbo corrected)"
   },
   {
     "Name": "2018 Bugatti Divo",
@@ -2277,9 +2278,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: FI flag fixed (FI twin-turbo corrected)"
   },
   {
     "Name": "2021 McLaren Sabre",
@@ -2601,10 +2603,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer Civic Type R EK9 MT ~6.7 / ~15.2@92 (MT, loss calib; IsFI true (NA B16))"
+    "Source": "Perf: peer Civic Type R EK9 MT ~6.7 / ~15.2@92 (MT, loss calib; NA B16 corrected)"
   },
   {
     "Name": "2002 Subaru WRX Wagon",
@@ -2682,14 +2684,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3300,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 29.2,
+    "DrivetrainLossPercent": 31.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (MT, loss calib; IsFI false (turbo 4G63))"
+    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (MT, loss calib; FI turbo 4G63 corrected)"
   },
   {
     "Name": "2006 Honda Accord Euro R",
@@ -2768,14 +2770,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3500,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 18.9,
+    "DrivetrainLossPercent": 21.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D Legacy GT Spec.B MT 5.3 / 14.0@98 (MT, loss calib; IsFI false (turbo))"
+    "Source": "Perf: C&D Legacy GT Spec.B MT 5.3 / 14.0@98 (MT, loss calib; FI turbo corrected)"
   },
   {
     "Name": "2011 MazdaSpeed6",
@@ -4200,13 +4202,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3200,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "Open"
+    "Differential": "Open",
+    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (MT, loss calib; FI turbo corrected)"
   },
   {
     "Name": "1985 Mazda RX-7 GSL-SE",
