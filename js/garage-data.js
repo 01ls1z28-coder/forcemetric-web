@@ -2106,10 +2106,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Apollo Sport ~3.0 / ~10.8@135 (loss calib; IsFI false (twin-turbo))"
+    "Source": "Perf: OEM/peer Apollo Sport ~3.0 / ~10.8@135 (loss calib; FI twin-turbo corrected)"
   },
   {
     "Name": "2014 Hennessey Venom GT",
@@ -2132,14 +2132,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3300,
     "DragCoefficient": 0.4,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 29.8,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Zenvo TSR-S ~2.8 / ~10.2@150 (loss calib; IsFI false (twin-supercharged))"
+    "Source": "Perf: OEM/peer Zenvo TSR-S ~2.8 / ~10.2@150 (loss calib; FI twin-supercharged corrected)"
   },
   {
     "Name": "2008 Koenigsegg CCX",
@@ -2151,10 +2151,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Koenigsegg CCX MT ~3.2 / ~10.9@135 (MT, loss calib; IsFI false (twin-supercharged))"
+    "Source": "Perf: peer Koenigsegg CCX MT ~3.2 / ~10.9@135 (MT, loss calib; FI twin-supercharged corrected)"
   },
   {
     "Name": "2012 Pagani Huayra",
@@ -2526,10 +2526,10 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Silvia S14 K's turbo MT ~6.5 / ~15.0@92 (MT, loss calib; IsFI false (217hp implies turbo SR20DET))"
+    "Source": "Perf: peer Silvia S14 K's turbo MT ~6.5 / ~15.0@92 (MT, loss calib; FI turbo SR20DET corrected)"
   },
   {
     "Name": "1991 Nissan 240SX (S13)",
@@ -2838,10 +2838,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (MT, loss calib)"
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (MT, loss calib; NA I4 corrected)"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
@@ -2853,10 +2853,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (MT, loss calib; IsFI true (NA I4 typically))"
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (MT, loss calib; NA I4 corrected)"
   },
   {
     "Name": "2020 Suzuki GSX-R1000",
@@ -2866,12 +2866,12 @@ window.GARAGE_DATA = [
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 32,
     "TireType": 1,
-    "DriveType": "AWD",
+    "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer GSX-R1000 ~2.8 / ~10.2@148 (MT, loss calib; DriveType AWD (motorcycle should be RWD))"
+    "Source": "Perf: Cycle World/peer GSX-R1000 ~2.8 / ~10.2@148 (MT, loss calib; RWD + NA bike corrected)"
   },
   {
     "Name": "2020 Suzuki GSX-R1000R",
@@ -2881,12 +2881,12 @@ window.GARAGE_DATA = [
     "FrontalAreaSqFt": 3.9,
     "DrivetrainLossPercent": 32,
     "TireType": 1,
-    "DriveType": "AWD",
+    "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer GSX-R1000R ~2.7 / ~10.0@150 (MT, loss calib; DriveType AWD (motorcycle should be RWD))"
+    "Source": "Perf: Cycle World/peer GSX-R1000R ~2.7 / ~10.0@150 (MT, loss calib; RWD + NA bike corrected)"
   },
   {
     "Name": "2020 Yamaha YZF-R1",
@@ -3044,14 +3044,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5950,
     "DragCoefficient": 0.48,
     "FrontalAreaSqFt": 33,
-    "DrivetrainLossPercent": 27.4,
+    "DrivetrainLossPercent": 31.5,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: peer C&D Silverado ZR2 6.2 ~6.4 / ~14.8@95 (loss calib; DriveType RWD (typically 4WD))"
+    "Source": "Perf: peer C&D Silverado ZR2 6.2 ~6.4 / ~14.8@95 (loss calib; AWD/4WD corrected)"
   },
   {
     "Name": "2020 Chevrolet Silverado 6.2",
@@ -3074,14 +3074,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 7300,
     "DragCoefficient": 0.55,
     "FrontalAreaSqFt": 36,
-    "DrivetrainLossPercent": 28.3,
+    "DrivetrainLossPercent": 30.5,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer F-250 6.7 PowerStroke ~7.2 / ~15.6@88 (loss calib; IsFI false (turbo diesel))"
+    "Source": "Perf: peer F-250 6.7 PowerStroke ~7.2 / ~15.6@88 (loss calib; FI turbo diesel corrected)"
   },
   {
     "Name": "2021 Toyota Tundra",
@@ -3962,14 +3962,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5150,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 31,
-    "DrivetrainLossPercent": 23,
+    "DrivetrainLossPercent": 25.3,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D 2017 X6 M 3.8 / 12.3@114 (loss calib; IsFI false (twin-turbo))"
+    "Source": "Perf: C&D 2017 X6 M 3.8 / 12.3@114 (loss calib; FI twin-turbo corrected)"
   },
   {
     "Name": "2012 Chevrolet Tahoe 5.3",
@@ -4542,14 +4542,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4200,
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 17.2,
+    "DrivetrainLossPercent": 24,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer A7 3.0T Quattro ~5.4 / ~13.9@100 (loss calib; DriveType RWD (should be Quattro AWD))"
+    "Source": "Perf: C&D/peer A7 3.0T Quattro ~5.4 / ~13.9@100 (loss calib; AWD Quattro corrected)"
   },
   {
     "Name": "2004 BMW 330Ci ZHP",
