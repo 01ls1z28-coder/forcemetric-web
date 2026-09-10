@@ -34,6 +34,18 @@
     this.targetAngle = this._map(this.value, 0, this.maxValue, 135, 405);
   };
 
+  /** mode: 'standard' (0–250 MPH) | 'metric' (0–400 km/h). Does not convert the needle value. */
+  ForceMetricGauge.prototype.setUnits = function (mode) {
+    if (mode === 'metric') {
+      this.maxValue = 400;
+      this.unitText = 'KM/H';
+    } else {
+      this.maxValue = 250;
+      this.unitText = 'MPH';
+    }
+    this.setValue(this.value);
+  };
+
   ForceMetricGauge.prototype.start = function () {
     if (this._running) return;
     this._running = true;

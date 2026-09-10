@@ -20,6 +20,8 @@
     this.xMax = 35;
     this.yMax = 200;
     this.playbackTime = null;
+    this.speedScale = 1;
+    this.speedUnitLabel = 'mph';
     this._cssW = 0;
     this._cssH = 0;
 
@@ -57,6 +59,8 @@
     this.xMax = 35;
     this.yMax = 200;
     this.playbackTime = null;
+    this.speedScale = 1;
+    this.speedUnitLabel = 'mph';
     this.draw();
   };
 
@@ -67,6 +71,8 @@
   ForceMetricSpeedChart.prototype.setSeries = function (stepsOrPoints) {
     this.points = [];
     this.playbackTime = null;
+    this.speedScale = 1;
+    this.speedUnitLabel = 'mph';
     if (!stepsOrPoints || !stepsOrPoints.length) {
       this.draw();
       return;
@@ -150,9 +156,10 @@
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
     var yTicks = 5;
+    var yDispMax = this.yMax * (this.speedScale || 1);
     for (i = 0; i <= yTicks; i++) {
-      v = (this.yMax * i) / yTicks;
-      y = this._mapY(v, rect);
+      v = (yDispMax * i) / yTicks;
+      y = this._mapY(v / (this.speedScale || 1), rect);
       ctx.beginPath();
       ctx.moveTo(rect.x, y);
       ctx.lineTo(rect.x + rect.w, y);
@@ -171,7 +178,7 @@
     ctx.translate(12, rect.y + rect.h / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.textBaseline = 'middle';
-    ctx.fillText('Speed [mph]', 0, 0);
+    ctx.fillText('Speed [' + (this.speedUnitLabel || 'mph') + ']', 0, 0);
     ctx.restore();
 
     // Plot border
@@ -218,6 +225,17 @@
       ctx.lineTo(x, rect.y + rect.h);
       ctx.stroke();
     }
+  };
+
+  ForceMetricSpeedChart.prototype.setSpeedUnit = function (unit) {
+    if (unit === 'km/h') {
+      this.speedScale = 1.609344;
+      this.speedUnitLabel = 'km/h';
+    } else {
+      this.speedScale = 1;
+      this.speedUnitLabel = 'mph';
+    }
+    this.draw();
   };
 
   ForceMetricSpeedChart.prototype.destroy = function () {

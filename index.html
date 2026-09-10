@@ -22,6 +22,11 @@
           <input type="range" id="uiScale" min="75" max="125" step="5" value="100" />
           <span class="ui-scale-val" id="uiScaleVal">100%</span>
         </label>
+        <div class="units-toggle" role="radiogroup" aria-label="Units" title="Display units">
+          <span class="ui-scale-label">Units</span>
+          <label class="units-opt"><input type="radio" name="unitsMode" id="unitsStandard" value="standard" checked /><span>Standard</span></label>
+          <label class="units-opt"><input type="radio" name="unitsMode" id="unitsMetric" value="metric" /><span>Metric</span></label>
+        </div>
       </div>
       <div class="header-credit">
         <span class="header-credit-label">Created by</span>
@@ -42,8 +47,8 @@
           </div>
         </div>
         <label class="field"><span id="hpLabel">Engine HP</span><input type="number" id="hp" value="450" step="1" /></label>
-        <label class="field"><span>Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
-        <label class="field"><span>Driver Weight (lbs)</span><input type="number" id="driverWeight" value="0" step="1" min="0" /></label>
+        <label class="field"><span id="weightLabel">Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
+        <label class="field"><span id="driverWeightLabel">Driver Weight (lbs)</span><input type="number" id="driverWeight" value="0" step="1" min="0" /></label>
         <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
         <label class="field"><span>Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
         <div class="drive-row tx-row">
@@ -123,7 +128,7 @@
           <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
           <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
           <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
-          <label class="field"><span>Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
+          <label class="field"><span id="daLabel">Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
         </div>
       </section>
 
@@ -178,6 +183,9 @@
 
     <footer class="app-footer">
       <div class="footer-credit">Created by <span>Jorge Guerra</span></div>
+      <div class="footer-hub">
+        <a class="hub-link" href="https://01ls1z28-coder.github.io/guerra-tools-hub/" rel="noopener">More tools</a>
+      </div>
       <div class="footer-disclaimer">
         Simulation estimates for comparison only — not dyno or track certified.
         Physics port of VelocityBench PerformanceCalc (CalibrationFactor 0.81).
@@ -198,6 +206,20 @@
           <label for="garageSearch">Search Cars:</label>
           <input type="text" id="garageSearch" placeholder="Type to filter…" autocomplete="off" />
         </div>
+        <div class="garage-filters" aria-label="Brand model year filters">
+          <label class="garage-filter">
+            <span>Brand</span>
+            <select id="garageBrand"><option value="">All brands</option></select>
+          </label>
+          <label class="garage-filter">
+            <span>Model</span>
+            <select id="garageModel" disabled><option value="">All models</option></select>
+          </label>
+          <label class="garage-filter">
+            <span>Year</span>
+            <select id="garageYear" disabled><option value="">All years</option></select>
+          </label>
+        </div>
         <ul class="car-list" id="carList"></ul>
       </div>
       <div class="car-editor" id="carEditor">
@@ -205,7 +227,7 @@
         <div class="editor-grid">
           <label class="field"><span>Name</span><input type="text" id="editName" autocomplete="off" /></label>
           <label class="field"><span>Horsepower</span><input type="number" id="editHp" step="1" /></label>
-          <label class="field"><span>Weight lbs</span><input type="number" id="editWeight" step="1" /></label>
+          <label class="field"><span id="editWeightLabel">Weight lbs</span><input type="number" id="editWeight" step="1" /></label>
           <label class="field"><span>Drag Coefficient</span><input type="number" id="editCd" step="0.01" /></label>
           <label class="field"><span>Frontal Area sq ft</span><input type="number" id="editArea" step="0.1" /></label>
           <label class="field"><span>Drivetrain Loss %</span><input type="number" id="editLoss" step="0.1" /></label>

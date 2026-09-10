@@ -225,6 +225,52 @@ html, body {
   text-align: right;
 }
 
+.units-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(180, 200, 230, 0.14);
+  flex-wrap: wrap;
+}
+
+.units-opt {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+}
+
+.units-opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.units-opt span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.units-opt input:checked + span {
+  color: #0b1220;
+  background: var(--lime);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.units-opt:hover span {
+  color: #e8ecf1;
+}
+
 @media (max-width: 700px) {
   .header-controls {
     order: 3;
@@ -869,15 +915,15 @@ input[type="text"] {
 }
 
 .modal {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 30%),
-    #0e1218;
+  position: relative;
+  background: #0e1218;
   border: 1px solid var(--panel-border-strong);
   border-radius: 14px;
-  width: min(580px, 100%);
-  max-height: min(740px, 92vh);
+  width: min(640px, 100%);
+  max-height: min(780px, 92vh);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.03) inset,
     0 24px 64px rgba(0, 0, 0, 0.65);
@@ -915,6 +961,64 @@ input[type="text"] {
   font-weight: 650;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.garage-filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.garage-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.garage-filter span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.garage-filter select {
+  width: 100%;
+  background: #080a0d;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: #e8ecf1;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.garage-filter select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.car-list-section {
+  pointer-events: none;
+  cursor: default !important;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  padding: 8px 12px 4px !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--panel-border);
+  border-radius: 0 !important;
+}
+
+.car-list-section:hover {
+  background: transparent !important;
+  color: var(--accent) !important;
 }
 
 .car-list {
@@ -1006,11 +1110,19 @@ input[type="text"] {
 
 .car-editor {
   display: none;
-  padding: 14px 18px;
-  border-top: 1px solid var(--panel-border);
-  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  padding: 18px 18px 20px;
+  background: #0e1218; /* solid opaque — no list bleed-through */
   gap: 10px;
   flex-direction: column;
+  overflow: auto;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .car-editor.open {
@@ -1066,6 +1178,26 @@ input[type="text"] {
 .link-reset:hover {
   color: #bae6fd;
 }
+
+.footer-hub {
+  margin: 4px 0 2px;
+}
+
+.hub-link {
+  color: #7dd3fc;
+  font-size: 11px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.hub-link:hover {
+  color: #bae6fd;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 1;
+}
+
 
 
 /* FWD | RWD | AWD segmented control */
