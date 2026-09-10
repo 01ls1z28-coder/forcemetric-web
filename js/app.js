@@ -64,7 +64,6 @@
     editorTitle: document.getElementById('editorTitle')
   };
 
-  var previousTireTypeIndex = 0;
   var selectedGarageIndex = -1;
   var filteredCars = garageData.slice();
   var editorMode = null; // 'add' | 'edit' | null
@@ -276,7 +275,6 @@
     if (result.TwoHundredToTwoFiftyKmh != null) lines.push(slipLine('200-250 KM/H', fmt2(result.TwoHundredToTwoFiftyKmh) + ' s'));
 
     lines.push('  -----------------------');
-    lines.push(slipLine('MECH VMAX', fmt1(result.VmaxMph) + ' mph'));
     if (result.RunDistanceFt != null) {
       lines.push(slipLine('RUN DIST', fmt1(result.RunDistanceFt) + ' ft'));
     }
@@ -537,18 +535,15 @@
 
   el.chkEv.addEventListener('change', function () {
     if (el.chkEv.checked) {
-      previousTireTypeIndex = parseInt(el.tireType.value, 10);
       el.chkNA.checked = false;
       el.chkFI.checked = false;
       el.chkNA.disabled = true;
       el.chkFI.disabled = true;
-      el.loss.value = '8';
-      el.tireType.value = '2'; // Slick
+      /* Preserve user drivetrain loss % and tire selection across EV toggle. */
       el.resultsOut.textContent += '\nEV Mode enabled.';
     } else {
       el.chkNA.disabled = false;
       el.chkFI.disabled = false;
-      el.tireType.value = String(previousTireTypeIndex);
       el.resultsOut.textContent += '\nEV Mode disabled.';
     }
   });

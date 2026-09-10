@@ -768,8 +768,7 @@
         $(prefix + 'FI').checked = false;
         $(prefix + 'NA').disabled = true;
         $(prefix + 'FI').disabled = true;
-        $(prefix + 'Loss').value = '8';
-        $(prefix + 'Tire').value = '2'; // Slick
+        /* Preserve loss % and tire across EV toggle. */
       } else {
         $(prefix + 'NA').disabled = false;
         $(prefix + 'FI').disabled = false;

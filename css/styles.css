@@ -1301,3 +1301,9 @@ input[type="text"] {
 .tx-row {
   margin-top: 0.15rem;
 }
+
+/* Phase 1 — hide powertrain loss from vehicle parameters */
+.loss-field-hidden,
+label.field.loss-field-hidden {
+  display: none !important;
+}
