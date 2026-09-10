@@ -2137,7 +2137,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "1998 Toyota Celica GT-Four",
@@ -2149,7 +2149,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2001 Mitsubishi Eclipse GSX",

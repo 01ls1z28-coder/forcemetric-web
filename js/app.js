@@ -677,7 +677,7 @@
     return false;
   }
 
-  /** Light curb / bikes: Manual only. Heavier cars keep Auto/Manual. */
+  /** Light curb / bikes: Manual + RWD only. Heavier cars keep TX and drive choices. */
   function syncTransmissionForCurb() {
     var curb = parseFloat(el.weight && el.weight.value);
     if (!isFinite(curb)) curb = 3800;
@@ -689,9 +689,16 @@
         el.txAuto.disabled = true;
       }
       if (el.txManual) el.txManual.disabled = false;
+      setDriveType('RWD');
+      if (el.driveFWD) el.driveFWD.disabled = true;
+      if (el.driveAWD) el.driveAWD.disabled = true;
+      if (el.driveRWD) el.driveRWD.disabled = false;
     } else {
       if (el.txAuto) el.txAuto.disabled = false;
       if (el.txManual) el.txManual.disabled = false;
+      if (el.driveFWD) el.driveFWD.disabled = false;
+      if (el.driveRWD) el.driveRWD.disabled = false;
+      if (el.driveAWD) el.driveAWD.disabled = false;
     }
     if (typeof syncHpLossUi === 'function') syncHpLossUi();
   }
@@ -754,7 +761,7 @@
     if (carIsEv(car)) tags.push('EV');
     else if (carIsFi(car)) tags.push('FI');
     else tags.push('NA');
-    if ((car.WeightLbs || 0) <= 1500) tags.push('Manual');
+    if ((car.WeightLbs || 0) <= 1500) tags.push('Manual', 'RWD');
     var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
     el.resultsOut.textContent = loadMsg;
