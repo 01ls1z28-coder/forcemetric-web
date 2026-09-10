@@ -195,6 +195,34 @@
     return typedHp;
   }
 
+  function isLightCurb() {
+    var curb = parseFloat(el.weight && el.weight.value);
+    if (!isFinite(curb)) curb = 3800;
+    return curb <= 1500;
+  }
+
+  /** Light curb / bikes: Manual + RWD only. Heavier: TX/drive selectable. */
+  function applyLightCurbLocks() {
+    if (isLightCurb()) {
+      if (el.txManual) el.txManual.checked = true;
+      if (el.txAuto) {
+        el.txAuto.checked = false;
+        el.txAuto.disabled = true;
+      }
+      if (el.txManual) el.txManual.disabled = false;
+      setDriveType('RWD');
+      if (el.driveFWD) el.driveFWD.disabled = true;
+      if (el.driveAWD) el.driveAWD.disabled = true;
+      if (el.driveRWD) el.driveRWD.disabled = false;
+    } else {
+      if (el.txAuto) el.txAuto.disabled = false;
+      if (el.txManual) el.txManual.disabled = false;
+      if (el.driveFWD) el.driveFWD.disabled = false;
+      if (el.driveRWD) el.driveRWD.disabled = false;
+      if (el.driveAWD) el.driveAWD.disabled = false;
+    }
+  }
+
   function syncHpLossUi() {
     var source = getHpSource();
     var labels = {
@@ -209,9 +237,8 @@
       el.loss.disabled = lockLoss;
       el.loss.classList.toggle('is-locked', lockLoss);
     }
-    /* Transmission stays selectable on all HP sources; Manual −2 pts still Engine-only. */
-    if (el.txAuto) el.txAuto.disabled = false;
-    if (el.txManual) el.txManual.disabled = false;
+    /* TX selectable on all HP sources for heavy cars; light curb stays Manual-only. */
+    applyLightCurbLocks();
   }
 
   /** Parse "2020 Ford Mustang GT" → { year, make, model, label } */
@@ -729,27 +756,7 @@
 
   /** Light curb / bikes: Manual + RWD only. Heavier cars keep TX and drive choices. */
   function syncTransmissionForCurb() {
-    var curb = parseFloat(el.weight && el.weight.value);
-    if (!isFinite(curb)) curb = 3800;
-    var light = curb <= 1500;
-    if (light) {
-      if (el.txManual) el.txManual.checked = true;
-      if (el.txAuto) {
-        el.txAuto.checked = false;
-        el.txAuto.disabled = true;
-      }
-      if (el.txManual) el.txManual.disabled = false;
-      setDriveType('RWD');
-      if (el.driveFWD) el.driveFWD.disabled = true;
-      if (el.driveAWD) el.driveAWD.disabled = true;
-      if (el.driveRWD) el.driveRWD.disabled = false;
-    } else {
-      if (el.txAuto) el.txAuto.disabled = false;
-      if (el.txManual) el.txManual.disabled = false;
-      if (el.driveFWD) el.driveFWD.disabled = false;
-      if (el.driveRWD) el.driveRWD.disabled = false;
-      if (el.driveAWD) el.driveAWD.disabled = false;
-    }
+    applyLightCurbLocks();
     if (typeof syncHpLossUi === 'function') syncHpLossUi();
   }
 
