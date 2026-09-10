@@ -1182,14 +1182,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5200,
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 8.8,
+    "DrivetrainLossPercent": 22.5,
     "TireType": 1,
     "DriveType": "AWD",
-    "IsEv": false,
+    "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2024 i5 M60 3.3 / 11.5@124 (loss calib; IsEv false (should be EV))"
+    "Source": "Perf: C&D 2024 i5 M60 3.3 / 11.5@124 (loss calib; IsEv corrected)"
   },
   {
     "Name": "2024 Rivian R1S Quad Motor",
@@ -1258,15 +1258,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4900,
     "DragCoefficient": 0.21,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 13,
+    "DrivetrainLossPercent": 17.7,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D Lucid Air Touring 3.0 / 11.0@126 (loss calib; DriveType RWD (should be AWD Dual Motor))"
+    "Source": "Perf: C&D Lucid Air Touring 3.0 / 11.0@126 (loss calib; AWD Dual Motor corrected)"
   },
   {
     "Name": "2024 Tesla Model S Long Range",
@@ -1274,15 +1274,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4760,
     "DragCoefficient": 0.21,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 24.5,
+    "DrivetrainLossPercent": 32,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss calib; DriveType RWD (should be AWD Dual Motor))"
+    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss calib; AWD Dual Motor corrected)"
   },
   {
     "Name": "2023 Hyundai Kona Electric",
@@ -1559,10 +1559,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2005/06 Ford GT MT ~3.6 / ~11.8@125 (MT, loss calib; IsFI false (supercharged))"
+    "Source": "Perf: C&D 2005/06 Ford GT MT ~3.6 / ~11.8@125 (MT, loss calib; FI supercharged corrected)"
   },
   {
     "Name": "2004 Porsche Carrera GT",
@@ -1670,14 +1670,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3500,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 24.9,
+    "DrivetrainLossPercent": 30.6,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 997 Turbo ~3.4 / ~11.7@118 (loss calib; DriveType RWD (should be AWD))"
+    "Source": "Perf: C&D/peer 997 Turbo ~3.4 / ~11.7@118 (loss calib; AWD corrected)"
   },
   {
     "Name": "2008 Aston Martin DBS",
@@ -1699,14 +1699,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3924,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 13,
+    "DrivetrainLossPercent": 10.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D SLS AMG ~3.6 / ~11.7@124 (loss calib; IsFI true (NA V8))"
+    "Source": "Perf: C&D SLS AMG ~3.6 / ~11.7@124 (loss calib; NA V8 corrected)"
   },
   {
     "Name": "2005 Ferrari F430",
@@ -2825,10 +2825,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer CBR1000RR-R ~2.8 / ~9.9@150 (MT, loss calib; IsFI true (NA I4))"
+    "Source": "Perf: Cycle World/peer CBR1000RR-R ~2.8 / ~9.9@150 (MT, loss calib; NA I4 corrected)"
   },
   {
     "Name": "2022 Suzuki Hayabusa",
@@ -2851,14 +2851,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 593,
     "DragCoefficient": 0.57,
     "FrontalAreaSqFt": 4.3,
-    "DrivetrainLossPercent": 18.8,
+    "DrivetrainLossPercent": 16.3,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer ZX-14R ~2.7 / ~9.7@152 (MT, loss calib; IsFI true (NA I4))"
+    "Source": "Perf: Cycle World/peer ZX-14R ~2.7 / ~9.7@152 (MT, loss calib; NA I4 corrected)"
   },
   {
     "Name": "2021 Ducati Panigale V4",
@@ -3761,14 +3761,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5300,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 32,
-    "DrivetrainLossPercent": 15.6,
+    "DrivetrainLossPercent": 18,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Durango SRT ~4.4 / ~12.9@108 (loss calib; IsFI false (supercharged))"
+    "Source": "Perf: C&D Durango SRT ~4.4 / ~12.9@108 (loss calib; FI supercharged corrected)"
   },
   {
     "Name": "2022 Cadillac Escalade V",
@@ -3791,14 +3791,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5200,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 32,
-    "DrivetrainLossPercent": 24.7,
+    "DrivetrainLossPercent": 26.9,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Range Rover Sport SVR ~3.9 / ~12.4@112 (loss calib; IsFI false (supercharged))"
+    "Source": "Perf: C&D Range Rover Sport SVR ~3.9 / ~12.4@112 (loss calib; FI supercharged corrected)"
   },
   {
     "Name": "2019 Dodge Durango R/T",
@@ -4305,13 +4305,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3950,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D/peer RS4 Avant B8 ~4.5 / ~12.9@110 (loss calib; NA V8 corrected)"
   },
   {
     "Name": "2011 Mercedes E63 AMG",
@@ -4460,14 +4461,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3415,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 32,
+    "DrivetrainLossPercent": 29.9,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D E46 M3 MT ~4.8 / ~13.3@104 (MT, loss calib; IsFI true (NA I6))"
+    "Source": "Perf: C&D E46 M3 MT ~4.8 / ~13.3@104 (MT, loss calib; NA I6 corrected)"
   },
   {
     "Name": "2005 Mercedes E55 AMG",
@@ -4493,10 +4494,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D RS4 B7 MT ~4.5 / ~13.0@108 (MT, loss calib; IsFI true (NA V8))"
+    "Source": "Perf: C&D RS4 B7 MT ~4.5 / ~13.0@108 (MT, loss calib; NA V8 corrected)"
   },
   {
     "Name": "2011 - 2014 Ford F-150 Enrique's 3.5EB",
