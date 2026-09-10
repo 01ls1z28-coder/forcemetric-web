@@ -811,15 +811,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 5200,
     "DragCoefficient": 0.197,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 6.3,
+    "DrivetrainLossPercent": 9.8,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
     "MaxSpeedMph": 205,
-    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss calib; DriveType RWD flagged)"
+    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss calib; AWD corrected)"
   },
   {
     "Name": "2023 Hyundai Ioniq 5 N",
@@ -1336,14 +1336,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3616,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 7.4,
+    "DrivetrainLossPercent": 8.7,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2021 911 Turbo S 2.2 / 10.1@137 (loss calib; DriveType RWD flagged)"
+    "Source": "Perf: C&D 2021 911 Turbo S 2.2 / 10.1@137 (loss calib; AWD corrected)"
   },
   {
     "Name": "2020 Lamborghini Huracán EVO",
@@ -2857,14 +2857,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 6350,
     "DragCoefficient": 0.52,
     "FrontalAreaSqFt": 34,
-    "DrivetrainLossPercent": 21.9,
+    "DrivetrainLossPercent": 24.2,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: C&D 2021 Ram TRX 3.7 / 12.3@110 (loss calib; IsFI flagged supercharged)"
+    "Source": "Perf: C&D 2021 Ram TRX 3.7 / 12.3@110 (loss calib; FI supercharged corrected)"
   },
   {
     "Name": "2023 Chevrolet Silverado ZR2",
@@ -4610,12 +4610,12 @@ window.GARAGE_DATA = [
     "WeightLbs": 3666,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 20.6,
+    "DrivetrainLossPercent": 18.2,
     "TireType": 1,
     "DriveType": "RWD",
-    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss calib; IsFI flagged NA LT6)",
+    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss calib; NA LT6 corrected)",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD"
   },
