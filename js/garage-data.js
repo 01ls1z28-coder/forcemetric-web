@@ -894,14 +894,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4780,
     "DragCoefficient": 0.28,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 10.5,
+    "DrivetrainLossPercent": 24.1,
     "TireType": 1,
     "DriveType": "AWD",
-    "IsEv": false,
+    "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D EV6 GT (576 hp gen) ~3.4 / ~11.4@120 (loss calib; IsEv flagged false (should be EV))"
+    "Source": "Perf: C&D EV6 GT (576 hp gen) ~3.4 / ~11.4@120 (loss calib; IsEv corrected)"
   },
   {
     "Name": "2023 Polestar 2 Performance",
@@ -2751,10 +2751,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer YZF-R1 ~2.8 / ~9.9@150 (MT, loss calib; IsFI flagged true (NA))"
+    "Source": "Perf: Cycle World/peer YZF-R1 ~2.8 / ~9.9@150 (MT, loss calib; NA corrected)"
   },
   {
     "Name": "2020 Yamaha YZF-R1M",
@@ -2762,13 +2762,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 443,
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 10,
+    "DrivetrainLossPercent": 31.8,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: Cycle World/peer YZF-R1M ~2.8 / ~9.9@150 (MT, loss calib; NA corrected)"
   },
   {
     "Name": "2021 BMW S1000RR",
@@ -2838,10 +2839,10 @@ window.GARAGE_DATA = [
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer Panigale V4 ~2.9 / ~10.3@150 (MT, loss calib; IsFI flagged true (NA V4))"
+    "Source": "Perf: Cycle World/peer Panigale V4 ~2.9 / ~10.3@150 (MT, loss calib; NA V4 corrected)"
   },
   {
     "Name": "2021 Kawasaki Ninja H2",
@@ -3714,14 +3715,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 5300,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 31,
-    "DrivetrainLossPercent": 16.5,
+    "DrivetrainLossPercent": 19,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D X5 M Competition 3.4 / 11.8@118 (loss calib; IsFI flagged false (twin-turbo))"
+    "Source": "Perf: C&D X5 M Competition 3.4 / 11.8@118 (loss calib; FI twin-turbo corrected)"
   },
   {
     "Name": "2020 Dodge Durango SRT",
@@ -3743,14 +3744,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 6200,
     "DragCoefficient": 0.4,
     "FrontalAreaSqFt": 35,
-    "DrivetrainLossPercent": 27.5,
+    "DrivetrainLossPercent": 29.6,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Escalade-V 4.3 / 12.7@111 (loss calib; IsFI flagged false (supercharged))"
+    "Source": "Perf: C&D Escalade-V 4.3 / 12.7@111 (loss calib; FI supercharged corrected)"
   },
   {
     "Name": "2021 Range Rover Sport SVR",
@@ -4671,12 +4672,12 @@ window.GARAGE_DATA = [
     "WeightLbs": 4221,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 22.3,
+    "DrivetrainLossPercent": 24.6,
     "TireType": 1,
     "DriveType": "AWD",
-    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss calib; IsFI flagged false (turbo V6))",
+    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss calib; FI turbo V6 corrected)",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD"
   },
