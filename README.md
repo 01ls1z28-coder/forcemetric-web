@@ -53,3 +53,22 @@ Open via the cyan **Drag Racing** button under Test on `index.html` (or open `ra
 The active vehicle tune is stashed in `sessionStorage` (`forcemetric-race-vehicle`) before navigate.
 On the race page: retune **Your car** and pick an **Opponent** from the baked garage, set shared weather, then **LAUNCH**.
 Playback uses `ForceMetricPhysics.calculate` twice; winner is first to 1320 ft (lower 1/4-mile ET). Session-only — does not alter the Test page or persist garage edits.
+
+## Domain (Merovingian)
+
+Point **`https://velocitybench.com/`** at **this tool** (forcemetric-web GitHub Pages root):
+
+| Item | Value |
+|------|--------|
+| Pages site | `https://01ls1z28-coder.github.io/forcemetric-web/` |
+| Pages source | branch `main`, folder `/` (serves `index.html` at site root) |
+| Custom domain | `velocitybench.com` + `www.velocitybench.com` |
+
+**Today:** the apex CNAME is still on `guerra-tools-hub` (the tools hub). To make VelocityBench the domain root:
+
+1. Remove `velocitybench.com` / `www` from **guerra-tools-hub** Pages custom domain.
+2. Add the same custom domain on **forcemetric-web** Pages (this repo).
+3. Keep the hub published at `https://01ls1z28-coder.github.io/guerra-tools-hub/` — the tool footer **More tools** link targets that URL so it keeps working after the cutover (once the hub CNAME is cleared, `/guerra-tools-hub/` no longer redirects to the apex).
+
+Optional: update hub cards so VelocityBench opens `/` (or `https://velocitybench.com/`) after DNS moves.
+

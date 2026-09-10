@@ -69,7 +69,16 @@
     editArea: document.getElementById('editArea'),
     editLoss: document.getElementById('editLoss'),
     editTireType: document.getElementById('editTireType'),
-    editorTitle: document.getElementById('editorTitle')
+    editorTitle: document.getElementById('editorTitle'),
+    garageBrand: document.getElementById('garageBrand'),
+    garageModel: document.getElementById('garageModel'),
+    garageYear: document.getElementById('garageYear'),
+    weightLabel: document.getElementById('weightLabel'),
+    driverWeightLabel: document.getElementById('driverWeightLabel'),
+    daLabel: document.getElementById('daLabel'),
+    editWeightLabel: document.getElementById('editWeightLabel'),
+    unitsStandard: document.getElementById('unitsStandard'),
+    unitsMetric: document.getElementById('unitsMetric')
   };
 
   var selectedGarageIndex = -1;
@@ -120,6 +129,124 @@
   }
 
   var activeMaxSpeedMph = null;
+
+  // ---- Units (display only; physics stays imperial) ----
+  var UNITS_KEY = 'velocitybench-units';
+  var unitsMode = 'standard'; // 'standard' | 'metric'
+  var LB_PER_KG = 2.2046226218;
+  var M_PER_FT = 0.3048;
+  var KMH_PER_MPH = 1.609344;
+
+  function isMetric() { return unitsMode === 'metric'; }
+
+  function mphToDisplay(mph) {
+    return isMetric() ? mph * KMH_PER_MPH : mph;
+  }
+  function speedSuffix() { return isMetric() ? 'km/h' : 'mph'; }
+  function speedSuffixUpper() { return isMetric() ? 'KM/H' : 'MPH'; }
+
+  function ftToDisplay(ft) {
+    return isMetric() ? ft * M_PER_FT : ft;
+  }
+  function distSuffix() { return isMetric() ? 'm' : 'ft'; }
+
+  function lbToDisplay(lb) {
+    return isMetric() ? lb / LB_PER_KG : lb;
+  }
+  function displayToLb(v) {
+    return isMetric() ? v * LB_PER_KG : v;
+  }
+  function weightSuffix() { return isMetric() ? 'kg' : 'lbs'; }
+
+  function readWeightLbs(inputEl, name) {
+    var v = parseNum(inputEl, name);
+    return displayToLb(v);
+  }
+
+  function setInputWeightLbs(inputEl, lbs) {
+    if (!inputEl) return;
+    var disp = lbToDisplay(lbs);
+    inputEl.value = isMetric()
+      ? String(Math.round(disp * 10) / 10)
+      : String(Math.round(disp));
+  }
+
+  function updateUnitLabels() {
+    var wSuf = weightSuffix();
+    if (el.weightLabel) el.weightLabel.textContent = 'Curb Weight (' + wSuf + ')';
+    if (el.driverWeightLabel) el.driverWeightLabel.textContent = 'Driver Weight (' + wSuf + ')';
+    if (el.editWeightLabel) el.editWeightLabel.textContent = 'Weight ' + wSuf;
+    if (el.daLabel) el.daLabel.textContent = isMetric() ? 'Density Altitude (m)' : 'Density Altitude (ft)';
+
+    // Progress strip marks (fixed 1/4-mile stations)
+    var marks = document.querySelectorAll('.progress-mark[data-ft]');
+    for (var i = 0; i < marks.length; i++) {
+      var ft = parseFloat(marks[i].getAttribute('data-ft'));
+      if (!isFinite(ft)) continue;
+      if (isMetric()) {
+        var m = ft * M_PER_FT;
+        marks[i].textContent = (Math.abs(m - Math.round(m)) < 0.05 ? String(Math.round(m)) : m.toFixed(1)) + 'm';
+      } else {
+        marks[i].textContent = (ft === 0 ? "0'" : (String(Math.round(ft)) + "'"));
+      }
+    }
+
+    if (gauge && gauge.setUnits) gauge.setUnits(isMetric() ? 'metric' : 'standard');
+    if (speedChart && speedChart.setSpeedUnit) speedChart.setSpeedUnit(isMetric() ? 'km/h' : 'mph');
+  }
+
+  function convertWeightInputsOnToggle(fromMetric) {
+    // fromMetric = previous mode was metric
+    function conv(inputEl) {
+      if (!inputEl) return;
+      var raw = parseFloat(String(inputEl.value).trim());
+      if (!isFinite(raw)) return;
+      var lbs = fromMetric ? raw * LB_PER_KG : raw;
+      var next = isMetric() ? lbs / LB_PER_KG : lbs;
+      inputEl.value = isMetric()
+        ? String(Math.round(next * 10) / 10)
+        : String(Math.round(next));
+    }
+    conv(el.weight);
+    conv(el.driverWeight);
+    conv(el.editWeight);
+    // DA field (ft <-> m) when populated
+    if (el.da && String(el.da.value).trim() !== '') {
+      var daRaw = parseFloat(String(el.da.value).trim());
+      if (isFinite(daRaw)) {
+        var daFt = fromMetric ? daRaw / M_PER_FT : daRaw;
+        var daDisp = isMetric() ? daFt * M_PER_FT : daFt;
+        el.da.value = String(Math.round(daDisp));
+      }
+    }
+    if (el.calcDAResult && el.calcDAResult.textContent && el.calcDAResult.textContent !== '—') {
+      var cRaw = parseFloat(String(el.calcDAResult.textContent).replace(/[^\d.\-]/g, ''));
+      if (isFinite(cRaw)) {
+        var cFt = fromMetric ? cRaw / M_PER_FT : cRaw;
+        var cDisp = isMetric() ? cFt * M_PER_FT : cFt;
+        el.calcDAResult.textContent = Math.round(cDisp) + ' ' + distSuffix();
+      }
+    }
+  }
+
+  function applyUnitsMode(mode, persist, convertInputs) {
+    var prevMetric = isMetric();
+    unitsMode = (mode === 'metric') ? 'metric' : 'standard';
+    if (el.unitsStandard) el.unitsStandard.checked = !isMetric();
+    if (el.unitsMetric) el.unitsMetric.checked = isMetric();
+    if (convertInputs && prevMetric !== isMetric()) {
+      convertWeightInputsOnToggle(prevMetric);
+    }
+    updateUnitLabels();
+    if (persist !== false) {
+      try { localStorage.setItem(UNITS_KEY, unitsMode); } catch (e) { /* ignore */ }
+    }
+    // Refresh slip / playback displays if a result is present
+    if (playbackResult && typeof renderResult === 'function') {
+      try { renderResult(playbackResult); } catch (e2) { /* ignore */ }
+    }
+  }
+
 
   function getEngineLayout() {
     if (el.layoutMid && el.layoutMid.checked) return 'Mid';
@@ -281,21 +408,31 @@
       engineLabel = 'Forced ind.';
     }
     lines.push(slipLine('ENGINE', engineLabel));
-    var src = getHpSource();
-    var srcLabel = src === 'dynojet' ? 'DynoJet WHP' : (src === 'mustang' ? 'Mustang WHP' : 'Engine HP');
+    var srcHp = getHpSource();
+    var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang WHP' : 'Engine HP');
     lines.push(slipLine('HP SOURCE', srcLabel));
     lines.push(slipLine('TRANS', getTransmission() === 'manual' ? 'Manual' : 'Automatic'));
-    var dw = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
-    if (dw > 0) lines.push(slipLine('DRIVER WT', Math.round(dw) + ' lb'));
+    var dwDisp = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
+    if (dwDisp > 0) {
+      lines.push(slipLine('DRIVER WT', Math.round(dwDisp) + ' ' + (isMetric() ? 'kg' : 'lb')));
+    }
     lines.push('  -----------------------');
 
     function mark(ft, label) {
       var val = result.DistanceMarkers[ft];
+      var distLabel = label;
+      if (isMetric() && /FT|MILE/.test(label)) {
+        if (label === '1 MILE') distLabel = '1.6 KM';
+        else {
+          var m = Math.round(ft * M_PER_FT);
+          distLabel = m + ' M';
+        }
+      }
       if (val && val.Time >= 0) {
-        lines.push(slipLine(label, fmt2(val.Time) + ' s'));
-        lines.push(slipLine(label + ' MPH', fmt1(val.SpeedMph)));
+        lines.push(slipLine(distLabel, fmt2(val.Time) + ' s'));
+        lines.push(slipLine(distLabel + ' ' + speedSuffixUpper(), fmt1(mphToDisplay(val.SpeedMph))));
       } else {
-        lines.push(slipLine(label, '--'));
+        lines.push(slipLine(distLabel, '--'));
       }
     }
 
@@ -308,17 +445,25 @@
     mark(5280, '1 MILE');
 
     lines.push('  -----------------------');
-    if (result.ZeroToSixty != null) lines.push(slipLine('0-60 MPH', fmt2(result.ZeroToSixty) + ' s'));
-    if (result.ZeroToHundred != null) lines.push(slipLine('0-100 MPH', fmt2(result.ZeroToHundred) + ' s'));
-    if (result.ZeroToOneThirty != null) lines.push(slipLine('0-130 MPH', fmt2(result.ZeroToOneThirty) + ' s'));
-    if (result.SixtyToOneThirty != null) lines.push(slipLine('60-130', fmt2(result.SixtyToOneThirty) + ' s'));
-    if (result.HundredToOneFifty != null) lines.push(slipLine('100-150', fmt2(result.HundredToOneFifty) + ' s'));
+    if (isMetric()) {
+      if (result.ZeroToSixty != null) lines.push(slipLine('0-' + Math.round(60 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToSixty) + ' s'));
+      if (result.ZeroToHundred != null) lines.push(slipLine('0-' + Math.round(100 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToHundred) + ' s'));
+      if (result.ZeroToOneThirty != null) lines.push(slipLine('0-' + Math.round(130 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToOneThirty) + ' s'));
+      if (result.SixtyToOneThirty != null) lines.push(slipLine(Math.round(60 * KMH_PER_MPH) + '-' + Math.round(130 * KMH_PER_MPH), fmt2(result.SixtyToOneThirty) + ' s'));
+      if (result.HundredToOneFifty != null) lines.push(slipLine(Math.round(100 * KMH_PER_MPH) + '-' + Math.round(150 * KMH_PER_MPH), fmt2(result.HundredToOneFifty) + ' s'));
+    } else {
+      if (result.ZeroToSixty != null) lines.push(slipLine('0-60 MPH', fmt2(result.ZeroToSixty) + ' s'));
+      if (result.ZeroToHundred != null) lines.push(slipLine('0-100 MPH', fmt2(result.ZeroToHundred) + ' s'));
+      if (result.ZeroToOneThirty != null) lines.push(slipLine('0-130 MPH', fmt2(result.ZeroToOneThirty) + ' s'));
+      if (result.SixtyToOneThirty != null) lines.push(slipLine('60-130', fmt2(result.SixtyToOneThirty) + ' s'));
+      if (result.HundredToOneFifty != null) lines.push(slipLine('100-150', fmt2(result.HundredToOneFifty) + ' s'));
+    }
     if (result.HundredToTwoHundredKmh != null) lines.push(slipLine('100-200 KM/H', fmt2(result.HundredToTwoHundredKmh) + ' s'));
     if (result.TwoHundredToTwoFiftyKmh != null) lines.push(slipLine('200-250 KM/H', fmt2(result.TwoHundredToTwoFiftyKmh) + ' s'));
 
     lines.push('  -----------------------');
     if (result.RunDistanceFt != null) {
-      lines.push(slipLine('RUN DIST', fmt1(result.RunDistanceFt) + ' ft'));
+      lines.push(slipLine('RUN DIST', fmt1(ftToDisplay(result.RunDistanceFt)) + ' ' + distSuffix()));
     }
     if (result.RunTimeS != null) {
       lines.push(slipLine('RUN TIME', fmt2(result.RunTimeS) + ' s'));
@@ -330,13 +475,14 @@
     }
 
     lines.push('  -----------------------');
-    lines.push('  0-X MPH BREAKDOWN');
+    lines.push('  0-X ' + speedSuffixUpper() + ' BREAKDOWN');
     var keys = Object.keys(result.ZeroToMphTimes).map(Number).sort(function (a, b) { return a - b; });
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
       var tv = result.ZeroToMphTimes[k];
       if (k >= 0 && tv >= 0) {
-        lines.push(slipLine('0-' + k, fmt2(tv) + ' s'));
+        var kLabel = isMetric() ? Math.round(k * KMH_PER_MPH) : k;
+        lines.push(slipLine('0-' + kLabel, fmt2(tv) + ' s'));
       }
     }
     lines.push('  -----------------------');
@@ -402,9 +548,9 @@
     }
 
     if (advanced) {
-      var mph = Math.round(lastStep.SpeedMph);
-      mph = Math.max(0, Math.min(mph, gauge.maxValue));
-      gauge.setValue(mph);
+      var spd = Math.round(mphToDisplay(lastStep.SpeedMph));
+      spd = Math.max(0, Math.min(spd, gauge.maxValue));
+      gauge.setValue(spd);
 
       el.runTimer.textContent = fmt2(lastStep.Time) + ' s';
 
@@ -427,10 +573,10 @@
   function runTest() {
     try {
       var horsepower = parseNum(el.hp, el.hpLabel ? el.hpLabel.textContent : 'Horsepower');
-      var curbWeight = parseNum(el.weight, 'Curb Weight');
+      var curbWeight = readWeightLbs(el.weight, 'Curb Weight');
       var driverWeight = 0;
       if (el.driverWeight && String(el.driverWeight.value).trim() !== '') {
-        driverWeight = parseNum(el.driverWeight, 'Driver Weight');
+        driverWeight = readWeightLbs(el.driverWeight, 'Driver Weight');
       }
       if (driverWeight < 0) throw new Error('Driver Weight must be ≥ 0.');
       /* Cars: curb already includes ~200 lb driver baseline in Dragy-matched specs.
@@ -456,6 +602,7 @@
       var daInput = NaN;
       if (String(el.da.value).trim() !== '') {
         daInput = parseNum(el.da, 'Density Altitude');
+        if (isMetric()) daInput = daInput / M_PER_FT;
       }
 
       var tireType = mapTireIndex(parseInt(el.tireType.value, 10));
@@ -499,7 +646,11 @@
     return {
       Name: label,
       Horsepower: parseFloat(el.hp.value) || 450,
-      WeightLbs: parseFloat(el.weight.value) || 3800,
+      WeightLbs: (function () {
+        var w = parseFloat(el.weight.value);
+        if (!isFinite(w)) return 3800;
+        return displayToLb(w);
+      })(),
       DragCoefficient: parseFloat(el.cd.value) || 0.32,
       FrontalAreaSqFt: parseFloat(el.area.value) || 22,
       DrivetrainLossPercent: parseFloat(el.loss.value) || 15,
@@ -540,8 +691,9 @@
       var humidity = parseNum(el.calcHumidity, 'Calc Humidity');
       var pressure = parseNum(el.calcPressure, 'Calc Pressure');
       var daFt = Physics.computeDensityAltitude(tempF, humidity, pressure);
-      el.calcDAResult.textContent = Math.round(daFt).toString();
-      el.da.value = Math.round(daFt).toString();
+      var daDisp = isMetric() ? daFt * M_PER_FT : daFt;
+      el.calcDAResult.textContent = Math.round(daDisp) + ' ' + distSuffix();
+      el.da.value = Math.round(daDisp).toString();
     } catch (err) {
       alert(err.message || String(err));
     }
@@ -644,15 +796,134 @@
   });
 
   // ---- Garage (session-only; no localStorage persistence) ----
+  var MULTI_WORD_MAKES = [
+    'Aston Martin', 'Range Rover', 'Land Rover', 'Alfa Romeo',
+    'Mercedes-AMG', 'Mercedes-Benz', 'Rolls-Royce'
+  ];
+
+  function parseGarageMeta(name) {
+    var raw = String(name || '').trim();
+    var m = raw.match(/^(\d{4})\s+(.+)$/);
+    if (!m) {
+      return { year: '', brand: 'Other', model: raw || 'Unknown' };
+    }
+    var year = m[1];
+    var rest = m[2].trim();
+    // Strip odd "2011 - 2014 …" range prefixes
+    rest = rest.replace(/^-\s*\d{4}\s+/, '').replace(/^-\s+/, '');
+    var brand = '';
+    var model = '';
+    var lower = rest.toLowerCase();
+    for (var i = 0; i < MULTI_WORD_MAKES.length; i++) {
+      var mw = MULTI_WORD_MAKES[i];
+      if (lower.indexOf(mw.toLowerCase()) === 0) {
+        brand = mw;
+        model = rest.slice(mw.length).trim();
+        break;
+      }
+    }
+    if (!brand) {
+      var parts = rest.split(/\s+/);
+      if (parts.length < 2) {
+        brand = 'Other';
+        model = rest;
+      } else {
+        brand = parts[0];
+        model = parts.slice(1).join(' ');
+      }
+    }
+    if (!model) model = brand;
+    return { year: year, brand: brand, model: model };
+  }
+
+  function isCustomCar(car) {
+    return !!(car && car.IsCustom);
+  }
+
+  function getFilterBrand() {
+    return el.garageBrand ? String(el.garageBrand.value || '') : '';
+  }
+  function getFilterModel() {
+    return el.garageModel ? String(el.garageModel.value || '') : '';
+  }
+  function getFilterYear() {
+    return el.garageYear ? String(el.garageYear.value || '') : '';
+  }
+
+  function fillSelect(selectEl, values, placeholder, selected) {
+    if (!selectEl) return;
+    var html = '<option value="">' + escapeHtml(placeholder) + '</option>';
+    for (var i = 0; i < values.length; i++) {
+      var v = values[i];
+      var sel = v === selected ? ' selected' : '';
+      html += '<option value="' + escapeHtml(v) + '"' + sel + '>' + escapeHtml(v) + '</option>';
+    }
+    selectEl.innerHTML = html;
+  }
+
+  function rebuildGarageFilterOptions() {
+    var brandSel = getFilterBrand();
+    var modelSel = getFilterModel();
+    var yearSel = getFilterYear();
+
+    var brands = {};
+    var models = {};
+    var years = {};
+
+    for (var i = 0; i < garageData.length; i++) {
+      var meta = parseGarageMeta(garageData[i].Name);
+      brands[meta.brand] = true;
+      if (!brandSel || meta.brand === brandSel) {
+        models[meta.model] = true;
+        if (!modelSel || meta.model === modelSel) {
+          if (meta.year) years[meta.year] = true;
+        }
+      }
+    }
+
+    var brandList = Object.keys(brands).sort(function (a, b) {
+      return a.localeCompare(b);
+    });
+    var modelList = Object.keys(models).sort(function (a, b) {
+      return a.localeCompare(b);
+    });
+    var yearList = Object.keys(years).sort(function (a, b) {
+      return Number(b) - Number(a);
+    });
+
+    if (brandSel && brandList.indexOf(brandSel) < 0) brandSel = '';
+    if (modelSel && modelList.indexOf(modelSel) < 0) modelSel = '';
+    if (yearSel && yearList.indexOf(yearSel) < 0) yearSel = '';
+
+    fillSelect(el.garageBrand, brandList, 'All brands', brandSel);
+    fillSelect(el.garageModel, modelList, 'All models', modelSel);
+    fillSelect(el.garageYear, yearList, 'All years', yearSel);
+
+    if (el.garageModel) el.garageModel.disabled = !brandSel;
+    if (el.garageYear) el.garageYear.disabled = !brandSel || !modelSel;
+  }
+
   function refreshFilteredFromSearch() {
     var q = (el.garageSearch.value || '').toLowerCase();
+    var brand = getFilterBrand();
+    var model = getFilterModel();
+    var year = getFilterYear();
     filteredCars = garageData.filter(function (c) {
-      return String(c.Name).toLowerCase().indexOf(q) !== -1;
+      if (q && String(c.Name).toLowerCase().indexOf(q) === -1) return false;
+      var meta = parseGarageMeta(c.Name);
+      if (brand && meta.brand !== brand) return false;
+      if (model && meta.model !== model) return false;
+      if (year && meta.year !== year) return false;
+      return true;
     });
   }
 
   function openGarage() {
     el.garageSearch.value = '';
+    if (el.garageBrand) el.garageBrand.value = '';
+    if (el.garageModel) el.garageModel.value = '';
+    if (el.garageYear) el.garageYear.value = '';
+    rebuildGarageFilterOptions();
     filteredCars = garageData.slice();
     selectedGarageIndex = -1;
     hideCarEditor();
@@ -669,12 +940,30 @@
   }
 
   function renderCarList() {
-    var html = '';
+    var customs = [];
+    var baked = [];
     for (var i = 0; i < filteredCars.length; i++) {
-      var c = filteredCars[i];
-      var sel = i === selectedGarageIndex ? ' selected' : '';
-      html += '<li class="' + sel.trim() + '" data-idx="' + i + '">' + escapeHtml(c.Name) + '</li>';
+      var item = { car: filteredCars[i], idx: i };
+      if (isCustomCar(filteredCars[i])) customs.push(item);
+      else baked.push(item);
     }
+    var html = '';
+    function renderItems(arr) {
+      for (var j = 0; j < arr.length; j++) {
+        var c = arr[j].car;
+        var idx = arr[j].idx;
+        var sel = idx === selectedGarageIndex ? ' selected' : '';
+        html += '<li class="' + sel.trim() + '" data-idx="' + idx + '">' + escapeHtml(c.Name) + '</li>';
+      }
+    }
+    if (customs.length) {
+      html += '<li class="car-list-section">Custom Vehicles Added</li>';
+      renderItems(customs);
+    }
+    if (customs.length && baked.length) {
+      html += '<li class="car-list-section">Fleet</li>';
+    }
+    renderItems(baked);
     el.carList.innerHTML = html || '<li style="color:#666;cursor:default">No matches</li>';
   }
 
@@ -710,6 +999,28 @@
     renderCarList();
   });
 
+  function onGarageFilterChange(level) {
+    if (level === 'brand') {
+      if (el.garageModel) el.garageModel.value = '';
+      if (el.garageYear) el.garageYear.value = '';
+    } else if (level === 'model') {
+      if (el.garageYear) el.garageYear.value = '';
+    }
+    rebuildGarageFilterOptions();
+    refreshFilteredFromSearch();
+    selectedGarageIndex = -1;
+    renderCarList();
+  }
+  if (el.garageBrand) {
+    el.garageBrand.addEventListener('change', function () { onGarageFilterChange('brand'); });
+  }
+  if (el.garageModel) {
+    el.garageModel.addEventListener('change', function () { onGarageFilterChange('model'); });
+  }
+  if (el.garageYear) {
+    el.garageYear.addEventListener('change', function () { onGarageFilterChange('year'); });
+  }
+
   function looksLikeEv(name) {
     var n = String(name || '').toLowerCase();
     return /\btesla\b|\blucid\b|\brivian\b|\bpolestar\b|\brimac\b|\btaycan\b|\bcybertruck\b|\bplaid\b|e-tron|ioniq|\beq[sbe]\b|mach-e|\bev\b|electric|ariya|solterra|bz4x|lyriq|blazer ev|fisker|kona electric|niro ev|id\.4|ex90|gv60|lightning|eqe|eqs|eqb/.test(n);
@@ -730,7 +1041,8 @@
   /** Light curb / bikes: Manual + RWD only. Heavier cars keep TX and drive choices. */
   function syncTransmissionForCurb() {
     var curb = parseFloat(el.weight && el.weight.value);
-    if (!isFinite(curb)) curb = 3800;
+    if (!isFinite(curb)) curb = isMetric() ? (3800 / LB_PER_KG) : 3800;
+    curb = displayToLb(curb);
     var light = curb <= 1500;
     if (light) {
       if (el.txManual) el.txManual.checked = true;
@@ -798,7 +1110,7 @@
     }
     var car = filteredCars[selectedGarageIndex];
     el.hp.value = car.Horsepower;
-    el.weight.value = car.WeightLbs;
+    setInputWeightLbs(el.weight, car.WeightLbs);
     el.cd.value = car.DragCoefficient;
     el.area.value = car.FrontalAreaSqFt;
     el.loss.value = car.DrivetrainLossPercent;
@@ -844,7 +1156,7 @@
     el.editorTitle.textContent = mode === 'add' ? 'Add Vehicle' : 'Edit Vehicle';
     el.editName.value = car.Name || '';
     el.editHp.value = car.Horsepower;
-    el.editWeight.value = car.WeightLbs;
+    setInputWeightLbs(el.editWeight, car.WeightLbs);
     el.editCd.value = car.DragCoefficient;
     el.editArea.value = car.FrontalAreaSqFt;
     el.editLoss.value = car.DrivetrainLossPercent;
@@ -868,7 +1180,8 @@
     var name = String(el.editName.value || '').trim();
     if (!name) throw new Error('Name is required.');
     var hp = parseFloat(el.editHp.value);
-    var weight = parseFloat(el.editWeight.value);
+    var weightDisp = parseFloat(el.editWeight.value);
+    var weight = displayToLb(weightDisp);
     var cd = parseFloat(el.editCd.value);
     var area = parseFloat(el.editArea.value);
     var loss = parseFloat(el.editLoss.value);
@@ -916,10 +1229,16 @@
       IsForcedInduction: isFi
     };
     if (maxSpeedMph != null) out.MaxSpeedMph = maxSpeedMph;
+    if (editorMode === 'add') {
+      out.IsCustom = true;
+    } else if (editorMode === 'edit' && editingOriginalIndex >= 0 && garageData[editingOriginalIndex]) {
+      if (garageData[editingOriginalIndex].IsCustom) out.IsCustom = true;
+    }
     return out;
   }
 
   function refreshList(preferName) {
+    rebuildGarageFilterOptions();
     refreshFilteredFromSearch();
     selectedGarageIndex = -1;
     if (preferName) {
@@ -1042,6 +1361,18 @@
     }
   })();
 
+  (function initUnits() {
+    var savedU = null;
+    try { savedU = localStorage.getItem(UNITS_KEY); } catch (e) { savedU = null; }
+    applyUnitsMode(savedU === 'metric' ? 'metric' : 'standard', false, false);
+    function onUnitsChange() {
+      var mode = (el.unitsMetric && el.unitsMetric.checked) ? 'metric' : 'standard';
+      applyUnitsMode(mode, true, true);
+    }
+    if (el.unitsStandard) el.unitsStandard.addEventListener('change', onUnitsChange);
+    if (el.unitsMetric) el.unitsMetric.addEventListener('change', onUnitsChange);
+  })();
+
   // Resize gauge/chart on window resize
   window.addEventListener('resize', function () {
     gauge._resize();
@@ -1052,7 +1383,10 @@
   window.ForceMetricApp = {
     speedChart: speedChart,
     parseVehicleName: parseVehicleName,
+    parseGarageMeta: parseGarageMeta,
     getDriveType: getDriveType,
-    setDriveType: setDriveType
+    setDriveType: setDriveType,
+    isMetric: isMetric,
+    applyUnitsMode: applyUnitsMode
   };
 })();
