@@ -370,14 +370,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3460,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 31.3,
+    "DrivetrainLossPercent": 29.1,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (MT, loss calib; IsFI true (NA LS1))"
+    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (MT, loss calib; NA LS1 corrected)"
   },
   {
     "Name": "1996 Ford Mustang SVT Cobra",
@@ -653,13 +653,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 16,
+    "DrivetrainLossPercent": 29.3,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": true,
+    "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "Open"
+    "Differential": "Open",
+    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (MT, loss calib; NA LS1 corrected)"
   },
   {
     "Name": "2009 Dodge Challenger R/T",
@@ -1064,13 +1065,13 @@ window.GARAGE_DATA = [
     "FrontalAreaSqFt": 30,
     "DrivetrainLossPercent": 32,
     "TireType": 0,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Electronic",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D/peer Model X Dual Motor LR ~3.8 / ~12.3@112 (loss calib; DriveType RWD (should be AWD Dual Motor))"
+    "Source": "Perf: C&D/peer Model X Dual Motor LR ~3.8 / ~12.3@112 (loss calib; AWD Dual Motor corrected)"
   },
   {
     "Name": "2023 Nissan Ariya e-4ORCE",
@@ -1348,14 +1349,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 4700,
     "DragCoefficient": 0.29,
     "FrontalAreaSqFt": 28,
-    "DrivetrainLossPercent": 10.8,
+    "DrivetrainLossPercent": 23.6,
     "TireType": 0,
     "DriveType": "AWD",
-    "IsEv": false,
+    "IsEv": true,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer XC40 Recharge Twin Motor ~4.3 / ~12.8@108 (loss calib; IsEv false (should be EV))"
+    "Source": "Perf: C&D/peer XC40 Recharge Twin Motor ~4.3 / ~12.8@108 (loss calib; IsEv corrected)"
   },
   {
     "Name": "2021 Ferrari SF90 Stradale",
@@ -1618,14 +1619,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3671,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 31.2,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Murciélago LP640 ~3.4 / ~11.5@126 (loss calib; DriveType RWD (should be AWD))"
+    "Source": "Perf: C&D/peer Murciélago LP640 ~3.4 / ~11.5@126 (loss calib; AWD corrected)"
   },
   {
     "Name": "2009 Nissan GT-R",
@@ -1648,14 +1649,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3571,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 24.7,
+    "DrivetrainLossPercent": 32,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer R8 V10 ~3.5 / ~11.7@122 (loss calib; DriveType RWD (many US cars Quattro AWD))"
+    "Source": "Perf: C&D/peer R8 V10 ~3.5 / ~11.7@122 (loss calib; AWD Quattro corrected)"
   },
   {
     "Name": "2001 Lamborghini Diablo VT 6.0",
@@ -1810,14 +1811,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3400,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 28.4,
+    "DrivetrainLossPercent": 31.9,
     "TireType": 1,
-    "DriveType": "RWD",
+    "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 996 Turbo Tiptronic ~4.0 / ~12.3@116 (loss calib; DriveType RWD (should be AWD))"
+    "Source": "Perf: C&D/peer 996 Turbo Tiptronic ~4.0 / ~12.3@116 (loss calib; AWD corrected)"
   },
   {
     "Name": "2006 Ferrari 612 Scaglietti",
@@ -2370,14 +2371,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3400,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 21.5,
+    "DrivetrainLossPercent": 23.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 135i auto ~5.0 / ~13.6@104 (loss calib; IsFI false (N54 twin-turbo))"
+    "Source": "Perf: C&D/peer 135i auto ~5.0 / ~13.6@104 (loss calib; FI N54 twin-turbo corrected)"
   },
   {
     "Name": "2010 Mazda RX-8 R3",
@@ -2513,14 +2514,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3200,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 31,
+    "DrivetrainLossPercent": 32,
     "TireType": 0,
     "DriveType": "FWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Mazdaspeed3 MT ~5.9 / ~14.5@96 (MT, loss calib; IsFI false (turbo))"
+    "Source": "Perf: C&D/peer Mazdaspeed3 MT ~5.9 / ~14.5@96 (MT, loss calib; FI turbo corrected)"
   },
   {
     "Name": "2013 Scion FR-S",
@@ -2739,13 +2740,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3600,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 18,
+    "DrivetrainLossPercent": 29.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "Perf: C&D Mazdaspeed6 MT 5.4 / 14.0@99 (MT, loss calib; FI turbo corrected)"
   },
   {
     "Name": "2021 Kawasaki Ninja ZX-10R",
@@ -4082,14 +4084,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3600,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 19.6,
+    "DrivetrainLossPercent": 21.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss calib; IsFI false (N54 twin-turbo))"
+    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss calib; FI N54 twin-turbo corrected)"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
@@ -4373,14 +4375,14 @@ window.GARAGE_DATA = [
     "WeightLbs": 3600,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 19.6,
+    "DrivetrainLossPercent": 21.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false,
+    "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss calib; IsFI false (N54 twin-turbo))"
+    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss calib; FI N54 twin-turbo corrected)"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
