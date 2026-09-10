@@ -14,6 +14,7 @@
 
   // Session-only garage: always start from baked defaults.
   var garageData = (window.GARAGE_DATA || []).slice();
+  var garageEvLocked = false;
 
   // ---- Elements ----
   var el = {
@@ -534,6 +535,10 @@
   });
 
   el.chkEv.addEventListener('change', function () {
+    if (garageEvLocked) {
+      el.chkEv.checked = true;
+      return;
+    }
     if (el.chkEv.checked) {
       el.chkNA.checked = false;
       el.chkFI.checked = false;
@@ -564,7 +569,9 @@
   if (el.txAuto) el.txAuto.addEventListener('change', onHpSourceOrTxChange);
   if (el.txManual) el.txManual.addEventListener('change', onHpSourceOrTxChange);
   if (el.loss) el.loss.addEventListener('input', syncHpLossUi);
+  if (el.weight) el.weight.addEventListener('input', syncTransmissionForCurb);
   syncHpLossUi();
+  syncTransmissionForCurb();
 
   document.getElementById('btnPlay').addEventListener('click', function () {
     if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) return;
@@ -655,18 +662,73 @@
 
   function looksLikeEv(name) {
     var n = String(name || '').toLowerCase();
-    return /\btesla\b|\blucid\b|\brivian\b|\bpolestar\b|\brimac\b|\btaycan\b|\bcybertruck\b|\bplaid\b|e-tron|ioniq|\beq[sbe]\b|mach-e|\bev\b|electric|ariya|solterra|bz4x|lyriq|blazer ev|fisker|kona electric|niro ev|id\.4|ex90|gv60|lightning/.test(n);
+    return /\btesla\b|\blucid\b|\brivian\b|\bpolestar\b|\brimac\b|\btaycan\b|\bcybertruck\b|\bplaid\b|e-tron|ioniq|\beq[sbe]\b|mach-e|\bev\b|electric|ariya|solterra|bz4x|lyriq|blazer ev|fisker|kona electric|niro ev|id\.4|ex90|gv60|lightning|eqe|eqs|eqb/.test(n);
+  }
+
+  function carIsEv(car) {
+    if (!car) return false;
+    if (typeof car.IsEv === 'boolean') return car.IsEv;
+    return looksLikeEv(car.Name);
+  }
+
+  function carIsFi(car) {
+    if (!car) return false;
+    if (typeof car.IsForcedInduction === 'boolean') return !!car.IsForcedInduction;
+    return false;
+  }
+
+  /** Light curb / bikes: Manual only. Heavier cars keep Auto/Manual. */
+  function syncTransmissionForCurb() {
+    var curb = parseFloat(el.weight && el.weight.value);
+    if (!isFinite(curb)) curb = 3800;
+    var light = curb <= 1500;
+    if (light) {
+      if (el.txManual) el.txManual.checked = true;
+      if (el.txAuto) {
+        el.txAuto.checked = false;
+        el.txAuto.disabled = true;
+      }
+      if (el.txManual) el.txManual.disabled = false;
+    } else {
+      if (el.txAuto) el.txAuto.disabled = false;
+      if (el.txManual) el.txManual.disabled = false;
+    }
+    if (typeof syncHpLossUi === 'function') syncHpLossUi();
+  }
+
+  function applyGaragePowertrain(car) {
+    var isEv = carIsEv(car);
+    var isFi = !isEv && carIsFi(car);
+    garageEvLocked = isEv;
+    if (!el.chkEv) return;
+    el.chkEv.checked = isEv;
+    el.chkEv.disabled = isEv; /* locked on for garage EVs */
+    if (isEv) {
+      el.chkNA.checked = false;
+      el.chkFI.checked = false;
+      el.chkNA.disabled = true;
+      el.chkFI.disabled = true;
+    } else {
+      el.chkNA.disabled = false;
+      el.chkFI.disabled = false;
+      el.chkFI.checked = isFi;
+      el.chkNA.checked = !isFi;
+    }
   }
 
   function setEvChecked(on) {
     if (!el.chkEv) return;
+    if (garageEvLocked && !on) {
+      el.chkEv.checked = true;
+      return;
+    }
     el.chkEv.checked = !!on;
     if (on) {
       el.chkNA.checked = false;
       el.chkFI.checked = false;
       el.chkNA.disabled = true;
       el.chkFI.disabled = true;
-    } else {
+    } else if (!garageEvLocked) {
       el.chkNA.disabled = false;
       el.chkFI.disabled = false;
     }
@@ -685,9 +747,15 @@
     el.loss.value = car.DrivetrainLossPercent;
     el.tireType.value = tireLabelFromEnum(car.TireType);
     setDriveType(car.DriveType || 'RWD');
-    setEvChecked(looksLikeEv(car.Name));
+    applyGaragePowertrain(car);
+    syncTransmissionForCurb();
     setActiveVehicleLabel(car.Name);
-    var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + (looksLikeEv(car.Name) ? ', EV' : '') + ')\nReady to simulate.';
+    var tags = [];
+    if (carIsEv(car)) tags.push('EV');
+    else if (carIsFi(car)) tags.push('FI');
+    else tags.push('NA');
+    if ((car.WeightLbs || 0) <= 1500) tags.push('Manual');
+    var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
     el.resultsOut.textContent = loadMsg;
     closeGarage();
@@ -702,7 +770,9 @@
       FrontalAreaSqFt: 22,
       DrivetrainLossPercent: 15,
       TireType: 0,
-      DriveType: 'RWD'
+      DriveType: 'RWD',
+      IsEv: false,
+      IsForcedInduction: false
     };
   }
 
@@ -751,6 +821,14 @@
       driveType = String(el.editDriveType.value || 'RWD').toUpperCase();
       if (driveType !== 'FWD' && driveType !== 'RWD' && driveType !== 'AWD') driveType = 'RWD';
     }
+    var isEv = looksLikeEv(name);
+    var isFi = false;
+    if (editorMode === 'edit' && editingOriginalIndex >= 0 && garageData[editingOriginalIndex]) {
+      var prev = garageData[editingOriginalIndex];
+      if (typeof prev.IsEv === 'boolean') isEv = prev.IsEv;
+      if (typeof prev.IsForcedInduction === 'boolean') isFi = prev.IsForcedInduction;
+      if (isEv) isFi = false;
+    }
     return {
       Name: name,
       Horsepower: hp,
@@ -759,7 +837,9 @@
       FrontalAreaSqFt: area,
       DrivetrainLossPercent: loss,
       TireType: tire,
-      DriveType: driveType
+      DriveType: driveType,
+      IsEv: isEv,
+      IsForcedInduction: isFi
     };
   }
 
