@@ -329,22 +329,47 @@
     return curb <= 1500;
   }
 
-  /** Light curb / bikes: Manual + RWD only. Heavier: TX/drive selectable. */
+  function isEvMode() {
+    return !!(el.chkEv && el.chkEv.checked);
+  }
+
+  /** TX/drive locks: EV → Auto (Manual disabled); else light curb → Manual+RWD; else free.
+   *  EV Auto lock wins over light-curb Manual when IsEv. */
   function applyLightCurbLocks() {
-    if (isLightCurb()) {
-      if (el.txManual) el.txManual.checked = true;
+    var ev = isEvMode();
+    var light = isLightCurb();
+
+    if (ev) {
+      /* EV priority: Automatic locked on, Manual disabled (even if light curb). */
+      if (el.txAuto) {
+        el.txAuto.checked = true;
+        el.txAuto.disabled = false;
+      }
+      if (el.txManual) {
+        el.txManual.checked = false;
+        el.txManual.disabled = true;
+      }
+    } else if (light) {
+      if (el.txManual) {
+        el.txManual.checked = true;
+        el.txManual.disabled = false;
+      }
       if (el.txAuto) {
         el.txAuto.checked = false;
         el.txAuto.disabled = true;
       }
+    } else {
+      if (el.txAuto) el.txAuto.disabled = false;
       if (el.txManual) el.txManual.disabled = false;
+    }
+
+    /* Light curb (bikes): RWD lock; EVs are typically heavy so drive stays free. */
+    if (light) {
       setDriveType('RWD');
       if (el.driveFWD) el.driveFWD.disabled = true;
       if (el.driveAWD) el.driveAWD.disabled = true;
       if (el.driveRWD) el.driveRWD.disabled = false;
     } else {
-      if (el.txAuto) el.txAuto.disabled = false;
-      if (el.txManual) el.txManual.disabled = false;
       if (el.driveFWD) el.driveFWD.disabled = false;
       if (el.driveRWD) el.driveRWD.disabled = false;
       if (el.driveAWD) el.driveAWD.disabled = false;
@@ -767,6 +792,7 @@
   el.chkEv.addEventListener('change', function () {
     if (garageEvLocked) {
       el.chkEv.checked = true;
+      applyLightCurbLocks();
       return;
     }
     if (el.chkEv.checked) {
@@ -781,6 +807,7 @@
       el.chkFI.disabled = false;
       el.resultsOut.textContent += '\nEV Mode disabled.';
     }
+    applyLightCurbLocks();
   });
 
   function onDriveTypeChange() {
@@ -1096,6 +1123,7 @@
     if (!el.chkEv) return;
     if (garageEvLocked && !on) {
       el.chkEv.checked = true;
+      applyLightCurbLocks();
       return;
     }
     el.chkEv.checked = !!on;
@@ -1108,6 +1136,7 @@
       el.chkNA.disabled = false;
       el.chkFI.disabled = false;
     }
+    applyLightCurbLocks();
   }
 
   function loadSelectedVehicle() {
@@ -1124,17 +1153,21 @@
     el.tireType.value = tireLabelFromEnum(car.TireType);
     setDriveType(car.DriveType || 'RWD');
     setEngineLayout(car.EngineLayout || 'Front');
-    setDifferential(car.Differential || 'LSD');
+    setDifferential(car.Differential || (carIsEv(car) ? 'Open' : 'LSD'));
     activeMaxSpeedMph = (car.MaxSpeedMph != null && isFinite(car.MaxSpeedMph) && car.MaxSpeedMph > 0)
       ? Number(car.MaxSpeedMph) : null;
     applyGaragePowertrain(car);
+    if (carIsEv(car)) {
+      /* Garage EVs: bake UI to Open diff; TX locked Automatic via applyLightCurbLocks. */
+      setDifferential(car.Differential || 'Open');
+    }
     syncTransmissionForCurb();
     setActiveVehicleLabel(car.Name);
     var tags = [];
-    if (carIsEv(car)) tags.push('EV');
+    if (carIsEv(car)) tags.push('EV', 'Auto');
     else if (carIsFi(car)) tags.push('FI');
     else tags.push('NA');
-    if ((car.WeightLbs || 0) <= 1500) tags.push('Manual', 'RWD');
+    if (!carIsEv(car) && (car.WeightLbs || 0) <= 1500) tags.push('Manual', 'RWD');
     var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
     el.resultsOut.textContent = loadMsg;
