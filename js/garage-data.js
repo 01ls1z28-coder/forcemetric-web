@@ -1105,7 +1105,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2021 Porsche 911 Turbo S",
@@ -1141,7 +1141,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2017 Ferrari 812 Superfast",
@@ -1165,7 +1165,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2019 Lamborghini Hurac\u00e1n Performante",
@@ -1201,7 +1201,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2015 McLaren P1",
@@ -1213,7 +1213,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2014 Ferrari F12 Berlinetta",
@@ -1237,7 +1237,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2012 Lamborghini Gallardo LP570-4",
@@ -1501,7 +1501,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2015 Aston Martin V12 Vantage S",
@@ -1537,7 +1537,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2019 Lamborghini Aventador SVJ",
@@ -1621,7 +1621,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2006 Saleen S7 Twin Turbo",
@@ -1741,7 +1741,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2016 Koenigsegg Regera",
@@ -1753,7 +1753,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2017 Pagani Huayra BC",
@@ -1777,7 +1777,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2020 McLaren Elva",
@@ -1789,7 +1789,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2014 Koenigsegg Agera S",
@@ -1801,7 +1801,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2016 Bugatti Chiron",
@@ -1837,7 +1837,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "1998 Toyota Supra Turbo (Mk4)",
@@ -2197,7 +2197,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "1994 Nissan 180SX Type X",
@@ -2401,7 +2401,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2021 Ram TRX",
@@ -3541,7 +3541,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2015 BMW M4",
@@ -3673,7 +3673,7 @@ window.GARAGE_DATA = [
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2004 BMW 330Ci ZHP",
@@ -3874,7 +3874,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s).",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2024 Toyota GR86",
@@ -3965,7 +3965,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan.",
     "IsEv": false,
-    "IsForcedInduction": false
+    "IsForcedInduction": true
   },
   {
     "Name": "2024 Lexus RC F",
