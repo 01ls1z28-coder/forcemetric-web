@@ -326,7 +326,7 @@
     var raw = el.atcStallRpm ? parseFloat(el.atcStallRpm.value) : 2800;
     return Physics && Physics.clampAtcStallRpm
       ? Physics.clampAtcStallRpm(raw)
-      : Math.max(1800, Math.min(7000, isFinite(raw) ? raw : 2800));
+      : Math.max(1500, Math.min(7000, isFinite(raw) ? raw : 2800));
   }
 
   function getAtcPeakTorqueRpm() {

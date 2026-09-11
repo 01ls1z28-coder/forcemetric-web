@@ -223,3 +223,49 @@ Verify:
 Intentional skips: WebGL/three.js; RT/foul/holeshot; fleet retune;
 physics formula changes; new heavy deps.
 
+Phase 20 — ATC 60′ stall-band retune (2026-09-11 CT)
+-----------------------------------------------------
+Shared js/physics.js (main + race). UI Stall min 1500 on index + race.
+No garage-data.js / fleet retune. Auto-only / Manual/DCT/EV gates unchanged.
+Estimate disclaimer unchanged. SessionStorage race→main restore untouched.
+
+Physics: aftermarketConverterForceMult rewrite
+  - ATC_STALL_MIN 1500 (was 1800); max 7000
+  - Primary gain from stall-band table ATC_STALL_BAND_BOOST (not flat +18%):
+      1650 → 0.27, 3000 → 1.00, 3850 → 2.20, 4700 → 2.70,
+      5850 → 3.00, 6500+ → 3.05 soft plateau
+    Linear interpolate between band centers; plateau above ~6500
+  - Peak TQ match factor: Stall≈Peak TQ → full band boost; under-stall
+    (stall/peak < 1) softens via pow(match,1.35); over-stall soft penalty
+  - mph launch window unchanged (full ≤4, fade 4–40→0.28, 40–70→0, ≥70 off)
+  - Applied BEFORE traction clamp; mult clamp 0.85–3.2
+  - Helper atcStallBandIdealBoost exported
+
+Spot-calib (Standard Day 59°F / 0% / 29.92, Street, Auto, Peak TQ = stall):
+
+  Reference A — 1975 Chevrolet Nova 350 (Auto RWD, best garage headroom)
+    OFF 60′ = 2.510 s
+    Stall 1650 → 2.440  Δ = −0.070  (target −0.07)  ✓
+    Stall 3000 → 2.360  Δ = −0.150  (target −0.15)  ✓
+    Stall 3850 → 2.320  Δ = −0.190  (target −0.22)  undershoot traction floor
+    Stall 4700 → 2.320  Δ = −0.190  (target −0.26)  undershoot
+    Stall 5850 → 2.320  Δ = −0.190  (target −0.30)  undershoot
+    Stall 6500 → 2.310  Δ = −0.200  plateau (~Open-diff Street floor)
+    Mismatch Peak TQ = 1.5×stall → weaker Δ than matched (all bands)
+
+  Reference B — 2020 Ford Mustang GT (Auto RWD Street)
+    OFF 60′ = 2.220 s (already at Front+LSD+Street traction floor)
+    All matched band mids → Δ60′ = 0.000  — fully traction-limited through 60′;
+    force-mult-before-clamp cannot improve 60′. Honest undershoot vs targets.
+
+Verify:
+  1. ATC OFF == baseline ET
+  2. Band mid matched Peak TQ ≈ targets on power-headroom Auto (±0.02 where possible)
+  3. Mismatched Peak TQ weaker than matched
+  4. Manual/DCT/EV still lock ATC off; EV physics ignores atcEnabled
+  5. Stall UI/clamp min 1500; race both lanes share physics.js
+  6. No garage-data fleet retune; no sessionStorage restore edits
+
+Intentional skips: K-factor / dyno converter map; garage bake ATC columns;
+fleet retune; raising mu to fake 60′ gains on traction-capped cars;
+sessionStorage race→main hotfix (separate branch).
