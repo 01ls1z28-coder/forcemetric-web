@@ -868,6 +868,11 @@
 
   function snapshotActiveVehicle() {
     var label = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || 'Custom setup';
+    var dw = DEFAULT_DRIVER_WEIGHT_LBS;
+    if (el.driverWeight && String(el.driverWeight.value).trim() !== '') {
+      var dwp = parseFloat(el.driverWeight.value);
+      if (isFinite(dwp)) dw = displayToLb(dwp);
+    }
     return {
       Name: label,
       Horsepower: parseFloat(el.hp.value) || 450,
@@ -876,6 +881,7 @@
         if (!isFinite(w)) return 3800;
         return displayToLb(w);
       })(),
+      DriverWeightLbs: dw,
       DragCoefficient: parseFloat(el.cd.value) || 0.32,
       FrontalAreaSqFt: parseFloat(el.area.value) || 22,
       DrivetrainLossPercent: parseFloat(el.loss.value) || 15,
@@ -883,6 +889,8 @@
       DriveType: getDriveType(),
       EngineLayout: getEngineLayout(),
       Differential: getDifferential(),
+      Transmission: bakeTransmissionLabel(getTransmission()),
+      HpSource: getHpSource(),
       isNA: !!(el.chkNA && el.chkNA.checked),
       isFI: !!(el.chkFI && el.chkFI.checked),
       isEv: !!(el.chkEv && el.chkEv.checked),

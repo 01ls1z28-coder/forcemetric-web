@@ -543,7 +543,7 @@
   }
 }
 
-/* Phase 14 — align race chrome with main brass instrument cluster */
+/* Phase 14/15 — race chrome parity with main brass instrument cluster */
 .btn-back {
   border: 1px solid var(--brass);
   box-shadow: inset 0 0 0 1px var(--brass-inset);
@@ -552,32 +552,95 @@
     linear-gradient(180deg, rgba(240, 226, 196, 0.06), transparent 55%),
     var(--panel-2);
 }
-
-.btn-back:hover {
-  border-color: rgba(240, 226, 196, 0.65);
-}
-
-.lane-card {
+.btn-back:hover { border-color: rgba(240, 226, 196, 0.65); }
+.lane-card, .weather-strip.card, .chart-panel.card {
   border: 1px solid var(--brass);
   background: var(--brass-face);
   box-shadow: var(--brass-shadow);
 }
+.lane-card.lane-you {
+  border-color: rgba(184, 255, 60, 0.35);
+  box-shadow: 0 0 0 1px rgba(184, 255, 60, 0.10), var(--brass-shadow);
+}
+.lane-card.lane-opp {
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.10), var(--brass-shadow);
+}
 
-.race-car-list {
+.lane-card .field span, .weather-strip .field span, .drive-label, .card-title { color: var(--brass-text); }
+.lane-card input[type="number"], .lane-card input[type="text"], .lane-card select,
+.weather-strip input, .weather-strip select {
   border: 1px solid var(--brass);
+  background: var(--input-bg);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  color: var(--text);
+}
+.lane-card input:focus, .lane-card select:focus, .weather-strip input:focus, .weather-strip select:focus {
+  outline: 2px solid var(--brass-text);
+  outline-offset: 1px;
+}
+.lane-card .drive-seg, .lane-card .drive-opt span { border-color: var(--brass); }
+.race-car-list { border: 1px solid var(--brass); box-shadow: inset 0 0 0 1px var(--brass-inset); }
+.btn-load {
+  border: 1px solid var(--brass);
+  color: var(--brass-text);
+  background: linear-gradient(180deg, rgba(240, 226, 196, 0.08), transparent 60%), var(--panel-2);
   box-shadow: inset 0 0 0 1px var(--brass-inset);
 }
-
-.track-board,
-.results-board .result-card,
-.winner-banner,
-.race-chart-wrap {
+.btn-load:hover { border-color: rgba(240, 226, 196, 0.65); }
+.btn-launch {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 0 0 2px rgba(215, 196, 160, 0.35),
+    0 0 32px rgba(225, 29, 72, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.track-board, .results-board .result-card, .winner-banner, .race-chart-wrap, .race-name, .lead-callout {
   border-color: var(--brass);
 }
-
-.stat-pill .lbl,
-.lane-header,
-.setup-hint {
-  color: var(--brass-text);
+.track-board, .results-board .result-card {
+  background: var(--brass-face);
+  box-shadow: var(--brass-shadow);
+}
+.race-chart-wrap {
+  background: #07090c;
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  overflow: hidden;
 }
 
+.stat-pill {
+  border: 1px solid var(--brass);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+}
+.stat-pill .lbl, .lane-header, .setup-hint, .meta-pill .lbl { color: var(--brass-text); }
+.stat-pill .val, .meta-pill .val { font-family: var(--mono); color: var(--text); }
+.meta-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.meta-pill {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brass);
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  min-width: 72px;
+}
+.meta-pill .lbl { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
+.meta-pill .val { font-size: 12px; font-weight: 700; }
+.race-actions .btn-ctrl {
+  border: 1px solid var(--brass);
+  color: var(--brass-text);
+  background: linear-gradient(180deg, rgba(240, 226, 196, 0.08), transparent 60%), var(--panel-2);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+}
+.race-actions .btn-ctrl:hover { border-color: rgba(240, 226, 196, 0.65); }
+.strip-track { border: 1px solid var(--brass); box-shadow: inset 0 0 0 1px var(--brass-inset); }
+.check-row label { color: var(--brass-text); }
+.lane-card, .track-board, .chart-panel.card { position: relative; }
+@media (max-width: 980px) {
+  .lane-card .drive-seg-4 { grid-template-columns: 1fr 1fr; }
+}

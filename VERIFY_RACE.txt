@@ -37,3 +37,13 @@ Navigation check
 index.html → cyan Drag Racing button (under lime Test) → race.html
 Active vehicle snapshot stored in sessionStorage key forcemetric-race-vehicle
 (and optional ?car= query). Test page behavior unchanged.
+
+Phase 15 — Race parity checklist (2026-09-10 CT)
+================================================
+Same ForceMetricPhysics.calculate; race applies main TX loss, driver mass, Dual layout, bake fields.
+
+UI: TX radios both lanes; Layout incl Dual; Driver 200; HP Source; EV Auto lock; brass chrome; LAUNCH contrast.
+Garage: IsEv/IsForcedInduction/Transmission/EngineLayout/Differential/TireType/DriveType from bake.
+Spots: 911+GT500 DCT; Mustang GT Auto; Civic Type R Manual; Plaid EV Auto Dual.
+Physics: Manual-2/DCT-1/Auto0; dyno WHP loss0; Mustang x1.05; curb-200+driver; playback OK.
+No fleet retune — garage-data.js unchanged.

@@ -97,3 +97,24 @@ Verify:
   4. Mobile: no horizontal overflow; 3-col TX / Engine Layout radios still readable
   5. Open Garage + Support + car editor — bezels/titles/dividers match main cards
 
+Phase 15 — Race.html full parity with main sim (2026-09-10 CT)
+---------------------------------------------------------------
+Drag Racing mirrors Phases 10-14 main wiring. No fleet retune / garage-data number changes.
+
+15A Brass chrome (race.css): lane cards, weather, charts, track, results reuse --brass* tokens;
+inputs/selects/drive-seg brass; lime/cyan lane tags + LAUNCH keep contrast; dual charts brass face.
+
+15B Transmission + loss: Auto/Dual Clutch/Manual both lanes; EV Auto-locked; light curb Manual+RWD;
+Manual=base-2, DCT=base-1, Auto=base; DynoJet/Mustang WHP=0; clamp 0-35; bake Transmission load.
+
+15C Engine/Motor Layout Dual: Front/Mid/Rear/Front+Rear; bake EngineLayout; EV bakeEvEngineLayout.
+
+15D Driver weight default 200; mass curb-200+driver (cars) or curb-115+driver (<=1500).
+
+15E Garage bake: IsEv / IsForcedInduction / Differential / TireType / DriveType / Transmission / EngineLayout.
+Main snapshot also passes Transmission, DriverWeightLbs, HpSource.
+
+15F Labels + charts: HP source labels; results TRANS / MOTOR|ENGINE / LAYOUT / LOSS;
+dual charts nice round ticks + brass face; playback preserved.
+
+Spot: PDK 911 + GT500 DCT loss-1; Mustang GT Auto; Civic Type R Manual; Plaid EV Auto Dual.

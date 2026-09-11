@@ -49,10 +49,27 @@
             <div class="lane-name" id="youNameLabel">Custom setup</div>
           </div>
           <label class="field"><span>Name</span><input type="text" id="youName" value="Custom setup" autocomplete="off" /></label>
-          <label class="field"><span>Horsepower</span><input type="number" id="youHp" value="450" step="1" /></label>
-          <label class="field"><span>Weight lbs</span><input type="number" id="youWeight" value="3800" step="1" /></label>
+          <div class="drive-row">
+            <span class="drive-label">HP Source</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Your HP source">
+              <label class="drive-opt"><input type="radio" name="youHpSource" id="youHpEngine" value="engine" checked /><span>HP</span></label>
+              <label class="drive-opt"><input type="radio" name="youHpSource" id="youHpDynoJet" value="dynojet" /><span>DynoJet WHP</span></label>
+              <label class="drive-opt"><input type="radio" name="youHpSource" id="youHpMustang" value="mustang" /><span>Mustang Dyno WHP</span></label>
+            </div>
+          </div>
+          <label class="field"><span id="youHpLabel">HP</span><input type="number" id="youHp" value="450" step="1" /></label>
+          <label class="field"><span>Curb Weight (lbs)</span><input type="number" id="youWeight" value="3800" step="1" /></label>
+          <label class="field"><span>Driver Weight (lbs)</span><input type="number" id="youDriverWeight" value="200" step="1" min="0" /></label>
           <label class="field"><span>Drag Coefficient</span><input type="number" id="youCd" value="0.32" step="0.01" /></label>
           <label class="field"><span>Frontal Area sq ft</span><input type="number" id="youArea" value="22" step="0.1" /></label>
+          <div class="drive-row tx-row">
+            <span class="drive-label">Transmission</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Your transmission">
+              <label class="drive-opt"><input type="radio" name="youTransmission" id="youTxAuto" value="auto" checked /><span>Automatic</span></label>
+              <label class="drive-opt"><input type="radio" name="youTransmission" id="youTxDct" value="dct" /><span>Dual Clutch</span></label>
+              <label class="drive-opt"><input type="radio" name="youTransmission" id="youTxManual" value="manual" /><span>Manual</span></label>
+            </div>
+          </div>
           <label class="field"><span>Drivetrain Loss %</span><input type="number" id="youLoss" value="15" step="0.1" /></label>
           <label class="field">
             <span>Tire Type</span>
@@ -76,6 +93,15 @@
               <label class="drive-opt"><input type="radio" name="youDrive" id="youAWD" value="AWD" /><span>AWD</span></label>
             </div>
           </div>
+          <div class="drive-row">
+            <span class="drive-label" id="youLayoutLabel">Engine/Motor Layout</span>
+            <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Your engine/motor layout">
+              <label class="drive-opt"><input type="radio" name="youEngineLayout" id="youLayoutFront" value="Front" checked /><span>Front</span></label>
+              <label class="drive-opt"><input type="radio" name="youEngineLayout" id="youLayoutMid" value="Mid" /><span>Mid</span></label>
+              <label class="drive-opt"><input type="radio" name="youEngineLayout" id="youLayoutRear" value="Rear" /><span>Rear</span></label>
+              <label class="drive-opt"><input type="radio" name="youEngineLayout" id="youLayoutDual" value="Dual" /><span>Front + Rear</span></label>
+            </div>
+          </div>
         </section>
 
         <!-- OPPONENT -->
@@ -92,10 +118,27 @@
             <button type="button" class="btn btn-load" id="btnLoadOpp">Load into Opponent</button>
           </div>
           <label class="field"><span>Name</span><input type="text" id="oppName" value="" autocomplete="off" /></label>
-          <label class="field"><span>Horsepower</span><input type="number" id="oppHp" value="450" step="1" /></label>
-          <label class="field"><span>Weight lbs</span><input type="number" id="oppWeight" value="3800" step="1" /></label>
+          <div class="drive-row">
+            <span class="drive-label">HP Source</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Opponent HP source">
+              <label class="drive-opt"><input type="radio" name="oppHpSource" id="oppHpEngine" value="engine" checked /><span>HP</span></label>
+              <label class="drive-opt"><input type="radio" name="oppHpSource" id="oppHpDynoJet" value="dynojet" /><span>DynoJet WHP</span></label>
+              <label class="drive-opt"><input type="radio" name="oppHpSource" id="oppHpMustang" value="mustang" /><span>Mustang Dyno WHP</span></label>
+            </div>
+          </div>
+          <label class="field"><span id="oppHpLabel">HP</span><input type="number" id="oppHp" value="450" step="1" /></label>
+          <label class="field"><span>Curb Weight (lbs)</span><input type="number" id="oppWeight" value="3800" step="1" /></label>
+          <label class="field"><span>Driver Weight (lbs)</span><input type="number" id="oppDriverWeight" value="200" step="1" min="0" /></label>
           <label class="field"><span>Drag Coefficient</span><input type="number" id="oppCd" value="0.32" step="0.01" /></label>
           <label class="field"><span>Frontal Area sq ft</span><input type="number" id="oppArea" value="22" step="0.1" /></label>
+          <div class="drive-row tx-row">
+            <span class="drive-label">Transmission</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Opponent transmission">
+              <label class="drive-opt"><input type="radio" name="oppTransmission" id="oppTxAuto" value="auto" checked /><span>Automatic</span></label>
+              <label class="drive-opt"><input type="radio" name="oppTransmission" id="oppTxDct" value="dct" /><span>Dual Clutch</span></label>
+              <label class="drive-opt"><input type="radio" name="oppTransmission" id="oppTxManual" value="manual" /><span>Manual</span></label>
+            </div>
+          </div>
           <label class="field"><span>Drivetrain Loss %</span><input type="number" id="oppLoss" value="15" step="0.1" /></label>
           <label class="field">
             <span>Tire Type</span>
@@ -117,6 +160,15 @@
               <label class="drive-opt"><input type="radio" name="oppDrive" id="oppFWD" value="FWD" /><span>FWD</span></label>
               <label class="drive-opt"><input type="radio" name="oppDrive" id="oppRWD" value="RWD" checked /><span>RWD</span></label>
               <label class="drive-opt"><input type="radio" name="oppDrive" id="oppAWD" value="AWD" /><span>AWD</span></label>
+            </div>
+          </div>
+          <div class="drive-row">
+            <span class="drive-label" id="oppLayoutLabel">Engine/Motor Layout</span>
+            <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Opponent engine/motor layout">
+              <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutFront" value="Front" checked /><span>Front</span></label>
+              <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutMid" value="Mid" /><span>Mid</span></label>
+              <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutRear" value="Rear" /><span>Rear</span></label>
+              <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutDual" value="Dual" /><span>Front + Rear</span></label>
             </div>
           </div>
         </section>
