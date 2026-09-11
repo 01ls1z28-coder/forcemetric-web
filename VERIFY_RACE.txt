@@ -310,3 +310,49 @@ Intentional skips: Pages push; physics formula; garage-data fleet retune;
 analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
 full 331 unique art (class fallback covers remainder); baked lime/cyan dual
 assets (multiply tint keeps one greyscale painted set).
+
+Phase 27 — mockup stage chrome + photoreal sprites (2026-09-11 CT)
+-------------------------------------------------------------------
+Branch: review/vb-phase27-mockup-stage
+HARD ACCEPTANCE vs Option 3 mockup (`vb-phase27-mockup.png`).
+Phase 26 stylized/painted SVGs rejected for stage draw — PNGs only.
+
+Stage chrome (race.html + css/race.css)
+  - Outer bronze/brass double-bezel frame (.vb-stage-chrome)
+  - Header: VelocityBench logo mark + title, center plaque
+    ("Option 3 — Per-vehicle sprites"), TELEMETRY LIVE + STAGE label
+  - Asphalt canvas stage with YOU/OPP lane tags; 1320′ checkered strip
+    still drawn in RaceStage from physics finishFt
+  - Bottom plaques: STAGE distance / SPEED (MPH) YOU+OPP / REACTION (SEC)
+  - SPEED plaque wired to live mph (plaqueYouSpeed / plaqueOppSpeed)
+  - REACTION stays cosmetic em-dashes only — no RT delay/foul/RNG
+
+Photoreal sprites (assets/race-sprites/*.png)
+  - Phase 26 SVGs deleted from assets/race-sprites/
+  - mustang + camaro: mockup-derived photoreal PNGs (Jorge-cleared WIP)
+    plus lane-baked mustang-lime.png / camaro-cyan.png companions
+  - Other keyed + class fallbacks: photoreal PNG surfaces with keyed
+    silhouette proportions (resolveSpriteKey unchanged)
+  - RaceStage preloads .png only; baked lime/cyan skip multiply tint;
+    greyscale keys use luminance-preserving multiply for lane color
+  - Polygon _fillBodySilhouette remains load/error fallback (never blank)
+
+HARD HOLDS unchanged
+  - Car X from Steps DistanceFt only; simultaneous leave t=0
+  - Trails/smoke/sprites cosmetic only — no gap/timing bias
+  - No physics.js / garage-data.js / analytics change
+
+Verify:
+  1. Mustang GT → photoreal mustang (lime bake on YOU); Camaro → photoreal camaro (cyan bake on OPP)
+  2. Wheels/glass/body paint readable (not flat SVG fills)
+  3. Brass header + three bottom plaques match mockup layout; SPEED live; REACTION = —
+  4. Cars aligned at green; lead matches DistanceFt
+  5. Corvette / Challenger / Civic / 911 / etc. still keyed via resolveSpriteKey
+  6. No physics.js / garage-data.js / analytics change
+
+Intentional skips: Pages push; physics formula; garage-data fleet retune;
+analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
+full unique photoreal studio shoot per all 331 garage rows (class fallback
++ keyed silhouette set covers remainder); GenerateImage unavailable in
+executor — mustang/camaro are mockup-derived photoreal; other keys are
+photoreal-textured keyed silhouettes pending further GenerateImage expansion.

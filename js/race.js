@@ -7,6 +7,7 @@
  * Phase 24: race loss parity (bake/snap) + hide loss fields + body-class stage silhouettes
  * Phase 25: per-vehicle side-view SVG sprites (class fallback; physics X unchanged)
  * Phase 26: painted multi-layer sprites + luminance-preserving tint (physics X unchanged)
+ * Phase 27: photoreal PNG sprites + mockup brass stage chrome (physics X unchanged)
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  * HARD RULE (P19): car X / gaps from Steps DistanceFt·Time only — no cosmetic lead cheat
  */
@@ -1289,6 +1290,21 @@
     };
   }
 
+
+  /** Phase 27 — STAGE distance plaque + telem label; REACTION stays em-dashes (cosmetic). */
+  function syncStagePlaques(trackFt) {
+    var ft = Math.round(trackFt || TRACK_FT);
+    var el = $('plaqueStageDist');
+    if (el) el.textContent = ft + ' FT';
+    var lab = $('vbTelemStageLabel');
+    if (lab) lab.textContent = ft + "' DRAG STRIP";
+    // REACTION cosmetic only — never write a real RT
+    var yrt = $('plaqueYouRT');
+    var ort = $('plaqueOppRT');
+    if (yrt) yrt.textContent = '—';
+    if (ort) ort.textContent = '—';
+  }
+
   function RaceStage(canvas) {
     this.canvas = canvas;
     this.ctx = canvas ? canvas.getContext('2d') : null;
@@ -1333,30 +1349,54 @@
 
   RaceStage.prototype._preloadSprites = function () {
     var self = this;
-    for (var i = 0; i < SPRITE_ALL_KEYS.length; i++) {
-      (function (key) {
-        if (self._spriteImgs[key]) return;
-        var img = new Image();
-        img.decoding = 'async';
-        img.onload = function () { self._tintCache = {}; };
-        img.onerror = function () { /* class polygon fallback remains */ };
-        img.src = SPRITE_ASSET_BASE + key + '.svg';
-        self._spriteImgs[key] = img;
-      })(SPRITE_ALL_KEYS[i]);
+    function loadKey(key, fileKey) {
+      if (self._spriteImgs[key]) return;
+      var img = new Image();
+      img.decoding = 'async';
+      img.onload = function () { self._tintCache = {}; };
+      img.onerror = function () { /* polygon fallback remains */ };
+      // Phase 27: photoreal PNG only — Phase 26 SVGs removed from stage draw
+      img.src = SPRITE_ASSET_BASE + (fileKey || key) + '.png';
+      self._spriteImgs[key] = img;
     }
+    for (var i = 0; i < SPRITE_ALL_KEYS.length; i++) {
+      loadKey(SPRITE_ALL_KEYS[i]);
+    }
+    // Lane-baked mockup companions (no multiply needed when color matches)
+    loadKey('mustang-lime', 'mustang-lime');
+    loadKey('camaro-cyan', 'camaro-cyan');
   };
 
   /**
-   * Phase 26: luminance-preserving tint for painted sprites.
-   * Multiply lane color over greyscale/painted body so shadows + highlights survive;
-   * destination-in restores original alpha (glass/wheels stay dark). Null if not ready.
+   * Phase 27: photoreal PNG sprites.
+   * Prefer baked lane companions (mustang-lime / camaro-cyan) when color matches —
+   * no multiply (preserves mockup paint). Otherwise greyscale PNG × multiply tint
+   * with destination-in alpha restore. Null if not ready → polygon fallback.
    */
+  RaceStage.prototype._resolveSpriteImgKey = function (key, color) {
+    var c = String(color || '').toLowerCase();
+    var isLime = c === '#b8ff3c' || c.indexOf('b8ff3c') >= 0 || c.indexOf('a4e32d') >= 0;
+    var isCyan = c === '#22d3ee' || c.indexOf('22d3ee') >= 0 || c.indexOf('48cae4') >= 0;
+    if (key === 'mustang' && isLime && this._spriteImgs['mustang-lime']) return 'mustang-lime';
+    if (key === 'camaro' && isCyan && this._spriteImgs['camaro-cyan']) return 'camaro-cyan';
+    return key;
+  };
+
   RaceStage.prototype._getTintedSprite = function (key, color, w, h) {
-    var img = this._spriteImgs[key];
+    var imgKey = this._resolveSpriteImgKey(key, color);
+    var img = this._spriteImgs[imgKey];
+    if (!img || !img.complete || !(img.naturalWidth > 0)) {
+      // try base key if companion missing
+      if (imgKey !== key) {
+        img = this._spriteImgs[key];
+        imgKey = key;
+      }
+    }
     if (!img || !img.complete || !(img.naturalWidth > 0)) return null;
     var tw = Math.max(8, Math.round(w));
     var th = Math.max(6, Math.round(h));
-    var ck = key + '|p26|' + color + '|' + tw + 'x' + th;
+    var baked = (imgKey === 'mustang-lime' || imgKey === 'camaro-cyan');
+    var ck = imgKey + (baked ? '|bake|' : '|p27|') + color + '|' + tw + 'x' + th;
     if (this._tintCache[ck]) return this._tintCache[ck];
     var c = document.createElement('canvas');
     c.width = tw;
@@ -1364,12 +1404,14 @@
     var x = c.getContext('2d');
     x.clearRect(0, 0, tw, th);
     x.drawImage(img, 0, 0, tw, th);
-    x.globalCompositeOperation = 'multiply';
-    x.fillStyle = color;
-    x.fillRect(0, 0, tw, th);
-    x.globalCompositeOperation = 'destination-in';
-    x.drawImage(img, 0, 0, tw, th);
-    x.globalCompositeOperation = 'source-over';
+    if (!baked) {
+      x.globalCompositeOperation = 'multiply';
+      x.fillStyle = color;
+      x.fillRect(0, 0, tw, th);
+      x.globalCompositeOperation = 'destination-in';
+      x.drawImage(img, 0, 0, tw, th);
+      x.globalCompositeOperation = 'source-over';
+    }
     this._tintCache[ck] = c;
     return c;
   };
@@ -1652,8 +1694,8 @@
     if (tinted) {
       ctx.drawImage(tinted, -carW * 0.55, -carH * 0.95, carW * 1.15, carH * 1.55);
       ctx.shadowBlur = 0;
-      // Phase 26: painted SVGs bake wheels/glass/lamps — skip flat overlay that hid spokes.
-      // Keep a tiny headlamp glint only (cosmetic; X unchanged).
+      // Phase 27: photoreal PNGs bake wheels/glass/lamps — skip flat overlay.
+      // Tiny headlamp glint only (cosmetic; X unchanged).
       ctx.fillStyle = 'rgba(255,255,255,0.45)';
       ctx.fillRect(carW * 0.42, -carH * 0.08, 4, 4);
     } else {
@@ -2027,6 +2069,12 @@
     }
     $('youSpeed').textContent = Math.round(youMph) + ' mph';
     $('oppSpeed').textContent = Math.round(oppMph) + ' mph';
+    // Phase 27 mockup SPEED plaque (live mph; REACTION stays cosmetic dashes)
+    var ySp = $('plaqueYouSpeed');
+    var oSp = $('plaqueOppSpeed');
+    if (ySp) ySp.textContent = (Math.round(youMph * 100) / 100).toFixed(2);
+    if (oSp) oSp.textContent = (Math.round(oppMph * 100) / 100).toFixed(2);
+    syncStagePlaques(trackFt);
     $('youDist').textContent = Math.round(Math.min(ys.DistanceFt, TRACK_FT)) + ' ft';
     $('oppDist').textContent = Math.round(Math.min(os.DistanceFt, TRACK_FT)) + ' ft';
 
@@ -2394,6 +2442,7 @@
       var fin = (raceMeta && raceMeta.trackFt) || TRACK_FT;
       raceStage.reset();
       raceStage.drawFrame(0, 0, 0, 0, fin, false);
+      syncStagePlaques(fin);
     }
     resetLeadDeltaStrip();
     resetTreeBulbs();
