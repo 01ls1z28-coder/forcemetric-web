@@ -68,3 +68,5 @@ Files added / touched
 Out of scope
 ------------
 No physics changes, no sprite/chrome changes, no fleet recalib, no analytics.
+
+PHASE 30 HOTFIX: [hidden] { display:none !important } + :not([hidden]) on .gate-panel/.admin-app; showApp/initGate inline display belt. Passphrase vb-garage and ?key=vb-garage both unlock.

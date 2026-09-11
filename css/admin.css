@@ -31,7 +31,12 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--accent); }
 .muted { color: var(--muted); }
 .opt { color: var(--dim); font-weight: 400; font-style: normal; }
 
-.gate-panel {
+/* HTML hidden must beat display:grid (Phase 30 hotfix) */
+[hidden] {
+  display: none !important;
+}
+
+.gate-panel:not([hidden]) {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -48,7 +53,7 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--accent); }
 }
 .gate-card h1 { font-size: 1.35rem; }
 
-.admin-app {
+.admin-app:not([hidden]) {
   max-width: 1180px;
   margin: 0 auto;
   padding: 20px 16px 48px;

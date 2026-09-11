@@ -503,8 +503,12 @@
   }
 
   function showApp() {
-    $('gatePanel').hidden = true;
-    $('app').hidden = false;
+    var gate = $('gatePanel');
+    var app = $('app');
+    gate.hidden = true;
+    gate.style.display = 'none';
+    app.hidden = false;
+    app.style.display = '';
     if (getToken()) {
       $('tokenInput').placeholder = '•••• PAT already in session — paste to replace';
       setStatus($('authStatus'), 'PAT present in sessionStorage', 'ok');
@@ -519,8 +523,12 @@
       showApp();
       return;
     }
-    $('gatePanel').hidden = false;
-    $('app').hidden = true;
+    var gate = $('gatePanel');
+    var app = $('app');
+    gate.hidden = false;
+    gate.style.display = '';
+    app.hidden = true;
+    app.style.display = 'none';
     $('gateSubmit').addEventListener('click', function () {
       var v = ($('gateInput').value || '').trim();
       if (v === CONFIG.obscurityPass) {
