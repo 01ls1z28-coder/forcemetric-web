@@ -205,3 +205,21 @@ Verify:
 Intentional skips: fleet retune; new physics formulas; RT/foul/holeshot;
 imperial-only race unit preference (km/h default + mph unit + presets).
 
+Phase 19 — Race playback visual overhaul (2026-09-11 CT)
+-------------------------------------------------------
+race.html / js/race.js / css/race.css (+ VERIFY_RACE.txt).
+
+Side-view dual-lane canvas: silhouettes, parallax asphalt, finish,
+follow-cam, mph trails, optional launch smoke. Brass HUD.
+Positions/gaps ONLY from Steps DistanceFt·Time (interp for smoothness).
+Simultaneous leave t=0 kept. Lead-delta + photo-finish 0.001 s kept.
+No physics retune / fleet / weather-row regression.
+
+Verify:
+  1. Stage cars leave together; leader matches physics DistanceFt
+  2. Trails/smoke cosmetic only — do not alter X
+  3. 1000′ / roll / DA bezel still OK from Phase 18 + hotfix
+
+Intentional skips: WebGL/three.js; RT/foul/holeshot; fleet retune;
+physics formula changes; new heavy deps.
+

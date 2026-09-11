@@ -317,26 +317,27 @@
       </div>
 
       <div class="track-board">
-        <div class="lane-strip you-strip">
-          <div class="strip-label" id="stripYouLabel">YOU</div>
-          <div class="strip-track">
-            <div class="strip-fill" id="youFill"></div>
-            <div class="strip-marker" id="youMarker"></div>
+        <div class="stage-wrap" id="stageWrap">
+          <canvas id="raceStage" width="1200" height="300" aria-label="Side-view dual-lane drag strip — positions from physics Steps"></canvas>
+          <div class="stage-hud brass-hud" aria-live="polite">
+            <div class="stage-hud-lane you">
+              <span class="strip-label" id="stripYouLabel">YOU</span>
+              <span class="stage-hud-stat" id="youSpeed">0 mph</span>
+              <span class="stage-hud-stat" id="youDist">0 ft</span>
+            </div>
+            <div class="stage-hud-mid">
+              <span class="stage-hud-cam" id="stageCamHint">FOLLOW CAM</span>
+            </div>
+            <div class="stage-hud-lane opp">
+              <span class="strip-label" id="stripOppLabel">OPP</span>
+              <span class="stage-hud-stat" id="oppSpeed">0 mph</span>
+              <span class="stage-hud-stat" id="oppDist">0 ft</span>
+            </div>
           </div>
-          <div class="strip-stats">
-            <span id="youSpeed">0 mph</span>
-            <span id="youDist">0 ft</span>
-          </div>
-        </div>
-        <div class="lane-strip opp-strip">
-          <div class="strip-label" id="stripOppLabel">OPP</div>
-          <div class="strip-track">
-            <div class="strip-fill" id="oppFill"></div>
-            <div class="strip-marker" id="oppMarker"></div>
-          </div>
-          <div class="strip-stats">
-            <span id="oppSpeed">0 mph</span>
-            <span id="oppDist">0 ft</span>
+          <!-- Legacy strip hooks kept hidden for any residual refs; canvas is the live stage -->
+          <div class="legacy-strip-hooks" hidden aria-hidden="true">
+            <div id="youFill"></div><div id="youMarker"></div>
+            <div id="oppFill"></div><div id="oppMarker"></div>
           </div>
         </div>
         <div class="lead-callout" id="leadCallout">Staging…</div>

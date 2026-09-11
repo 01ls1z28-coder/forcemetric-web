@@ -115,3 +115,34 @@ Verify race:
   4. Preset chips fill Start/End/Unit; clamp rejects end≤start
   5. Shared Weather DA still fully inside brass bezel (hotfix intact)
 
+Phase 19 — Drag Racing playback visual overhaul (2026-09-11 CT)
+================================================================
+HARD RULE unchanged: both lanes ALWAYS leave at exact same t=0.
+No reaction delay, red-light foul, holeshot RNG, or staging delay.
+Tree remains cosmetic perfect simultaneous green only.
+
+HARD RULE (positions): car X and gaps come ONLY from physics Steps
+DistanceFt / Time (interpolated between adjacent Steps for smooth
+render). No cosmetic lead offset, no fake holeshot, no position cheat.
+Speed trails / optional near-traction smoke are cosmetic overlays
+driven by real Step SpeedMph — they do not move the cars.
+
+19A Side-view dual-lane canvas stage (lime YOU / cyan OPP silhouettes).
+19B Parallax asphalt + lane dashes + start/finish + distance marks.
+19C Follow-cam tracking midpoint of physics DistanceFt (view widens with gap).
+19D Speed trails scaled from real mph; optional launch smoke from mph window.
+19E Keep lead-delta strip + photo-finish 0.001 s from Phase 16/18.
+19F Brass HUD under stage (speeds/dist + cam readout) — --brass* family.
+19G Weather-row DA clip hotfix + Phase 18 course UI left alone.
+
+No fleet retune / garage-data.js changes. No physics formula change
+beyond reading existing Steps for render. No RT path.
+
+Verify race:
+  1. Both leave together at green (t=0) — stage cars start aligned
+  2. Lead car matches DistanceFt from Steps (faster ET stays ahead on stage)
+  3. Gap callout / lead-delta still match physics markers
+  4. Photo-finish still 0.001 s; courses 1320/660/1000/roll unchanged
+  5. Shared Weather DA still fully inside brass bezel
+  6. No new npm deps — static Pages-friendly canvas only
+

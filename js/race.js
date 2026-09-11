@@ -3,7 +3,9 @@
  * Phase 15: full parity with main sim (TX/DCT, Dual layout, driver 200, bake load, brass charts)
  * Phase 16: setup-compare — lead delta, dial/bracket, DA/air strip, swap/copy, photo-finish, roll race
  * Phase 18: course 1000ft + custom roll start/end speeds
+ * Phase 19: side-view dual-lane playback visual overhaul (physics-true Steps positions)
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
+ * HARD RULE (P19): car X / gaps from Steps DistanceFt·Time only — no cosmetic lead cheat
  */
 (function () {
   'use strict';
@@ -1088,6 +1090,380 @@
     return t1 - t0;
   }
 
+
+  // ---- Phase 19: side-view stage (canvas) — positions from Steps only ----
+  function stepInterpAtTime(steps, t) {
+    if (!steps || !steps.length) return null;
+    var hi = steps.length - 1;
+    if (t <= steps[0].Time) {
+      return {
+        Time: steps[0].Time,
+        SpeedMph: steps[0].SpeedMph,
+        DistanceFt: steps[0].DistanceFt
+      };
+    }
+    if (t >= steps[hi].Time) {
+      return {
+        Time: steps[hi].Time,
+        SpeedMph: steps[hi].SpeedMph,
+        DistanceFt: steps[hi].DistanceFt
+      };
+    }
+    var lo = 0;
+    var h = hi;
+    while (lo < h) {
+      var mid = (lo + h + 1) >> 1;
+      if (steps[mid].Time <= t) lo = mid;
+      else h = mid - 1;
+    }
+    var a = steps[lo];
+    var b = steps[Math.min(lo + 1, hi)];
+    var span = b.Time - a.Time;
+    var u = span > 1e-9 ? (t - a.Time) / span : 0;
+    if (u < 0) u = 0;
+    if (u > 1) u = 1;
+    return {
+      Time: t,
+      SpeedMph: a.SpeedMph + (b.SpeedMph - a.SpeedMph) * u,
+      DistanceFt: a.DistanceFt + (b.DistanceFt - a.DistanceFt) * u
+    };
+  }
+
+  function RaceStage(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas ? canvas.getContext('2d') : null;
+    this.camFt = 0;
+    this.viewFt = 420;
+    this._ro = null;
+    this._smoke = { you: 0, opp: 0 };
+    this._prevMph = { you: 0, opp: 0 };
+    this.reset();
+    if (canvas && typeof ResizeObserver !== 'undefined' && canvas.parentElement) {
+      var self = this;
+      this._ro = new ResizeObserver(function () { self.resize(); });
+      this._ro.observe(canvas.parentElement);
+    }
+    this.resize();
+  }
+
+  RaceStage.prototype.reset = function () {
+    this.camFt = 0;
+    this.viewFt = 420;
+    this._smoke = { you: 0, opp: 0 };
+    this._prevMph = { you: 0, opp: 0 };
+    this.drawFrame(0, 0, 0, 0, TRACK_FT, false);
+  };
+
+  RaceStage.prototype.resize = function () {
+    if (!this.canvas) return;
+    var parent = this.canvas.parentElement;
+    var cssW = (parent && parent.clientWidth) ? parent.clientWidth : 900;
+    var cssH = 300;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = Math.round(cssW * dpr);
+    this.canvas.height = Math.round(cssH * dpr);
+    this.canvas.style.width = cssW + 'px';
+    this.canvas.style.height = cssH + 'px';
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this._cssW = cssW;
+    this._cssH = cssH;
+  };
+
+  RaceStage.prototype._ftToX = function (ft) {
+    return ((ft - this.camFt) / this.viewFt) * this._cssW;
+  };
+
+  RaceStage.prototype.drawFrame = function (youFt, oppFt, youMph, oppMph, finishFt, racing) {
+    if (!this.ctx || !this._cssW) return;
+    var ctx = this.ctx;
+    var W = this._cssW;
+    var H = this._cssH || 300;
+    finishFt = finishFt || TRACK_FT;
+
+    // Follow-cam: track midpoint of physics distances; keep both cars + finish peek in view
+    var mid = (youFt + oppFt) * 0.5;
+    var spanCars = Math.abs(youFt - oppFt);
+    var need = Math.max(360, spanCars * 2.2 + 160);
+    // Ease view width
+    this.viewFt += (need - this.viewFt) * 0.12;
+    if (this.viewFt < 300) this.viewFt = 300;
+    if (this.viewFt > 900) this.viewFt = 900;
+    var targetCam = mid - this.viewFt * 0.38;
+    // Prefer showing start early, finish late
+    if (mid < this.viewFt * 0.35) targetCam = -40;
+    var finishPeek = finishFt - this.viewFt * 0.85;
+    if (mid > finishFt - this.viewFt * 0.45) targetCam = Math.max(targetCam, finishPeek);
+    if (!racing) targetCam = -40;
+    this.camFt += (targetCam - this.camFt) * (racing ? 0.14 : 1);
+
+    // Sky / night strip
+    var sky = ctx.createLinearGradient(0, 0, 0, H * 0.42);
+    sky.addColorStop(0, '#07090e');
+    sky.addColorStop(1, '#121820');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    // Distant parallax haze (slow scroll from cam)
+    var hazeOff = -((this.camFt * 0.08) % 120);
+    ctx.fillStyle = 'rgba(240,226,196,0.035)';
+    for (var hx = hazeOff - 120; hx < W + 120; hx += 120) {
+      ctx.fillRect(hx, H * 0.18, 48, 6);
+      ctx.fillRect(hx + 60, H * 0.26, 28, 4);
+    }
+
+    var asphaltTop = H * 0.38;
+    var asphaltH = H * 0.58;
+
+    // Asphalt body
+    var asp = ctx.createLinearGradient(0, asphaltTop, 0, asphaltTop + asphaltH);
+    asp.addColorStop(0, '#1a1d24');
+    asp.addColorStop(0.5, '#0e1014');
+    asp.addColorStop(1, '#08090c');
+    ctx.fillStyle = asp;
+    ctx.fillRect(0, asphaltTop, W, asphaltH);
+
+    // Parallax asphalt grain / expansion joints from camera
+    var jointPeriod = 60; // ft
+    var pxPerFt = W / this.viewFt;
+    var firstJoint = Math.floor(this.camFt / jointPeriod) * jointPeriod;
+    ctx.strokeStyle = 'rgba(255,255,255,0.045)';
+    ctx.lineWidth = 1;
+    for (var jf = firstJoint; jf < this.camFt + this.viewFt + jointPeriod; jf += jointPeriod) {
+      var jx = this._ftToX(jf);
+      ctx.beginPath();
+      ctx.moveTo(jx, asphaltTop);
+      ctx.lineTo(jx, asphaltTop + asphaltH);
+      ctx.stroke();
+    }
+
+    // Dual lanes — YOU (top / lime), OPP (bottom / cyan)
+    var laneGap = asphaltH * 0.08;
+    var laneH = (asphaltH - laneGap * 3) * 0.5;
+    var youLaneY = asphaltTop + laneGap;
+    var oppLaneY = asphaltTop + laneGap * 2 + laneH;
+
+    function paintLane(y, color) {
+      ctx.fillStyle = 'rgba(255,255,255,0.03)';
+      ctx.fillRect(0, y, W, laneH);
+      // dashed center hash scrolling with cam
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, y, W, laneH);
+      ctx.clip();
+      var dashFt = 18;
+      var gapFt = 14;
+      var period = dashFt + gapFt;
+      var start = Math.floor(this.camFt / period) * period;
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = 3;
+      ctx.setLineDash([]);
+      for (var df = start; df < this.camFt + this.viewFt + period; df += period) {
+        var x0 = this._ftToX(df);
+        var x1 = this._ftToX(df + dashFt);
+        ctx.beginPath();
+        ctx.moveTo(x0, y + laneH * 0.5);
+        ctx.lineTo(x1, y + laneH * 0.5);
+        ctx.stroke();
+      }
+      ctx.restore();
+      // lane edges
+      ctx.strokeStyle = 'rgba(240,226,196,0.22)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.moveTo(0, y + laneH);
+      ctx.lineTo(W, y + laneH);
+      ctx.stroke();
+    }
+    paintLane.call(this, youLaneY, 'rgba(184,255,60,0.55)');
+    paintLane.call(this, oppLaneY, 'rgba(34,211,238,0.55)');
+
+    // Starting line
+    var startX = this._ftToX(0);
+    if (startX > -20 && startX < W + 20) {
+      ctx.fillStyle = 'rgba(240,226,196,0.55)';
+      ctx.fillRect(startX - 2, asphaltTop, 4, asphaltH);
+      ctx.fillStyle = 'rgba(0,0,0,0.55)';
+      for (var sy = asphaltTop; sy < asphaltTop + asphaltH; sy += 10) {
+        ctx.fillRect(startX - 2, sy, 4, 5);
+      }
+    }
+
+    // Finish line + lights
+    var finX = this._ftToX(finishFt);
+    if (finX > -40 && finX < W + 40) {
+      ctx.fillStyle = '#f0e2c4';
+      ctx.fillRect(finX - 3, asphaltTop - 18, 6, asphaltH + 28);
+      // checker
+      var cw = 7, ch = 7;
+      for (var cy = asphaltTop; cy < asphaltTop + asphaltH; cy += ch) {
+        for (var cx = 0; cx < 2; cx++) {
+          var on = ((Math.floor((cy - asphaltTop) / ch) + cx) % 2) === 0;
+          ctx.fillStyle = on ? '#111' : '#f5f5f5';
+          ctx.fillRect(finX - 3 + cx * cw, cy, cw, ch);
+        }
+      }
+      // brass finish posts
+      ctx.fillStyle = '#c4a574';
+      ctx.fillRect(finX - 8, asphaltTop - 28, 5, 28);
+      ctx.fillRect(finX + 3, asphaltTop - 28, 5, 28);
+      ctx.fillStyle = 'rgba(240,226,196,0.9)';
+      ctx.font = 'bold 11px ui-monospace, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(Math.round(finishFt) + "'", finX, asphaltTop - 32);
+    }
+
+    // Distance tick marks (physics board markers)
+    var marks = [60, 330, 660, 1000, 1320];
+    ctx.font = '10px ui-monospace, monospace';
+    ctx.textAlign = 'center';
+    for (var mi = 0; mi < marks.length; mi++) {
+      var mft = marks[mi];
+      if (mft > finishFt + 1 && finishFt < TRACK_FT) {
+        /* still draw board marks for orientation */
+      }
+      var mx = this._ftToX(mft);
+      if (mx < -10 || mx > W + 10) continue;
+      ctx.strokeStyle = 'rgba(240,226,196,0.28)';
+      ctx.beginPath();
+      ctx.moveTo(mx, asphaltTop);
+      ctx.lineTo(mx, asphaltTop + asphaltH);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(240,226,196,0.55)';
+      var lab = mft === 660 ? '⅛' : (mft === 1320 ? '¼' : (mft + "'"));
+      ctx.fillText(lab, mx, asphaltTop - 6);
+    }
+
+    // Smoke / trails / cars — order: trails under cars
+    this._drawLaneCar(youFt, youMph, youLaneY, laneH, '#b8ff3c', 'you', racing);
+    this._drawLaneCar(oppFt, oppMph, oppLaneY, laneH, '#22d3ee', 'opp', racing);
+
+    // Brass bezel vignette
+    ctx.strokeStyle = 'rgba(196,165,116,0.45)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, W - 2, H - 2);
+
+    // Cam hint
+    var hint = document.getElementById('stageCamHint');
+    if (hint) {
+      hint.textContent = racing
+        ? ('CAM ' + Math.round(this.camFt) + "' · VIEW " + Math.round(this.viewFt) + "'")
+        : 'FOLLOW CAM';
+    }
+  };
+
+  RaceStage.prototype._drawLaneCar = function (ft, mph, laneY, laneH, color, key, racing) {
+    var ctx = this.ctx;
+    var x = this._ftToX(ft);
+    var cy = laneY + laneH * 0.55;
+    var carW = 54;
+    var carH = Math.min(22, laneH * 0.55);
+
+    // Near-traction smoke: cosmetic only from real mph (launch window)
+    var prev = this._prevMph[key] || 0;
+    var accel = mph - prev;
+    this._prevMph[key] = mph;
+    var wantSmoke = racing && mph < 45 && mph > 0.5 && accel > -0.5;
+    var targetSmoke = wantSmoke ? Math.min(1, (45 - mph) / 45) * Math.min(1, Math.max(0.2, accel / 4 + 0.4)) : 0;
+    this._smoke[key] += (targetSmoke - this._smoke[key]) * 0.2;
+    var smoke = this._smoke[key];
+    if (smoke > 0.04) {
+      ctx.save();
+      for (var s = 0; s < 5; s++) {
+        var sx = x - carW * 0.35 - s * 10 - (s * smoke * 6);
+        var sy = cy + carH * 0.35 - s * 2;
+        var sr = (6 + s * 3) * smoke;
+        ctx.globalAlpha = 0.12 * smoke * (1 - s / 6);
+        ctx.fillStyle = '#d0d4da';
+        ctx.beginPath();
+        ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // Speed trail from real mph
+    var trailLen = Math.min(160, Math.max(0, (mph / 200) * 180));
+    if (trailLen > 4) {
+      var trail = ctx.createLinearGradient(x - trailLen, cy, x, cy);
+      trail.addColorStop(0, 'rgba(0,0,0,0)');
+      // parse color
+      if (color === '#b8ff3c') {
+        trail.addColorStop(0.55, 'rgba(184,255,60,0)');
+        trail.addColorStop(1, 'rgba(184,255,60,0.55)');
+      } else {
+        trail.addColorStop(0.55, 'rgba(34,211,238,0)');
+        trail.addColorStop(1, 'rgba(34,211,238,0.55)');
+      }
+      ctx.fillStyle = trail;
+      ctx.beginPath();
+      ctx.moveTo(x - trailLen, cy - carH * 0.15);
+      ctx.lineTo(x - 4, cy - carH * 0.45);
+      ctx.lineTo(x - 4, cy + carH * 0.4);
+      ctx.lineTo(x - trailLen, cy + carH * 0.2);
+      ctx.closePath();
+      ctx.fill();
+      // streak lines
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = 1.5;
+      for (var ti = 0; ti < 3; ti++) {
+        var ty = cy - 4 + ti * 5;
+        ctx.beginPath();
+        ctx.moveTo(x - trailLen * (0.4 + ti * 0.15), ty);
+        ctx.lineTo(x - 8, ty);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Car silhouette (side view)
+    ctx.save();
+    ctx.translate(x, cy);
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 12;
+    // body
+    ctx.beginPath();
+    ctx.moveTo(-carW * 0.45, 0);
+    ctx.lineTo(-carW * 0.38, -carH * 0.35);
+    ctx.lineTo(-carW * 0.05, -carH * 0.55);
+    ctx.lineTo(carW * 0.22, -carH * 0.55);
+    ctx.lineTo(carW * 0.42, -carH * 0.22);
+    ctx.lineTo(carW * 0.48, carH * 0.15);
+    ctx.lineTo(carW * 0.35, carH * 0.35);
+    ctx.lineTo(-carW * 0.4, carH * 0.35);
+    ctx.closePath();
+    ctx.fill();
+    // cabin glass
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = 'rgba(10,14,20,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(-carW * 0.02, -carH * 0.5);
+    ctx.lineTo(carW * 0.18, -carH * 0.5);
+    ctx.lineTo(carW * 0.28, -carH * 0.22);
+    ctx.lineTo(carW * 0.02, -carH * 0.22);
+    ctx.closePath();
+    ctx.fill();
+    // wheels
+    ctx.fillStyle = '#0a0c10';
+    ctx.beginPath();
+    ctx.arc(-carW * 0.28, carH * 0.32, carH * 0.28, 0, Math.PI * 2);
+    ctx.arc(carW * 0.28, carH * 0.32, carH * 0.28, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    // nose highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillRect(carW * 0.4, -carH * 0.08, 4, 5);
+    ctx.restore();
+  };
+
+  var raceStage = null;
+
   // ---- Race state ----
   var chartTime = null;
   var chartDist = null;
@@ -1229,22 +1605,22 @@
   }
 
   function updateLive(elapsed) {
-    var ys = stepAtTime(raceYou.Steps, elapsed);
-    var os = stepAtTime(raceOpp.Steps, elapsed);
+    /* Positions/gaps: interpolate existing Steps DistanceFt/Time only — no cosmetic offset */
+    var ys = stepInterpAtTime(raceYou.Steps, elapsed) || stepAtTime(raceYou.Steps, elapsed);
+    var os = stepInterpAtTime(raceOpp.Steps, elapsed) || stepAtTime(raceOpp.Steps, elapsed);
     if (!ys || !os) return;
 
     var trackFt = (raceMeta && raceMeta.trackFt) || TRACK_FT;
     var mode = (raceMeta && raceMeta.mode) || 'quarter';
     var youFt = Math.min(ys.DistanceFt, trackFt);
     var oppFt = Math.min(os.DistanceFt, trackFt);
-    // Strip always visualizes against 1320 board; clamp display pct to 100
+    // Legacy strip hooks (hidden) stay synced from physics DistanceFt
     var youPct = (Math.min(ys.DistanceFt, TRACK_FT) / TRACK_FT) * 100;
     var oppPct = (Math.min(os.DistanceFt, TRACK_FT) / TRACK_FT) * 100;
-
-    $('youFill').style.width = youPct.toFixed(2) + '%';
-    $('oppFill').style.width = oppPct.toFixed(2) + '%';
-    $('youMarker').style.left = youPct.toFixed(2) + '%';
-    $('oppMarker').style.left = oppPct.toFixed(2) + '%';
+    if ($('youFill')) $('youFill').style.width = youPct.toFixed(2) + '%';
+    if ($('oppFill')) $('oppFill').style.width = oppPct.toFixed(2) + '%';
+    if ($('youMarker')) $('youMarker').style.left = youPct.toFixed(2) + '%';
+    if ($('oppMarker')) $('oppMarker').style.left = oppPct.toFixed(2) + '%';
 
     var youMph = ys.SpeedMph;
     var oppMph = os.SpeedMph;
@@ -1299,6 +1675,10 @@
     }
 
     updateLeadDeltaStrip(elapsed);
+
+    if (raceStage) {
+      raceStage.drawFrame(youFt, oppFt, youMph, oppMph, trackFt, true);
+    }
 
     if (chartTime) chartTime.setPlayback(elapsed);
 
@@ -1611,10 +1991,15 @@
     $('winnerBanner').classList.remove('show', 'win-you', 'win-opp', 'win-tie');
     $('winnerBanner').textContent = '';
     if ($('photoFinish')) $('photoFinish').classList.add('hidden');
-    $('youFill').style.width = '0%';
-    $('oppFill').style.width = '0%';
-    $('youMarker').style.left = '0%';
-    $('oppMarker').style.left = '0%';
+    if ($('youFill')) $('youFill').style.width = '0%';
+    if ($('oppFill')) $('oppFill').style.width = '0%';
+    if ($('youMarker')) $('youMarker').style.left = '0%';
+    if ($('oppMarker')) $('oppMarker').style.left = '0%';
+    if (raceStage) {
+      var fin = (raceMeta && raceMeta.trackFt) || TRACK_FT;
+      raceStage.reset();
+      raceStage.drawFrame(0, 0, 0, 0, fin, false);
+    }
     resetLeadDeltaStrip();
     resetTreeBulbs();
     $('leadCallout').textContent = 'Staging… simultaneous leave';
@@ -2000,6 +2385,10 @@
   }
   syncHpLossUi('you');
   syncHpLossUi('opp');
+
+  if ($('raceStage')) {
+    raceStage = new RaceStage($('raceStage'));
+  }
 
   renderOppList();
   loadIncomingVehicle();
