@@ -333,7 +333,7 @@
       </div>
 
       <div class="track-board">
-        <!-- Phase 27 — Option 3 mockup stage chrome -->
+        <!-- Phase 27/28 — brass stage chrome; header center = Replay/Rematch -->
         <div class="vb-stage-chrome" id="vbStageChrome">
           <div class="vb-stage-header">
             <div class="vb-stage-brand">
@@ -343,7 +343,10 @@
                 <div class="vb-stage-sub"><span></span>DRAG RACING<span></span></div>
               </div>
             </div>
-            <div class="vb-stage-plaque" id="vbStagePlaque">Option 3 — Per-vehicle sprites</div>
+            <div class="vb-stage-header-controls" id="vbStageHeaderControls">
+              <button type="button" class="btn vb-header-ctrl" id="btnReplayRace">Replay</button>
+              <button type="button" class="btn vb-header-ctrl" id="btnRematch">Rematch / Retune</button>
+            </div>
             <div class="vb-stage-telemetry">
               <div class="vb-telem-live"><span class="vb-signal" aria-hidden="true"></span>TELEMETRY <em>LIVE</em></div>
               <div class="vb-telem-stage">STAGE: <span id="vbTelemStageLabel">1320' DRAG STRIP</span></div>
@@ -454,8 +457,6 @@
       <div class="results-board" id="resultsBoard"></div>
 
       <div class="race-actions">
-        <button type="button" class="btn btn-ctrl" id="btnReplayRace">Replay</button>
-        <button type="button" class="btn btn-ctrl" id="btnRematch">Rematch / Retune</button>
         <button type="button" class="btn btn-ctrl" id="btnSwapLanesRace">Swap Lanes</button>
         <a class="btn btn-back" href="index.html">← Back to VelocityBench</a>
       </div>

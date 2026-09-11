@@ -362,3 +362,22 @@ PHASE 27b (fleet photoreal reburn — Seraph STOP on dd8108f):
 - Brass stage chrome from Phase 27 tip retained.
 - Physics / DistanceFt X / simultaneous leave / REACTION dashes / no garage retune / static / no analytics holds stand.
 - No silhouette admission — fleet is photoreal keyed PNGs.
+
+Phase 28 — Stage header Replay/Rematch (2026-09-11 CT)
+=======================================================
+Scope: race.html stage header ONLY (+ css/race.css brass chrome).
+
+- Removed center plaque #vbStagePlaque ("Option 3 — Per-vehicle sprites").
+- Moved #btnReplayRace (Replay) + #btnRematch (Rematch / Retune) into header
+  center slot (.vb-stage-header-controls) with brass .vb-header-ctrl chrome.
+- Removed toolbar duplicates from .race-actions (Swap Lanes + Back remain).
+- Same button IDs — existing race.js click listeners keep working; no JS logic change.
+
+HARD HOLDS intact: physics; sprites; stage X from DistanceFt; simultaneous leave;
+REACTION dashes; garage; analytics; no secrets.
+
+Verify:
+  1. Header center shows Replay + Rematch (brass), no Option 3 plaque
+  2. Bottom .race-actions has no Replay/Rematch dupes
+  3. Replay / Rematch clicks still work
+  4. No physics.js / garage-data.js / analytics / sprite changes

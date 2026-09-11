@@ -1019,9 +1019,10 @@
 }
 
 /* ============================================================
-   Phase 27 — Option 3 mockup brass stage chrome
-   Outer frame, header brand/plaque/TELEMETRY LIVE, bottom plaques.
+   Phase 27/28 — brass stage chrome
+   Outer frame, header brand / Replay·Rematch / TELEMETRY LIVE, bottom plaques.
    Family Brass tokens (--brass*) where they fit; plaques read bronze.
+   Phase 28: snip Option 3 plaque; Replay + Rematch live in header center.
    ============================================================ */
 
 .vb-stage-chrome {
@@ -1103,14 +1104,25 @@
   max-width: 36px;
 }
 
-.vb-stage-plaque {
+.vb-stage-header-controls {
   justify-self: center;
-  text-align: center;
-  padding: 8px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-width: 0;
+}
+
+.vb-header-ctrl {
+  width: auto;
+  min-width: 0;
+  padding: 8px 14px;
   border-radius: 8px;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   color: #f0e2c4;
   background: var(--vb-bronze-face);
   border: 2px solid var(--vb-bronze);
@@ -1118,9 +1130,20 @@
     inset 0 0 0 1px rgba(212, 192, 154, 0.35),
     inset 0 0 0 3px rgba(106, 85, 56, 0.4),
     0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.vb-header-ctrl:hover {
+  color: #fff6e0;
+  border-color: var(--vb-bronze-hi);
+  box-shadow:
+    inset 0 0 0 1px rgba(212, 192, 154, 0.5),
+    inset 0 0 0 3px rgba(106, 85, 56, 0.45),
+    0 2px 10px rgba(166, 141, 93, 0.35);
+}
+.vb-header-ctrl:active {
+  transform: translateY(1px);
 }
 
 .vb-stage-telemetry {
@@ -1296,6 +1319,7 @@
   }
   .vb-stage-telemetry { justify-self: stretch; text-align: left; }
   .vb-telem-live { justify-content: flex-start; }
-  .vb-stage-plaque { justify-self: stretch; white-space: normal; }
+  .vb-stage-header-controls { justify-self: stretch; }
+  .vb-header-ctrl { flex: 1 1 auto; text-align: center; }
   .vb-stage-plaques { grid-template-columns: 1fr; }
 }
