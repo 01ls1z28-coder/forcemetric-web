@@ -416,3 +416,47 @@ Verify:
 
 Intentional skips: Pages push; fleet retune / garage-data.js; tire µ;
 physics formula; K-factor ATC map; new heavy deps.
+
+Phase 23 — static SEO crawl and share meta (2026-09-11 CT)
+----------------------------------------------------------
+Branch: review/vb-phase23-seo
+Public crawl/share only. No analytics, gtag, tracking pixels, or backend.
+
+Files: robots.txt, sitemap.xml, og.png, index.html, race.html
+       (+ this note, VERIFY_RACE.txt). No Pages push. No physics /
+       garage-data / CSS / JS change.
+
+  robots.txt — User-agent: *; Allow: / ; Sitemap: https://velocitybench.com/sitemap.xml
+  sitemap.xml — https://velocitybench.com/ and https://velocitybench.com/race.html
+                lastmod 2026-09-11
+  og.png — 1200×630 branded share image (F mark + VelocityBench copy)
+
+  index.html
+    title: VelocityBench — Quarter-Mile Drag Race Calculator
+    description: Free quarter-mile calculator: compiled 0–60, 60-foot, ET, and trap from HP, weight, tires, and weather. Estimates for comparison — not dyno or track certified.
+    canonical / og:url: https://velocitybench.com/
+    og:title/description/type=website / image=https://velocitybench.com/og.png
+    twitter:card summary
+
+  race.html
+    title: VelocityBench Drag Racing — Dual-Lane Quarter-Mile
+    description: Head-to-head 1/4-mile race calculator. Dual-lane ET, trap, and live lead from the same compiled VelocityBench physics. Estimates for comparison — not track certified.
+    canonical / og:url: https://velocitybench.com/race.html
+    same og:type/image + twitter:card summary; unique title/description/url
+
+Estimate disclaimer still visible in both footers (simulation estimates
+for comparison only — not dyno or track certified) plus compiled-spec
+line. ATC / weather / support estimate hints unchanged.
+
+Verify:
+  1. /robots.txt Allow: / and Sitemap URL
+  2. /sitemap.xml lists / and /race.html only
+  3. View-source heads: unique title+description, canonical, og:*, twitter:card
+  4. Footer estimate disclaimer still on-screen (index + race)
+  5. No gtag / analytics / secrets in the static tree
+  6. Share preview uses og.png when crawlers can fetch the live domain
+
+Intentional skips: Pages push; physics / garage / fleet; analytics/gtag;
+JSON-LD; twitter:title extra tags (card + og fallback); favicon set.
+GitHub repo homepage https://velocitybench.com/ is optional via gh —
+see commit/report for whether auth worked.

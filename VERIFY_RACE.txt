@@ -174,3 +174,10 @@ Verify race:
   3. Light EV lane → TX Auto (EV wins) + Diff LSD
   4. Swap/copy preserves Diff; light lane still forces LSD after applyTune
   5. Simultaneous leave t=0 unchanged
+
+Phase 23 — unique race.html crawl/share meta (2026-09-11 CT)
+------------------------------------------------------------
+SEO only. Unique title/description/canonical/og/twitter:card on race.html.
+Shared og.png. No race physics, snapshot, or simultaneous-leave change.
+Estimate footer disclaimer unchanged.
+HARD RULE unchanged: both lanes ALWAYS leave at exact same t=0.
