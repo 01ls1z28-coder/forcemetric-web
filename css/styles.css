@@ -615,9 +615,130 @@ input[type="text"] {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+
+/* ── Air / HP correction strip (fills empty band under Weather) ── */
+.air-hp-strip {
+  margin: 10px 0 0;
+  padding: 10px 10px 8px;
+  flex: 1 1 auto;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(215, 196, 160, 0.28);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.06), transparent 55%),
+    linear-gradient(165deg, rgba(40, 34, 24, 0.55), rgba(8, 10, 14, 0.92)),
+    var(--carbon-fine);
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 226, 196, 0.08),
+    inset 0 0 18px rgba(0, 0, 0, 0.35);
+}
+
+.air-hp-strip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.air-hp-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8d7b0;
+}
+
+.air-mode-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #0a0c0f;
+  background: linear-gradient(180deg, #f0e2c4, #b89a62);
+  border: 1px solid rgba(106, 87, 56, 0.55);
+  text-shadow: none;
+}
+
+.air-mode-badge[data-mode="EV"] {
+  background: linear-gradient(180deg, #d4ff6a, var(--lime));
+  border-color: rgba(184, 255, 60, 0.45);
+}
+
+.air-mode-badge[data-mode="FI"] {
+  background: linear-gradient(180deg, #7ee8ff, #2de2e6);
+}
+
+.air-mode-badge[data-mode="NA"] {
+  background: linear-gradient(180deg, #f0e2c4, #b89a62);
+}
+
+.air-mode-badge[data-mode="ICE"] {
+  background: linear-gradient(180deg, #c9d2e0, #8b93a1);
+}
+
+.air-hp-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.air-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(184, 255, 60, 0.18);
+  box-shadow: inset 0 0 12px rgba(184, 255, 60, 0.04);
+  min-width: 0;
+}
+
+.air-tile-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.air-tile-value {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--lime);
+  line-height: 1.15;
+  text-shadow: 0 0 10px rgba(184, 255, 60, 0.28);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.air-tile-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #c9d2e0;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.air-hp-note {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--text-dim);
+}
+
 /* Run controls — compact strip under Weather Presets (atmosphere column) */
 .run-controls {
-  margin-top: auto;
+  margin-top: 0;
   padding-top: 10px;
   display: flex;
   flex-direction: column;
@@ -817,11 +938,24 @@ input[type="text"] {
 }
 
 .chart-card {
-  padding: 14px 16px;
+  padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-width: 0;
+  /* Classic gauge sibling: brass/champagne bezel + carbon face */
+  border: 1px solid rgba(215, 196, 160, 0.42);
+  background:
+    linear-gradient(145deg, rgba(240, 226, 196, 0.12), transparent 38%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
+    var(--carbon-fine),
+    var(--panel);
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 226, 196, 0.22),
+    inset 0 0 0 3px rgba(106, 87, 56, 0.35),
+    inset 0 0 28px rgba(0, 0, 0, 0.35),
+    0 12px 36px rgba(0, 0, 0, 0.45);
+  border-radius: 12px;
 }
 
 .progress-wrap {
@@ -834,9 +968,10 @@ input[type="text"] {
   position: relative;
   height: 14px;
   font-size: 10px;
-  color: var(--text-muted);
+  color: #e8d7b0;
   font-family: var(--mono);
   letter-spacing: 0.02em;
+  text-shadow: 0 0 8px rgba(184, 255, 60, 0.15);
 }
 
 .progress-mark {
@@ -857,12 +992,15 @@ input[type="text"] {
 
 .progress-bar {
   position: relative;
-  height: 8px;
-  background: #0a0c0f;
+  height: 9px;
+  background:
+    linear-gradient(180deg, #10141a, #07090c);
   border-radius: 999px;
   overflow: hidden;
-  border: 1px solid var(--panel-border-strong);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(215, 196, 160, 0.32);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
 .progress-ticks {
@@ -897,10 +1035,15 @@ input[type="text"] {
   height: 240px;
   min-height: 240px;
   position: relative;
-  border-radius: var(--radius-sm);
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid var(--panel-border);
-  background: #0a0c0f;
+  border: 1px solid rgba(215, 196, 160, 0.28);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(215, 196, 160, 0.08), transparent 55%),
+    #07090c;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+    inset 0 0 24px rgba(0, 0, 0, 0.45);
 }
 
 .chart-wrap canvas {

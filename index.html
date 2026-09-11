@@ -132,6 +132,30 @@
           <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
           <label class="field"><span id="daLabel">Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
         </div>
+        <div class="air-hp-strip" id="airHpStrip" aria-live="polite">
+          <div class="air-hp-strip-head">
+            <span class="air-hp-title">Air / HP Correction</span>
+            <span class="air-mode-badge" id="airModeBadge">NA</span>
+          </div>
+          <div class="air-hp-tiles">
+            <div class="air-tile">
+              <span class="air-tile-label">ρ air</span>
+              <span class="air-tile-value" id="airRhoValue">1.225</span>
+              <span class="air-tile-sub" id="airRhoPct">100% std</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label" id="airDaTileLabel">DA</span>
+              <span class="air-tile-value" id="airDaValue">0</span>
+              <span class="air-tile-sub" id="airDaUnit">ft</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label">HP weather</span>
+              <span class="air-tile-value" id="airHpFactorValue">100%</span>
+              <span class="air-tile-sub" id="airHpFactorSub">vs std-air WHP</span>
+            </div>
+          </div>
+          <div class="air-hp-note" id="airHpNote">Compiled estimate from current weather model — not dyno lab cert.</div>
+        </div>
         <div class="card-divider run-controls-divider" role="separator" aria-hidden="true"></div>
         <div class="run-controls" role="toolbar" aria-label="Run controls">
           <div class="run-controls-playback">

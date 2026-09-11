@@ -36,3 +36,20 @@ Hot / High DA (90°F / 60% / 29.50 → DA≈2530 ft):
   FI      0–60: 3.80 s
 NA–FI gap widens at high DA (0.04 s → 0.14 s); FI holds up better.
 UI: muted hint under NA/FI; results show Engine: Naturally aspirated / Forced induction / Unspecified.
+
+Phase 12 — Air density HP strip + classic chart (2026-09-10 CT)
+----------------------------------------------------------------
+12A Air / HP Correction strip (atmosphere card, under weather, above Play):
+  - Live ρ + % of 1.225, DA (auto/manual same as Test), HP weather factor % vs std-air WHP
+  - Mode badge NA / FI / EV / ICE; EV: ρ locked 1.225, factor 100%, honest note (no HP derate; aero uses std ρ)
+  - Shared helper ForceMetricPhysics.computeWeatherAirState — same formulas as calculate()
+  - Spot: Standard Day NA factor ≈ 98.5%; Hot High DA NA ≈ 89.5% vs FI ≈ 96.9% (FI holds up)
+  - Temp/humidity/pressure/DA/NA/FI/EV/HP-source/loss/TX/units refresh strip before Test
+
+12B Speed chart classic overlays:
+  - Brass/champagne bezel + dark radial face + lime monospace readouts
+  - Nice round axis ticks (mph 0/50/100…; time 0/5/10…) — no 44 mph steps
+  - Playhead crosshair with time + speed; distance marks 60'/330'/660'/1000'/1320' (metric m)
+  - Progress bar kept, gauge-polished; playback stays synced with gauge; metric km/h preserved
+
+No fleet retune. No physics formula change beyond exporting computeWeatherAirState.

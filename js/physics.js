@@ -69,6 +69,79 @@
   }
 
   /**
+   * Shared air / weather-HP state used by calculate() and live UI strip.
+   * Same formulas as PerformanceCalc — do not invent a second path.
+   * @returns {{
+   *   densityAltitudeFt:number, airDensity:number, densityPctOfStd:number,
+   *   weatherHpFactor:number, mode:string, note:string
+   * }}
+   */
+  function computeWeatherAirState(opts) {
+    var isEv = !!opts.isEv;
+    var isNaturallyAspirated = !!opts.isNA;
+    var isForcedInduction = !!opts.isFI;
+    var densityAltitudeFtInput = opts.densityAltitudeFtInput;
+    var temperatureF = opts.tempF;
+    var humidityPercent = opts.humidity;
+    var pressureInHg = opts.pressureInHg;
+
+    var standardDensity = 1.225;
+    var airDensity;
+    var densityAltitudeFt;
+    var mode;
+    var note;
+    var weatherHpFactor = 1.0;
+
+    if (isEv) {
+      airDensity = standardDensity;
+      densityAltitudeFt = 0.0;
+      mode = 'EV';
+      note = 'EV locks ρ to std 1.225 and skips HP weather derate (aero drag also uses std ρ).';
+      weatherHpFactor = 1.0;
+    } else {
+      if (densityAltitudeFtInput != null && !Number.isNaN(densityAltitudeFtInput)) {
+        densityAltitudeFt = densityAltitudeFtInput;
+      } else {
+        densityAltitudeFt = computeDensityAltitude(
+          temperatureF,
+          humidityPercent,
+          pressureInHg
+        );
+      }
+      airDensity = airDensityFromDA(densityAltitudeFt);
+      var densityFactor = airDensity / standardDensity;
+      /* Signed DA: negative (below sea level) boosts ICE; NA ~2× as sensitive as FI. */
+      var daThousands = densityAltitudeFt / 1000.0;
+
+      if (isNaturallyAspirated && !isForcedInduction) {
+        // NA: full density + peak haircut + 3%/1k DA (derate above 0, boost below 0)
+        mode = 'NA';
+        note = 'NA: full density × 0.985 peak × 3%/1k DA.';
+        weatherHpFactor = densityFactor * 0.985 * Math.max(0.30, 1.0 - 0.03 * daThousands);
+      } else if (isForcedInduction && !isNaturallyAspirated) {
+        // FI: softer density + edge + 1.5%/1k DA (same sign behavior, half the slope)
+        mode = 'FI';
+        note = 'FI: soft density × 1.015 edge × 1.5%/1k DA.';
+        weatherHpFactor = (0.55 + 0.45 * densityFactor) * 1.015 * Math.max(0.40, 1.0 - 0.015 * daThousands);
+      } else {
+        // neither: density only (legacy)
+        mode = 'ICE';
+        note = 'Unspecified aspiration: density factor only.';
+        weatherHpFactor = densityFactor;
+      }
+    }
+
+    return {
+      densityAltitudeFt: densityAltitudeFt,
+      airDensity: airDensity,
+      densityPctOfStd: (airDensity / standardDensity) * 100.0,
+      weatherHpFactor: weatherHpFactor,
+      mode: mode,
+      note: note
+    };
+  }
+
+  /**
    * @param {object} opts
    * @returns {object} RunResult-like object
    */
@@ -108,47 +181,21 @@
     var frontalAreaM2 = frontalAreaSqFt * 0.092903;
     var g = 9.80665;
 
-    var airDensity;
-    var densityAltitudeFt;
-
-    if (isEv) {
-      airDensity = 1.225;
-      densityAltitudeFt = 0.0;
-    } else {
-      if (densityAltitudeFtInput != null && !Number.isNaN(densityAltitudeFtInput)) {
-        densityAltitudeFt = densityAltitudeFtInput;
-      } else {
-        densityAltitudeFt = computeDensityAltitude(
-          temperatureF,
-          humidityPercent,
-          pressureInHg
-        );
-      }
-      airDensity = airDensityFromDA(densityAltitudeFt);
-    }
+    var airState = computeWeatherAirState({
+      isEv: isEv,
+      isNA: isNaturallyAspirated,
+      isFI: isForcedInduction,
+      densityAltitudeFtInput: densityAltitudeFtInput,
+      tempF: temperatureF,
+      humidity: humidityPercent,
+      pressureInHg: pressureInHg
+    });
+    var airDensity = airState.airDensity;
+    var densityAltitudeFt = airState.densityAltitudeFt;
 
     var wheelHp = horsepower * (1.0 - drivetrainLossPercent / 100.0);
-
     if (!isEv) {
-      var standardDensity = 1.225;
-      var densityFactor = airDensity / standardDensity;
-      /* Signed DA: negative (below sea level) boosts ICE; NA ~2× as sensitive as FI. */
-      var daThousands = densityAltitudeFt / 1000.0;
-
-      if (isNaturallyAspirated && !isForcedInduction) {
-        // NA: full density + peak haircut + 3%/1k DA (derate above 0, boost below 0)
-        wheelHp *= densityFactor;
-        wheelHp *= 0.985;
-        wheelHp *= Math.max(0.30, 1.0 - 0.03 * daThousands);
-      } else if (isForcedInduction && !isNaturallyAspirated) {
-        // FI: softer density + edge + 1.5%/1k DA (same sign behavior, half the slope)
-        wheelHp *= (0.55 + 0.45 * densityFactor);
-        wheelHp *= 1.015;
-        wheelHp *= Math.max(0.40, 1.0 - 0.015 * daThousands);
-      } else {
-        // neither: density only (legacy)
-        wheelHp *= densityFactor;
-      }
+      wheelHp *= airState.weatherHpFactor;
     }
 
     var wheelWatts = wheelHp * 745.7 * CalibrationFactor;
@@ -349,6 +396,7 @@
     calculate: calculate,
     computeDensityAltitude: computeDensityAltitude,
     airDensityFromDA: airDensityFromDA,
+    computeWeatherAirState: computeWeatherAirState,
     getTireGrip: getTireGrip,
     CalibrationFactor: CalibrationFactor
   };

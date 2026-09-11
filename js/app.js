@@ -59,6 +59,15 @@
     resultsOut: document.getElementById('resultsOut'),
     runTimer: document.getElementById('runTimer'),
     distanceFill: document.getElementById('distanceFill'),
+    airModeBadge: document.getElementById('airModeBadge'),
+    airRhoValue: document.getElementById('airRhoValue'),
+    airRhoPct: document.getElementById('airRhoPct'),
+    airDaTileLabel: document.getElementById('airDaTileLabel'),
+    airDaValue: document.getElementById('airDaValue'),
+    airDaUnit: document.getElementById('airDaUnit'),
+    airHpFactorValue: document.getElementById('airHpFactorValue'),
+    airHpFactorSub: document.getElementById('airHpFactorSub'),
+    airHpNote: document.getElementById('airHpNote'),
     garageModal: document.getElementById('garageModal'),
     garageSearch: document.getElementById('garageSearch'),
     carList: document.getElementById('carList'),
@@ -194,6 +203,7 @@
 
     if (gauge && gauge.setUnits) gauge.setUnits(isMetric() ? 'metric' : 'standard');
     if (speedChart && speedChart.setSpeedUnit) speedChart.setSpeedUnit(isMetric() ? 'km/h' : 'mph');
+    updateAirHpStrip();
   }
 
   function convertWeightInputsOnToggle(fromMetric) {
@@ -366,6 +376,69 @@
 
   function isEvMode() {
     return !!(el.chkEv && el.chkEv.checked);
+  }
+
+  /** Live Air / HP strip — same DA + weather-HP math as Physics.calculate. */
+  function updateAirHpStrip() {
+    if (!Physics || !Physics.computeWeatherAirState) return;
+    if (!el.airRhoValue) return;
+
+    var tempF = parseFloat(el.temp && el.temp.value);
+    var humidity = parseFloat(el.humidity && el.humidity.value);
+    var pressure = parseFloat(el.pressure && el.pressure.value);
+    if (!isFinite(tempF)) tempF = 59;
+    if (!isFinite(humidity)) humidity = 40;
+    if (!isFinite(pressure)) pressure = 29.92;
+
+    var daInput = NaN;
+    if (el.da && String(el.da.value).trim() !== '') {
+      var daRaw = parseFloat(String(el.da.value).trim());
+      if (isFinite(daRaw)) {
+        daInput = isMetric() ? daRaw / M_PER_FT : daRaw;
+      }
+    }
+
+    var state = Physics.computeWeatherAirState({
+      tempF: tempF,
+      humidity: humidity,
+      pressureInHg: pressure,
+      densityAltitudeFtInput: daInput,
+      isEv: !!(el.chkEv && el.chkEv.checked),
+      isNA: !!(el.chkNA && el.chkNA.checked),
+      isFI: !!(el.chkFI && el.chkFI.checked)
+    });
+
+    var rho = state.airDensity;
+    el.airRhoValue.textContent = rho.toFixed(3);
+    el.airRhoPct.textContent = (Math.round(state.densityPctOfStd * 10) / 10).toFixed(1) + '% std';
+
+    var daDisp = isMetric() ? state.densityAltitudeFt * M_PER_FT : state.densityAltitudeFt;
+    el.airDaValue.textContent = String(Math.round(daDisp));
+    el.airDaUnit.textContent = isMetric() ? 'm' : 'ft';
+    if (el.airDaTileLabel) el.airDaTileLabel.textContent = 'DA';
+
+    var factorPct = state.weatherHpFactor * 100.0;
+    el.airHpFactorValue.textContent = (Math.round(factorPct * 10) / 10).toFixed(1) + '%';
+    if (el.airHpFactorSub) {
+      el.airHpFactorSub.textContent = state.mode === 'EV'
+        ? 'no HP weather derate'
+        : 'eff. WHP vs std air';
+    }
+
+    var badge = el.airModeBadge;
+    if (badge) {
+      badge.textContent = state.mode;
+      badge.setAttribute('data-mode', state.mode);
+    }
+
+    if (el.airHpNote) {
+      var foot = 'Compiled estimate from current weather model — not dyno lab cert.';
+      if (state.mode === 'EV') {
+        el.airHpNote.textContent = state.note + ' ' + foot;
+      } else {
+        el.airHpNote.textContent = foot;
+      }
+    }
   }
 
   /** TX/drive locks: EV → Auto (Manual disabled); else light curb → Manual+RWD; else free.
@@ -615,6 +688,7 @@
     // Full curve immediately — do not wait for playback end
     speedChart.clear();
     speedChart.setSeries(result.Steps);
+    if (speedChart.setSpeedUnit) speedChart.setSpeedUnit(isMetric() ? 'km/h' : 'mph');
     speedChart.setPlaybackTime(0);
     ensureChartSized();
 
@@ -795,6 +869,7 @@
       var daDisp = isMetric() ? daFt * M_PER_FT : daFt;
       el.calcDAResult.textContent = Math.round(daDisp) + ' ' + distSuffix();
       el.da.value = Math.round(daDisp).toString();
+      updateAirHpStrip();
     } catch (err) {
       alert(err.message || String(err));
     }
@@ -821,26 +896,32 @@
         el.da.value = '';
         break;
     }
+    updateAirHpStrip();
   });
 
   function weatherFieldChanged() {
     el.da.value = '';
+    updateAirHpStrip();
   }
   el.temp.addEventListener('input', weatherFieldChanged);
   el.humidity.addEventListener('input', weatherFieldChanged);
   el.pressure.addEventListener('input', weatherFieldChanged);
+  if (el.da) el.da.addEventListener('input', updateAirHpStrip);
 
   el.chkNA.addEventListener('change', function () {
     if (el.chkNA.checked) el.chkFI.checked = false;
+    updateAirHpStrip();
   });
   el.chkFI.addEventListener('change', function () {
     if (el.chkFI.checked) el.chkNA.checked = false;
+    updateAirHpStrip();
   });
 
   el.chkEv.addEventListener('change', function () {
     if (garageEvLocked) {
       el.chkEv.checked = true;
       applyLightCurbLocks();
+      updateAirHpStrip();
       return;
     }
     if (el.chkEv.checked) {
@@ -860,6 +941,7 @@
       el.resultsOut.textContent += '\nEV Mode disabled.';
     }
     applyLightCurbLocks();
+    updateAirHpStrip();
   });
 
   function onDriveTypeChange() {
@@ -878,13 +960,17 @@
 
   function onHpSourceOrTxChange() {
     syncHpLossUi();
+    updateAirHpStrip();
   }
   if (el.hpEngine) el.hpEngine.addEventListener('change', onHpSourceOrTxChange);
   if (el.hpDynoJet) el.hpDynoJet.addEventListener('change', onHpSourceOrTxChange);
   if (el.hpMustang) el.hpMustang.addEventListener('change', onHpSourceOrTxChange);
   if (el.txAuto) el.txAuto.addEventListener('change', onHpSourceOrTxChange);
   if (el.txManual) el.txManual.addEventListener('change', onHpSourceOrTxChange);
-  if (el.loss) el.loss.addEventListener('input', syncHpLossUi);
+  if (el.loss) el.loss.addEventListener('input', function () {
+    syncHpLossUi();
+    updateAirHpStrip();
+  });
   /* Curb light-locks on change/blur only — never mid-keystroke (e.g. 6200→620→6200). */
   if (el.weight) {
     el.weight.addEventListener('change', syncTransmissionForCurb);
@@ -893,6 +979,7 @@
   setDriverWeightDefault();
   syncHpLossUi();
   syncTransmissionForCurb();
+  updateAirHpStrip();
 
   document.getElementById('btnPlay').addEventListener('click', function () {
     if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) return;
@@ -1201,6 +1288,7 @@
       el.chkFI.checked = isFi;
       el.chkNA.checked = !isFi;
     }
+    updateAirHpStrip();
   }
 
   function setEvChecked(on) {
@@ -1208,6 +1296,7 @@
     if (garageEvLocked && !on) {
       el.chkEv.checked = true;
       applyLightCurbLocks();
+      updateAirHpStrip();
       return;
     }
     el.chkEv.checked = !!on;
@@ -1221,6 +1310,7 @@
       el.chkFI.disabled = false;
     }
     applyLightCurbLocks();
+    updateAirHpStrip();
   }
 
   function loadSelectedVehicle() {
@@ -1256,6 +1346,7 @@
     var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
     el.resultsOut.textContent = loadMsg;
+    updateAirHpStrip();
     closeGarage();
   }
 
