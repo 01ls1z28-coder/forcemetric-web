@@ -303,6 +303,23 @@
     return 'auto';
   }
 
+  function setTransmission(tx) {
+    var manual = String(tx || '').toLowerCase() === 'manual';
+    if (el.txManual) el.txManual.checked = manual;
+    if (el.txAuto) el.txAuto.checked = !manual;
+  }
+
+  /** Last TX/drive chosen while curb was heavy; restored after leaving light-curb locks. */
+  var lastNonLightTx = 'auto';
+  var lastNonLightDrive = 'RWD';
+  var lightCurbLocksActive = false;
+
+  var DEFAULT_DRIVER_WEIGHT_LBS = 200;
+
+  function setDriverWeightDefault() {
+    setInputWeightLbs(el.driverWeight, DEFAULT_DRIVER_WEIGHT_LBS);
+  }
+
   /** Engine = base ± Manual; DynoJet/Mustang WHP = loss 0. Clamp 0–35. */
   function computeEffectiveLoss() {
     var source = getHpSource();
@@ -334,10 +351,19 @@
   }
 
   /** TX/drive locks: EV → Auto (Manual disabled); else light curb → Manual+RWD; else free.
-   *  EV Auto lock wins over light-curb Manual when IsEv. */
+   *  EV Auto lock wins over light-curb Manual when IsEv.
+   *  Remembers last non-light TX+drive; restores them only when leaving light curb (non-EV TX). */
   function applyLightCurbLocks() {
     var ev = isEvMode();
     var light = isLightCurb();
+    var leavingLight = lightCurbLocksActive && !light;
+
+    /* Capture TX/drive before light-curb snaps overwrite them.
+     * Skip while light locks are already active (and while leaving — radios still Manual+RWD). */
+    if (!lightCurbLocksActive) {
+      if (!ev) lastNonLightTx = getTransmission();
+      lastNonLightDrive = getDriveType();
+    }
 
     if (ev) {
       /* EV priority: Automatic locked on, Manual disabled (even if light curb). */
@@ -361,9 +387,10 @@
     } else {
       if (el.txAuto) el.txAuto.disabled = false;
       if (el.txManual) el.txManual.disabled = false;
+      if (leavingLight) setTransmission(lastNonLightTx);
     }
 
-    /* Light curb (bikes): RWD lock; EVs are typically heavy so drive stays free. */
+    /* Light curb (bikes): RWD lock; EVs are typically heavy so drive stays free when not light. */
     if (light) {
       setDriveType('RWD');
       if (el.driveFWD) el.driveFWD.disabled = true;
@@ -373,7 +400,10 @@
       if (el.driveFWD) el.driveFWD.disabled = false;
       if (el.driveRWD) el.driveRWD.disabled = false;
       if (el.driveAWD) el.driveAWD.disabled = false;
+      if (leavingLight) setDriveType(lastNonLightDrive);
     }
+
+    lightCurbLocksActive = light;
   }
 
   function syncHpLossUi() {
@@ -826,7 +856,12 @@
   if (el.txAuto) el.txAuto.addEventListener('change', onHpSourceOrTxChange);
   if (el.txManual) el.txManual.addEventListener('change', onHpSourceOrTxChange);
   if (el.loss) el.loss.addEventListener('input', syncHpLossUi);
-  if (el.weight) el.weight.addEventListener('input', syncTransmissionForCurb);
+  /* Curb light-locks on change/blur only — never mid-keystroke (e.g. 6200→620→6200). */
+  if (el.weight) {
+    el.weight.addEventListener('change', syncTransmissionForCurb);
+    el.weight.addEventListener('blur', syncTransmissionForCurb);
+  }
+  setDriverWeightDefault();
   syncHpLossUi();
   syncTransmissionForCurb();
 
@@ -1167,6 +1202,7 @@
     var car = filteredCars[selectedGarageIndex];
     el.hp.value = car.Horsepower;
     setInputWeightLbs(el.weight, car.WeightLbs);
+    setDriverWeightDefault();
     el.cd.value = car.DragCoefficient;
     el.area.value = car.FrontalAreaSqFt;
     el.loss.value = car.DrivetrainLossPercent;
@@ -1714,6 +1750,7 @@
     }
     if (el.unitsStandard) el.unitsStandard.addEventListener('change', onUnitsChange);
     if (el.unitsMetric) el.unitsMetric.addEventListener('change', onUnitsChange);
+    setDriverWeightDefault();
   })();
 
   // Resize gauge/chart on window resize
@@ -1729,7 +1766,13 @@
     parseGarageMeta: parseGarageMeta,
     getDriveType: getDriveType,
     setDriveType: setDriveType,
+    getTransmission: getTransmission,
+    setTransmission: setTransmission,
+    isLightCurb: isLightCurb,
+    applyLightCurbLocks: applyLightCurbLocks,
+    syncTransmissionForCurb: syncTransmissionForCurb,
     isMetric: isMetric,
-    applyUnitsMode: applyUnitsMode
+    applyUnitsMode: applyUnitsMode,
+    DEFAULT_DRIVER_WEIGHT_LBS: DEFAULT_DRIVER_WEIGHT_LBS
   };
 })();
