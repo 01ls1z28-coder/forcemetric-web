@@ -311,10 +311,7 @@ analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
 full 331 unique art (class fallback covers remainder); baked lime/cyan dual
 assets (multiply tint keeps one greyscale painted set).
 
-Phase 27 — mockup stage chrome + photoreal sprites (2026-09-11 CT)
--------------------------------------------------------------------
-Branch: review/vb-phase27-mockup-stage
-HARD ACCEPTANCE vs Option 3 mockup (`vb-phase27-mockup.png`).
+
 Phase 26 stylized/painted SVGs rejected for stage draw — PNGs only.
 
 Stage chrome (race.html + css/race.css)
@@ -356,3 +353,12 @@ full unique photoreal studio shoot per all 331 garage rows (class fallback
 + keyed silhouette set covers remainder); GenerateImage unavailable in
 executor — mustang/camaro are mockup-derived photoreal; other keys are
 photoreal-textured keyed silhouettes pending further GenerateImage expansion.
+
+PHASE 27b (fleet photoreal reburn — Seraph STOP on dd8108f):
+- Path (A): photoreal keyed PNGs for all SPRITE_ALL_KEYS via GenerateImage + rembg cutout.
+- Corvette = C8 mid-engine photoreal (replaces broken collage).
+- mustang-lime / camaro-cyan kept Jorge-cleared photoreal quality.
+- Selection-driven resolveSpriteKey unchanged; not tint-only generics.
+- Brass stage chrome from Phase 27 tip retained.
+- Physics / DistanceFt X / simultaneous leave / REACTION dashes / no garage retune / static / no analytics holds stand.
+- No silhouette admission — fleet is photoreal keyed PNGs.
