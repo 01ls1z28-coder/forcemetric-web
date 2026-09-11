@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>VelocityBench — Garage Admin</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <div id="gatePanel" class="gate-panel" hidden>
+    <div class="gate-card">
+      <h1>Garage Admin</h1>
+      <p class="muted">Thin obscurity gate only — <strong>not</strong> real security. Auth is your GitHub PAT (sessionStorage).</p>
+      <label class="field">
+        <span>Passphrase</span>
+        <input type="password" id="gateInput" autocomplete="off" placeholder="Enter admin passphrase" />
+      </label>
+      <button type="button" class="btn btn-primary" id="gateSubmit">Enter</button>
+      <p class="error" id="gateError" hidden></p>
+      <p class="help">Or open with <code>?key=…</code> matching the passphrase.</p>
+    </div>
+  </div>
+
+  <div id="app" class="admin-app" hidden>
+    <header class="admin-header">
+      <div>
+        <h1>Garage Admin <span class="badge">Phase 30</span></h1>
+        <p class="muted">GitHub-backed static editor — commits to a <em>new review branch</em> only. Never writes <code>main</code>. Never deploys Pages.</p>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-ghost" href="index.html">← Calculator</a>
+        <button type="button" class="btn btn-ghost" id="btnHelp">Help</button>
+        <button type="button" class="btn btn-danger-outline" id="btnClearToken">Clear token</button>
+      </div>
+    </header>
+
+    <section id="authPanel" class="panel auth-panel">
+      <h2>1. Session auth</h2>
+      <p class="muted">Paste a <strong>fine-grained GitHub PAT</strong>. Stored in <code>sessionStorage</code> only (cleared when the tab closes). Never committed. Never localStorage-by-default.</p>
+      <ul class="help-list">
+        <li>Scopes: <strong>Contents: Read and write</strong> on <code>01ls1z28-coder/forcemetric-web</code> only.</li>
+        <li>Optional for PRs: <strong>Pull requests: Read and write</strong>.</li>
+        <li>Short expiry recommended (hours–days).</li>
+      </ul>
+      <label class="field">
+        <span>Fine-grained PAT</span>
+        <input type="password" id="tokenInput" autocomplete="off" spellcheck="false" placeholder="github_pat_…" />
+      </label>
+      <div class="row">
+        <button type="button" class="btn btn-primary" id="btnSaveToken">Save to session</button>
+        <button type="button" class="btn btn-lime" id="btnLoadGarage">Load garage from main</button>
+        <span id="authStatus" class="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="editorPanel" class="editor-grid" hidden>
+      <aside class="panel list-panel">
+        <div class="list-toolbar">
+          <h2>Vehicles <span id="vehicleCount" class="count"></span></h2>
+          <input type="search" id="searchInput" placeholder="Search name…" />
+        </div>
+        <div class="list-actions">
+          <button type="button" class="btn btn-sm" id="btnAdd">+ Add</button>
+          <button type="button" class="btn btn-sm" id="btnClone">Clone</button>
+          <button type="button" class="btn btn-sm btn-danger-outline" id="btnDelete">Delete</button>
+        </div>
+        <ul id="vehicleList" class="vehicle-list" role="listbox"></ul>
+      </aside>
+
+      <main class="panel form-panel">
+        <h2>Edit vehicle</h2>
+        <p id="tireGuidance" class="tire-guidance">TireType guidance: default bake should be <strong>AllSeason / Summer / UHP</strong> unless Jorge explicitly sets SoftCompound or Slicks (user-selectable only).</p>
+        <form id="vehicleForm" class="vehicle-form" autocomplete="off">
+          <label class="field grow"><span>Name</span><input name="Name" required /></label>
+          <div class="form-row">
+            <label class="field"><span>Horsepower</span><input name="Horsepower" type="number" step="any" required /></label>
+            <label class="field"><span>WeightLbs</span><input name="WeightLbs" type="number" step="any" required /></label>
+            <label class="field"><span>DragCoefficient</span><input name="DragCoefficient" type="number" step="any" required /></label>
+            <label class="field"><span>FrontalAreaSqFt</span><input name="FrontalAreaSqFt" type="number" step="any" required /></label>
+          </div>
+          <div class="form-row">
+            <label class="field"><span>DrivetrainLossPercent</span><input name="DrivetrainLossPercent" type="number" step="any" required /></label>
+            <label class="field"><span>TireType</span>
+              <select name="TireType" id="tireTypeSelect">
+                <option value="0">AllSeason (0)</option>
+                <option value="1">Summer (1)</option>
+                <option value="2">UHP (2)</option>
+                <option value="3">SoftCompound (3)</option>
+                <option value="4">Slicks (4)</option>
+              </select>
+            </label>
+            <label class="field"><span>DriveType</span>
+              <select name="DriveType">
+                <option>RWD</option>
+                <option>FWD</option>
+                <option>AWD</option>
+              </select>
+            </label>
+            <label class="field"><span>EngineLayout</span>
+              <select name="EngineLayout">
+                <option>Front</option>
+                <option>Mid</option>
+                <option>Rear</option>
+                <option>Dual</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field"><span>Transmission</span>
+              <select name="Transmission">
+                <option>Auto</option>
+                <option>Manual</option>
+                <option>DCT</option>
+              </select>
+            </label>
+            <label class="field"><span>Differential</span>
+              <select name="Differential">
+                <option>Open</option>
+                <option>LSD</option>
+                <option>Locker</option>
+                <option>Electronic</option>
+              </select>
+            </label>
+            <label class="field check"><span>IsEv</span><input name="IsEv" type="checkbox" /></label>
+            <label class="field check"><span>IsForcedInduction</span><input name="IsForcedInduction" type="checkbox" /></label>
+          </div>
+          <div class="form-row">
+            <label class="field"><span>MaxSpeedMph <em class="opt">(optional)</em></span><input name="MaxSpeedMph" type="number" step="any" placeholder="omit if N/A" /></label>
+          </div>
+          <label class="field grow"><span>Source</span><textarea name="Source" rows="3" required></textarea></label>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Apply to working copy</button>
+            <span id="formStatus" class="status"></span>
+          </div>
+        </form>
+      </main>
+    </section>
+
+    <section id="commitPanel" class="panel commit-panel" hidden>
+      <h2>2. Commit to review branch</h2>
+      <p class="muted">Creates branch <code>review/vb-garage-admin-YYYYMMDD-HHMM</code> from current <code>main</code> tip, commits updated <code>js/garage-data.js</code>, never updates <code>main</code>.</p>
+      <label class="field check"><span>Also open Pull Request (needs Pull requests write)</span><input type="checkbox" id="openPr" checked /></label>
+      <label class="field grow"><span>Commit message</span><input id="commitMessage" value="Garage admin: update js/garage-data.js" /></label>
+      <details class="diff-box">
+        <summary>Preview JSON diff summary</summary>
+        <pre id="diffPreview">Load garage and edit to preview.</pre>
+      </details>
+      <div class="row">
+        <button type="button" class="btn btn-lime" id="btnCommit">Commit to new review branch</button>
+        <span id="commitStatus" class="status" aria-live="polite"></span>
+      </div>
+      <div id="successBox" class="success-box" hidden>
+        <h3>Commit succeeded</h3>
+        <p><strong>Branch:</strong> <code id="outBranch"></code></p>
+        <p><strong>Commit SHA:</strong> <code id="outSha"></code></p>
+        <p id="outPrWrap" hidden><strong>PR:</strong> <a id="outPr" target="_blank" rel="noopener"></a></p>
+        <p class="seraph-note">Seraph must clear before Merovingian deploys.</p>
+      </div>
+    </section>
+
+    <dialog id="helpDialog" class="help-dialog">
+      <h2>How to use</h2>
+      <ol>
+        <li>Create a fine-grained PAT on GitHub with Contents write on <code>01ls1z28-coder/forcemetric-web</code> only; short expiry.</li>
+        <li>Paste PAT → Save to session → Load garage from main.</li>
+        <li>Search / edit / add / clone / delete vehicles. Soft/Slicks only when Jorge explicitly wants them.</li>
+        <li>Commit → new <code>review/vb-garage-admin-…</code> branch. Seraph reviews before Merovingian deploys.</li>
+      </ol>
+      <h3>Security</h3>
+      <ul>
+        <li>Token: sessionStorage only; never embed in source, URL, or Pages artifacts.</li>
+        <li>Admin never writes <code>main</code>; never triggers Pages live deploy.</li>
+        <li>Obscurity gate is cosmetic — PAT is the real auth.</li>
+        <li>No server, no database, no world-writable garage JSON without auth.</li>
+      </ul>
+      <h3>Holds</h3>
+      <p>Physics µ ladder, race chrome/sprites, analytics, estimate disclaimers — untouched.</p>
+      <button type="button" class="btn btn-primary" id="helpClose">Close</button>
+    </dialog>
+
+    <footer class="admin-footer">
+      <span>Repo: <code>01ls1z28-coder/forcemetric-web</code> · path <code>js/garage-data.js</code> · base <code>main</code></span>
+      <span class="muted">Static only · no baked secrets</span>
+    </footer>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

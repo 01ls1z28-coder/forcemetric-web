@@ -1,0 +1,70 @@
+VelocityBench — VERIFY_ADMIN (Phase 30)
+=======================================
+Date context: Phase 30 GitHub-backed static garage admin (Option 2).
+Branch: review/vb-phase30-garage-admin
+
+Purpose
+-------
+Static Admin UI (admin.html + css/admin.css + js/admin.js) so Jorge can
+permanently add/edit/delete garage vehicles by committing to GitHub himself
+while bots stay idle. No server, no database, no baked secrets.
+
+How to use
+----------
+1. Open admin.html (obscurity: passphrase `vb-garage`, or `?key=vb-garage`).
+   Gate is NOT real security — the GitHub PAT is auth.
+2. Create a fine-grained GitHub PAT:
+   - Resource owner: 01ls1z28-coder
+   - Repository access: only `forcemetric-web`
+   - Permissions: Contents = Read and write
+   - Optional: Pull requests = Read and write (to open PRs)
+   - Short expiry (hours–days) recommended
+3. Paste PAT → Save to session (sessionStorage only; clears on tab close).
+4. Load garage from main → search / edit / add / clone / delete.
+5. Commit → creates NEW branch `review/vb-garage-admin-YYYYMMDD-HHMM` (UTC)
+   from current main tip via Git Data API (blob → tree → commit → create ref).
+   Never updates main. Never triggers Pages live deploy from admin.
+6. UI shows branch name + commit SHA + note:
+   “Seraph must clear before Merovingian deploys.”
+
+Repo config (hardcoded)
+-----------------------
+owner: 01ls1z28-coder
+repo:  forcemetric-web
+path:  js/garage-data.js
+base:  main
+
+TireType enum (matches garage-data.js)
+--------------------------------------
+0 AllSeason | 1 Summer | 2 UHP | 3 SoftCompound | 4 Slicks
+Guidance: default bake AS/Summer/UHP unless Jorge explicitly sets Soft/Slicks.
+
+Security checklist (Seraph STOP conditions)
+-------------------------------------------
+[ ] No token / PAT in source, URL, localStorage-by-default, or Pages artifacts
+[ ] Token sessionStorage only; clear on tab close; Clear token button works
+[ ] Hard-fail if token-like string appears in URL or embedded config
+[ ] Admin cannot / does not write `main` (create ref on review/* only)
+[ ] No open DB; no world-writable garage JSON without auth
+[ ] No server-side admin endpoint
+
+Holds (untouched)
+-----------------
+- Physics µ ladder (physics.js) untouched
+- Race chrome / sprites untouched
+- No analytics / gtag
+- Estimate disclaimers stay on calculator
+- Soft/Slicks selectable in admin with explicit guidance warn
+
+Files added / touched
+---------------------
+- admin.html (new)
+- css/admin.css (new)
+- js/admin.js (new)
+- VERIFY_ADMIN.txt (this file)
+- VERIFY_RACE.txt (Phase 30 pointer)
+- index.html (discreet low-opacity footer Admin link only)
+
+Out of scope
+------------
+No physics changes, no sprite/chrome changes, no fleet recalib, no analytics.

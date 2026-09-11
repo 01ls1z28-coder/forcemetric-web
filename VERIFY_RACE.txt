@@ -497,3 +497,24 @@ Verify:
   2. Garage Soft/Slicks bake count = 0; Jesko/SVJ load as UHP; P1 as Summer
   3. race.html / assets/race-sprites / analytics untouched
   4. Standard Day spot checks above within Phase 21 trap-first tolerance
+
+Phase 30 — GitHub-backed static garage admin (Option 2)
+-------------------------------------------------------
+See VERIFY_ADMIN.txt for full use / PAT / security checklist.
+
+Summary:
+  - Static admin.html (+ css/admin.css, js/admin.js); no server/DB/secrets.
+  - Jorge pastes fine-grained PAT → sessionStorage only.
+  - Loads/commits js/garage-data.js via GitHub Contents + Git Data APIs.
+  - Commits ONLY to new review/vb-garage-admin-YYYYMMDD-HHMM branches.
+  - NEVER writes main; NEVER triggers Pages deploy from admin.
+  - After commit: branch + SHA + “Seraph must clear before Merovingian deploys.”
+  - Holds: µ ladder, race chrome/sprites, analytics, estimate disclaimers intact.
+  - Soft/Slicks selectable with bake guidance (prefer AS/Summer/UHP).
+
+Verify Phase 30:
+  1. admin.html loads; gate is obscurity-only (passphrase vb-garage)
+  2. No token in tree (rg ghp_|github_pat_ should be empty outside docs examples)
+  3. Commit path creates review/* ref only (code refuses main/master)
+  4. physics.js / race.html / assets/race-sprites / analytics untouched
+
