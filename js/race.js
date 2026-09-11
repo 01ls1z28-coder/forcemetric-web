@@ -6,6 +6,7 @@
  * Phase 19: side-view dual-lane playback visual overhaul (physics-true Steps positions)
  * Phase 24: race loss parity (bake/snap) + hide loss fields + body-class stage silhouettes
  * Phase 25: per-vehicle side-view SVG sprites (class fallback; physics X unchanged)
+ * Phase 26: painted multi-layer sprites + luminance-preserving tint (physics X unchanged)
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  * HARD RULE (P19): car X / gaps from Steps DistanceFt·Time only — no cosmetic lead cheat
  */
@@ -1345,13 +1346,17 @@
     }
   };
 
-  /** Tint white SVG silhouette to lane color; null if not ready → polygon fallback. */
+  /**
+   * Phase 26: luminance-preserving tint for painted sprites.
+   * Multiply lane color over greyscale/painted body so shadows + highlights survive;
+   * destination-in restores original alpha (glass/wheels stay dark). Null if not ready.
+   */
   RaceStage.prototype._getTintedSprite = function (key, color, w, h) {
     var img = this._spriteImgs[key];
     if (!img || !img.complete || !(img.naturalWidth > 0)) return null;
     var tw = Math.max(8, Math.round(w));
     var th = Math.max(6, Math.round(h));
-    var ck = key + '|' + color + '|' + tw + 'x' + th;
+    var ck = key + '|p26|' + color + '|' + tw + 'x' + th;
     if (this._tintCache[ck]) return this._tintCache[ck];
     var c = document.createElement('canvas');
     c.width = tw;
@@ -1359,9 +1364,11 @@
     var x = c.getContext('2d');
     x.clearRect(0, 0, tw, th);
     x.drawImage(img, 0, 0, tw, th);
-    x.globalCompositeOperation = 'source-in';
+    x.globalCompositeOperation = 'multiply';
     x.fillStyle = color;
     x.fillRect(0, 0, tw, th);
+    x.globalCompositeOperation = 'destination-in';
+    x.drawImage(img, 0, 0, tw, th);
     x.globalCompositeOperation = 'source-over';
     this._tintCache[ck] = c;
     return c;
@@ -1645,8 +1652,10 @@
     if (tinted) {
       ctx.drawImage(tinted, -carW * 0.55, -carH * 0.95, carW * 1.15, carH * 1.55);
       ctx.shadowBlur = 0;
-      // Dark wheels + glass + lamp overlays (cosmetic; X unchanged)
-      this._overlaySpriteDetails(ctx, body, carW, carH, color);
+      // Phase 26: painted SVGs bake wheels/glass/lamps — skip flat overlay that hid spokes.
+      // Keep a tiny headlamp glint only (cosmetic; X unchanged).
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      ctx.fillRect(carW * 0.42, -carH * 0.08, 4, 4);
     } else {
       ctx.fillStyle = color;
       this._fillBodySilhouette(ctx, body, carW, carH, color);

@@ -262,3 +262,51 @@ Verify:
 Intentional skips: Pages push; physics formula; garage-data fleet retune;
 analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
 full 331 unique art (class fallback covers remainder).
+
+Phase 26 — painted race stage sprites (2026-09-11 CT)
+-----------------------------------------------------
+Branch: review/vb-phase26-painted-sprites
+Drag Racing stage cosmetics only. No physics.js formula change.
+No garage-data retune. No analytics. No Three.js.
+
+Silhouette → painted (upgraded keys)
+  All prior Phase 25 flat white one-path silhouettes in assets/race-sprites/
+  replaced with multi-layer painted SVGs (gradients, shoulder/hood highlights,
+  dark glass, multi-spoke wheels, door seams). No trademark logos/badges.
+
+  Upgraded keys (32):
+    Class fallbacks: motorcycle, coupe, sedan, suv, hypercar
+    High-traffic: mustang, camaro, corvette, challenger, charger, civic,
+      porsche-911, tesla-model-s, tesla-model-3, sportbike, pickup, bronco,
+      supra, gtr, viper, miata, wrx, firebird, huracan, chiron, model-x,
+      cybertruck, nsx, amg-gt, m3, golf, tahoe
+  Distinct proportions: Mustang long-hood/short-deck fastback ≠ Camaro angular
+  higher beltline ≠ Corvette mid-engine wedge ≠ Challenger thick C-pillar, etc.
+
+Tint approach (preserve painted detail)
+  - SVGs paint body in white→grey luminance (highlights light, rocker dark);
+    glass/tires near-black so they stay dark after tint.
+  - RaceStage._getTintedSprite: drawImage → multiply(lane color) →
+    destination-in(original alpha). Replaces Phase 25 source-in flat fill
+    that destroyed shading.
+  - Lime YOU (#b8ff3c) / cyan OPP (#22d3ee) unchanged.
+  - Flat wheel/glass overlay skipped when painted sprite draws (spokes visible);
+    tiny headlamp glint kept. Polygon _fillBodySilhouette still load/error fallback.
+
+HARD RULE unchanged
+  - Car X from Steps DistanceFt only; simultaneous leave t=0.
+  - Trails/smoke/sprites cosmetic only — no gap/timing bias.
+  - resolveSpriteKey + class fallbacks unchanged (never blank).
+
+Verify:
+  1. Mustang GT → painted mustang (lime multiply); Camaro → painted camaro (cyan)
+  2. Body shows vertical shading + wheel spokes (not flat silhouette)
+  3. Corvette / Challenger / Charger / Civic / 911 / Model S / sportbike / pickup /
+     Bronco / hypercars still keyed; unknown → class fallback
+  4. Cars aligned at green; lead matches DistanceFt; no blank lanes
+  5. No physics.js / garage-data.js / analytics change
+
+Intentional skips: Pages push; physics formula; garage-data fleet retune;
+analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
+full 331 unique art (class fallback covers remainder); baked lime/cyan dual
+assets (multiply tint keeps one greyscale painted set).

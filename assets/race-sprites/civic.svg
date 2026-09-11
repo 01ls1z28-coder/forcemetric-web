@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" width="256" height="96">
-  <!-- Original side-view silhouette — no logos/badges; facing right -->
-  <path id="body" fill="#ffffff" d="M10 30 L16 20 L30 12 L48 8 L78 8 L98 14 L112 24 L114 30 L104 34 L18 34 Z"/>
-  <path fill="#ffffff" d="M96 10 L108 8 L110 12 L98 14 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 56" width="320" height="112">
+  <!-- Phase 26 painted side-view — Civic hatch-like compact; no logos/badges; facing right -->
+
+  <defs>
+    <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="28%" stop-color="#f2f2f2"/>
+      <stop offset="55%" stop-color="#c8c8c8"/>
+      <stop offset="82%" stop-color="#8a8a8a"/>
+      <stop offset="100%" stop-color="#5a5a5a"/>
+    </linearGradient>
+    <linearGradient id="paintHi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a222c"/>
+      <stop offset="50%" stop-color="#0c1016"/>
+      <stop offset="100%" stop-color="#06080c"/>
+    </linearGradient>
+    <linearGradient id="rocker" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
+    </linearGradient>
+    <radialGradient id="rimShine" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#6a6a6a"/>
+      <stop offset="55%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+  </defs>
+
+  <g id="vehicle">
+    <!-- body -->
+    <path fill="url(#paint)" d="M14 38 L20 26 L34 14 L52 9 L78 8 L104 12 L124 22 L136 32 L134 38 L126 42 L24 42 Z"/>
+    <path fill="url(#rocker)" d="M24 38 L126 38 L126 42 L24 42 Z"/>
+    <!-- shoulder / hood highlight -->
+    <path fill="url(#paintHi)" d="M22 26 L38 14 L56 9 L82 8 L106 12 L124 22 L122 24 L102 14 L76 10 L52 12 L36 18 Z"/>
+    <path fill="url(#paint)" d="M118 10 L136 8 L138 14 L122 16 Z"/><path fill="none" stroke="#555" stroke-width="0.45" opacity="0.35" d="M72 11 L72 38"/>
+    <!-- glass -->
+    <path fill="url(#glass)" d="M48 11 L72 9 L98 14 L108 24 L104 28 L74 26 L50 18 Z"/>
+    <!-- wheels -->
+    <circle cx="40" cy="42" r="8.8" fill="#0a0a0c"/>
+    <circle cx="40" cy="42" r="8.096000000000002" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="40" cy="42" r="6.336" fill="url(#rimShine)"/>
+    <path d="M40.00 40.06 L40.00 36.54 L43.48 37.80 L41.23 40.51 Z" fill="#4a4a4e"/>
+    <path d="M41.84 41.40 L45.19 40.31 L45.07 44.01 L41.80 42.71 Z" fill="#4a4a4e"/>
+    <path d="M41.14 43.57 L43.21 46.41 L39.66 47.45 L39.88 43.93 Z" fill="#4a4a4e"/>
+    <path d="M38.86 43.57 L36.79 46.41 L34.72 43.36 L38.12 42.48 Z" fill="#4a4a4e"/>
+    <path d="M38.16 41.40 L34.81 40.31 L37.08 37.39 L38.96 40.37 Z" fill="#4a4a4e"/>
+    <circle cx="40" cy="42" r="1.584" fill="#1a1a1c"/>
+    <circle cx="40" cy="42" r="0.7040000000000001" fill="#3a3a3c"/>
+    <circle cx="40" cy="42" r="6.336" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <circle cx="118" cy="42" r="8.8" fill="#0a0a0c"/>
+    <circle cx="118" cy="42" r="8.096000000000002" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="118" cy="42" r="6.336" fill="url(#rimShine)"/>
+    <path d="M118.00 40.06 L118.00 36.54 L121.48 37.80 L119.23 40.51 Z" fill="#4a4a4e"/>
+    <path d="M119.84 41.40 L123.19 40.31 L123.07 44.01 L119.80 42.71 Z" fill="#4a4a4e"/>
+    <path d="M119.14 43.57 L121.21 46.41 L117.66 47.45 L117.88 43.93 Z" fill="#4a4a4e"/>
+    <path d="M116.86 43.57 L114.79 46.41 L112.72 43.36 L116.12 42.48 Z" fill="#4a4a4e"/>
+    <path d="M116.16 41.40 L112.81 40.31 L115.08 37.39 L116.96 40.37 Z" fill="#4a4a4e"/>
+    <circle cx="118" cy="42" r="1.584" fill="#1a1a1c"/>
+    <circle cx="118" cy="42" r="0.7040000000000001" fill="#3a3a3c"/>
+    <circle cx="118" cy="42" r="6.336" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <rect x="148" y="28" width="4.5" height="4" rx="0.8" fill="#d8d8d8" opacity="0.85"/>
+    <rect x="8" y="30" width="3.5" height="3.5" rx="0.6" fill="#888890" opacity="0.7"/>
+  </g>
 </svg>

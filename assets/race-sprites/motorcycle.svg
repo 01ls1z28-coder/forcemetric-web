@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" width="256" height="96">
-  <!-- Original side-view silhouette — no logos/badges; facing right -->
-  <path id="body" fill="#ffffff" d="M28 28 L36 12 L52 6 L68 14 L88 22 L100 26 L96 32 L70 34 L40 34 Z"/>
-  <path fill="#ffffff" d="M68 14 L78 4 L86 8 L80 18 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 56" width="320" height="112">
+  <!-- Phase 26 painted side-view — Motorcycle class fallback; no logos/badges; facing right -->
+
+  <defs>
+    <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="28%" stop-color="#f2f2f2"/>
+      <stop offset="55%" stop-color="#c8c8c8"/>
+      <stop offset="82%" stop-color="#8a8a8a"/>
+      <stop offset="100%" stop-color="#5a5a5a"/>
+    </linearGradient>
+    <linearGradient id="paintHi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a222c"/>
+      <stop offset="50%" stop-color="#0c1016"/>
+      <stop offset="100%" stop-color="#06080c"/>
+    </linearGradient>
+    <linearGradient id="rocker" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
+    </linearGradient>
+    <radialGradient id="rimShine" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#6a6a6a"/>
+      <stop offset="55%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+  </defs>
+
+  <g id="vehicle">
+    <!-- body -->
+    <path fill="url(#paint)" d="M40 40 L48 24 L62 12 L78 10 L92 18 L112 28 L124 34 L120 40 L88 42 L52 42 Z"/>
+    <!-- shoulder / hood highlight -->
+    <path fill="url(#paintHi)" d="M48 24 L62 12 L78 10 L90 16 L106 26 L118 32 L114 34 L92 22 L76 14 L60 18 Z"/>
+    <path fill="url(#paint)" d="M78 10 L90 4 L98 10 L90 18 Z"/>
+    <!-- glass -->
+    <path fill="url(#glass)" d="M64 14 L78 12 L86 18 L82 24 L68 22 Z"/>
+    <!-- wheels -->
+    <circle cx="54" cy="42" r="8.5" fill="#0a0a0c"/>
+    <circle cx="54" cy="42" r="7.82" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="54" cy="42" r="6.12" fill="url(#rimShine)"/>
+    <path d="M54.00 40.13 L54.00 36.73 L58.81 39.86 L55.71 41.24 Z" fill="#4a4a4e"/>
+    <path d="M55.62 42.94 L58.56 44.63 L53.45 47.24 L53.80 43.86 Z" fill="#4a4a4e"/>
+    <path d="M52.38 42.94 L49.44 44.64 L49.74 38.90 L52.49 40.90 Z" fill="#4a4a4e"/>
+    <circle cx="54" cy="42" r="1.53" fill="#1a1a1c"/>
+    <circle cx="54" cy="42" r="0.68" fill="#3a3a3c"/>
+    <circle cx="54" cy="42" r="6.12" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <circle cx="116" cy="42" r="8.5" fill="#0a0a0c"/>
+    <circle cx="116" cy="42" r="7.82" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="116" cy="42" r="6.12" fill="url(#rimShine)"/>
+    <path d="M116.00 40.13 L116.00 36.73 L120.81 39.86 L117.71 41.24 Z" fill="#4a4a4e"/>
+    <path d="M117.62 42.94 L120.56 44.63 L115.45 47.24 L115.80 43.86 Z" fill="#4a4a4e"/>
+    <path d="M114.38 42.94 L111.44 44.64 L111.74 38.90 L114.49 40.90 Z" fill="#4a4a4e"/>
+    <circle cx="116" cy="42" r="1.53" fill="#1a1a1c"/>
+    <circle cx="116" cy="42" r="0.68" fill="#3a3a3c"/>
+    <circle cx="116" cy="42" r="6.12" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <rect x="148" y="28" width="4.5" height="4" rx="0.8" fill="#d8d8d8" opacity="0.85"/>
+    <rect x="8" y="30" width="3.5" height="3.5" rx="0.6" fill="#888890" opacity="0.7"/>
+  </g>
 </svg>

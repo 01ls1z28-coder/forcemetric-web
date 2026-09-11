@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" width="256" height="96">
-  <!-- Original side-view silhouette — no logos/badges; facing right -->
-  <path id="body" fill="#ffffff" d="M12 30 L18 20 L32 12 L50 8 L82 8 L100 14 L112 26 L110 32 L20 32 Z"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 56" width="320" height="112">
+  <!-- Phase 26 painted side-view — Golf hatch-like compact; no logos/badges; facing right -->
+
+  <defs>
+    <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="28%" stop-color="#f2f2f2"/>
+      <stop offset="55%" stop-color="#c8c8c8"/>
+      <stop offset="82%" stop-color="#8a8a8a"/>
+      <stop offset="100%" stop-color="#5a5a5a"/>
+    </linearGradient>
+    <linearGradient id="paintHi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a222c"/>
+      <stop offset="50%" stop-color="#0c1016"/>
+      <stop offset="100%" stop-color="#06080c"/>
+    </linearGradient>
+    <linearGradient id="rocker" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
+    </linearGradient>
+    <radialGradient id="rimShine" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#6a6a6a"/>
+      <stop offset="55%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+  </defs>
+
+  <g id="vehicle">
+    <!-- body -->
+    <path fill="url(#paint)" d="M16 38 L22 26 L36 14 L54 9 L86 8 L110 14 L126 26 L132 36 L128 40 L120 42 L26 42 Z"/>
+    <path fill="url(#rocker)" d="M26 38 L120 38 L120 42 L26 42 Z"/>
+    <!-- shoulder / hood highlight -->
+    <path fill="url(#paintHi)" d="M24 26 L40 14 L60 9 L90 8 L114 14 L128 28 L124 30 L106 16 L82 10 L56 12 L38 18 Z"/>
+    <!-- glass -->
+    <path fill="url(#glass)" d="M50 11 L76 9 L104 14 L114 26 L110 30 L78 28 L52 18 Z"/>
+    <!-- wheels -->
+    <circle cx="40" cy="42" r="8.6" fill="#0a0a0c"/>
+    <circle cx="40" cy="42" r="7.912" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="40" cy="42" r="6.191999999999999" fill="url(#rimShine)"/>
+    <path d="M40.00 40.11 L40.00 36.67 L43.40 37.89 L41.21 40.54 Z" fill="#4a4a4e"/>
+    <path d="M41.80 41.42 L45.07 40.35 L44.96 43.96 L41.76 42.70 Z" fill="#4a4a4e"/>
+    <path d="M41.11 43.53 L43.13 46.31 L39.67 47.32 L39.88 43.89 Z" fill="#4a4a4e"/>
+    <path d="M38.89 43.53 L36.87 46.31 L34.84 43.33 L38.17 42.47 Z" fill="#4a4a4e"/>
+    <path d="M38.20 41.42 L34.93 40.35 L37.14 37.50 L38.99 40.40 Z" fill="#4a4a4e"/>
+    <circle cx="40" cy="42" r="1.5479999999999998" fill="#1a1a1c"/>
+    <circle cx="40" cy="42" r="0.688" fill="#3a3a3c"/>
+    <circle cx="40" cy="42" r="6.191999999999999" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <circle cx="116" cy="42" r="8.6" fill="#0a0a0c"/>
+    <circle cx="116" cy="42" r="7.912" fill="none" stroke="#1c1c20" stroke-width="1.2"/>
+    <circle cx="116" cy="42" r="6.191999999999999" fill="url(#rimShine)"/>
+    <path d="M116.00 40.11 L116.00 36.67 L119.40 37.89 L117.21 40.54 Z" fill="#4a4a4e"/>
+    <path d="M117.80 41.42 L121.07 40.35 L120.96 43.96 L117.76 42.70 Z" fill="#4a4a4e"/>
+    <path d="M117.11 43.53 L119.13 46.31 L115.67 47.32 L115.88 43.89 Z" fill="#4a4a4e"/>
+    <path d="M114.89 43.53 L112.87 46.31 L110.84 43.33 L114.17 42.47 Z" fill="#4a4a4e"/>
+    <path d="M114.20 41.42 L110.93 40.35 L113.14 37.50 L114.99 40.40 Z" fill="#4a4a4e"/>
+    <circle cx="116" cy="42" r="1.5479999999999998" fill="#1a1a1c"/>
+    <circle cx="116" cy="42" r="0.688" fill="#3a3a3c"/>
+    <circle cx="116" cy="42" r="6.191999999999999" fill="none" stroke="#555558" stroke-width="0.6"/>
+    <rect x="148" y="28" width="4.5" height="4" rx="0.8" fill="#d8d8d8" opacity="0.85"/>
+    <rect x="8" y="30" width="3.5" height="3.5" rx="0.6" fill="#888890" opacity="0.7"/>
+  </g>
 </svg>
