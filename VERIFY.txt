@@ -133,13 +133,13 @@ Features:
   - Shared weather DA + Air/HP strip (computeWeatherAirState)
   - Rematch, swap lanes, copy You↔Opp
   - Photo-finish ET/trap to 0.001 s
-  - Optional 1/8 and roll-race 100–200 km/h modes (simultaneous leave)
+  - Optional 1/8, 1000′, and Roll Race (custom start→end) modes (simultaneous leave)
 
 Verify:
   1. Launch head-to-head — both markers move from the same green instant
   2. Delta strip locks as each mark is crossed
   3. Enable bracket dials — winner by dial/breakout, not RT
-  4. Roll mode — winner by 100–200 km/h interval; leave still t=0
+  4. Roll mode — winner by custom start→end interval; leave still t=0
   5. Swap / copy / rematch round-trip without losing TX/layout/driver
 
 Phase 17 — Aftermarket Torque Converter Stall+Peak TQ (2026-09-11 CT)
@@ -185,3 +185,23 @@ Verify:
 
 
 Intentional skips: K-factor map; garage bake ATC columns; fleet retune.
+
+Phase 18 — Race course 1000ft + custom roll speeds (2026-09-11 CT)
+-----------------------------------------------------------------
+race.html / js/race.js / css/race.css (+ VERIFY_RACE.txt).
+
+Courses: 1/4 · 1/8 · 1000′ · Roll Race (custom Start/End + km/h|mph).
+Defaults 100→200 km/h; presets 60–130 mph / 100–200 km/h / 0–60 mph.
+Winner/photo-finish/lead use chosen interval via timeAtSpeedMph.
+Dynamic labels. No physics formula change. No fleet retune.
+HARD RULE: simultaneous leave t=0. Weather DA hotfix CSS untouched.
+
+Verify:
+  1. 1000′ course — finish ET at 1000′; both leave together
+  2. Custom roll — labels/winner match Start–End; leave still t=0
+  3. Roll UI only when Course = Roll Race
+  4. Weather DA bezel still unclipped
+
+Intentional skips: fleet retune; new physics formulas; RT/foul/holeshot;
+imperial-only race unit preference (km/h default + mph unit + presets).
+

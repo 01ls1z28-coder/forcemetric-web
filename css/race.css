@@ -688,6 +688,52 @@
   box-sizing: border-box;
   width: 100%;
 }
+/* Phase 18: custom roll start/end — keep weather-row hotfix untouched */
+.roll-speed-panel {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brass);
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+}
+.roll-speed-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(110px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+.roll-speed-row .field {
+  min-width: 0;
+  grid-template-columns: 1fr;
+}
+.roll-speed-row .field > span { white-space: normal; }
+.roll-speed-row .field input,
+.roll-speed-row .field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.roll-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.roll-preset {
+  border: 1px solid var(--brass);
+  color: var(--brass-text);
+  background: linear-gradient(180deg, rgba(240, 226, 196, 0.08), transparent 60%), var(--panel-2);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+.roll-preset:hover { border-color: rgba(240, 226, 196, 0.65); }
+
 /* Hotfix: fit Preset + Temp + Humidity + Pressure + DA without right-edge clip */
 .weather-row {
   grid-template-columns: minmax(160px, 1.6fr) repeat(4, minmax(110px, 1fr));
@@ -774,7 +820,7 @@
 
 .lead-delta-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
 }
 .delta-cell {
@@ -864,6 +910,7 @@
 @media (max-width: 980px) {
   .weather-row { grid-template-columns: 1fr 1fr; }
   .race-opts-row { grid-template-columns: 1fr 1fr; }
+  .roll-speed-row { grid-template-columns: 1fr 1fr; }
   .lead-delta-strip { grid-template-columns: 1fr 1fr; }
   .photo-grid { grid-template-columns: 1fr; }
   .photo-vs { padding: 6px 0; }

@@ -74,7 +74,8 @@
             <select id="raceMode">
               <option value="quarter" selected>1/4 mile (1320′)</option>
               <option value="eighth">1/8 mile (660′)</option>
-              <option value="roll">Roll race 100–200 km/h</option>
+              <option value="thousand">1000′</option>
+              <option value="roll">Roll Race</option>
             </select>
           </label>
           <label class="field check-field"><span>Bracket / Dial-in</span>
@@ -82,6 +83,24 @@
           </label>
           <label class="field"><span>Your Dial (s)</span><input type="number" id="youDial" value="" placeholder="e.g. 12.50" step="0.001" min="0" disabled /></label>
           <label class="field"><span>Opp Dial (s)</span><input type="number" id="oppDial" value="" placeholder="e.g. 11.90" step="0.001" min="0" disabled /></label>
+        </div>
+        <div class="roll-speed-panel hidden" id="rollSpeedPanel">
+          <div class="roll-speed-row">
+            <label class="field"><span>Start Speed</span><input type="number" id="rollStartSpeed" value="100" step="1" min="0" /></label>
+            <label class="field"><span>End Speed</span><input type="number" id="rollEndSpeed" value="200" step="1" min="1" /></label>
+            <label class="field"><span>Unit</span>
+              <select id="rollSpeedUnit">
+                <option value="kmh" selected>km/h</option>
+                <option value="mph">mph</option>
+              </select>
+            </label>
+          </div>
+          <div class="roll-presets" role="group" aria-label="Roll speed presets">
+            <button type="button" class="roll-preset" data-start="100" data-end="200" data-unit="kmh">100–200 km/h</button>
+            <button type="button" class="roll-preset" data-start="60" data-end="130" data-unit="mph">60–130 mph</button>
+            <button type="button" class="roll-preset" data-start="0" data-end="60" data-unit="mph">0–60 mph</button>
+          </div>
+          <p class="setup-hint" id="rollSpeedHint">Defaults 100→200 km/h. End must be greater than start. Leave stays simultaneous t=0.</p>
         </div>
         <p class="setup-hint" id="bracketHint">Dial is scoring only — leave stays simultaneous. Breakout = ET under dial.</p>
       </div>
@@ -325,6 +344,7 @@
           <div class="delta-cell" data-mark="60"><span class="delta-mark">60′</span><span class="delta-val" id="delta60">—</span></div>
           <div class="delta-cell" data-mark="330"><span class="delta-mark">330′</span><span class="delta-val" id="delta330">—</span></div>
           <div class="delta-cell" data-mark="660"><span class="delta-mark">⅛</span><span class="delta-val" id="delta660">—</span></div>
+          <div class="delta-cell" data-mark="1000"><span class="delta-mark">1000′</span><span class="delta-val" id="delta1000">—</span></div>
           <div class="delta-cell" data-mark="1320"><span class="delta-mark">¼</span><span class="delta-val" id="delta1320">—</span></div>
         </div>
         <div class="track-scale" aria-hidden="true">

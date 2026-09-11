@@ -87,3 +87,31 @@ Verify race:
   2. You ATC ON matched stall improves 60ft vs Opp ATC OFF
   3. EV lane ATC badge EV N/A; Manual/DCT locks ATC off
   4. Swap/copy preserves Stall/PeakTQ session values
+
+Phase 18 — Drag course 1000′ + custom roll speeds (2026-09-11 CT)
+=================================================================
+HARD RULE unchanged: both lanes ALWAYS leave at exact same t=0.
+No reaction delay, red-light foul, holeshot RNG, or staging delay.
+Tree remains cosmetic perfect simultaneous green only.
+
+18A Keep 1/4 mile (1320′) and 1/8 mile (660′).
+18B Add 1000′ course — winner / photo-finish / finish ET+trap at 1000′.
+18C Replace fixed “Roll race 100–200 km/h” with Roll Race mode +
+    Start Speed / End Speed / Unit (shown only when Course = Roll Race).
+    Defaults 100→200 km/h; clamp start≥0, end>start, max ~300 km/h / ~186 mph.
+    Optional presets: 100–200 km/h · 60–130 mph · 0–60 mph.
+18D Winner / photo-finish / lead callout use chosen start→end interval
+    via existing timeAtSpeedMph on Steps (no physics formula change).
+18E Dynamic labels “{start}–{end} …” — no hardcoded 100–200.
+18F Lead delta strip adds 1000′ cell (60′/330′/⅛/1000′/¼).
+18G Weather-row DA clip hotfix (c0c9af3) CSS left alone — brass parity.
+
+No fleet retune / garage-data.js changes. No RT path.
+
+Verify race:
+  1. Course 1000′ — both leave t=0; winner by 1000′ ET
+  2. Roll Race — set 60–130 mph; winner by that interval; leave still t=0
+  3. Roll fields hidden unless Course = Roll Race
+  4. Preset chips fill Start/End/Unit; clamp rejects end≤start
+  5. Shared Weather DA still fully inside brass bezel (hotfix intact)
+

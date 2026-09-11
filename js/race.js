@@ -2,6 +2,7 @@
  * ForceMetric Drag Racing — dual-lane setup + arcade race playback
  * Phase 15: full parity with main sim (TX/DCT, Dual layout, driver 200, bake load, brass charts)
  * Phase 16: setup-compare — lead delta, dial/bracket, DA/air strip, swap/copy, photo-finish, roll race
+ * Phase 18: course 1000ft + custom roll start/end speeds
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  */
 (function () {
@@ -12,11 +13,15 @@
   var TRACK_FT = 1320;
   var DEFAULT_DRIVER_WEIGHT_LBS = 200;
   var DIST_MARKS_FT = [60, 330, 660, 1000, 1320];
-  var LEAD_DELTA_MARKS = [60, 330, 660, 1320];
+  var LEAD_DELTA_MARKS = [60, 330, 660, 1000, 1320];
   var EIGHTH_FT = 660;
+  var THOUSAND_FT = 1000;
   var MPH_PER_KMH = 1 / 1.609344;
-  var ROLL_START_MPH = 100 * MPH_PER_KMH;
-  var ROLL_END_MPH = 200 * MPH_PER_KMH;
+  var KMH_PER_MPH = 1.609344;
+  var DEFAULT_ROLL_START_KMH = 100;
+  var DEFAULT_ROLL_END_KMH = 200;
+  var ROLL_MAX_KMH = 300;
+  var ROLL_MAX_MPH = 186; /* ~300 km/h */
   var TREE_STEP_MS = 400;
 
   var garageData = (window.GARAGE_DATA || []).slice();
@@ -923,12 +928,129 @@
   function getRaceMode() {
     var el = $('raceMode');
     var v = el ? String(el.value) : 'quarter';
-    if (v !== 'quarter' && v !== 'eighth' && v !== 'roll') return 'quarter';
+    if (v !== 'quarter' && v !== 'eighth' && v !== 'thousand' && v !== 'roll') return 'quarter';
     return v;
   }
 
   function finishDistanceFt() {
-    return getRaceMode() === 'eighth' ? EIGHTH_FT : TRACK_FT;
+    var mode = getRaceMode();
+    if (mode === 'eighth') return EIGHTH_FT;
+    if (mode === 'thousand') return THOUSAND_FT;
+    return TRACK_FT;
+  }
+
+  function courseLabel(mode) {
+    if (mode === 'eighth') return '1/8 mile';
+    if (mode === 'thousand') return '1000′';
+    if (mode === 'roll') return (raceMeta && raceMeta.rollLabel) || 'Roll Race';
+    return '1/4 mile';
+  }
+
+  function fmtRollNum(n) {
+    if (!isFinite(n)) return '?';
+    if (Math.abs(n - Math.round(n)) < 1e-6) return String(Math.round(n));
+    return String(Math.round(n * 10) / 10);
+  }
+
+  function formatRollLabel(start, end, unit) {
+    var u = unit === 'mph' ? 'mph' : 'km/h';
+    return fmtRollNum(start) + '–' + fmtRollNum(end) + ' ' + u;
+  }
+
+  function getRollSpeedUnit() {
+    var el = $('rollSpeedUnit');
+    return (el && el.value === 'mph') ? 'mph' : 'kmh';
+  }
+
+  function clampRollSpeeds(start, end, unit) {
+    var max = unit === 'mph' ? ROLL_MAX_MPH : ROLL_MAX_KMH;
+    var s = isFinite(start) ? Number(start) : (unit === 'mph' ? DEFAULT_ROLL_START_KMH * MPH_PER_KMH : DEFAULT_ROLL_START_KMH);
+    var e = isFinite(end) ? Number(end) : (unit === 'mph' ? DEFAULT_ROLL_END_KMH * MPH_PER_KMH : DEFAULT_ROLL_END_KMH);
+    if (s < 0) s = 0;
+    if (s > max) s = max;
+    if (e > max) e = max;
+    if (!(e > s)) {
+      e = Math.min(max, s + 1);
+      if (!(e > s)) {
+        s = Math.max(0, max - 1);
+        e = max;
+      }
+    }
+    return { start: s, end: e, unit: unit === 'mph' ? 'mph' : 'kmh' };
+  }
+
+  function readRollSpeedsUi() {
+    var unit = getRollSpeedUnit();
+    var startEl = $('rollStartSpeed');
+    var endEl = $('rollEndSpeed');
+    var start = startEl ? parseFloat(startEl.value) : NaN;
+    var end = endEl ? parseFloat(endEl.value) : NaN;
+    return clampRollSpeeds(start, end, unit);
+  }
+
+  /** Active roll thresholds in mph + display label (from raceMeta after launch, else UI). */
+  function getRollThresholds() {
+    if (raceMeta && raceMeta.rollStartMph != null && raceMeta.rollEndMph != null) {
+      return {
+        startMph: raceMeta.rollStartMph,
+        endMph: raceMeta.rollEndMph,
+        startDisp: raceMeta.rollStartDisp,
+        endDisp: raceMeta.rollEndDisp,
+        unit: raceMeta.rollUnit || 'kmh',
+        label: raceMeta.rollLabel || formatRollLabel(raceMeta.rollStartDisp, raceMeta.rollEndDisp, raceMeta.rollUnit || 'kmh')
+      };
+    }
+    var ui = readRollSpeedsUi();
+    var startMph = ui.unit === 'mph' ? ui.start : ui.start * MPH_PER_KMH;
+    var endMph = ui.unit === 'mph' ? ui.end : ui.end * MPH_PER_KMH;
+    return {
+      startMph: startMph,
+      endMph: endMph,
+      startDisp: ui.start,
+      endDisp: ui.end,
+      unit: ui.unit,
+      label: formatRollLabel(ui.start, ui.end, ui.unit)
+    };
+  }
+
+  function writeRollSpeedsUi(clamped) {
+    if ($('rollSpeedUnit')) $('rollSpeedUnit').value = clamped.unit;
+    if ($('rollStartSpeed')) $('rollStartSpeed').value = String(Math.round(clamped.start * 1000) / 1000);
+    if ($('rollEndSpeed')) $('rollEndSpeed').value = String(Math.round(clamped.end * 1000) / 1000);
+  }
+
+  function updateRollHint() {
+    var hint = $('rollSpeedHint');
+    if (!hint) return;
+    var ui = readRollSpeedsUi();
+    var startMph = ui.unit === 'mph' ? ui.start : ui.start * MPH_PER_KMH;
+    var endMph = ui.unit === 'mph' ? ui.end : ui.end * MPH_PER_KMH;
+    var label = formatRollLabel(ui.start, ui.end, ui.unit);
+    var other = ui.unit === 'mph'
+      ? ('≈ ' + fmtRollNum(startMph * KMH_PER_MPH) + '–' + fmtRollNum(endMph * KMH_PER_MPH) + ' km/h')
+      : ('≈ ' + fmtRollNum(startMph) + '–' + fmtRollNum(endMph) + ' mph');
+    hint.textContent = 'Roll interval ' + label + ' (' + other + '). End must be > start · max ~'
+      + (ui.unit === 'mph' ? ROLL_MAX_MPH + ' mph' : ROLL_MAX_KMH + ' km/h')
+      + '. Leave stays simultaneous t=0.';
+  }
+
+  function syncRollUi() {
+    var isRoll = getRaceMode() === 'roll';
+    var panel = $('rollSpeedPanel');
+    if (panel) panel.classList.toggle('hidden', !isRoll);
+    if (isRoll) updateRollHint();
+  }
+
+  function applyRollPreset(start, end, unit) {
+    writeRollSpeedsUi(clampRollSpeeds(start, end, unit));
+    updateRollHint();
+  }
+
+  function sanitizeRollInputs() {
+    var clamped = readRollSpeedsUi();
+    writeRollSpeedsUi(clamped);
+    updateRollHint();
+    return clamped;
   }
 
   /** Interpolate time when a lane first reaches target mph (from Steps). */
@@ -948,12 +1070,20 @@
     return null;
   }
 
-  function rollInterval(res) {
-    if (res && res.HundredToTwoHundredKmh != null && isFinite(res.HundredToTwoHundredKmh)) {
+  function rollInterval(res, startMph, endMph) {
+    var classicStart = DEFAULT_ROLL_START_KMH * MPH_PER_KMH;
+    var classicEnd = DEFAULT_ROLL_END_KMH * MPH_PER_KMH;
+    if (startMph == null || endMph == null) {
+      var th = getRollThresholds();
+      startMph = th.startMph;
+      endMph = th.endMph;
+    }
+    var nearClassic = Math.abs(startMph - classicStart) < 1e-6 && Math.abs(endMph - classicEnd) < 1e-6;
+    if (nearClassic && res && res.HundredToTwoHundredKmh != null && isFinite(res.HundredToTwoHundredKmh)) {
       return res.HundredToTwoHundredKmh;
     }
-    var t0 = timeAtSpeedMph(res && res.Steps, ROLL_START_MPH);
-    var t1 = timeAtSpeedMph(res && res.Steps, ROLL_END_MPH);
+    var t0 = timeAtSpeedMph(res && res.Steps, startMph);
+    var t1 = timeAtSpeedMph(res && res.Steps, endMph);
     if (t0 == null || t1 == null) return null;
     return t1 - t0;
   }
@@ -1027,6 +1157,7 @@
     if (ft === 60) return '60′';
     if (ft === 330) return '330′';
     if (ft === 660) return '⅛';
+    if (ft === 1000) return '1000′';
     if (ft === 1320) return '¼';
     return ft + '′';
   }
@@ -1149,7 +1280,7 @@
         /* interval clocks run after simultaneous leave */
       }
       $('leadCallout').textContent = leadText(ys.DistanceFt, os.DistanceFt, ys.Time, os.Time, raceOver)
-        + (raceOver ? '' : ' · roll 100–200 km/h');
+        + (raceOver ? '' : ' · roll ' + ((raceMeta && raceMeta.rollLabel) || 'interval'));
     } else {
       var youET = raceMeta.youFinishET;
       var oppET = raceMeta.oppFinishET;
@@ -1208,7 +1339,9 @@
 
     function card(side, res, name, gapsHtml) {
       var m660 = marker(res, 660);
+      var m1000 = marker(res, 1000);
       var m1320 = marker(res, 1320);
+      var rollLbl = (raceMeta && raceMeta.rollLabel) || getRollThresholds().label;
       var html = '';
       html += '<div class="result-card ' + side + '">';
       html += '<h3>' + escapeHtml(name) + '</h3>';
@@ -1218,10 +1351,12 @@
       html += '<div class="stat-pill"><span class="lbl">0–100</span><span class="val">' + (res.ZeroToHundred != null ? fmt3(res.ZeroToHundred) + ' s' : 'DNF') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/8 mile ET</span><span class="val">' + (m660 ? fmt3(m660.Time) + ' s' : 'DNF') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/8 trap</span><span class="val">' + (m660 ? fmt1(m660.SpeedMph) + ' mph' : '—') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">1000′ ET</span><span class="val">' + (m1000 ? fmt3(m1000.Time) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">1000′ trap</span><span class="val">' + (m1000 ? fmt1(m1000.SpeedMph) + ' mph' : '—') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/4 mile ET</span><span class="val">' + (m1320 ? fmt3(m1320.Time) + ' s' : 'DNF') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/4 trap</span><span class="val">' + (m1320 ? fmt1(m1320.SpeedMph) + ' mph' : '—') + '</span></div>';
       var roll = rollInterval(res);
-      html += '<div class="stat-pill"><span class="lbl">100–200 km/h</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">' + escapeHtml(rollLbl) + '</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
       if (raceMeta && raceMeta.bracketOn) {
         var dial = side === 'you' ? raceMeta.youDial : raceMeta.oppDial;
         var finishEt = side === 'you' ? raceMeta.youFinishET : raceMeta.oppFinishET;
@@ -1240,7 +1375,9 @@
     var g100 = null;
     if (you.ZeroToHundred != null && opp.ZeroToHundred != null) g100 = you.ZeroToHundred - opp.ZeroToHundred;
     var g660 = gapAtMark(you, opp, 660);
+    var g1000 = gapAtMark(you, opp, 1000);
     var g1320 = gapAtMark(you, opp, 1320);
+    var rollLbl = (raceMeta && raceMeta.rollLabel) || getRollThresholds().label;
 
     function gapLine(label, g) {
       if (g == null) return label + ': n/a';
@@ -1257,8 +1394,9 @@
     var gapsHtml = gapLine('0–60', g60) + '<br/>' +
       gapLine('0–100', g100) + '<br/>' +
       gapLine('1/8 mile', g660) + '<br/>' +
+      gapLine('1000′', g1000) + '<br/>' +
       gapLine('1/4 mile', g1320) + '<br/>' +
-      gapLine('100–200 km/h', gRoll);
+      gapLine(rollLbl, gRoll);
 
     $('resultsBoard').innerHTML =
       card('you', you, yn, gapsHtml) +
@@ -1306,8 +1444,11 @@
       var html = '<div class="photo-lane ' + side + '">';
       html += '<div class="photo-name">' + escapeHtml(name) + '</div>';
       if (mode === 'roll') {
-        html += '<div class="photo-stat"><span class="lbl">100–200 km/h</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
-        html += '<div class="photo-stat"><span class="lbl">@200 km/h</span><span class="val">' + (side === 'you'
+        var rLbl = raceMeta.rollLabel || getRollThresholds().label;
+        var endLbl = '@' + fmtRollNum(raceMeta.rollEndDisp != null ? raceMeta.rollEndDisp : getRollThresholds().endDisp)
+          + ' ' + ((raceMeta.rollUnit || getRollThresholds().unit) === 'mph' ? 'mph' : 'km/h');
+        html += '<div class="photo-stat"><span class="lbl">' + escapeHtml(rLbl) + '</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
+        html += '<div class="photo-stat"><span class="lbl">' + escapeHtml(endLbl) + '</span><span class="val">' + (side === 'you'
           ? (raceMeta.youRollEndT != null ? fmt3(raceMeta.youRollEndT) + ' s' : '—')
           : (raceMeta.oppRollEndT != null ? fmt3(raceMeta.oppRollEndT) + ' s' : '—')) + '</span></div>';
       } else {
@@ -1343,8 +1484,9 @@
     } else if (mode === 'roll') {
       var youR = raceMeta.youRollInterval;
       var oppR = raceMeta.oppRollInterval;
+      var rLbl = raceMeta.rollLabel || 'roll';
       if (youR == null && oppR == null) {
-        text = 'DNF — neither completed 100–200 km/h';
+        text = 'DNF — neither completed ' + rLbl;
         side = 'tie';
       } else if (youR == null) {
         text = 'WINNER · ' + raceMeta.oppName + '  (you DNF)';
@@ -1355,20 +1497,20 @@
       } else {
         var gapR = Math.abs(youR - oppR);
         if (gapR < 0.0005) {
-          text = 'TIE · 100–200 km/h ' + fmt3(youR) + ' s';
+          text = 'TIE · ' + rLbl + ' ' + fmt3(youR) + ' s';
           side = 'tie';
         } else if (youR < oppR) {
-          text = 'WINNER · ' + raceMeta.youName + '  ·  by ' + gapR.toFixed(3) + ' s (100–200)';
+          text = 'WINNER · ' + raceMeta.youName + '  ·  by ' + gapR.toFixed(3) + ' s (' + rLbl + ')';
           side = 'you';
         } else {
-          text = 'WINNER · ' + raceMeta.oppName + '  ·  by ' + gapR.toFixed(3) + ' s (100–200)';
+          text = 'WINNER · ' + raceMeta.oppName + '  ·  by ' + gapR.toFixed(3) + ' s (' + rLbl + ')';
           side = 'opp';
         }
       }
     } else {
       var youET = raceMeta.youFinishET;
       var oppET = raceMeta.oppFinishET;
-      var label = mode === 'eighth' ? '1/8 mile' : '1/4 mile';
+      var label = courseLabel(mode);
       if (youET == null && oppET == null) {
         text = 'DNF — neither reached ' + ((raceMeta.trackFt) || TRACK_FT) + ' ft';
         side = 'tie';
@@ -1544,7 +1686,7 @@
       raceOpp = Physics.calculate(laneCalcOpts(opp, weather));
 
       var mode = getRaceMode();
-      var trackFt = mode === 'eighth' ? EIGHTH_FT : TRACK_FT;
+      var trackFt = finishDistanceFt();
       var youM1320 = marker(raceYou, 1320);
       var oppM1320 = marker(raceOpp, 1320);
       var youFinishM = marker(raceYou, trackFt);
@@ -1567,6 +1709,11 @@
         }
       }
 
+      var rollUi = sanitizeRollInputs();
+      var rollStartMph = rollUi.unit === 'mph' ? rollUi.start : rollUi.start * MPH_PER_KMH;
+      var rollEndMph = rollUi.unit === 'mph' ? rollUi.end : rollUi.end * MPH_PER_KMH;
+      var rollLabel = formatRollLabel(rollUi.start, rollUi.end, rollUi.unit);
+
       raceMeta = {
         youName: you.Name,
         oppName: opp.Name,
@@ -1581,12 +1728,18 @@
         oppFinishET: oppFinishM ? oppFinishM.Time : null,
         youTrapMph: youFinishM ? youFinishM.SpeedMph : null,
         oppTrapMph: oppFinishM ? oppFinishM.SpeedMph : null,
-        youRollStartT: timeAtSpeedMph(raceYou.Steps, ROLL_START_MPH),
-        oppRollStartT: timeAtSpeedMph(raceOpp.Steps, ROLL_START_MPH),
-        youRollEndT: timeAtSpeedMph(raceYou.Steps, ROLL_END_MPH),
-        oppRollEndT: timeAtSpeedMph(raceOpp.Steps, ROLL_END_MPH),
-        youRollInterval: rollInterval(raceYou),
-        oppRollInterval: rollInterval(raceOpp),
+        rollStartMph: rollStartMph,
+        rollEndMph: rollEndMph,
+        rollStartDisp: rollUi.start,
+        rollEndDisp: rollUi.end,
+        rollUnit: rollUi.unit,
+        rollLabel: rollLabel,
+        youRollStartT: timeAtSpeedMph(raceYou.Steps, rollStartMph),
+        oppRollStartT: timeAtSpeedMph(raceOpp.Steps, rollStartMph),
+        youRollEndT: timeAtSpeedMph(raceYou.Steps, rollEndMph),
+        oppRollEndT: timeAtSpeedMph(raceOpp.Steps, rollEndMph),
+        youRollInterval: rollInterval(raceYou, rollStartMph, rollEndMph),
+        oppRollInterval: rollInterval(raceOpp, rollStartMph, rollEndMph),
         youMeta: {
           isEv: you.isEv, isNA: you.isNA, isFI: you.isFI,
           transmission: you.transmission, hpSource: you.hpSource,
@@ -1779,6 +1932,24 @@
   });
   if ($('bracketEnabled')) $('bracketEnabled').addEventListener('change', syncBracketUi);
   syncBracketUi();
+  if ($('raceMode')) $('raceMode').addEventListener('change', syncRollUi);
+  ['rollStartSpeed', 'rollEndSpeed', 'rollSpeedUnit'].forEach(function (id) {
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('change', sanitizeRollInputs);
+    el.addEventListener('blur', sanitizeRollInputs);
+    if (id !== 'rollSpeedUnit') el.addEventListener('input', updateRollHint);
+  });
+  var presetRoot = document.querySelector('.roll-presets');
+  if (presetRoot) {
+    presetRoot.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.roll-preset') : null;
+      if (!btn) return;
+      e.preventDefault();
+      applyRollPreset(parseFloat(btn.getAttribute('data-start')), parseFloat(btn.getAttribute('data-end')), btn.getAttribute('data-unit'));
+    });
+  }
+  syncRollUi();
   syncWeatherPreset();
   updateAirHpStrip();
 
