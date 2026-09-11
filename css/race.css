@@ -60,7 +60,8 @@
 
 .lane-card {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  min-width: 0;
 }
 
 .lane-card.lane-you {

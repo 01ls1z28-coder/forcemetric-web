@@ -2136,6 +2136,8 @@ label.field.loss-field-hidden {
   border-radius: var(--radius-sm);
   background: rgba(10, 12, 15, 0.72);
   box-shadow: inset 0 0 0 1px var(--brass-inset);
+  overflow: visible;
+  min-width: 0;
 }
 
 .atc-head {
@@ -2187,10 +2189,24 @@ label.field.loss-field-hidden {
   grid-template-columns: 1fr 1fr;
   gap: 6px 8px;
   margin-top: 7px;
+  min-width: 0;
 }
 
+/* Stack label above input so 2-col ATC grid does not squeeze Peak TQ RPM */
 .atc-fields .field {
   margin: 0;
+  grid-template-columns: 1fr;
+  min-width: 0;
+}
+
+.atc-fields .field > span {
+  white-space: normal;
+}
+
+.atc-fields input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .atc-hint {
@@ -2207,7 +2223,8 @@ label.field.loss-field-hidden {
   cursor: not-allowed;
 }
 
-@media (max-width: 520px) {
+/* Stack ATC fields earlier so Peak TQ stays inside brass bezel on tablet/desktop squeeze */
+@media (max-width: 720px) {
   .atc-fields {
     grid-template-columns: 1fr;
   }
