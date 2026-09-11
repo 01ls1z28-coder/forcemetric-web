@@ -1387,7 +1387,7 @@
 
 
   // ---- Support intake (Phase 9: static mailto; no backend / analytics) ----
-  const SUPPORT_EMAIL = 'support@velocitybench.com';
+  const SUPPORT_EMAIL = 'vb-support@agentmail.to';
 
   var supportEls = {
     modal: document.getElementById('supportModal'),
