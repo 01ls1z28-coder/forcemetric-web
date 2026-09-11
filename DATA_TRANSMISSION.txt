@@ -1,0 +1,28 @@
+ForceMetric — factory Transmission bake (Phase 13)
+============================================================
+Field: Transmission = "Auto" | "Manual" | "DCT"  (missing → Auto in UI)
+
+Do NOT keyword-guess. Bake only accurate factory gearboxes.
+DCT = dual-clutch / PDK / DSG / S tronic / Tremec DCT / McLaren SSG /
+     Ferrari 7–8DCT / Bugatti DCT / GT-R GR6 / AMG Speedshift DCT-MCT /
+     Lamborghini LDF DCT, plus ISR / e-gear / Ferrari F1 automated
+Manual = true H-pattern manuals (Civic Type R, GR Corolla, Carrera GT, …)
+Auto = torque-converter / Tiptronic / ZF / EV single-speed
+
+DCT bake (51 unique; 52 rows — duplicate 2010 C63 AMG):
+  Tremec: GT500
+  PDK: 911 Turbo S, GT2 RS, Carrera S, GT3, GT3 RS, 718 GT4 RS
+  McLaren SSG: 765LT, 600LT, P1, MP4-12C, MP4-12C HS, 720S, Speedtail, Elva, Sabre
+  Ferrari DCT/F1: SF90, 812, 488, F12, 458, Enzo, 360, F430, 612
+  Lambo LDF/ISR/e-gear: Huracán EVO/Performante, Aventador SVJ, Gallardo×2, Murciélago, Reventón
+  Nissan GR6: 2009 GT-R
+  DSG/S tronic: Golf R, TT RS, RS4 Avant, RS 3
+  BMW DCT: M3 Competition, M4
+  AMG DCT/MCT: SLS, GT R, CLA45, C63 S, C63 AMG×2, E63
+  Bugatti DCT: Chiron×3, Divo, Veyron×2
+
+NOT DCT: Civic Type R (MT), GR Corolla (MT), Blackwing (absent), Tiptronic Turbos,
+  2012 R8 R-tronic, 2024 M2 ZF8, RS5/RS7 tiptronic, all EVs
+
+Loss: Manual=base−2; DCT=base−1; Auto=base; DynoJet/Mustang=0; clamp 0–35
+Phase 13 recalib: DCT-only, driver 200 / Street / trap-first (Phase 8B method).

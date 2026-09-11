@@ -308,7 +308,9 @@
         ctx.moveTo(x, rect.y);
         ctx.lineTo(x, rect.y + rect.h);
         ctx.stroke();
-        ctx.fillText(mk.label, x, rect.y + 3);
+        /* Stagger label Y (alternate high/low) so late marks (1000'/1320' or m) never overlap. */
+        var labelY = (i % 2 === 0) ? (rect.y + 3) : (rect.y + 15);
+        ctx.fillText(mk.label, x, labelY);
       }
       ctx.setLineDash([]);
       ctx.restore();

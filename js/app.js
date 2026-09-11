@@ -28,6 +28,7 @@
     cd: document.getElementById('cd'),
     area: document.getElementById('area'),
     txAuto: document.getElementById('txAuto'),
+    txDct: document.getElementById('txDct'),
     txManual: document.getElementById('txManual'),
     loss: document.getElementById('loss'),
     tireType: document.getElementById('tireType'),
@@ -326,15 +327,47 @@
     return 'engine';
   }
 
+  function normalizeTransmission(tx) {
+    var v = String(tx == null ? '' : tx).trim().toLowerCase();
+    if (v === 'manual' || v === 'mt' || v === '6mt' || v === '7mt') return 'manual';
+    if (v === 'dct' || v === 'dual' || v === 'dual clutch' || v === 'dualclutch' || v === 'pdk' || v === 'dsg') return 'dct';
+    if (v === 'auto' || v === 'automatic' || v === 'at') return 'auto';
+    return 'auto';
+  }
+
+  function transmissionFromBake(car) {
+    if (!car) return 'auto';
+    if (car.Transmission != null && String(car.Transmission).trim() !== '') {
+      return normalizeTransmission(car.Transmission);
+    }
+    return 'auto';
+  }
+
   function getTransmission() {
     if (el.txManual && el.txManual.checked) return 'manual';
+    if (el.txDct && el.txDct.checked) return 'dct';
     return 'auto';
   }
 
   function setTransmission(tx) {
-    var manual = String(tx || '').toLowerCase() === 'manual';
-    if (el.txManual) el.txManual.checked = manual;
-    if (el.txAuto) el.txAuto.checked = !manual;
+    var v = normalizeTransmission(tx);
+    if (el.txAuto) el.txAuto.checked = (v === 'auto');
+    if (el.txDct) el.txDct.checked = (v === 'dct');
+    if (el.txManual) el.txManual.checked = (v === 'manual');
+  }
+
+  function transmissionSlipLabel(tx) {
+    var v = normalizeTransmission(tx);
+    if (v === 'manual') return 'Manual';
+    if (v === 'dct') return 'Dual Clutch';
+    return 'Automatic';
+  }
+
+  function bakeTransmissionLabel(tx) {
+    var v = normalizeTransmission(tx);
+    if (v === 'manual') return 'Manual';
+    if (v === 'dct') return 'DCT';
+    return 'Auto';
   }
 
   /** Last TX/drive chosen while curb was heavy; restored after leaving light-curb locks. */
@@ -348,14 +381,21 @@
     setInputWeightLbs(el.driverWeight, DEFAULT_DRIVER_WEIGHT_LBS);
   }
 
-  /** HP = base ± Manual; DynoJet/Mustang Dyno WHP = loss 0. Clamp 0–35. */
+  /** HP = base ± TX; DynoJet/Mustang Dyno WHP = loss 0. Clamp 0–35.
+   *  Manual = base−2; DCT = base−1; Auto = base. */
+  function transmissionLossDelta(tx) {
+    var v = normalizeTransmission(tx == null ? getTransmission() : tx);
+    if (v === 'manual') return -2;
+    if (v === 'dct') return -1;
+    return 0;
+  }
+
   function computeEffectiveLoss() {
     var source = getHpSource();
     if (source === 'dynojet' || source === 'mustang') return 0;
     var base = parseFloat(el.loss.value);
     if (Number.isNaN(base)) base = 15;
-    var manualDelta = getTransmission() === 'manual' ? -2 : 0;
-    var eff = base + manualDelta;
+    var eff = base + transmissionLossDelta();
     if (eff < 0) eff = 0;
     if (eff > 35) eff = 35;
     return eff;
@@ -441,9 +481,9 @@
     }
   }
 
-  /** TX/drive locks: EV → Auto (Manual disabled); else light curb → Manual+RWD; else free.
+  /** TX/drive locks: EV → Auto (DCT+Manual disabled); else light curb → Manual+RWD; else free.
    *  EV Auto lock wins over light-curb Manual when IsEv.
-   *  Remembers last non-light TX+drive; restores them only when leaving light curb (non-EV TX). */
+   *  Remembers last non-light TX+drive (incl. dct); restores only when leaving light curb (non-EV). */
   function applyLightCurbLocks() {
     var ev = isEvMode();
     var light = isLightCurb();
@@ -457,16 +497,21 @@
     }
 
     if (ev) {
-      /* EV priority: Automatic locked on, Manual disabled (even if light curb). */
+      /* EV priority: Automatic locked on; DCT + Manual disabled (even if light curb). */
       if (el.txAuto) {
         el.txAuto.checked = true;
         el.txAuto.disabled = false;
+      }
+      if (el.txDct) {
+        el.txDct.checked = false;
+        el.txDct.disabled = true;
       }
       if (el.txManual) {
         el.txManual.checked = false;
         el.txManual.disabled = true;
       }
     } else if (light) {
+      /* Light curb / bikes: Manual-only (DCT + Auto disabled). */
       if (el.txManual) {
         el.txManual.checked = true;
         el.txManual.disabled = false;
@@ -475,8 +520,13 @@
         el.txAuto.checked = false;
         el.txAuto.disabled = true;
       }
+      if (el.txDct) {
+        el.txDct.checked = false;
+        el.txDct.disabled = true;
+      }
     } else {
       if (el.txAuto) el.txAuto.disabled = false;
+      if (el.txDct) el.txDct.disabled = false;
       if (el.txManual) el.txManual.disabled = false;
       if (leavingLight) setTransmission(lastNonLightTx);
     }
@@ -585,7 +635,7 @@
     var srcHp = getHpSource();
     var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang Dyno WHP' : 'HP');
     lines.push(slipLine('HP SOURCE', srcLabel));
-    lines.push(slipLine('TRANS', getTransmission() === 'manual' ? 'Manual' : 'Automatic'));
+    lines.push(slipLine('TRANS', transmissionSlipLabel(getTransmission())));
     var dwDisp = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
     if (dwDisp > 0) {
       lines.push(slipLine('DRIVER WT', Math.round(dwDisp) + ' ' + (isMetric() ? 'kg' : 'lb')));
@@ -966,6 +1016,7 @@
   if (el.hpDynoJet) el.hpDynoJet.addEventListener('change', onHpSourceOrTxChange);
   if (el.hpMustang) el.hpMustang.addEventListener('change', onHpSourceOrTxChange);
   if (el.txAuto) el.txAuto.addEventListener('change', onHpSourceOrTxChange);
+  if (el.txDct) el.txDct.addEventListener('change', onHpSourceOrTxChange);
   if (el.txManual) el.txManual.addEventListener('change', onHpSourceOrTxChange);
   if (el.loss) el.loss.addEventListener('input', function () {
     syncHpLossUi();
@@ -1331,6 +1382,11 @@
     setDifferential(car.Differential || (carIsEv(car) ? 'Open' : 'LSD'));
     activeMaxSpeedMph = (car.MaxSpeedMph != null && isFinite(car.MaxSpeedMph) && car.MaxSpeedMph > 0)
       ? Number(car.MaxSpeedMph) : null;
+    /* Bake Transmission: Auto | Manual | DCT (missing → Auto). EVs still force Auto via locks. */
+    if (!carIsEv(car)) {
+      setTransmission(transmissionFromBake(car));
+      lastNonLightTx = getTransmission();
+    }
     applyGaragePowertrain(car);
     if (carIsEv(car)) {
       /* Garage EVs: bake UI to Open diff; TX locked Automatic via applyLightCurbLocks. */
@@ -1342,7 +1398,8 @@
     if (carIsEv(car)) tags.push('EV', 'Auto');
     else if (carIsFi(car)) tags.push('FI');
     else tags.push('NA');
-    if (!carIsEv(car) && (car.WeightLbs || 0) <= 1500) tags.push('Manual', 'RWD');
+    if (!carIsEv(car)) tags.push(transmissionSlipLabel(getTransmission()));
+    if (!carIsEv(car) && (car.WeightLbs || 0) <= 1500) tags.push('RWD');
     var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
     el.resultsOut.textContent = loadMsg;
@@ -1360,6 +1417,7 @@
       DrivetrainLossPercent: 15,
       TireType: 0,
       DriveType: 'RWD',
+      Transmission: 'Auto',
       EngineLayout: 'Front',
       Differential: 'LSD',
       IsEv: false,
@@ -1438,6 +1496,13 @@
       });
       if (!differential || differential === 'LSD') differential = 'Open';
     }
+    var transmission = 'Auto';
+    if (editorMode === 'edit' && editingOriginalIndex >= 0 && garageData[editingOriginalIndex]) {
+      var prevTx = garageData[editingOriginalIndex];
+      if (prevTx.Transmission != null && String(prevTx.Transmission).trim() !== '') {
+        transmission = bakeTransmissionLabel(prevTx.Transmission);
+      }
+    }
     var out = {
       Name: name,
       Horsepower: hp,
@@ -1447,6 +1512,7 @@
       DrivetrainLossPercent: loss,
       TireType: tire,
       DriveType: driveType,
+      Transmission: transmission,
       EngineLayout: engineLayout,
       Differential: differential,
       IsEv: isEv,
@@ -1899,6 +1965,10 @@
     bakeEvEngineLayout: bakeEvEngineLayout,
     getTransmission: getTransmission,
     setTransmission: setTransmission,
+    normalizeTransmission: normalizeTransmission,
+    transmissionFromBake: transmissionFromBake,
+    transmissionLossDelta: transmissionLossDelta,
+    bakeTransmissionLabel: bakeTransmissionLabel,
     isLightCurb: isLightCurb,
     applyLightCurbLocks: applyLightCurbLocks,
     syncTransmissionForCurb: syncTransmissionForCurb,

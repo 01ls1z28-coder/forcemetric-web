@@ -5,6 +5,7 @@
  * Phase 4: DrivetrainLossPercent calibrated (driver 175 era — superseded per-car by Phase 8B where cited).
  * Phase 8B batch 1–2: fleet recalib driver 200, Street, trap-first (batch1 ~50 + batch2 rest of fleet).
  * Phase 11: EV EngineLayout bake — FWD→Front, RWD→Rear, AWD→Dual (Rimac Nevera→Mid).
+ * Phase 13: Transmission Auto|Manual|DCT; DCT-only loss recalib (driver 200, Street, trap-first).
  */
 window.GARAGE_DATA = [
   {
@@ -20,7 +21,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: Edmunds/AutoGuide Mustang GT ~4.3–4.6 0-60; class auto ~12.5@114 (loss 19, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Edmunds/AutoGuide Mustang GT ~4.3–4.6 0-60; class auto ~12.5@114 (loss 19, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 Ford Mustang GT PP2",
@@ -35,7 +37,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Mustang GT PP2 auto ~4.2 / ~12.4@114 (loss 19, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Mustang GT PP2 auto ~4.2 / ~12.4@114 (loss 19, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Chevrolet Camaro SS",
@@ -50,7 +53,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: Chevy catalog SS auto 4.0 / 12.3@116 (loss 14.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Chevy catalog SS auto 4.0 / 12.3@116 (loss 14.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Dodge Challenger R/T Scat Pack",
@@ -65,7 +69,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Scat Pack auto 4.2 / 12.6@114 (loss 12.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Scat Pack auto 4.2 / 12.6@114 (loss 12.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Dodge Challenger Hellcat",
@@ -80,7 +85,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Hellcat auto 3.6 / 11.7@126 (loss 18, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Hellcat auto 3.6 / 11.7@126 (loss 18, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Ford Mustang Dark Horse",
@@ -95,7 +101,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2024 Dark Horse MT 4.1 / 12.5@115 (loss 22.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2024 Dark Horse MT 4.1 / 12.5@115 (loss 22.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2023 Chevrolet Camaro ZL1",
@@ -110,7 +117,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Camaro ZL1 1LE 3.4 / 11.5@124 (loss 25.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Camaro ZL1 1LE 3.4 / 11.5@124 (loss 25.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Dodge Charger Hellcat Redeye",
@@ -125,7 +133,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Hellcat Redeye ~3.6 / 11.8@125 (loss 26.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Hellcat Redeye ~3.6 / 11.8@125 (loss 26.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2016 Ford Mustang GT350R",
@@ -140,7 +149,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: MT GT350R 4.0 / 12.2@119 (loss 22.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: MT GT350R 4.0 / 12.2@119 (loss 22.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2015 Dodge Challenger Hellcat",
@@ -155,7 +165,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2015 Hellcat auto 3.6 / 11.7@126 (loss 16.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2015 Hellcat auto 3.6 / 11.7@126 (loss 16.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2014 Chevrolet Camaro Z/28",
@@ -170,7 +181,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2014 Camaro Z/28 MT 4.4 / 12.7@116 (loss 21.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2014 Camaro Z/28 MT 4.4 / 12.7@116 (loss 21.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2013 Ford Mustang Boss 302",
@@ -185,7 +197,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2012 Boss 302 MT 4.3 / 12.8@113 (loss 22.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2012 Boss 302 MT 4.3 / 12.8@113 (loss 22.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2012 Chevrolet Corvette ZR1",
@@ -200,7 +213,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D C6 ZR1 ~3.4 / ~11.5@126 (loss 29.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D C6 ZR1 ~3.4 / ~11.5@126 (loss 29.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Dodge Challenger SRT8",
@@ -215,7 +229,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT Challenger SRT8 6.1 auto class ~4.8 / ~13.3@108 (loss 16.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT Challenger SRT8 6.1 auto class ~4.8 / ~13.3@108 (loss 16.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2009 Pontiac G8 GXP",
@@ -230,7 +245,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer G8 GXP auto ~4.7 / ~13.0@110 (loss 14.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer G8 GXP auto ~4.7 / ~13.0@110 (loss 14.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2004 Pontiac GTO",
@@ -245,7 +261,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 2004 GTO MT 5.3 / 14.0@102 (loss 26.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2004 GTO MT 5.3 / 14.0@102 (loss 26.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2003 Ford Mustang Cobra (Terminator)",
@@ -260,7 +277,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: MT/peer Terminator Cobra MT ~4.5 / ~12.8@110 (loss 20.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: MT/peer Terminator Cobra MT ~4.5 / ~12.8@110 (loss 20.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2002 Chevrolet Camaro SS",
@@ -275,7 +293,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 2002 Camaro SS MT ~5.2 / ~13.8@104 (loss 21.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 2002 Camaro SS MT ~5.2 / ~13.8@104 (loss 21.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1996 Chevrolet Impala SS",
@@ -290,7 +309,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1994–96 Impala SS auto ~6.5 / 15.0@92 (loss 15.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1994–96 Impala SS auto ~6.5 / 15.0@92 (loss 15.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Dodge Charger Scat Pack",
@@ -305,7 +325,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT Charger Scat Pack auto ~4.2 / peer Challenger 12.6@114 (loss 10.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT Charger Scat Pack auto ~4.2 / peer Challenger 12.6@114 (loss 10.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Ford Mustang Shelby GT500",
@@ -313,14 +334,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4225,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15.6,
+    "DrivetrainLossPercent": 16.6,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2020 GT500 3.6 / 11.4@132 (loss 15.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.6 / 11.4@132 (loss 16.6, TX DCT, driver 200, Street, trap-first; Tremec 7DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2012 Chevrolet Camaro ZL1",
@@ -335,7 +357,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2012 Camaro ZL1 MT 4.1 / 12.3@119 (loss 24.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2012 Camaro ZL1 MT 4.1 / 12.3@119 (loss 24.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2011 Ford Mustang GT 5.0",
@@ -350,7 +373,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2011 Mustang GT 5.0 MT ~4.6 / ~13.1@109 (loss 25.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2011 Mustang GT 5.0 MT ~4.6 / ~13.1@109 (loss 25.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2008 Dodge Challenger SRT8",
@@ -365,7 +389,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2008 Challenger SRT8 auto 4.8 / 13.3@108 (loss 16.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2008 Challenger SRT8 auto 4.8 / 13.3@108 (loss 16.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2001 Pontiac Firebird Trans Am WS6",
@@ -380,7 +405,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (loss 16.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (loss 16.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1996 Ford Mustang SVT Cobra",
@@ -395,7 +421,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 1996 SVT Cobra MT 5.4 / ~14.0@102 (loss 20.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1996 SVT Cobra MT 5.4 / ~14.0@102 (loss 20.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1993 Chevrolet Camaro Z28",
@@ -410,7 +437,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1993 Camaro Z28 MT 5.3 / 14.0@100 (loss 17.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1993 Camaro Z28 MT 5.3 / 14.0@100 (loss 17.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1987 Buick GNX",
@@ -425,7 +453,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: period/peer Buick GNX auto ~4.7 / ~13.5@99 (loss 19.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: period/peer Buick GNX auto ~4.7 / ~13.5@99 (loss 19.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1979 Pontiac Firebird Trans Am",
@@ -440,7 +469,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1979 Trans Am MT 6.7 / 15.3@97 (loss 5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1979 Trans Am MT 6.7 / 15.3@97 (loss 5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1985 Chevrolet Camaro IROC-Z",
@@ -455,7 +485,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1985 IROC-Z 215hp auto 7.0 / 15.2@91 (loss 20.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1985 IROC-Z 215hp auto 7.0 / 15.2@91 (loss 20.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1987 Ford Mustang 5.0 LX",
@@ -470,7 +501,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: MT/peer 1987 Mustang LX 5.0 MT ~6.2 / ~14.8@96 (loss 17.4, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: MT/peer 1987 Mustang LX 5.0 MT ~6.2 / ~14.8@96 (loss 17.4, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1994 Pontiac Firebird Formula",
@@ -485,7 +517,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Firebird Formula LT1 MT ~5.4 / ~14.0@100 (loss 18, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Firebird Formula LT1 MT ~5.4 / ~14.0@100 (loss 18, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2000 Chevrolet Camaro SS",
@@ -500,7 +533,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Camaro SS LS1 MT ~5.0 / ~13.6@106 (loss 15.4, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Camaro SS LS1 MT ~5.0 / ~13.6@106 (loss 15.4, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2007 Ford Mustang GT",
@@ -515,7 +549,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 2007 Mustang GT MT ~5.1 / ~13.7@102 (loss 18, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 2007 Mustang GT MT ~5.1 / ~13.7@102 (loss 18, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2010 Chevrolet Camaro LT",
@@ -530,7 +565,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2010 Camaro V6 MT 5.9 / 14.5@99 (loss 22.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2010 Camaro V6 MT 5.9 / 14.5@99 (loss 22.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1984 Chevrolet Corvette C4",
@@ -545,7 +581,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1984 Corvette L83 auto ~7.1 / ~15.3@90 (loss 23.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1984 Corvette L83 auto ~7.1 / ~15.3@90 (loss 23.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1992 Ford Mustang LX 5.0",
@@ -560,7 +597,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Mustang LX 5.0 MT ~6.2 / ~14.8@95 (loss 20, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Mustang LX 5.0 MT ~6.2 / ~14.8@95 (loss 20, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1998 Pontiac Firebird Formula",
@@ -575,7 +613,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Firebird Formula LS1 MT ~5.2 / ~13.8@104 (loss 16.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Firebird Formula LS1 MT ~5.2 / ~13.8@104 (loss 16.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2006 Dodge Charger R/T",
@@ -590,7 +629,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Charger R/T 5.7 Hemi auto ~5.3 / ~13.8@103 (loss 13, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Charger R/T 5.7 Hemi auto ~5.3 / ~13.8@103 (loss 13, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Chevrolet Camaro LT",
@@ -605,7 +645,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 2011 Camaro V6 MT ~5.9 / ~14.5@99 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 2011 Camaro V6 MT ~5.9 / ~14.5@99 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2013 Ford Mustang V6",
@@ -620,7 +661,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: MT 2013 Mustang V6 Perf Pkg MT 5.3 / 13.9@100 (loss 24, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: MT 2013 Mustang V6 Perf Pkg MT 5.3 / 13.9@100 (loss 24, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1982 Pontiac Firebird Trans Am",
@@ -635,7 +677,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1982 Trans Am 165hp auto ~9.2 / ~17.0@80 (loss 31.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1982 Trans Am 165hp auto ~9.2 / ~17.0@80 (loss 31.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1991 Chevrolet Camaro Z28",
@@ -650,7 +693,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1991 Camaro Z28 MT 6.4 / 14.9@93 (loss 27.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1991 Camaro Z28 MT 6.4 / 14.9@93 (loss 27.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1994 Ford Mustang GT",
@@ -665,7 +709,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1994 Mustang GT 215hp MT ~6.2 / ~14.9@94 (loss 15, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1994 Mustang GT 215hp MT ~6.2 / ~14.9@94 (loss 15, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2002 Pontiac Firebird WS6",
@@ -680,7 +725,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (loss 17, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Trans Am WS6 LS1 MT ~5.0 / ~13.5@106 (loss 17, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2009 Dodge Challenger R/T",
@@ -695,7 +741,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Challenger R/T 5.7 Hemi auto ~5.1 / ~13.7@104 (loss 16.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Challenger R/T 5.7 Hemi auto ~5.1 / ~13.7@104 (loss 16.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2012 Ford Mustang Boss 302 Laguna Seca",
@@ -710,7 +757,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Boss 302 Laguna MT ~4.3 / ~12.7@114 (loss 20, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Boss 302 Laguna MT ~4.3 / ~12.7@114 (loss 20, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1981 Chevrolet Camaro Z28",
@@ -725,7 +773,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1981 Camaro Z28 auto ~8.8 / ~16.7@82 (loss 26.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1981 Camaro Z28 auto ~8.8 / ~16.7@82 (loss 26.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1989 Ford Mustang GT 5.0",
@@ -740,7 +789,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1989 Mustang GT 5.0 MT ~6.0 / ~14.7@95 (loss 18.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1989 Mustang GT 5.0 MT ~6.0 / ~14.7@95 (loss 18.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1993 Pontiac Firebird Formula",
@@ -755,7 +805,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1993 Firebird Formula MT 5.5 / 14.2@99 (loss 20.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1993 Firebird Formula MT 5.5 / 14.2@99 (loss 20.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2004 Ford Mustang Mach 1",
@@ -770,7 +821,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer 2004 Mustang Mach 1 MT ~5.3 / ~13.9@102 (loss 16.4, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 2004 Mustang Mach 1 MT ~5.3 / ~13.9@102 (loss 16.4, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2007 Dodge Charger SRT8",
@@ -785,7 +837,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2008 Charger SRT8 auto ~4.9 / 13.2@109 (loss 13.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2008 Charger SRT8 auto ~4.9 / 13.2@109 (loss 13.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2014 Chevrolet SS",
@@ -800,7 +853,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Chevy SS auto ~4.5 / ~13.0@109 (loss 17, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Chevy SS auto ~4.5 / ~13.0@109 (loss 17, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Tesla Model S Plaid",
@@ -816,7 +870,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 200,
-    "Source": "Perf: C&D Model S Plaid 2.1 / 9.4@151 (loss 6.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Model S Plaid 2.1 / 9.4@151 (loss 6.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Tesla Model 3 Performance",
@@ -832,7 +887,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 162,
-    "Source": "Perf: C&D 2024 Model 3 Perf 2.8 / 11.0@125 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2024 Model 3 Perf 2.8 / 11.0@125 (loss 15.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Porsche Taycan Turbo S",
@@ -848,7 +904,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 161,
-    "Source": "Perf: C&D Taycan Turbo S 2.4 / 10.5@130 (loss 20.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Taycan Turbo S 2.4 / 10.5@130 (loss 20.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Lucid Air Sapphire",
@@ -864,7 +921,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 205,
-    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss 8.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss 8.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Hyundai Ioniq 5 N",
@@ -880,7 +938,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 162,
-    "Source": "Perf: C&D Ioniq 5 N 3.0 / 11.1@123 (loss 25.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Ioniq 5 N 3.0 / 11.1@123 (loss 25.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Ford F-150 Lightning",
@@ -896,7 +955,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 110,
-    "Source": "Perf: C&D F-150 Lightning Platinum 4.0 / 12.7@107 (loss 20.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D F-150 Lightning Platinum 4.0 / 12.7@107 (loss 20.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Tesla Model Y Performance",
@@ -912,7 +972,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D Model Y Perf ~3.5–3.6 / 12.0–12.1@113–114 (loss 21.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Model Y Perf ~3.5–3.6 / 12.0–12.1@113–114 (loss 21.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Tesla Model X Plaid",
@@ -928,7 +989,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 163,
-    "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~10.4@128 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~10.4@128 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Kia EV6 GT",
@@ -943,7 +1005,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D EV6 GT (576 hp gen) ~3.4 / ~11.4@120 (loss 21.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D EV6 GT (576 hp gen) ~3.4 / ~11.4@120 (loss 21.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Polestar 2 Performance",
@@ -959,7 +1022,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 127,
-    "Source": "Perf: C&D 2023 Polestar 2 Performance 3.9 / 12.2@116 (loss 16.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2023 Polestar 2 Performance 3.9 / 12.2@116 (loss 16.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 BMW iX M60",
@@ -975,7 +1039,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D iX M60 3.2 / 11.5@120 (loss 11.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D iX M60 3.2 / 11.5@120 (loss 11.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Mercedes EQE AMG 53",
@@ -991,7 +1056,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 149,
-    "Source": "Perf: C&D/peer EQE AMG 53 Dual Motor ~3.2 / ~11.6@118 (loss 30.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer EQE AMG 53 Dual Motor ~3.2 / ~11.6@118 (loss 30.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Cadillac Lyriq AWD",
@@ -1006,7 +1072,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D 2023 Lyriq AWD 4.6 / 12.9@113 (loss 11.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2023 Lyriq AWD 4.6 / 12.9@113 (loss 11.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Tesla Cybertruck Tri-Motor",
@@ -1022,7 +1089,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 130,
-    "Source": "Perf: C&D Cybertruck Beast 2.6 / 11.0@119 (loss 24.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Cybertruck Beast 2.6 / 11.0@119 (loss 24.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Genesis GV60 Performance",
@@ -1037,7 +1105,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D 2023 GV60 Performance 3.7 / 12.2@112 (loss 14.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2023 GV60 Performance 3.7 / 12.2@112 (loss 14.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Volvo EX90 Twin Motor",
@@ -1052,7 +1121,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D EX90 Twin Motor Performance 4.1 / 12.9@106 (loss 19.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D EX90 Twin Motor Performance 4.1 / 12.9@106 (loss 19.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Audi Q4 e-tron",
@@ -1067,7 +1137,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D Q4 e-tron Quattro 5.0 / 13.7@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Q4 e-tron Quattro 5.0 / 13.7@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Mercedes EQB 350",
@@ -1082,7 +1153,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer EQB 350 4MATIC ~5.8 / ~14.5@95 (loss 20.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer EQB 350 4MATIC ~5.8 / ~14.5@95 (loss 20.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Tesla Model X Long Range",
@@ -1098,7 +1170,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D/peer Model X Dual Motor LR ~3.8 / ~12.3@112 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Model X Dual Motor LR ~3.8 / ~12.3@112 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Nissan Ariya e-4ORCE",
@@ -1113,7 +1186,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Ariya e-4ORCE Platinum+ ~5.0 / ~13.4@105 (loss 20.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Ariya e-4ORCE Platinum+ ~5.0 / ~13.4@105 (loss 20.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Subaru Solterra",
@@ -1128,7 +1202,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: peer/OEM Solterra AWD ~6.5 / ~15.0@90 (loss 10.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer/OEM Solterra AWD ~6.5 / ~15.0@90 (loss 10.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Toyota bZ4X AWD",
@@ -1143,7 +1218,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: peer/OEM bZ4X AWD ~6.9 / ~15.2@89 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer/OEM bZ4X AWD ~6.9 / ~15.2@89 (loss 15.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Fisker Ocean Extreme",
@@ -1158,7 +1234,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: peer Fisker Ocean Extreme Dual Motor ~4.0 / ~12.5@110 (loss 30.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Fisker Ocean Extreme Dual Motor ~4.0 / ~12.5@110 (loss 30.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Hyundai Ioniq 6 AWD",
@@ -1173,7 +1250,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Ioniq 6 Long Range AWD ~4.4 / ~12.9@110 (loss 5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Ioniq 6 Long Range AWD ~4.4 / ~12.9@110 (loss 5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 VW ID.4 AWD Pro",
@@ -1188,7 +1266,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer ID.4 Dual Motor (295hp class) ~5.4 / ~14.0@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer ID.4 Dual Motor (295hp class) ~5.4 / ~14.0@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Chevrolet Blazer EV SS",
@@ -1203,7 +1282,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D Blazer EV SS 3.3 / 11.8@117 (loss 14.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Blazer EV SS 3.3 / 11.8@117 (loss 14.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Ford Mustang Mach-E GT",
@@ -1219,7 +1299,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 149,
-    "Source": "Perf: C&D Mach-E GT Performance 3.7 / 12.7@101 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Mach-E GT Performance 3.7 / 12.7@101 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 BMW i5 M60",
@@ -1234,7 +1315,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D 2024 i5 M60 3.3 / 11.5@124 (loss 10.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2024 i5 M60 3.3 / 11.5@124 (loss 10.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Rivian R1S Quad Motor",
@@ -1250,7 +1332,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 135,
-    "Source": "Perf: C&D/peer R1S Quad ~3.0 / ~11.5@112 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer R1S Quad ~3.0 / ~11.5@112 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 BMW i7 xDrive60",
@@ -1266,7 +1349,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D 2023 i7 xDrive60 4.1 / 12.5@114 (loss 12.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2023 i7 xDrive60 4.1 / 12.5@114 (loss 12.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Mercedes EQS 450+",
@@ -1282,7 +1366,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Rear",
     "Differential": "Open",
     "MaxSpeedMph": 130,
-    "Source": "Perf: C&D/peer EQS 450+ RWD ~5.5 / ~14.0@100 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer EQS 450+ RWD ~5.5 / ~14.0@100 (loss 15.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Audi e-tron GT",
@@ -1297,7 +1382,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer e-tron GT (non-RS) ~3.9 / ~12.3@113 (loss 24.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer e-tron GT (non-RS) ~3.9 / ~12.3@113 (loss 24.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Lucid Air Touring",
@@ -1313,7 +1399,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D Lucid Air Touring 3.0 / 11.0@126 (loss 16.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Lucid Air Touring 3.0 / 11.0@126 (loss 16.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Tesla Model S Long Range",
@@ -1329,7 +1416,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Hyundai Kona Electric",
@@ -1344,7 +1432,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Kona Electric ~6.2 / ~14.8@94 (loss 9.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Kona Electric ~6.2 / ~14.8@94 (loss 9.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Kia Niro EV",
@@ -1359,7 +1448,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Niro EV ~6.2 / ~14.9@93 (loss 11.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Niro EV ~6.2 / ~14.9@93 (loss 11.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Mercedes EQS 580 SUV",
@@ -1375,7 +1465,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 130,
-    "Source": "Perf: C&D/peer EQS 580 SUV Dual Motor ~4.0 / ~12.5@112 (loss 11.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer EQS 580 SUV Dual Motor ~4.0 / ~12.5@112 (loss 11.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Volvo XC40 Recharge",
@@ -1390,7 +1481,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Dual",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer XC40 Recharge Twin Motor ~4.3 / ~12.8@108 (loss 18, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer XC40 Recharge Twin Motor ~4.3 / ~12.8@108 (loss 18, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Ferrari SF90 Stradale",
@@ -1398,14 +1490,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3461,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 26.1,
+    "DrivetrainLossPercent": 27.1,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D SF90 Stradale 2.0 / 9.5@148 (loss 26.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2 / 9.5@148 (loss 27.1, TX DCT, driver 200, Street, trap-first; Ferrari 8DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2021 Porsche 911 Turbo S",
@@ -1413,14 +1506,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3616,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 7.6,
+    "DrivetrainLossPercent": 8.6,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2021 911 Turbo S 2.2 / 10.1@137 (loss 7.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.2 / 10.1@137 (loss 8.6, TX DCT, driver 200, Street, trap-first; PDK)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2020 Lamborghini Huracán EVO",
@@ -1428,14 +1522,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3400,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 12.4,
+    "DrivetrainLossPercent": 13.4,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2020 Huracán EVO 2.5 / 10.4@135 (loss 12.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.5 / 10.4@135 (loss 13.4, TX DCT, driver 200, Street, trap-first; LDF DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2020 McLaren 765LT",
@@ -1443,14 +1538,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 2950,
     "DragCoefficient": 0.3,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 13.6,
+    "DrivetrainLossPercent": 14.6,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D est 765LT coupe ~2.4 / ~9.9@148 (loss 13.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.4 / 9.9@148 (loss 14.6, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2017 Ferrari 812 Superfast",
@@ -1458,14 +1554,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3593,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 18.9,
+    "DrivetrainLossPercent": 19.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 812 Superfast 2.7 / 10.4@138 (loss 18.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.7 / 10.4@138 (loss 19.9, TX DCT, driver 200, Street, trap-first; Ferrari 7DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2018 McLaren 600LT",
@@ -1473,14 +1570,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 2844,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 25.9,
+    "DrivetrainLossPercent": 26.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 600LT Spider peer 2.8 / 10.7@132 (loss 25.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.8 / 10.7@132 (loss 26.9, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 Lamborghini Huracán Performante",
@@ -1488,14 +1586,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3047,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 16.2,
+    "DrivetrainLossPercent": 17.2,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Huracán Performante 2.2 / 10.1@136 (loss 16.2, TX AUTO, driver 200, Street, trap-first; FLAG DriveType=RWD suspected AWD)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.2 / 10.1@136 (loss 17.2, TX DCT, driver 200, Street, trap-first; LDF DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2017 Porsche 911 GT2 RS",
@@ -1503,14 +1602,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3241,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 14.5,
+    "DrivetrainLossPercent": 15.5,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D 911 GT2 RS 2.6 / 10.3@140 (loss 14.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.6 / 10.3@140 (loss 15.5, TX DCT, driver 200, Street, trap-first; PDK)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2016 Ferrari 488 GTB",
@@ -1518,14 +1618,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3252,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 9.7,
+    "DrivetrainLossPercent": 10.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 488 GTB ~2.7 / ~10.3@140 (loss 9.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.7 / 10.3@140 (loss 10.7, TX DCT, driver 200, Street, trap-first; Ferrari 7DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2015 McLaren P1",
@@ -1533,14 +1634,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3470,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 20.7,
+    "DrivetrainLossPercent": 21.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer McLaren P1 ~2.6 / ~10.2@145 (loss 20.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.6 / 10.2@145 (loss 21.7, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2014 Ferrari F12 Berlinetta",
@@ -1548,14 +1650,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3593,
     "DragCoefficient": 0.31,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 29.7,
+    "DrivetrainLossPercent": 30.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D F12 Berlinetta ~3.1 / ~11.1@129 (loss 29.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.1 / 11.1@129 (loss 30.7, TX DCT, driver 200, Street, trap-first; Ferrari 7DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2013 McLaren MP4-12C",
@@ -1563,14 +1666,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3161,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 18.7,
+    "DrivetrainLossPercent": 19.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2012 MP4-12C 2.9 / 10.7@134 (loss 18.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.9 / 10.7@134 (loss 19.7, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2012 Lamborghini Gallardo LP570-4",
@@ -1578,14 +1682,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3296,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 18.3,
+    "DrivetrainLossPercent": 19.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Gallardo LP570-4 Superleggera ~3.2 / ~11.2@128 (loss 18.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.2 / 11.2@128 (loss 19.3, TX DCT, driver 200, Street, trap-first; e-gear (ISR/DCT class))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2010 Ferrari 458 Italia",
@@ -1593,14 +1698,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3274,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 21.6,
+    "DrivetrainLossPercent": 22.6,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 458 Italia ~3.0 / ~11.2@126 (loss 21.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3 / 11.2@126 (loss 22.6, TX DCT, driver 200, Street, trap-first; Ferrari 7DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2006 Ford GT",
@@ -1615,7 +1721,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2005/06 Ford GT MT ~3.6 / ~11.8@125 (loss 20.1, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2005/06 Ford GT MT ~3.6 / ~11.8@125 (loss 20.1, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2004 Porsche Carrera GT",
@@ -1630,7 +1737,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Carrera GT MT ~3.6 / ~11.3@130 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Carrera GT MT ~3.6 / ~11.3@130 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2002 Ferrari Enzo",
@@ -1638,14 +1746,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3263,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 12.3,
+    "DrivetrainLossPercent": 13.3,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Ferrari Enzo ~3.3 / 11.2@136 (loss 12.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.3 / 11.2@136 (loss 13.3, TX DCT, driver 200, Street, trap-first; Ferrari F1 automated)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2007 Lamborghini Murciélago LP640",
@@ -1653,14 +1762,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3671,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 23.5,
+    "DrivetrainLossPercent": 24.5,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Murciélago LP640 ~3.4 / ~11.5@126 (loss 23.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.4 / 11.5@126 (loss 24.5, TX DCT, driver 200, Street, trap-first; e-gear (ISR/DCT class))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2009 Nissan GT-R",
@@ -1668,14 +1778,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3800,
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 6.6,
+    "DrivetrainLossPercent": 7.6,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2009 GT-R 3.3 / 11.5@124 (loss 6.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.3 / 11.5@124 (loss 7.6, TX DCT, driver 200, Street, trap-first; GR6 DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2012 Audi R8 V10",
@@ -1690,7 +1801,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer R8 V10 ~3.5 / ~11.7@122 (loss 18.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer R8 V10 ~3.5 / ~11.7@122 (loss 18.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2001 Lamborghini Diablo VT 6.0",
@@ -1705,7 +1817,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Diablo VT 6.0 4.3 / 12.2@122 (loss 26.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Diablo VT 6.0 4.3 / 12.2@122 (loss 26.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2003 Ferrari 360 Modena",
@@ -1713,14 +1826,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3064,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 27.8,
+    "DrivetrainLossPercent": 28.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 360 Modena F1 4.5 / 13.0@112 (loss 27.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.5 / 13@112 (loss 28.8, TX DCT, driver 200, Street, trap-first; Ferrari F1 automated)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2007 Porsche 911 Turbo",
@@ -1735,7 +1849,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 997 Turbo ~3.4 / ~11.7@118 (loss 24.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 997 Turbo ~3.4 / ~11.7@118 (loss 24.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Aston Martin DBS",
@@ -1750,7 +1865,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Aston DBS ~4.3 / ~12.7@114 (loss 27.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Aston DBS ~4.3 / ~12.7@114 (loss 27.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Mercedes SLS AMG",
@@ -1758,14 +1874,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3924,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22.5,
-    "DrivetrainLossPercent": 10.5,
+    "DrivetrainLossPercent": 11.5,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D SLS AMG ~3.6 / ~11.7@124 (loss 10.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.6 / 11.7@124 (loss 11.5, TX DCT, driver 200, Street, trap-first; AMG Speedshift DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2005 Ferrari F430",
@@ -1773,14 +1890,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3197,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 23.3,
+    "DrivetrainLossPercent": 24.3,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer F430 F1 ~3.6 / ~11.9@120 (loss 23.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.6 / 11.9@120 (loss 24.3, TX DCT, driver 200, Street, trap-first; Ferrari F1 automated)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2009 Lamborghini Gallardo LP560-4",
@@ -1788,14 +1906,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3400,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 10.5,
+    "DrivetrainLossPercent": 11.5,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Gallardo LP560-4 3.2 / 11.2@130 (loss 10.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.2 / 11.2@130 (loss 11.5, TX DCT, driver 200, Street, trap-first; e-gear (ISR/DCT class))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2010 Aston Martin V12 Vantage",
@@ -1810,7 +1929,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D V12 Vantage MT 4.2 / 12.5@117 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D V12 Vantage MT 4.2 / 12.5@117 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2013 SRT Viper GTS",
@@ -1825,7 +1945,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D SRT Viper GTS MT ~3.5 / ~11.5@128 (loss 25.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D SRT Viper GTS MT ~3.5 / ~11.5@128 (loss 25.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2014 Porsche 911 Carrera S",
@@ -1833,14 +1954,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3150,
     "DragCoefficient": 0.29,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 23.8,
+    "DrivetrainLossPercent": 24.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 991 Carrera S PDK ~3.9 / ~12.2@114 (loss 23.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.9 / 12.2@114 (loss 24.8, TX DCT, driver 200, Street, trap-first; PDK (source PDK))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2002 Porsche 911 Turbo (996)",
@@ -1855,7 +1977,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 996 Turbo Tiptronic ~4.0 / ~12.3@116 (loss 19.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 996 Turbo Tiptronic ~4.0 / ~12.3@116 (loss 19.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2006 Ferrari 612 Scaglietti",
@@ -1863,14 +1986,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4050,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 15.7,
+    "DrivetrainLossPercent": 16.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 612 Scaglietti F1 4.3 / 12.5@119 (loss 15.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.3 / 12.5@119 (loss 16.7, TX DCT, driver 200, Street, trap-first; Ferrari F1 automated)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2008 Lamborghini Reventón",
@@ -1878,14 +2002,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3700,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 27.3,
+    "DrivetrainLossPercent": 28.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Reventón (Murciélago LP640 class) ~3.4 / ~11.5@125 (loss 27.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.4 / 11.5@125 (loss 28.3, TX DCT, driver 200, Street, trap-first; e-gear (ISR/DCT class))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2011 McLaren MP4-12C HS",
@@ -1893,14 +2018,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3161,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 16.8,
+    "DrivetrainLossPercent": 17.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer MP4-12C HS (616hp) ~3.0 / ~10.8@135 (loss 16.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3 / 10.8@135 (loss 17.8, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2015 Aston Martin V12 Vantage S",
@@ -1915,7 +2041,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer V12 Vantage S Sportshift ~3.7 / ~12.1@122 (loss 20.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer V12 Vantage S Sportshift ~3.7 / ~12.1@122 (loss 20.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2019 Bugatti Chiron",
@@ -1923,14 +2050,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4398,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 24.3,
+    "DrivetrainLossPercent": 25.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Chiron Sport 2.4 / 9.4@158 (loss 24.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.4 / 9.4@158 (loss 25.3, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2020 McLaren 720S",
@@ -1938,14 +2066,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3228,
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 8.9,
+    "DrivetrainLossPercent": 9.9,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D 720S 2.7 / 10.2@145 (loss 8.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.7 / 10.2@145 (loss 9.9, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 Lamborghini Aventador SVJ",
@@ -1953,14 +2082,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3472,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 21.8,
+    "DrivetrainLossPercent": 22.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: MT Aventador SVJ 2.5 / 10.3@136 (loss 21.8, TX AUTO, driver 200, Street, trap-first; FLAG DriveType=RWD suspected AWD)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.5 / 10.3@136 (loss 22.8, TX DCT, driver 200, Street, trap-first; ISR automated)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2021 Rimac Nevera",
@@ -1976,7 +2106,8 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "Open",
     "MaxSpeedMph": 258,
-    "Source": "Perf: C&D/OEM Rimac Nevera ~1.9 / ~8.5@167 (loss 27.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/OEM Rimac Nevera ~1.9 / ~8.5@167 (loss 27.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2015 Koenigsegg One:1",
@@ -1991,7 +2122,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Koenigsegg One:1 ~2.9 / ~9.9@160 (loss 25.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Koenigsegg One:1 ~2.9 / ~9.9@160 (loss 25.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2019 Koenigsegg Jesko",
@@ -2006,7 +2138,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Jesko ~2.5 / ~9.1@170 (loss 5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Jesko ~2.5 / ~9.1@170 (loss 5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2013 Bugatti Veyron Super Sport",
@@ -2014,14 +2147,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4387,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 27.1,
+    "DrivetrainLossPercent": 28.1,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Veyron Super Sport ~2.5 / ~9.9@146 (loss 27.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.5 / 9.9@146 (loss 28.1, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2005 Bugatti Veyron",
@@ -2029,14 +2163,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4480,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 18.4,
+    "DrivetrainLossPercent": 19.4,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Bugatti Veyron 2.5 / 10.1@142 (loss 18.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.5 / 10.1@142 (loss 19.4, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2011 Koenigsegg Agera R",
@@ -2051,7 +2186,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Agera R ~2.9 / ~10.3@155 (loss 27.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Agera R ~2.9 / ~10.3@155 (loss 27.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2006 Saleen S7 Twin Turbo",
@@ -2066,7 +2202,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Saleen S7 Twin Turbo MT ~3.3 / ~11.0@140 (loss 30, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Saleen S7 Twin Turbo MT ~3.3 / ~11.0@140 (loss 30, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2010 Pagani Zonda R",
@@ -2081,7 +2218,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Zonda R ~2.7 / ~10.2@145 (loss 27.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Zonda R ~2.7 / ~10.2@145 (loss 27.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2004 Maserati MC12",
@@ -2096,7 +2234,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/MT MC12 ~3.8 / 11.3@124 (loss 31, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/MT MC12 ~3.8 / 11.3@124 (loss 31, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Gumpert Apollo Sport",
@@ -2111,7 +2250,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Apollo Sport ~3.0 / ~10.8@135 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Apollo Sport ~3.0 / ~10.8@135 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2014 Hennessey Venom GT",
@@ -2126,7 +2266,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Venom GT ~2.7 / ~10.0@170 (loss 5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Venom GT ~2.7 / ~10.0@170 (loss 5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 Zenvo TSR-S",
@@ -2141,7 +2282,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Zenvo TSR-S ~2.8 / ~10.2@150 (loss 31.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Zenvo TSR-S ~2.8 / ~10.2@150 (loss 31.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Koenigsegg CCX",
@@ -2156,7 +2298,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Koenigsegg CCX MT ~3.2 / ~10.9@135 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Koenigsegg CCX MT ~3.2 / ~10.9@135 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2012 Pagani Huayra",
@@ -2171,7 +2314,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Pagani Huayra ~3.2 / ~11.0@135 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Pagani Huayra ~3.2 / ~11.0@135 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2017 Bugatti Chiron Sport",
@@ -2179,14 +2323,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4400,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 25.3,
+    "DrivetrainLossPercent": 26.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Chiron Sport 2.4 / 9.4@158 (loss 25.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.4 / 9.4@158 (loss 26.3, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 McLaren Speedtail",
@@ -2194,14 +2339,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3150,
     "DragCoefficient": 0.27,
     "FrontalAreaSqFt": 20,
-    "DrivetrainLossPercent": 29.5,
+    "DrivetrainLossPercent": 30.5,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer McLaren Speedtail ~2.9 / ~10.0@151 (loss 29.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.9 / 10@151 (loss 30.5, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2016 Koenigsegg Regera",
@@ -2216,7 +2362,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Regera ~2.7 / ~9.8@156 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Regera ~2.7 / ~9.8@156 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2017 Pagani Huayra BC",
@@ -2231,7 +2378,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Huayra BC ~2.8 / ~10.7@140 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Huayra BC ~2.8 / ~10.7@140 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 Bugatti Divo",
@@ -2239,14 +2387,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4300,
     "DragCoefficient": 0.38,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 30.3,
+    "DrivetrainLossPercent": 31.3,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Bugatti Divo ~2.4 / ~9.5@155 (loss 30.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.4 / 9.5@155 (loss 31.3, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2020 McLaren Elva",
@@ -2261,7 +2410,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer McLaren Elva ~2.9 / ~10.5@140 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.9 / 10.5@140 (loss 32, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2014 Koenigsegg Agera S",
@@ -2276,7 +2426,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer Agera S ~2.9 / ~10.4@150 (loss 29.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: OEM/peer Agera S ~2.9 / ~10.4@150 (loss 29.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2016 Bugatti Chiron",
@@ -2284,14 +2435,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4400,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 24.2,
+    "DrivetrainLossPercent": 25.2,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D Chiron Sport class 2.4 / 9.4@158 (loss 24.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.4 / 9.4@158 (loss 25.2, TX DCT, driver 200, Street, trap-first; Bugatti DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 Pagani Huayra Roadster BC",
@@ -2306,7 +2458,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: peer Huayra Roadster BC ~2.9 / ~10.8@138 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Huayra Roadster BC ~2.9 / ~10.8@138 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 McLaren Sabre",
@@ -2314,14 +2467,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3200,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 25.4,
+    "DrivetrainLossPercent": 26.4,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: OEM/peer McLaren Sabre ~2.8 / ~10.4@142 (loss 25.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 2.8 / 10.4@142 (loss 26.4, TX DCT, driver 200, Street, trap-first; McLaren SSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "1998 Toyota Supra Turbo (Mk4)",
@@ -2336,7 +2490,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: period Mk4 TT class ~4.9 / ~13.4@105 (loss 19.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: period Mk4 TT class ~4.9 / ~13.4@105 (loss 19.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2002 Nissan Skyline GT-R R34",
@@ -2351,7 +2506,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer R34 GT-R (276 hp) MT ~4.9 / ~13.3@105 (loss 11, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer R34 GT-R (276 hp) MT ~4.9 / ~13.3@105 (loss 11, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Subaru WRX STI",
@@ -2366,7 +2522,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT WRX STI ~4.8 / ~13.3@103 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT WRX STI ~4.8 / ~13.3@103 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2018 Honda Civic Type R",
@@ -2381,7 +2538,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D FK8 CTR ~5.0 / 13.5@106 (loss 22.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D FK8 CTR ~5.0 / 13.5@106 (loss 22.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2008 Mitsubishi Lancer Evolution X",
@@ -2396,7 +2554,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT Evo X MT class ~5.4 / ~13.9@100 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT Evo X MT class ~5.4 / ~13.9@100 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2006 Subaru WRX STI",
@@ -2411,7 +2570,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 2006 WRX STI MT ~4.8 / ~13.3@103 (loss 22.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 2006 WRX STI MT ~4.8 / ~13.3@103 (loss 22.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2005 Nissan 350Z",
@@ -2426,7 +2586,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 350Z MT ~5.2 / ~13.9@102 (loss 19.1, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 350Z MT ~5.2 / ~13.9@102 (loss 19.1, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2008 BMW 135i",
@@ -2441,7 +2602,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 135i auto ~5.0 / ~13.6@104 (loss 17.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 135i auto ~5.0 / ~13.6@104 (loss 17.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Mazda RX-8 R3",
@@ -2456,7 +2618,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2009 RX-8 R3 MT 6.3 / 14.9@94 (loss 29, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2009 RX-8 R3 MT 6.3 / 14.9@94 (loss 29, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2003 Mitsubishi Lancer Evolution VIII",
@@ -2471,7 +2634,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Evo VIII MT ~4.8 / ~13.3@103 (loss 17, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Evo VIII MT ~4.8 / ~13.3@103 (loss 17, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1999 Subaru Impreza 22B STI",
@@ -2486,7 +2650,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Impreza 22B STI MT 4.7 / 13.5@101 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Impreza 22B STI MT 4.7 / 13.5@101 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2001 Honda S2000",
@@ -2501,7 +2666,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D S2000 MT class ~5.8 / ~14.3@97 (loss 29.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D S2000 MT class ~5.8 / ~14.3@97 (loss 29.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2004 Mazda RX-8",
@@ -2516,7 +2682,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D RX-8 MT 5.9 / 14.5@96 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D RX-8 MT 5.9 / 14.5@96 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1995 Nissan Silvia S14",
@@ -2531,7 +2698,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Silvia S14 K's turbo MT ~6.5 / ~15.0@92 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Silvia S14 K's turbo MT ~6.5 / ~15.0@92 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1991 Nissan 240SX (S13)",
@@ -2546,7 +2714,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 240SX KA24DE MT ~8.2 / ~16.5@84 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 240SX KA24DE MT ~8.2 / ~16.5@84 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1998 Honda Prelude Type SH",
@@ -2561,7 +2730,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Prelude Type SH MT ~7.0 / ~15.5@90 (loss 28.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Prelude Type SH MT ~7.0 / ~15.5@90 (loss 28.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2003 Acura RSX Type-S",
@@ -2576,7 +2746,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer RSX Type-S MT ~6.5 / ~15.1@92 (loss 29.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer RSX Type-S MT ~6.5 / ~15.1@92 (loss 29.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2007 MazdaSpeed3",
@@ -2591,7 +2762,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Mazdaspeed3 MT ~5.9 / ~14.5@96 (loss 31.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Mazdaspeed3 MT ~5.9 / ~14.5@96 (loss 31.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2013 Scion FR-S",
@@ -2606,7 +2778,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer FR-S MT ~6.3 / ~14.9@93 (loss 29, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer FR-S MT ~6.3 / ~14.9@93 (loss 29, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1990 Mazda Miata NA",
@@ -2621,7 +2794,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer NA Miata MT ~8.5 / ~16.5@82 (loss 30.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer NA Miata MT ~8.5 / ~16.5@82 (loss 30.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1997 Honda Civic Type R EK9",
@@ -2636,7 +2810,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer Civic Type R EK9 MT ~6.7 / ~15.2@92 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Civic Type R EK9 MT ~6.7 / ~15.2@92 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2002 Subaru WRX Wagon",
@@ -2651,7 +2826,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer WRX Wagon MT ~6.0 / ~14.7@94 (loss 25.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer WRX Wagon MT ~6.0 / ~14.7@94 (loss 25.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2005 Mitsubishi Eclipse GT",
@@ -2666,7 +2842,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Eclipse GT 3.8 MT ~6.5 / ~15.0@93 (loss 30.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Eclipse GT 3.8 MT ~6.5 / ~15.0@93 (loss 30.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2012 Scion tC",
@@ -2681,7 +2858,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer Scion tC auto ~7.4 / ~15.8@88 (loss 21.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Scion tC auto ~7.4 / ~15.8@88 (loss 21.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1992 Nissan Pulsar GTI-R",
@@ -2696,7 +2874,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Pulsar GTI-R AWD MT ~5.4 / ~14.0@98 (loss 26.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Pulsar GTI-R AWD MT ~5.4 / ~14.0@98 (loss 26.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1998 Toyota Celica GT-Four",
@@ -2711,7 +2890,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Celica GT-Four ST205 MT ~6.0 / ~14.5@96 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Celica GT-Four ST205 MT ~6.0 / ~14.5@96 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2001 Mitsubishi Eclipse GSX",
@@ -2726,7 +2906,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (loss 27.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (loss 27.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2006 Honda Accord Euro R",
@@ -2741,7 +2922,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Accord Euro R MT ~6.8 / ~15.2@92 (loss 31.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Accord Euro R MT ~6.8 / ~15.2@92 (loss 31.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2010 Hyundai Genesis Coupe 3.8",
@@ -2756,7 +2938,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Genesis Coupe 3.8 MT 5.7 / 14.3@100 (loss 26, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Genesis Coupe 3.8 MT 5.7 / 14.3@100 (loss 26, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1991 Toyota Soarer GT-T",
@@ -2771,7 +2954,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Soarer GT-T 1JZ MT ~6.3 / ~14.8@94 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Soarer GT-T 1JZ MT ~6.3 / ~14.8@94 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1994 Nissan 180SX Type X",
@@ -2786,7 +2970,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 180SX Type X SR20DET MT ~6.8 / ~15.2@91 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 180SX Type X SR20DET MT ~6.8 / ~15.2@91 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1999 Honda Prelude SH",
@@ -2801,7 +2986,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Prelude SH MT ~7.0 / ~15.5@90 (loss 28.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Prelude SH MT ~7.0 / ~15.5@90 (loss 28.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2008 Subaru Legacy GT Spec.B",
@@ -2816,7 +3002,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D Legacy GT Spec.B MT 5.3 / 14.0@98 (loss 15.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Legacy GT Spec.B MT 5.3 / 14.0@98 (loss 15.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2011 MazdaSpeed6",
@@ -2831,7 +3018,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Mazdaspeed6 MT 5.4 / 14.0@99 (loss 20.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Mazdaspeed6 MT 5.4 / 14.0@99 (loss 20.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 Kawasaki Ninja ZX-10R",
@@ -2846,7 +3034,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
@@ -2861,7 +3050,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Suzuki GSX-R1000",
@@ -2876,7 +3066,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer GSX-R1000 ~2.8 / ~10.2@148 (loss 29.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer GSX-R1000 ~2.8 / ~10.2@148 (loss 29.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Suzuki GSX-R1000R",
@@ -2891,7 +3082,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer GSX-R1000R ~2.7 / ~10.0@150 (loss 26.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer GSX-R1000R ~2.7 / ~10.0@150 (loss 26.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Yamaha YZF-R1",
@@ -2906,7 +3098,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer YZF-R1 ~2.8 / ~9.9@150 (loss 25.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer YZF-R1 ~2.8 / ~9.9@150 (loss 25.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Yamaha YZF-R1M",
@@ -2921,7 +3114,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer YZF-R1M ~2.8 / ~9.9@150 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer YZF-R1M ~2.8 / ~9.9@150 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 BMW S1000RR",
@@ -2936,7 +3130,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer S1000RR ~2.7 / ~9.9@150 (loss 30.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer S1000RR ~2.7 / ~9.9@150 (loss 30.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 Honda CBR1000RR-R Fireblade",
@@ -2951,7 +3146,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer CBR1000RR-R ~2.8 / ~9.9@150 (loss 30.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer CBR1000RR-R ~2.8 / ~9.9@150 (loss 30.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2022 Suzuki Hayabusa",
@@ -2966,7 +3162,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World Hayabusa class ~2.7 / ~9.9@145 (loss 17, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World Hayabusa class ~2.7 / ~9.9@145 (loss 17, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Kawasaki Ninja ZX-14R",
@@ -2981,7 +3178,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer ZX-14R ~2.7 / ~9.7@152 (loss 8.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer ZX-14R ~2.7 / ~9.7@152 (loss 8.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 Ducati Panigale V4",
@@ -2996,7 +3194,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/peer Panigale V4 ~2.9 / ~10.3@150 (loss 31.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/peer Panigale V4 ~2.9 / ~10.3@150 (loss 31.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 Kawasaki Ninja H2",
@@ -3011,7 +3210,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: Cycle World/Hot Bike H2 class ~2.7 / ~9.6@152 (loss 24.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Cycle World/Hot Bike H2 class ~2.7 / ~9.6@152 (loss 24.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2020 Ford F-150 Raptor",
@@ -3026,7 +3226,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: C&D 2020 F-150 Raptor 5.3 / 14.0@97 (loss 23.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2020 F-150 Raptor 5.3 / 14.0@97 (loss 23.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Ram TRX",
@@ -3041,7 +3242,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: C&D 2021 Ram TRX 3.7 / 12.3@110 (loss 19, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2021 Ram TRX 3.7 / 12.3@110 (loss 19, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Chevrolet Silverado ZR2",
@@ -3056,7 +3258,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: peer C&D Silverado ZR2 6.2 ~6.4 / ~14.8@95 (loss 16.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer C&D Silverado ZR2 6.2 ~6.4 / ~14.8@95 (loss 16.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Chevrolet Silverado 6.2",
@@ -3071,7 +3274,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Silverado 6.2 ~5.4 / ~14.0@100 (loss 12.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Silverado 6.2 ~5.4 / ~14.0@100 (loss 12.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2019 Ford F-250 6.7 PowerStroke",
@@ -3086,7 +3290,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer F-250 6.7 PowerStroke ~7.2 / ~15.6@88 (loss 25.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer F-250 6.7 PowerStroke ~7.2 / ~15.6@88 (loss 25.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Toyota Tundra",
@@ -3101,7 +3306,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Tundra 5.7 ~6.5 / ~15.0@92 (loss 20, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Tundra 5.7 ~6.5 / ~15.0@92 (loss 20, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 Ford F-150 5.0",
@@ -3116,7 +3322,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer F-150 5.0 ~6.1 / ~14.6@96 (loss 25.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer F-150 5.0 ~6.1 / ~14.6@96 (loss 25.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2017 Chevrolet Silverado 5.3",
@@ -3131,7 +3338,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Silverado 5.3 ~7.0 / ~15.4@90 (loss 29, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Silverado 5.3 ~7.0 / ~15.4@90 (loss 29, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2016 Ram 1500 5.7 Hemi",
@@ -3146,7 +3354,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Ram 1500 5.7 ~6.5 / ~15.0@92 (loss 27.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Ram 1500 5.7 ~6.5 / ~15.0@92 (loss 27.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2014 Toyota Tacoma V6",
@@ -3161,7 +3370,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Tacoma V6 ~7.5 / ~15.8@88 (loss 18.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Tacoma V6 ~7.5 / ~15.8@88 (loss 18.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2012 Ford F-150 EcoBoost",
@@ -3176,7 +3386,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer F-150 EcoBoost ~6.5 / ~15.0@92 (loss 29.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer F-150 EcoBoost ~6.5 / ~15.0@92 (loss 29.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2013 Ram 1500 5.7 Hemi",
@@ -3191,7 +3402,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Ram 1500 5.7 ~6.5 / ~15.0@92 (loss 27.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Ram 1500 5.7 ~6.5 / ~15.0@92 (loss 27.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Chevrolet Avalanche 5.3",
@@ -3206,7 +3418,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Avalanche 5.3 ~8.0 / ~16.2@85 (loss 24.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Avalanche 5.3 ~8.0 / ~16.2@85 (loss 24.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Toyota Tundra 5.7",
@@ -3221,7 +3434,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Tundra 5.7 ~6.6 / ~15.1@91 (loss 24.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Tundra 5.7 ~6.6 / ~15.1@91 (loss 24.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Ford F-150 Harley-Davidson",
@@ -3236,7 +3450,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer F-150 Harley-Davidson ~7.5 / ~15.8@88 (loss 16.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer F-150 Harley-Davidson ~7.5 / ~15.8@88 (loss 16.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2009 GMC Sierra Denali 6.2",
@@ -3251,7 +3466,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Sierra Denali 6.2 ~6.0 / ~14.5@97 (loss 13, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Sierra Denali 6.2 ~6.0 / ~14.5@97 (loss 13, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Nissan Titan 5.6",
@@ -3266,7 +3482,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Titan 5.6 ~7.2 / ~15.5@90 (loss 16.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Titan 5.6 ~7.2 / ~15.5@90 (loss 16.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2013 Toyota Sequoia 5.7",
@@ -3281,7 +3498,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Sequoia 5.7 ~7.0 / ~15.4@90 (loss 25.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Sequoia 5.7 ~7.0 / ~15.4@90 (loss 25.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2007 Ford F-150 4.6 Triton",
@@ -3296,7 +3514,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer F-150 4.6 Triton ~8.5 / ~16.6@84 (loss 17.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer F-150 4.6 Triton ~8.5 / ~16.6@84 (loss 17.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Chevrolet Silverado 6.0 Vortec Max",
@@ -3311,7 +3530,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Silverado 6.0 Vortec Max ~6.5 / ~15.0@93 (loss 18.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Silverado 6.0 Vortec Max ~6.5 / ~15.0@93 (loss 18.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Toyota Tacoma 4.0 V6",
@@ -3326,7 +3546,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Tacoma 4.0 V6 ~7.8 / ~16.0@86 (loss 24, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Tacoma 4.0 V6 ~7.8 / ~16.0@86 (loss 24, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2015 Nissan Frontier 4.0",
@@ -3341,7 +3562,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Frontier 4.0 ~7.5 / ~15.8@88 (loss 20.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Frontier 4.0 ~7.5 / ~15.8@88 (loss 20.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2005 Ford F-250 V10",
@@ -3356,7 +3578,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer F-250 V10 ~8.5 / ~16.6@84 (loss 25.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer F-250 V10 ~8.5 / ~16.6@84 (loss 25.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2006 Chevrolet Silverado 2500HD 6.0",
@@ -3371,7 +3594,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Silverado 2500HD 6.0 ~9.0 / ~17.0@82 (loss 20.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Silverado 2500HD 6.0 ~9.0 / ~17.0@82 (loss 20.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2007 Toyota Tundra 4.7",
@@ -3386,7 +3610,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Tundra 4.7 ~8.2 / ~16.4@85 (loss 19.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Tundra 4.7 ~8.2 / ~16.4@85 (loss 19.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2012 Nissan Titan Pro-4X",
@@ -3401,7 +3626,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Titan Pro-4X ~7.5 / ~15.8@88 (loss 19.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Titan Pro-4X ~7.5 / ~15.8@88 (loss 19.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1969 Dodge Charger 440",
@@ -3416,7 +3642,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1969 Charger 440 MT ~6.1 / ~14.4@99 (loss 25, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1969 Charger 440 MT ~6.1 / ~14.4@99 (loss 25, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1967 Ford Mustang GT 390",
@@ -3431,7 +3658,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1967 Mustang GT 390 MT ~6.5 / ~14.9@95 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1967 Mustang GT 390 MT ~6.5 / ~14.9@95 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1970 Chevrolet Chevelle SS 454",
@@ -3446,7 +3674,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: MT/Hot Rod Chevelle SS 454 LS6 ~6.0 / ~13.8@105 (loss 26.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: MT/Hot Rod Chevelle SS 454 LS6 ~6.0 / ~13.8@105 (loss 26.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1970 Dodge Challenger 426 Hemi",
@@ -3461,7 +3690,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Challenger 426 Hemi MT ~5.6 / ~13.8@104 (loss 30.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Challenger 426 Hemi MT ~5.6 / ~13.8@104 (loss 30.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1969 Chevrolet Camaro SS 396",
@@ -3476,7 +3706,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Camaro SS 396 L78 MT ~5.8 / ~14.0@103 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Camaro SS 396 L78 MT ~5.8 / ~14.0@103 (loss 26.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1971 Dodge Demon 340",
@@ -3491,7 +3722,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Demon 340 MT ~6.5 / ~14.9@94 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Demon 340 MT ~6.5 / ~14.9@94 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1966 Ford GT40 MkII",
@@ -3506,7 +3738,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "Open",
-    "Source": "Perf: peer GT40 MkII race ~4.2 / ~12.2@120 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer GT40 MkII race ~4.2 / ~12.2@120 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1965 Shelby Cobra 427",
@@ -3521,7 +3754,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Shelby Cobra 427 MT ~4.2 / ~12.2@118 (loss 31.1, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Shelby Cobra 427 MT ~4.2 / ~12.2@118 (loss 31.1, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1970 Plymouth Road Runner 440",
@@ -3536,7 +3770,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Road Runner 440 MT ~6.0 / ~14.4@100 (loss 31.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Road Runner 440 MT ~6.0 / ~14.4@100 (loss 31.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1968 Dodge Dart GTS 383",
@@ -3551,7 +3786,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Dart GTS 383 MT ~6.5 / ~14.9@95 (loss 31.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Dart GTS 383 MT ~6.5 / ~14.9@95 (loss 31.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1964 Pontiac GTO",
@@ -3566,7 +3802,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1964 GTO MT ~6.6 / ~15.0@95 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1964 GTO MT ~6.6 / ~15.0@95 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1965 Chevrolet Chevelle SS396",
@@ -3581,7 +3818,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Chevelle SS396 MT ~6.0 / ~14.5@99 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Chevelle SS396 MT ~6.0 / ~14.5@99 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1963 Corvette Stingray 327",
@@ -3596,7 +3834,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Corvette Stingray 327 FI MT ~5.9 / ~14.3@100 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Corvette Stingray 327 FI MT ~5.9 / ~14.3@100 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1972 Oldsmobile 442",
@@ -3611,7 +3850,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Olds 442 ~7.0 / ~15.4@91 (loss 31.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Olds 442 ~7.0 / ~15.4@91 (loss 31.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1962 Chevrolet Impala SS 409",
@@ -3626,7 +3866,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Impala SS 409 MT ~6.5 / ~14.9@96 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Impala SS 409 MT ~6.5 / ~14.9@96 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1967 Plymouth GTX 440",
@@ -3641,7 +3882,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer GTX 440 MT ~6.1 / ~14.4@99 (loss 30.9, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer GTX 440 MT ~6.1 / ~14.4@99 (loss 30.9, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1973 Ford Torino 351",
@@ -3656,7 +3898,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Torino 351 ~8.5 / ~16.5@85 (loss 30.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Torino 351 ~8.5 / ~16.5@85 (loss 30.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1978 Dodge Magnum XE",
@@ -3671,7 +3914,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Magnum XE ~10.5 / ~18.0@76 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Magnum XE ~10.5 / ~18.0@76 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1957 Chevrolet Bel Air 283",
@@ -3686,7 +3930,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Bel Air 283 MT ~9.5 / ~17.2@80 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Bel Air 283 MT ~9.5 / ~17.2@80 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1960 Ford Galaxie 352",
@@ -3701,7 +3946,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Galaxie 352 ~8.5 / ~16.5@85 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Galaxie 352 ~8.5 / ~16.5@85 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1974 Pontiac Firebird 400",
@@ -3716,7 +3962,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Firebird 400 ~9.0 / ~16.8@82 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Firebird 400 ~9.0 / ~16.8@82 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1977 Chevrolet Monte Carlo",
@@ -3731,7 +3978,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Monte Carlo ~11.0 / ~18.5@74 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Monte Carlo ~11.0 / ~18.5@74 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1955 Ford Thunderbird",
@@ -3746,7 +3994,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 1955 Thunderbird ~10.0 / ~17.8@77 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 1955 Thunderbird ~10.0 / ~17.8@77 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1961 Chevrolet Corvette 283",
@@ -3761,7 +4010,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Corvette 283 MT ~7.0 / ~15.2@93 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Corvette 283 MT ~7.0 / ~15.2@93 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1968 Mercury Cougar XR-7",
@@ -3776,7 +4026,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Cougar XR-7 MT ~6.8 / ~15.2@93 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Cougar XR-7 MT ~6.8 / ~15.2@93 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1975 Chevrolet Nova 350",
@@ -3791,7 +4042,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Nova 350 ~11.5 / ~18.8@73 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Nova 350 ~11.5 / ~18.8@73 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Volkswagen Golf R",
@@ -3799,14 +4051,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 6.9,
+    "DrivetrainLossPercent": 7.9,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Golf R ~4.1 / ~12.6@110 (loss 6.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.1 / 12.6@110 (loss 7.9, TX DCT, driver 200, Street, trap-first; DSG DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2023 Toyota GR Corolla",
@@ -3821,7 +4074,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D GR Corolla MT ~4.5 / ~13.1@104 (loss 22.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D GR Corolla MT ~4.5 / ~13.1@104 (loss 22.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2021 BMW M5 Competition",
@@ -3836,7 +4090,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D 2021 M5 Competition 2.8 / 10.9@128 (loss 7.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2021 M5 Competition 2.8 / 10.9@128 (loss 7.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Audi RS7",
@@ -3851,7 +4106,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2021 RS7 (591 hp gen) 3.0 / 11.3@122 (loss 13.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2021 RS7 (591 hp gen) 3.0 / 11.3@122 (loss 13.1, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 BMW M3 Competition",
@@ -3859,21 +4115,6 @@ window.GARAGE_DATA = [
     "WeightLbs": 3540,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 9.7,
-    "TireType": 0,
-    "DriveType": "RWD",
-    "IsEv": false,
-    "IsForcedInduction": true,
-    "EngineLayout": "Front",
-    "Differential": "Electronic",
-    "Source": "Perf: C&D M3 Competition DCT 4.0 / 12.2@120 (loss 9.7, TX AUTO, driver 200, Street, trap-first)"
-  },
-  {
-    "Name": "2017 Mercedes-AMG C63 S",
-    "Horsepower": 503,
-    "WeightLbs": 3900,
-    "DragCoefficient": 0.34,
-    "FrontalAreaSqFt": 24,
     "DrivetrainLossPercent": 10.7,
     "TireType": 0,
     "DriveType": "RWD",
@@ -3881,7 +4122,24 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D 2017 C63 S coupe 3.8 / 12.0@121 (loss 10.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4 / 12.2@120 (loss 10.7, TX DCT, driver 200, Street, trap-first; BMW DCT (source))",
+    "Transmission": "DCT"
+  },
+  {
+    "Name": "2017 Mercedes-AMG C63 S",
+    "Horsepower": 503,
+    "WeightLbs": 3900,
+    "DragCoefficient": 0.34,
+    "FrontalAreaSqFt": 24,
+    "DrivetrainLossPercent": 11.7,
+    "TireType": 0,
+    "DriveType": "RWD",
+    "IsEv": false,
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Electronic",
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.8 / 12@121 (loss 11.7, TX DCT, driver 200, Street, trap-first; AMG Speedshift MCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 Audi RS5 Sportback",
@@ -3896,7 +4154,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D RS5 Sportback 3.3 / ~11.9@118 (loss 6.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D RS5 Sportback 3.3 / ~11.9@118 (loss 6.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Jeep Trackhawk",
@@ -3911,7 +4170,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT Trackhawk ~3.5 / ~11.8@116 (loss 22.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT Trackhawk ~3.5 / ~11.8@116 (loss 22.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 BMW X5M Competition",
@@ -3926,7 +4186,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D X5 M Competition 3.4 / 11.8@118 (loss 9.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D X5 M Competition 3.4 / 11.8@118 (loss 9.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2020 Dodge Durango SRT",
@@ -3941,7 +4202,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Durango SRT ~4.4 / ~12.9@108 (loss 8.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Durango SRT ~4.4 / ~12.9@108 (loss 8.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2022 Cadillac Escalade V",
@@ -3956,7 +4218,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Escalade-V 4.3 / 12.7@111 (loss 19.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Escalade-V 4.3 / 12.7@111 (loss 19.4, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2021 Range Rover Sport SVR",
@@ -3971,7 +4234,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D Range Rover Sport SVR ~3.9 / ~12.4@112 (loss 17.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D Range Rover Sport SVR ~3.9 / ~12.4@112 (loss 17.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2019 Dodge Durango R/T",
@@ -3986,7 +4250,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer Durango R/T ~6.5 / ~15.0@92 (loss 25.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Durango R/T ~6.5 / ~15.0@92 (loss 25.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2018 Jeep Grand Cherokee SRT",
@@ -4001,7 +4266,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/MT Grand Cherokee SRT ~4.5 / ~13.1@105 (loss 14.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/MT Grand Cherokee SRT ~4.5 / ~13.1@105 (loss 14.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2017 BMW X6M",
@@ -4016,7 +4282,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D 2017 X6 M 3.8 / 12.3@114 (loss 13.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 2017 X6 M 3.8 / 12.3@114 (loss 13.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2012 Chevrolet Tahoe 5.3",
@@ -4031,7 +4298,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Tahoe 5.3 ~8.0 / ~16.2@85 (loss 30.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Tahoe 5.3 ~8.0 / ~16.2@85 (loss 30.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2013 Ford Expedition 5.4",
@@ -4046,7 +4314,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Expedition 5.4 ~8.2 / ~16.4@84 (loss 26.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Expedition 5.4 ~8.2 / ~16.4@84 (loss 26.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2014 Jeep Wrangler Rubicon",
@@ -4061,7 +4330,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "Perf: C&D/peer Wrangler Rubicon ~8.5 / ~16.5@84 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Wrangler Rubicon ~8.5 / ~16.5@84 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2009 Toyota 4Runner V8",
@@ -4076,7 +4346,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer 4Runner V8 ~7.5 / ~15.8@88 (loss 19.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 4Runner V8 ~7.5 / ~15.8@88 (loss 19.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Chevrolet Suburban 5.3",
@@ -4091,7 +4362,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Suburban 5.3 ~8.2 / ~16.4@84 (loss 28.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Suburban 5.3 ~8.2 / ~16.4@84 (loss 28.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Jeep Liberty 3.7",
@@ -4106,7 +4378,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Liberty 3.7 ~9.0 / ~17.0@80 (loss 26.3, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Liberty 3.7 ~9.0 / ~17.0@80 (loss 26.3, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Toyota Highlander V6",
@@ -4121,7 +4394,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Highlander V6 ~7.5 / ~15.8@88 (loss 28.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Highlander V6 ~7.5 / ~15.8@88 (loss 28.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2009 Honda Pilot",
@@ -4136,7 +4410,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer Pilot ~8.0 / ~16.2@85 (loss 25.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer Pilot ~8.0 / ~16.2@85 (loss 25.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Jeep Commander 5.7",
@@ -4151,7 +4426,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Commander 5.7 ~7.5 / ~15.8@88 (loss 32, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Commander 5.7 ~7.5 / ~15.8@88 (loss 32, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1994 Toyota Supra Twin Turbo",
@@ -4166,7 +4442,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D 1993 Supra Turbo MT 4.6 / 13.1@109 (loss 11.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D 1993 Supra Turbo MT 4.6 / 13.1@109 (loss 11.8, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1999 Nissan Skyline GT-R R34",
@@ -4181,7 +4458,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer R34 GT-R (276 hp) MT ~4.8 / ~13.2@105 (loss 11, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer R34 GT-R (276 hp) MT ~4.8 / ~13.2@105 (loss 11, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1992 Honda NSX",
@@ -4196,7 +4474,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "Perf: C&D NSX MT ~5.2 / ~13.8@102 (loss 23.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D NSX MT ~5.2 / ~13.8@102 (loss 23.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1990 Nissan 300ZX NA",
@@ -4211,7 +4490,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer 300ZX NA MT ~7.0 / ~15.4@90 (loss 30.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 300ZX NA MT ~7.0 / ~15.4@90 (loss 30.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1989 Toyota MR2 Supercharged",
@@ -4226,7 +4506,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Mid",
     "Differential": "Open",
-    "Source": "Perf: peer MR2 Supercharged MT ~7.4 / ~15.7@88 (loss 21.5, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer MR2 Supercharged MT ~7.4 / ~15.7@88 (loss 21.5, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2009 BMW 335i",
@@ -4241,7 +4522,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss 13.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss 13.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
@@ -4249,14 +4531,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3800,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 16,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D C63 AMG 3.9 / 12.3@116 (loss 15, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.9 / 12.3@116 (loss 16, TX DCT, driver 200, Street, trap-first; AMG Speedshift MCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2008 Audi S5",
@@ -4271,7 +4554,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer S5 4.2 V8 ~4.9 / ~13.4@105 (loss 19.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer S5 4.2 V8 ~4.9 / ~13.4@105 (loss 19.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "1986 Toyota Corolla AE86",
@@ -4286,7 +4570,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer AE86 Levin/Trueno MT ~8.8 / ~16.8@82 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer AE86 Levin/Trueno MT ~8.8 / ~16.8@82 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1990 Mazda RX-7 FC Turbo",
@@ -4301,7 +4586,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: C&D/peer RX-7 Turbo II MT ~6.5 / ~15.0@92 (loss 31, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer RX-7 Turbo II MT ~6.5 / ~15.0@92 (loss 31, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1995 Mitsubishi Eclipse GSX",
@@ -4316,7 +4602,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Eclipse GSX turbo AWD MT ~6.4 / ~15.0@90 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1985 Mazda RX-7 GSL-SE",
@@ -4331,7 +4618,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer RX-7 GSL-SE MT ~8.5 / ~16.5@85 (loss 21.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer RX-7 GSL-SE MT ~8.5 / ~16.5@85 (loss 21.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1993 Honda Accord SiR",
@@ -4346,7 +4634,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Accord SiR MT ~7.5 / ~15.8@89 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Accord SiR MT ~7.5 / ~15.8@89 (loss 29.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1997 Toyota Chaser Tourer V",
@@ -4361,7 +4650,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Chaser Tourer V 1JZ MT ~6.2 / ~14.6@96 (loss 32, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Chaser Tourer V 1JZ MT ~6.2 / ~14.6@96 (loss 32, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1983 Toyota Supra (Mk2)",
@@ -4376,7 +4666,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Celica Supra Mk2 MT ~8.5 / ~16.5@85 (loss 23.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Celica Supra Mk2 MT ~8.5 / ~16.5@85 (loss 23.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1987 Nissan Skyline GTS-R",
@@ -4391,7 +4682,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Skyline GTS-R RB20DET MT ~6.5 / ~15.0@93 (loss 26.7, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Skyline GTS-R RB20DET MT ~6.5 / ~15.0@93 (loss 26.7, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "1996 Honda Integra SiR",
@@ -4406,7 +4698,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer Integra SiR B18C MT ~7.2 / ~15.6@90 (loss 30, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer Integra SiR B18C MT ~7.2 / ~15.6@90 (loss 30, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2018 Mercedes-AMG GT R",
@@ -4414,14 +4707,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3540,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 8.1,
+    "DrivetrainLossPercent": 9.1,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D 2018 AMG GT R 3.1 / 11.1@131 (loss 8.1, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.1 / 11.1@131 (loss 9.1, TX DCT, driver 200, Street, trap-first; AMG Speedshift DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2019 Porsche 911 GT3",
@@ -4429,14 +4723,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3153,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 20.5,
-    "DrivetrainLossPercent": 14.8,
+    "DrivetrainLossPercent": 15.8,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "Perf: C&D 911 GT3 class ~3.0 / ~11.1@126 (loss 14.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3 / 11.1@126 (loss 15.8, TX DCT, driver 200, Street, trap-first; PDK (source AUTO/PDK class))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2016 Audi TT RS",
@@ -4444,14 +4739,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3300,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 21,
-    "DrivetrainLossPercent": 15.5,
+    "DrivetrainLossPercent": 16.5,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D 2018 TT RS (400 hp) 3.4 / 11.9@117 (loss 15.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.4 / 11.9@117 (loss 16.5, TX DCT, driver 200, Street, trap-first; S tronic DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2015 BMW M4",
@@ -4459,14 +4755,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3535,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 10.6,
+    "DrivetrainLossPercent": 11.6,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "Perf: C&D M4 DCT/RWD class ~3.8 / ~12.1@118 (loss 10.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.8 / 12.1@118 (loss 11.6, TX DCT, driver 200, Street, trap-first; BMW DCT (source))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2014 Mercedes CLA45 AMG",
@@ -4474,14 +4771,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3450,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 22,
-    "DrivetrainLossPercent": 23.8,
+    "DrivetrainLossPercent": 22.8,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: MT 2014 CLA45 AMG 4.2 / 12.7@108 (loss 23.8, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.2 / 12.7@108 (loss 22.8, TX DCT, driver 200, Street, trap-first; AMG Speedshift DCT (factory; was mis-TX MANUAL))",
+    "Transmission": "DCT"
   },
   {
     "Name": "2012 BMW M5",
@@ -4496,7 +4794,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D F10 M5 ~3.7 / ~11.9@122 (loss 9.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D F10 M5 ~3.7 / ~11.9@122 (loss 9.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2013 Audi RS4 Avant",
@@ -4504,14 +4803,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3950,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 23.7,
+    "DrivetrainLossPercent": 24.7,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer RS4 Avant B8 ~4.5 / ~12.9@110 (loss 23.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.5 / 12.9@110 (loss 24.7, TX DCT, driver 200, Street, trap-first; S tronic DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2011 Mercedes E63 AMG",
@@ -4519,14 +4819,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 4200,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 19.4,
+    "DrivetrainLossPercent": 20.4,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer W212 E63 AMG auto ~4.2 / ~12.5@116 (loss 19.4, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 4.2 / 12.5@116 (loss 20.4, TX DCT, driver 200, Street, trap-first; AMG Speedshift MCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2009 BMW 335i",
@@ -4541,7 +4842,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss 13.8, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 335i auto ~5.1 / ~13.7@104 (loss 13.8, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2010 Mercedes C63 AMG",
@@ -4549,14 +4851,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3800,
     "DragCoefficient": 0.32,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 15,
+    "DrivetrainLossPercent": 16,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D C63 AMG 3.9 / 12.3@116 (loss 15, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: Phase13 DCT recalib vs prior Sources 3.9 / 12.3@116 (loss 16, TX DCT, driver 200, Street, trap-first; AMG Speedshift MCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2008 Audi S5",
@@ -4571,7 +4874,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer S5 4.2 V8 ~4.9 / ~13.4@105 (loss 19.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer S5 4.2 V8 ~4.9 / ~13.4@105 (loss 19.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2007 BMW 550i",
@@ -4586,7 +4890,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 550i E60 ~5.4 / ~13.9@103 (loss 22.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer 550i E60 ~5.4 / ~13.9@103 (loss 22.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2009 Mercedes CLS550",
@@ -4601,7 +4906,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D CLS550 4.7 / 13.3@107 (loss 15.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D CLS550 4.7 / 13.3@107 (loss 15.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2011 Audi A7 3.0T",
@@ -4616,7 +4922,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer A7 3.0T Quattro ~5.4 / ~13.9@100 (loss 15.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer A7 3.0T Quattro ~5.4 / ~13.9@100 (loss 15.7, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2004 BMW 330Ci ZHP",
@@ -4631,7 +4938,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: peer 330Ci ZHP MT ~6.0 / ~14.5@97 (loss 14.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: peer 330Ci ZHP MT ~6.0 / ~14.5@97 (loss 14.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2006 Mercedes CLK55 AMG",
@@ -4646,7 +4954,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D CLK55 AMG 4.7 / 13.2@107 (loss 15, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D CLK55 AMG 4.7 / 13.2@107 (loss 15, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2007 Audi S6 V10",
@@ -4661,7 +4970,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer S6 V10 ~5.1 / ~13.5@106 (loss 24, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer S6 V10 ~5.1 / ~13.5@106 (loss 24, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2003 BMW M3 E46",
@@ -4676,7 +4986,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D E46 M3 MT ~4.8 / ~13.3@104 (loss 25.4, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D E46 M3 MT ~4.8 / ~13.3@104 (loss 25.4, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2005 Mercedes E55 AMG",
@@ -4691,7 +5002,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer E55 AMG W211 ~4.5 / ~12.9@113 (loss 20, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D/peer E55 AMG W211 ~4.5 / ~12.9@113 (loss 20, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2008 Audi RS4",
@@ -4706,7 +5018,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D RS4 B7 MT ~4.5 / ~13.0@108 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "Perf: C&D RS4 B7 MT ~4.5 / ~13.0@108 (loss 24.6, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2011 - 2014 Ford F-150 Enrique's 3.5EB",
@@ -4721,7 +5034,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Open",
-    "Source": "Perf: peer tuned F-150 3.5EB 462hp ~5.0 / ~13.5@102 (loss 12.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "Perf: peer tuned F-150 3.5EB 462hp ~5.0 / ~13.5@102 (loss 12.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Porsche 911 GT3 RS",
@@ -4729,14 +5043,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3197,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 21.5,
-    "DrivetrainLossPercent": 13.7,
+    "DrivetrainLossPercent": 14.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump. | Perf: C&D 2023 911 GT3 RS 2.7 / 10.9@127 (loss 13.7, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump. | Perf: Phase13 DCT recalib vs prior Sources 2.7 / 10.9@127 (loss 14.7, TX DCT, driver 200, Street, trap-first; PDK-only)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2023 Porsche 718 Cayman GT4 RS",
@@ -4744,14 +5059,15 @@ window.GARAGE_DATA = [
     "WeightLbs": 3227,
     "DragCoefficient": 0.33,
     "FrontalAreaSqFt": 21.9,
-    "DrivetrainLossPercent": 11,
+    "DrivetrainLossPercent": 12,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
     "Differential": "LSD",
-    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m² (≈21.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF. | Perf: C&D 718 Cayman GT4 RS 2.8 / 11.0@126 (loss 11, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m² (≈21.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF. | Perf: Phase13 DCT recalib vs prior Sources 2.8 / 11@126 (loss 12, TX DCT, driver 200, Street, trap-first; PDK-only)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2023 Toyota GR Supra 3.0",
@@ -4766,7 +5082,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5). | Perf: C&D GR Supra auto ~3.7 / ~12.2@116 (loss 9.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5). | Perf: C&D GR Supra auto ~3.7 / ~12.2@116 (loss 9.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Nissan Z Performance",
@@ -4781,7 +5098,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe. | Perf: C&D Nissan Z MT ~4.3 / ~12.8@112 (loss 19, TX MANUAL, driver 200, Street, trap-first; FLAG IsForcedInduction=false but name/source looks FI)"
+    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe. | Perf: C&D Nissan Z MT ~4.3 / ~12.8@112 (loss 19, TX MANUAL, driver 200, Street, trap-first; FLAG IsForcedInduction=false but name/source looks FI)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2024 BMW M2",
@@ -4796,7 +5114,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Electronic",
-    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe. | Perf: C&D 2024 M2 ~3.4 / ~11.7@120 (loss 5.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe. | Perf: C&D 2024 M2 ~3.4 / ~11.7@120 (loss 5.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Chevrolet Corvette Stingray",
@@ -4811,7 +5130,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight). | Perf: C&D C8 Stingray Z51 2.8 / 11.2@122 (loss 15.5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight). | Perf: C&D C8 Stingray Z51 2.8 / 11.2@122 (loss 15.5, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2023 Mazda MX-5 Miata Club",
@@ -4826,7 +5146,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 181: Mazda USA 2023 MX-5 pricing/packaging. Curb 2341 lb: KBB/TheCarConnection Club soft-top. Cd/area: class estimate matching bake NA Miata peers. | Perf: C&D ND Miata Club class ~5.7 / ~14.4@95 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "HP 181: Mazda USA 2023 MX-5 pricing/packaging. Curb 2341 lb: KBB/TheCarConnection Club soft-top. Cd/area: class estimate matching bake NA Miata peers. | Perf: C&D ND Miata Club class ~5.7 / ~14.4@95 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2024 Lexus LC 500 Coupe",
@@ -4841,7 +5162,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 471 @ 7100 / curb 4340 lb coupe: U.S. News / KBB 2024 LC 500 Coupe specs. Cd/area: class estimate grand tourer coupe. | Perf: C&D LC 500 coupe ~4.7 / 13.2@111 (loss 17.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 471 @ 7100 / curb 4340 lb coupe: U.S. News / KBB 2024 LC 500 Coupe specs. Cd/area: class estimate grand tourer coupe. | Perf: C&D LC 500 coupe ~4.7 / 13.2@111 (loss 17.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Ford Bronco Raptor",
@@ -4856,7 +5178,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "Locker",
-    "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s). | Perf: C&D Bronco Raptor 5.6 / 14.4@94 (loss 21.9, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s). | Perf: C&D Bronco Raptor 5.6 / 14.4@94 (loss 21.9, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Toyota GR86",
@@ -4871,7 +5194,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 228: Toyota 2024 GR86 eBrochure. Curb 2811 lb MT base: Car and Driver / Toyota curb tables. Cd/area: class estimate RWD sports coupe (no OEM Cd published in brochure excerpt). | Perf: C&D 2024 GR86 MT 5.4 / 14.0@101 (loss 17.3, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "HP 228: Toyota 2024 GR86 eBrochure. Curb 2811 lb MT base: Car and Driver / Toyota curb tables. Cd/area: class estimate RWD sports coupe (no OEM Cd published in brochure excerpt). | Perf: C&D 2024 GR86 MT 5.4 / 14.0@101 (loss 17.3, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2024 Subaru BRZ",
@@ -4886,7 +5210,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 228 / Premium MT curb 2820 lb: Subaru 2024 BRZ brochure. Cd/area: class estimate twin of GR86 (no OEM Cd in brochure). | Perf: C&D 2024 BRZ tS MT 5.5 / 14.0@101 (loss 17, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "HP 228 / Premium MT curb 2820 lb: Subaru 2024 BRZ brochure. Cd/area: class estimate twin of GR86 (no OEM Cd in brochure). | Perf: C&D 2024 BRZ tS MT 5.5 / 14.0@101 (loss 17, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2023 Chevrolet Corvette Z06",
@@ -4901,7 +5226,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
     "Differential": "LSD",
-    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss 16.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss 16.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2024 Acura Integra Type S",
@@ -4916,7 +5242,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22). | Perf: C&D Integra Type S MT ~5.0 / ~13.5@106 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22). | Perf: C&D Integra Type S MT ~5.0 / ~13.5@106 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   },
   {
     "Name": "2023 Acura TLX Type S",
@@ -4931,7 +5258,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss 13.2, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss 13.2, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Lexus IS 500",
@@ -4946,7 +5274,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 472 @ 7100 / curb 3891 lb: Cars.com / Auto123 / C&D curb tables for 2024 IS 500 F SPORT Performance. Cd/area: class estimate compact RWD sedan. | Perf: C&D IS500 F Sport 4.3 / 12.8@112 (loss 24.6, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 472 @ 7100 / curb 3891 lb: Cars.com / Auto123 / C&D curb tables for 2024 IS 500 F SPORT Performance. Cd/area: class estimate compact RWD sedan. | Perf: C&D IS500 F Sport 4.3 / 12.8@112 (loss 24.6, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2024 Audi RS 3",
@@ -4961,7 +5290,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan. | Perf: C&D Audi RS 3 ~3.3 / ~11.6@119 (loss 5, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan. | Perf: Phase13 DCT recalib vs prior Sources 3.3 / 11.6@119 (loss 5, TX DCT, driver 200, Street, trap-first; S tronic DCT)",
+    "Transmission": "DCT"
   },
   {
     "Name": "2024 Lexus RC F",
@@ -4976,7 +5306,8 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 472: Lexus USA Newsroom 2024 RC F. Curb 3902 lb: Carbuzz / AutomartUSA 2024 RC F curb. Cd/area: class estimate RWD coupe. | Perf: C&D RC F 4.1 / 12.7@113 (loss 21, TX AUTO, driver 200, Street, trap-first)"
+    "Source": "HP 472: Lexus USA Newsroom 2024 RC F. Curb 3902 lb: Carbuzz / AutomartUSA 2024 RC F curb. Cd/area: class estimate RWD coupe. | Perf: C&D RC F 4.1 / 12.7@113 (loss 21, TX AUTO, driver 200, Street, trap-first)",
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Honda Civic Type R",
@@ -4991,6 +5322,7 @@ window.GARAGE_DATA = [
     "IsForcedInduction": true,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 Civic Type R MT 4.9 / 13.5@106 (loss 23.4, TX MANUAL, driver 200, Street, trap-first)"
+    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 Civic Type R MT 4.9 / 13.5@106 (loss 23.4, TX MANUAL, driver 200, Street, trap-first)",
+    "Transmission": "Manual"
   }
-];
+]

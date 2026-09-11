@@ -46,6 +46,21 @@
   --mono: ui-monospace, "Cascadia Code", Consolas, "Courier New", monospace;
   --sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px rgba(76, 201, 240, 0.55);
+  /* Phase 13 — classic brass / champagne chrome (shared with chart bezel) */
+  --brass: rgba(215, 196, 160, 0.42);
+  --brass-strong: rgba(240, 226, 196, 0.22);
+  --brass-inset: rgba(106, 87, 56, 0.35);
+  --brass-text: #e8d7b0;
+  --brass-face:
+    linear-gradient(145deg, rgba(240, 226, 196, 0.12), transparent 38%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
+    var(--carbon-fine),
+    var(--panel);
+  --brass-shadow:
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 3px var(--brass-inset),
+    inset 0 0 28px rgba(0, 0, 0, 0.35),
+    0 12px 36px rgba(0, 0, 0, 0.45);
 }
 
 html {
@@ -296,18 +311,14 @@ html, body {
 }
 
 .card {
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
-    var(--carbon-fine),
-    linear-gradient(180deg, rgba(18, 24, 34, 0.96), rgba(10, 13, 18, 0.98)),
-    var(--panel);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius);
+  background: var(--brass-face);
+  border: 1px solid var(--brass);
+  border-radius: 12px;
   padding: 12px 12px 10px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--brass-shadow);
   position: relative;
   overflow: hidden;
 }
@@ -328,18 +339,20 @@ html, body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-muted);
+  color: var(--brass-text);
   margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--mono);
+  text-shadow: 0 0 10px rgba(184, 255, 60, 0.12);
 }
 
 .card-title::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, rgba(215, 196, 160, 0.35), transparent);
 }
 
 .atmosphere-card {
@@ -567,6 +580,8 @@ input[type="text"] {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: 10px;
+  /* Keep Test CTA high-contrast against brass chrome (Phase 13) */
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.25) inset,
     0 0 22px var(--lime-glow),
@@ -626,15 +641,17 @@ input[type="text"] {
   flex-direction: column;
   gap: 8px;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(215, 196, 160, 0.28);
+  border-radius: 10px;
+  border: 1px solid var(--brass);
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.06), transparent 55%),
-    linear-gradient(165deg, rgba(40, 34, 24, 0.55), rgba(8, 10, 14, 0.92)),
-    var(--carbon-fine);
+    radial-gradient(ellipse at 50% 0%, rgba(215, 196, 160, 0.08), transparent 55%),
+    linear-gradient(145deg, rgba(240, 226, 196, 0.10), transparent 38%),
+    var(--carbon-fine),
+    #07090c;
   box-shadow:
-    inset 0 0 0 1px rgba(240, 226, 196, 0.08),
-    inset 0 0 18px rgba(0, 0, 0, 0.35);
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 2px var(--brass-inset),
+    inset 0 0 24px rgba(0, 0, 0, 0.45);
 }
 
 .air-hp-strip-head {
@@ -806,16 +823,11 @@ input[type="text"] {
   min-height: 0;
   max-height: 100%;
   overflow: hidden;
-  /* lock card chrome; slip fills remaining height */
-  background:
-    linear-gradient(160deg, rgba(255, 248, 230, 0.06) 0%, transparent 42%),
-    var(--carbon-fine),
-    linear-gradient(180deg, rgba(18, 24, 34, 0.96), rgba(10, 13, 18, 0.98)),
-    var(--panel);
+  /* brass chrome inherited from .card; slip fills remaining height */
 }
 
 .results-card .card-title {
-  color: #d4b896;
+  color: var(--brass-text);
   letter-spacing: 0.14em;
 }
 
@@ -878,13 +890,10 @@ input[type="text"] {
 
 .gauge-wrap,
 .chart-card {
-  background:
-    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
-    var(--carbon-fine),
-    var(--panel);
-  border: 1px solid var(--panel-border-strong);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
+  background: var(--brass-face);
+  border: 1px solid var(--brass);
+  border-radius: 12px;
+  box-shadow: var(--brass-shadow);
 }
 
 .gauge-wrap {
@@ -943,19 +952,7 @@ input[type="text"] {
   flex-direction: column;
   gap: 10px;
   min-width: 0;
-  /* Classic gauge sibling: brass/champagne bezel + carbon face */
-  border: 1px solid rgba(215, 196, 160, 0.42);
-  background:
-    linear-gradient(145deg, rgba(240, 226, 196, 0.12), transparent 38%),
-    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
-    var(--carbon-fine),
-    var(--panel);
-  box-shadow:
-    inset 0 0 0 1px rgba(240, 226, 196, 0.22),
-    inset 0 0 0 3px rgba(106, 87, 56, 0.35),
-    inset 0 0 28px rgba(0, 0, 0, 0.35),
-    0 12px 36px rgba(0, 0, 0, 0.45);
-  border-radius: 12px;
+  /* Classic gauge sibling: brass/champagne bezel + carbon face (Phase 12/13) */
 }
 
 .progress-wrap {
@@ -1102,8 +1099,11 @@ input[type="text"] {
 
 .modal {
   position: relative;
-  background: #0e1218;
-  border: 1px solid var(--panel-border-strong);
+  background:
+    linear-gradient(145deg, rgba(240, 226, 196, 0.10), transparent 38%),
+    var(--carbon-fine),
+    #0e1218;
+  border: 1px solid var(--brass);
   border-radius: 14px;
   width: min(640px, 100%);
   max-height: min(780px, 92vh);
@@ -1111,7 +1111,9 @@ input[type="text"] {
   flex-direction: column;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 3px var(--brass-inset),
+    inset 0 0 28px rgba(0, 0, 0, 0.35),
     0 24px 64px rgba(0, 0, 0, 0.65);
 }
 
@@ -1128,6 +1130,9 @@ input[type="text"] {
   font-weight: 750;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--brass-text);
+  font-family: var(--mono);
+  text-shadow: 0 0 10px rgba(184, 255, 60, 0.15);
 }
 
 .modal-body {
@@ -1705,8 +1710,12 @@ input[type="text"] {
 .hp-source-row .drive-opt span,
 .tx-row .drive-opt span {
   font-size: 10px;
-  padding: 6px 6px;
+  padding: 6px 4px;
   letter-spacing: 0.02em;
+}
+
+.tx-row .drive-seg {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 #loss.is-locked,

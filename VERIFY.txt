@@ -53,3 +53,22 @@ Phase 12 — Air density HP strip + classic chart (2026-09-10 CT)
   - Progress bar kept, gauge-polished; playback stays synced with gauge; metric km/h preserved
 
 No fleet retune. No physics formula change beyond exporting computeWeatherAirState.
+
+Phase 13 — Dual Clutch TX + brass chrome + chart mark stagger (2026-09-10 CT)
+-----------------------------------------------------------------------------
+13A Dual Clutch:
+  - UI: third TX radio Dual Clutch (value dct); slip TRANS = Dual Clutch / Automatic / Manual
+  - EV locks Automatic (DCT + Manual disabled); light curb Manual-only; lastNonLightTx restores dct
+  - Loss (Engine HP): Manual=base−2, DCT=base−1, Auto=base; DynoJet/Mustang=0; clamp 0–35
+  - Garage Transmission Auto|Manual|DCT (default Auto if missing); loadSelectedVehicle sets TX
+  - DCT bake: DATA_TRANSMISSION.txt (51 unique / 52 rows calib)
+  - Recalib count: 52 DCT-only (driver 200, Street, trap-first) — no full fleet retune
+  - Spot: PDK 911 Turbo S → DCT; Mustang GT → Auto; Civic Type R → Manual; EV → Auto-locked
+
+13B Classic brass on main boxes:
+  - Vehicle / atmosphere / results / garage modal / air-hp / gauge+chart share champagne bezel +
+    carbon face + soft gold/lime monospace accents; TEST CTA keeps high contrast
+
+13C Chart distance marks:
+  - 60'/330'/660'/1000'/1320' (and metric m) labels stagger alternate Y so late marks never overlap;
+    dashed vertical mark lines unchanged
