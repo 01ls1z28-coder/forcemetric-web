@@ -223,3 +223,30 @@ Verify:
 Intentional skips: WebGL/three.js; RT/foul/holeshot; fleet retune;
 physics formula changes; new heavy deps.
 
+Hotfix — restore main vehicle after Drag Racing (2026-09-11 CT)
+-----------------------------------------------------------------
+Branch: review/vb-hotfix-main-vehicle-restore
+Files: js/app.js, js/race.js (+ this note). No physics.js / garage-data /
+ATC band / fleet changes.
+
+Bug: garage is session-memory only; race.html full navigation reloads
+index.html with Custom 450/3800 defaults. Race already received
+sessionStorage forcemetric-race-vehicle; main never restored it.
+
+Fix:
+  1) Drag Racing click writes the same snapshot to forcemetric-race-vehicle
+     AND forcemetric-main-vehicle.
+  2) index boot (after garage defaults ready) calls tryRestoreMainVehicle —
+     prefer forcemetric-main-vehicle, fallback race key — applyVehicleSnapshot
+     covers Name/label, HP, curb, driver, Cd, area, loss, tire, drive, layout,
+     diff, TX, HP source, NA/FI/EV, ATC, optional weather/DA, MaxSpeedMph
+     (same coverage as snapshotActiveVehicle). Syncs syncAtcUi / light-curb
+     TX / EV locks after apply.
+  3) race Back links persist You-lane (captureLaneSnap + weather) back to
+     forcemetric-main-vehicle before navigate (tweaks survive Back).
+  4) Garage list remains session-only (no localStorage garage persist).
+
+VERIFY:
+  Load 2020 Ford Mustang GT from garage → Drag Racing → Back →
+  main still shows Mustang GT with same HP/weight/TX/etc., NOT Custom 450/3800.
+

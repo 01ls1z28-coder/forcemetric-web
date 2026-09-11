@@ -12,6 +12,7 @@
 
   var Physics = window.ForceMetricPhysics;
   var STORAGE_KEY = 'forcemetric-race-vehicle';
+  var MAIN_VEHICLE_KEY = 'forcemetric-main-vehicle';
   var TRACK_FT = 1320;
   var DEFAULT_DRIVER_WEIGHT_LBS = 200;
   var DIST_MARKS_FT = [60, 330, 660, 1000, 1320];
@@ -2299,6 +2300,43 @@
     });
   }
 
+
+  /** Write You-lane tune back so main restores after Back navigation. */
+  function persistYouLaneToMain() {
+    try {
+      var snap = captureLaneSnap('you');
+      if ($('temp')) {
+        var t = parseFloat($('temp').value);
+        if (isFinite(t)) snap.tempF = t;
+      }
+      if ($('humidity')) {
+        var h = parseFloat($('humidity').value);
+        if (isFinite(h)) snap.humidity = h;
+      }
+      if ($('pressure')) {
+        var p = parseFloat($('pressure').value);
+        if (isFinite(p)) snap.pressureInHg = p;
+      }
+      if ($('weatherPreset')) snap.weatherPreset = $('weatherPreset').value;
+      if ($('da') && String($('da').value).trim() !== '') {
+        var da = parseFloat(String($('da').value).trim());
+        if (isFinite(da)) snap.densityAltitudeFt = da;
+      }
+      sessionStorage.setItem(MAIN_VEHICLE_KEY, JSON.stringify(snap));
+      /* Keep race key in sync so a refresh on race still matches. */
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
+    } catch (e) { /* ignore quota / private mode */ }
+  }
+
+  function wireBackToMain() {
+    var links = document.querySelectorAll('a.btn-back[href="index.html"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function () {
+        persistYouLaneToMain();
+      });
+    }
+  }
+
   // ---- Boot ----
   wireEngine('you');
   wireEngine('opp');
@@ -2392,4 +2430,5 @@
 
   renderOppList();
   loadIncomingVehicle();
+  wireBackToMain();
 })();

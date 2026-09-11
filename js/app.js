@@ -6,6 +6,8 @@
 
   var Physics = window.ForceMetricPhysics;
   var GARAGE_STORAGE_KEY = 'forcemetric-garage';
+  var RACE_VEHICLE_KEY = 'forcemetric-race-vehicle';
+  var MAIN_VEHICLE_KEY = 'forcemetric-main-vehicle';
 
   // Clear any leftover permanent garage saves from older builds.
   try {
@@ -386,6 +388,14 @@
     if (el.hpDynoJet && el.hpDynoJet.checked) return 'dynojet';
     if (el.hpMustang && el.hpMustang.checked) return 'mustang';
     return 'engine';
+  }
+
+  function setHpSource(src) {
+    var v = String(src || 'engine').toLowerCase();
+    if (v !== 'engine' && v !== 'dynojet' && v !== 'mustang') v = 'engine';
+    if (el.hpEngine) el.hpEngine.checked = (v === 'engine');
+    if (el.hpDynoJet) el.hpDynoJet.checked = (v === 'dynojet');
+    if (el.hpMustang) el.hpMustang.checked = (v === 'mustang');
   }
 
   function normalizeTransmission(tx) {
@@ -934,6 +944,117 @@
   // ---- Events ----
   document.getElementById('btnTest').addEventListener('click', runTest);
 
+  /** Apply a session snapshot to main UI (parity with race applyTune field coverage). */
+  function applyVehicleSnapshot(snap) {
+    if (!snap) return false;
+    var name = snap.Name || snap.name || 'Custom setup';
+    var hp = snap.Horsepower != null ? snap.Horsepower : (snap.hp != null ? snap.hp : 450);
+    var weightLbs = snap.WeightLbs != null ? snap.WeightLbs : (snap.weight != null ? snap.weight : 3800);
+    var dw = snap.DriverWeightLbs != null ? snap.DriverWeightLbs
+      : (snap.driverWeight != null ? snap.driverWeight : DEFAULT_DRIVER_WEIGHT_LBS);
+    var cd = snap.DragCoefficient != null ? snap.DragCoefficient : (snap.cd != null ? snap.cd : 0.32);
+    var area = snap.FrontalAreaSqFt != null ? snap.FrontalAreaSqFt : (snap.area != null ? snap.area : 22);
+    var loss = snap.DrivetrainLossPercent != null ? snap.DrivetrainLossPercent
+      : (snap.loss != null ? snap.loss : 15);
+    var tire = snap.TireType != null ? snap.TireType : (snap.tireType != null ? snap.tireType : 0);
+    if (typeof tire === 'string' && tire !== 'Sport' && tire !== 'DragTire' && tire !== 'Slick') {
+      tire = parseInt(tire, 10);
+      if (!isFinite(tire)) tire = 0;
+    }
+
+    el.hp.value = hp;
+    setInputWeightLbs(el.weight, weightLbs);
+    setInputWeightLbs(el.driverWeight, isFinite(dw) ? dw : DEFAULT_DRIVER_WEIGHT_LBS);
+    el.cd.value = cd;
+    el.area.value = area;
+    el.loss.value = loss;
+    el.tireType.value = tireLabelFromEnum(tire);
+
+    var isEv = !!(snap.isEv || snap.IsEv || snap.chkEv);
+    garageEvLocked = isEv;
+    if (el.chkEv) {
+      el.chkEv.checked = isEv;
+      el.chkEv.disabled = isEv;
+    }
+    if (isEv) {
+      if (el.chkNA) { el.chkNA.checked = false; el.chkNA.disabled = true; }
+      if (el.chkFI) { el.chkFI.checked = false; el.chkFI.disabled = true; }
+    } else {
+      if (el.chkNA) el.chkNA.disabled = false;
+      if (el.chkFI) el.chkFI.disabled = false;
+      var isFi = !!(snap.isFI || snap.chkFI || snap.IsForcedInduction === true);
+      var isNaFlag = !!(snap.isNA || snap.chkNA);
+      if (snap.IsForcedInduction === true || isFi) {
+        if (el.chkFI) el.chkFI.checked = true;
+        if (el.chkNA) el.chkNA.checked = false;
+      } else if (snap.IsForcedInduction === false || isNaFlag) {
+        if (el.chkNA) el.chkNA.checked = true;
+        if (el.chkFI) el.chkFI.checked = false;
+      } else {
+        if (el.chkNA) el.chkNA.checked = !!isNaFlag;
+        if (el.chkFI) el.chkFI.checked = !!isFi;
+      }
+    }
+
+    setDriveType(snap.DriveType || snap.driveType || 'RWD');
+    setEngineLayout(snap.EngineLayout || snap.engineLayout || 'Front');
+    setDifferential(snap.Differential || snap.differential || (isEv ? 'Open' : 'LSD'));
+
+    if (isEv) {
+      setTransmission('auto');
+    } else if (snap.Transmission != null || snap.transmission != null) {
+      setTransmission(snap.Transmission != null ? snap.Transmission : snap.transmission);
+      lastNonLightTx = getTransmission();
+    } else {
+      setTransmission('auto');
+    }
+    lastNonLightDrive = getDriveType();
+
+    setHpSource(snap.HpSource || snap.hpSource || 'engine');
+
+    activeMaxSpeedMph = (snap.MaxSpeedMph != null && isFinite(snap.MaxSpeedMph) && snap.MaxSpeedMph > 0)
+      ? Number(snap.MaxSpeedMph) : null;
+
+    if (el.chkAtc) {
+      el.chkAtc.checked = !!(snap.AtcEnabled || snap.atcEnabled) && !isEv;
+    }
+    if (el.atcStallRpm && (snap.StallRpm != null || snap.stallRpm != null)) {
+      el.atcStallRpm.value = String(snap.StallRpm != null ? snap.StallRpm : snap.stallRpm);
+    }
+    if (el.atcPeakTorqueRpm && (snap.PeakTorqueRpm != null || snap.peakTorqueRpm != null)) {
+      el.atcPeakTorqueRpm.value = String(snap.PeakTorqueRpm != null ? snap.PeakTorqueRpm : snap.peakTorqueRpm);
+    }
+
+    if (el.temp && isFinite(snap.tempF)) el.temp.value = snap.tempF;
+    if (el.humidity && isFinite(snap.humidity)) el.humidity.value = snap.humidity;
+    if (el.pressure && isFinite(snap.pressureInHg)) el.pressure.value = snap.pressureInHg;
+    if (el.weatherPreset && snap.weatherPreset != null) el.weatherPreset.value = String(snap.weatherPreset);
+    if (el.da && snap.densityAltitudeFt != null && isFinite(snap.densityAltitudeFt)) {
+      var daDisp = isMetric() ? snap.densityAltitudeFt * M_PER_FT : snap.densityAltitudeFt;
+      el.da.value = String(Math.round(daDisp));
+    }
+
+    syncTransmissionForCurb();
+    syncHpLossUi();
+    syncAtcUi();
+    setActiveVehicleLabel(name);
+    updateAirHpStrip();
+    if (el.resultsOut) {
+      el.resultsOut.textContent = 'Restored: ' + name + ' (after Drag Racing).';
+    }
+    return true;
+  }
+
+  function tryRestoreMainVehicle() {
+    var snap = null;
+    try {
+      var raw = sessionStorage.getItem(MAIN_VEHICLE_KEY) || sessionStorage.getItem(RACE_VEHICLE_KEY);
+      if (raw) snap = JSON.parse(raw);
+    } catch (e) { /* ignore */ }
+    if (!snap) return false;
+    return applyVehicleSnapshot(snap);
+  }
+
   function snapshotActiveVehicle() {
     var label = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || 'Custom setup';
     var dw = DEFAULT_DRIVER_WEIGHT_LBS;
@@ -984,7 +1105,9 @@
     btnDrag.addEventListener('click', function () {
       try {
         var snap = snapshotActiveVehicle();
-        sessionStorage.setItem('forcemetric-race-vehicle', JSON.stringify(snap));
+        var json = JSON.stringify(snap);
+        sessionStorage.setItem(RACE_VEHICLE_KEY, json);
+        sessionStorage.setItem(MAIN_VEHICLE_KEY, json);
       } catch (e) { /* ignore quota / private mode */ }
       var q = '';
       try {
@@ -1118,6 +1241,7 @@
   syncTransmissionForCurb();
   syncAtcUi();
   updateAirHpStrip();
+  tryRestoreMainVehicle();
 
   if (el.chkAtc) el.chkAtc.addEventListener('change', syncAtcUi);
   function clampAtcInputs() {
@@ -2079,6 +2203,9 @@
     syncTransmissionForCurb: syncTransmissionForCurb,
     isMetric: isMetric,
     applyUnitsMode: applyUnitsMode,
-    DEFAULT_DRIVER_WEIGHT_LBS: DEFAULT_DRIVER_WEIGHT_LBS
+    DEFAULT_DRIVER_WEIGHT_LBS: DEFAULT_DRIVER_WEIGHT_LBS,
+    applyVehicleSnapshot: applyVehicleSnapshot,
+    snapshotActiveVehicle: snapshotActiveVehicle,
+    tryRestoreMainVehicle: tryRestoreMainVehicle
   };
 })();
