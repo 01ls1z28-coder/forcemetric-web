@@ -169,11 +169,14 @@
           </div>
           <div class="drive-row">
             <span class="drive-label">Differential</span>
-            <div class="drive-seg" role="radiogroup" aria-label="Your differential">
-              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffOpen" value="Open" /><span>Open</span></label>
-              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLSD" value="LSD" checked /><span>LSD</span></label>
-              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
-              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLocker" value="Locker" /><span>Locker</span></label>
+            <div class="diff-seg-row">
+              <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Your differential">
+                <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffOpen" value="Open" /><span>Open</span></label>
+                <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLSD" value="LSD" checked /><span>LSD</span></label>
+                <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+                <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLocker" value="Locker" /><span>Locker</span></label>
+              </div>
+              <span class="diff-wheelie-note" id="youDiffWheelieNote" hidden>Wheelie control</span>
             </div>
           </div>
           <div class="atc-block" id="youAtcBlock">
@@ -259,11 +262,14 @@
           </div>
           <div class="drive-row">
             <span class="drive-label">Differential</span>
-            <div class="drive-seg" role="radiogroup" aria-label="Opponent differential">
-              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffOpen" value="Open" /><span>Open</span></label>
-              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLSD" value="LSD" checked /><span>LSD</span></label>
-              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
-              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLocker" value="Locker" /><span>Locker</span></label>
+            <div class="diff-seg-row">
+              <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Opponent differential">
+                <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffOpen" value="Open" /><span>Open</span></label>
+                <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLSD" value="LSD" checked /><span>LSD</span></label>
+                <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+                <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLocker" value="Locker" /><span>Locker</span></label>
+              </div>
+              <span class="diff-wheelie-note" id="oppDiffWheelieNote" hidden>Wheelie control</span>
             </div>
           </div>
           <div class="atc-block" id="oppAtcBlock">

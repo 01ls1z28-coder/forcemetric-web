@@ -48,6 +48,7 @@
     diffLSD: document.getElementById('diffLSD'),
     diffElectronic: document.getElementById('diffElectronic'),
     diffLocker: document.getElementById('diffLocker'),
+    diffWheelieNote: document.getElementById('diffWheelieNote'),
     chkAtc: document.getElementById('chkAtc'),
     atcBlock: document.getElementById('atcBlock'),
     atcBadge: document.getElementById('atcBadge'),
@@ -323,11 +324,17 @@
     return 'Front';
   }
 
-  function getDifferential() {
+  function peekDifferential() {
     if (el.diffOpen && el.diffOpen.checked) return 'Open';
     if (el.diffElectronic && el.diffElectronic.checked) return 'Electronic';
     if (el.diffLocker && el.diffLocker.checked) return 'Locker';
     return 'LSD';
+  }
+
+  /** Light curb forces LSD (wheelie control) even if radios are still catching up. */
+  function getDifferential() {
+    if (isLightCurb()) return 'LSD';
+    return peekDifferential();
   }
 
   function setDifferential(v) {
@@ -337,6 +344,14 @@
     if (el.diffLSD) el.diffLSD.checked = (D === 'LSD');
     if (el.diffElectronic) el.diffElectronic.checked = (D === 'Electronic');
     if (el.diffLocker) el.diffLocker.checked = (D === 'Locker');
+  }
+
+  function setDiffRadiosDisabled(disabled) {
+    var on = !!disabled;
+    if (el.diffOpen) el.diffOpen.disabled = on;
+    if (el.diffLSD) el.diffLSD.disabled = on;
+    if (el.diffElectronic) el.diffElectronic.disabled = on;
+    if (el.diffLocker) el.diffLocker.disabled = on;
   }
 
   function atcAllowed() {
@@ -464,9 +479,10 @@
     return 'Auto';
   }
 
-  /** Last TX/drive chosen while curb was heavy; restored after leaving light-curb locks. */
+  /** Last TX/drive/diff chosen while curb was heavy; restored after leaving light-curb locks. */
   var lastNonLightTx = 'auto';
   var lastNonLightDrive = 'RWD';
+  var lastNonLightDiff = 'LSD';
   var lightCurbLocksActive = false;
 
   var DEFAULT_DRIVER_WEIGHT_LBS = 200;
@@ -575,19 +591,21 @@
     }
   }
 
-  /** TX/drive locks: EV → Auto (DCT+Manual disabled); else light curb → Manual+RWD; else free.
-   *  EV Auto lock wins over light-curb Manual when IsEv.
-   *  Remembers last non-light TX+drive (incl. dct); restores only when leaving light curb (non-EV). */
+  /** TX/drive/diff locks: EV → Auto (DCT+Manual disabled); else light curb → Manual+RWD;
+   *  light curb → Diff LSD (all radios disabled — not a user choice).
+   *  EV Auto lock wins over light-curb TX when IsEv; Diff LSD still applies when light.
+   *  Remembers last non-light TX+drive+diff (incl. dct); restores only when leaving light curb. */
   function applyLightCurbLocks() {
     var ev = isEvMode();
     var light = isLightCurb();
     var leavingLight = lightCurbLocksActive && !light;
 
-    /* Capture TX/drive before light-curb snaps overwrite them.
-     * Skip while light locks are already active (and while leaving — radios still Manual+RWD). */
+    /* Capture TX/drive/diff before light-curb snaps overwrite them.
+     * Skip while light locks are already active (and while leaving — radios still locked). */
     if (!lightCurbLocksActive) {
       if (!ev) lastNonLightTx = getTransmission();
       lastNonLightDrive = getDriveType();
+      lastNonLightDiff = peekDifferential();
     }
 
     if (ev) {
@@ -636,6 +654,18 @@
       if (el.driveRWD) el.driveRWD.disabled = false;
       if (el.driveAWD) el.driveAWD.disabled = false;
       if (leavingLight) setDriveType(lastNonLightDrive);
+    }
+
+    /* Light curb: force LSD wheelie control. Disable Open/LSD/Electronic/Locker
+     * so the value is internal (not a user-driven selection). Restore on leave. */
+    if (light) {
+      setDifferential('LSD');
+      setDiffRadiosDisabled(true);
+      if (el.diffWheelieNote) el.diffWheelieNote.hidden = false;
+    } else {
+      setDiffRadiosDisabled(false);
+      if (el.diffWheelieNote) el.diffWheelieNote.hidden = true;
+      if (leavingLight) setDifferential(lastNonLightDiff);
     }
 
     lightCurbLocksActive = light;
@@ -1020,6 +1050,7 @@
     setDriveType(snap.DriveType || snap.driveType || 'RWD');
     setEngineLayout(snap.EngineLayout || snap.engineLayout || 'Front');
     setDifferential(snap.Differential || snap.differential || (isEv ? 'Open' : 'LSD'));
+    lastNonLightDiff = peekDifferential();
 
     if (isEv) {
       setTransmission('auto');
@@ -1566,7 +1597,7 @@
     return false;
   }
 
-  /** Light curb / bikes: Manual + RWD only. Heavier cars keep TX and drive choices. */
+  /** Light curb / bikes: Manual + RWD + Diff LSD. Heavier cars keep TX, drive, and Diff. */
   function syncTransmissionForCurb() {
     applyLightCurbLocks();
     if (typeof syncHpLossUi === 'function') syncHpLossUi();
@@ -1631,6 +1662,7 @@
     setDriveType(car.DriveType || 'RWD');
     setEngineLayout(car.EngineLayout || 'Front');
     setDifferential(car.Differential || (carIsEv(car) ? 'Open' : 'LSD'));
+    lastNonLightDiff = peekDifferential();
     activeMaxSpeedMph = (car.MaxSpeedMph != null && isFinite(car.MaxSpeedMph) && car.MaxSpeedMph > 0)
       ? Number(car.MaxSpeedMph) : null;
     /* Bake Transmission: Auto | Manual | DCT (missing → Auto). EVs still force Auto via locks. */
@@ -1640,8 +1672,9 @@
     }
     applyGaragePowertrain(car);
     if (carIsEv(car)) {
-      /* Garage EVs: bake UI to Open diff; TX locked Automatic via applyLightCurbLocks. */
+      /* Garage EVs: bake UI to Open diff (light curb still forces LSD via locks). */
       setDifferential(car.Differential || 'Open');
+      lastNonLightDiff = peekDifferential();
     }
     syncTransmissionForCurb();
     setActiveVehicleLabel(car.Name);
@@ -1747,6 +1780,8 @@
       });
       if (!differential || differential === 'LSD') differential = 'Open';
     }
+    /* Light curb (≤1500 lb): bake LSD wheelie control even for session EVs. */
+    if (weight <= 1500) differential = 'LSD';
     var transmission = 'Auto';
     if (editorMode === 'edit' && editingOriginalIndex >= 0 && garageData[editingOriginalIndex]) {
       var prevTx = garageData[editingOriginalIndex];

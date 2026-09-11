@@ -98,11 +98,14 @@
         </div>
         <div class="drive-row">
           <span class="drive-label">Differential</span>
-          <div class="drive-seg" role="radiogroup" aria-label="Differential">
-            <label class="drive-opt"><input type="radio" name="differential" id="diffOpen" value="Open" /><span>Open</span></label>
-            <label class="drive-opt"><input type="radio" name="differential" id="diffLSD" value="LSD" checked /><span>LSD</span></label>
-            <label class="drive-opt"><input type="radio" name="differential" id="diffElectronic" value="Electronic" /><span>Electronic TC</span></label>
-            <label class="drive-opt"><input type="radio" name="differential" id="diffLocker" value="Locker" /><span>Locker</span></label>
+          <div class="diff-seg-row">
+            <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Differential">
+              <label class="drive-opt"><input type="radio" name="differential" id="diffOpen" value="Open" /><span>Open</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffLSD" value="LSD" checked /><span>LSD</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffLocker" value="Locker" /><span>Locker</span></label>
+            </div>
+            <span class="diff-wheelie-note" id="diffWheelieNote" hidden>Wheelie control</span>
           </div>
         </div>
         <div class="atc-block" id="atcBlock">

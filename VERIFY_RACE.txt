@@ -152,3 +152,25 @@ Race lanes use shared Physics.aftermarketConverterForceMult stall-band table.
 Stall RPM inputs min=1500 (you + opp). No race-only physics fork.
 No sessionStorage restore / snapshot plumbing changes in this phase.
 See VERIFY.txt Phase 20 for calib numbers + traction undershoot notes.
+
+Phase 22 — light-curb Diff LSD wheelie control (both lanes) (2026-09-11 CT)
+--------------------------------------------------------------------------
+HARD RULE unchanged: both lanes ALWAYS leave at exact same t=0.
+
+Same isLightCurb (≤1500 lb) threshold as Manual+RWD locks, per lane.
+You + Opp: force Diff LSD, disable all four radios, muted "Wheelie control"
+note to the right of Locker (brass --brass-text / 0.7). lastNonLightDiff
+restores on leave, same capture/restore as lastNonLightTx/Drive.
+EV Auto still wins TX on that lane; Diff LSD still applies when that lane
+is light. getDifferential(prefix) returns LSD while light so LAUNCH /
+snapshots / swap / copy see LSD.
+
+No fleet retune / garage-data.js / tire µ / physics formula change.
+Shared physics.js differentialMuMult unchanged (LSD = 1.00).
+
+Verify race:
+  1. You curb 1500 → Diff locked LSD + "Wheelie control"; Opp heavy Diff free
+  2. Raise You curb → prior Diff restored; note hidden
+  3. Light EV lane → TX Auto (EV wins) + Diff LSD
+  4. Swap/copy preserves Diff; light lane still forces LSD after applyTune
+  5. Simultaneous leave t=0 unchanged

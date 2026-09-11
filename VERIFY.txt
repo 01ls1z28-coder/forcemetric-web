@@ -374,3 +374,45 @@ Verify:
 Intentional skips: Pages push; Soft/Slicks garage bake; speed/temp tire
 fade model; raising All-season µ to fake magazine 0–60 on grip-limited
 RWD; K-factor ATC map; new heavy deps.
+
+Phase 22 — light-curb Diff LSD wheelie control (2026-09-11 CT)
+--------------------------------------------------------------
+Branch: review/vb-phase22-wheelie-diff
+Files: js/app.js, js/race.js, index.html, race.html, css/styles.css
+       (+ this note, VERIFY_RACE.txt). No Pages push. No garage-data.js /
+       physics.js / tire µ / fleet retune.
+
+When isLightCurb() (curb ≤1500 lb — same threshold as Manual+RWD locks):
+  1. Force Differential = LSD in getDifferential (calculate + snapshots),
+     applyLightCurbLocks setDifferential('LSD'), session garage bake
+     (readEditorCar / race carSnapFromGarage). Fleet JSON unchanged
+     (12 bikes already LSD).
+  2. Lock Diff UI: disable Open / LSD / Electronic / Locker so the user
+     cannot change selection. LSD stays the internal value; disabled+checked
+     LSD does not take the lime selected look (not a user-driven choice).
+  3. Muted brass note immediately right of the Locker label: "Wheelie control"
+     (index + race You/Opp). Shown only while light-curb Diff lock is on.
+     Color/opacity match .field-hint brass (var(--brass-text) / 0.7).
+  4. Leave light (curb >1500): restore lastNonLightDiff the same way as
+     lastNonLightTx / lastNonLightDrive — peek radios before the lock
+     overwrites them; restore only when leaving. Default if never captured: LSD.
+  5. EV Auto lock still wins over light-curb TX (DCT+Manual disabled, Auto on).
+     Diff LSD rule still applies when light, including a light EV.
+
+Restore: lastNonLightDiff captured while locks are inactive (and on garage
+load / snapshot / race applyTune / Diff radio change when not light).
+Leaving light re-enables radios then setDifferential(lastNonLightDiff).
+
+Verify:
+  1. Curb 1500 → Diff radios all disabled; getDifferential() === LSD;
+     "Wheelie control" note to the right of Locker (index + both race lanes)
+  2. Curb 1501 → radios enabled, note hidden; prior Diff restored
+     (Open/Electronic/Locker/LSD)
+  3. Light + EV → TX stays Automatic (EV wins); Diff still LSD locked
+  4. Heavy EV → Diff free (Open bake); TX Auto locked
+  5. Test calculate + race both lanes use LSD while light
+  6. Drag Racing → Back snapshot carries LSD while light; restore Diff
+     after raising curb
+
+Intentional skips: Pages push; fleet retune / garage-data.js; tire µ;
+physics formula; K-factor ATC map; new heavy deps.

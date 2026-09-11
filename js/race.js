@@ -316,6 +316,7 @@
   var laneExtras = { you: {}, opp: {} };
   var lastNonLightTx = { you: 'auto', opp: 'auto' };
   var lastNonLightDrive = { you: 'RWD', opp: 'RWD' };
+  var lastNonLightDiff = { you: 'LSD', opp: 'LSD' };
   var lightCurbLocksActive = { you: false, opp: false };
 
   function getDrive(prefix) {
@@ -443,11 +444,16 @@
   }
 
 
-  function getDifferential(prefix) {
+  function peekDifferential(prefix) {
     if ($(prefix + 'DiffOpen') && $(prefix + 'DiffOpen').checked) return 'Open';
     if ($(prefix + 'DiffElectronic') && $(prefix + 'DiffElectronic').checked) return 'Electronic';
     if ($(prefix + 'DiffLocker') && $(prefix + 'DiffLocker').checked) return 'Locker';
     return 'LSD';
+  }
+
+  function getDifferential(prefix) {
+    if (isLightCurb(prefix)) return 'LSD';
+    return peekDifferential(prefix);
   }
 
   function setDifferential(prefix, v) {
@@ -457,6 +463,13 @@
     if ($(prefix + 'DiffLSD')) $(prefix + 'DiffLSD').checked = (D === 'LSD');
     if ($(prefix + 'DiffElectronic')) $(prefix + 'DiffElectronic').checked = (D === 'Electronic');
     if ($(prefix + 'DiffLocker')) $(prefix + 'DiffLocker').checked = (D === 'Locker');
+  }
+
+  function setDiffRadiosDisabled(prefix, disabled) {
+    var on = !!disabled;
+    ['DiffOpen', 'DiffLSD', 'DiffElectronic', 'DiffLocker'].forEach(function (suf) {
+      if ($(prefix + suf)) $(prefix + suf).disabled = on;
+    });
   }
 
   function atcAllowed(prefix) {
@@ -567,6 +580,7 @@
     if (!lightCurbLocksActive[prefix]) {
       if (!ev) lastNonLightTx[prefix] = getTransmission(prefix);
       lastNonLightDrive[prefix] = getDrive(prefix);
+      lastNonLightDiff[prefix] = peekDifferential(prefix);
     }
 
     var txAuto = $(prefix + 'TxAuto');
@@ -598,6 +612,18 @@
       if ($(prefix + 'RWD')) $(prefix + 'RWD').disabled = false;
       if ($(prefix + 'AWD')) $(prefix + 'AWD').disabled = false;
       if (leavingLight) setDrive(prefix, lastNonLightDrive[prefix]);
+    }
+
+    /* Light curb: LSD wheelie control. All Diff radios disabled (internal LSD). */
+    var wheelieNote = $(prefix + 'DiffWheelieNote');
+    if (light) {
+      setDifferential(prefix, 'LSD');
+      setDiffRadiosDisabled(prefix, true);
+      if (wheelieNote) wheelieNote.hidden = false;
+    } else {
+      setDiffRadiosDisabled(prefix, false);
+      if (wheelieNote) wheelieNote.hidden = true;
+      if (leavingLight) setDifferential(prefix, lastNonLightDiff[prefix]);
     }
 
     lightCurbLocksActive[prefix] = light;
@@ -725,6 +751,7 @@
 
     var diffVal = snap.Differential || snap.differential || (evOn ? 'Open' : 'LSD');
     setDifferential(prefix, diffVal);
+    lastNonLightDiff[prefix] = peekDifferential(prefix);
 
     if ($(prefix + 'Atc')) {
       var atcOn = !!(snap.AtcEnabled || snap.atcEnabled);
@@ -812,7 +839,9 @@
       TireEnumPhase: 21,
       DriveType: car.DriveType || 'RWD',
       EngineLayout: car.EngineLayout || 'Front',
-      Differential: car.Differential || (carIsEv(car) ? 'Open' : 'LSD'),
+      Differential: ((car.WeightLbs || 0) <= 1500)
+        ? 'LSD'
+        : (car.Differential || (carIsEv(car) ? 'Open' : 'LSD')),
       Transmission: car.Transmission,
       MaxSpeedMph: car.MaxSpeedMph,
       IsEv: carIsEv(car),
@@ -2288,6 +2317,7 @@
     ['DiffOpen', 'DiffLSD', 'DiffElectronic', 'DiffLocker'].forEach(function (suf) {
       var el = $(prefix + suf);
       if (el) el.addEventListener('change', function () {
+        if (!isLightCurb(prefix)) lastNonLightDiff[prefix] = peekDifferential(prefix);
         if (!laneExtras[prefix]) laneExtras[prefix] = {};
         laneExtras[prefix].differential = getDifferential(prefix);
       });
