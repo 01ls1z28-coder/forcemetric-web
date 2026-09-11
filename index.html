@@ -29,6 +29,7 @@
         </div>
       </div>
       <div class="header-credit">
+        <button type="button" class="header-support-btn" id="btnSupportHeader" title="Support" aria-label="Open support">Support</button>
         <span class="header-credit-label">Created by</span>
         <span class="header-credit-name"><em>Jorge Guerra</em></span>
       </div>
@@ -193,6 +194,7 @@
           <span class="hub-link-text">More tools</span>
           <span class="hub-link-arrow" aria-hidden="true">→</span>
         </a>
+        <button type="button" class="footer-support-link" id="btnSupportFooter">Support</button>
       </div>
       <div class="footer-disclaimer">
         Simulation estimates for comparison only — not dyno or track certified.
@@ -270,6 +272,88 @@
       </div>
       <div class="garage-reset-row">
         <button type="button" class="link-reset" id="btnResetGarage">Reset garage to site defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Support intake (Phase 9: static mailto; no backend) -->
+  <div class="modal-backdrop" id="supportModal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+    <div class="modal support-modal">
+      <div class="modal-header">
+        <h2 id="supportTitle">Support</h2>
+        <button type="button" class="btn btn-close-modal" id="btnSupportX" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body support-body">
+        <p class="support-disclaimer">
+          Reports are reviewed manually. Figures in VelocityBench are compiled estimates for comparison — not lab-certified measurements.
+        </p>
+        <p class="support-live-note" id="supportLiveNote">
+          Opens your email client with a prefilled message. Inbox delivery is pending setup — do not assume mail is monitored yet.
+        </p>
+
+        <div class="support-tabs" role="tablist" aria-label="Support type">
+          <button type="button" class="support-tab active" role="tab" id="supportTabGarage" aria-selected="true" aria-controls="supportSectionGarage" data-support-tab="garage">Permanent garage add</button>
+          <button type="button" class="support-tab" role="tab" id="supportTabBug" aria-selected="false" aria-controls="supportSectionBug" data-support-tab="bug">Bug</button>
+          <button type="button" class="support-tab" role="tab" id="supportTabAccuracy" aria-selected="false" aria-controls="supportSectionAccuracy" data-support-tab="accuracy">Accuracy</button>
+        </div>
+        <input type="hidden" id="supportType" value="garage" />
+
+        <div class="support-shared" aria-label="Shared fields">
+          <label class="field" for="supportName"><span>Name <em class="opt">(optional)</em></span><input type="text" id="supportName" autocomplete="name" /></label>
+          <label class="field" for="supportEmail"><span>Email <em class="opt">(optional)</em></span><input type="email" id="supportEmail" autocomplete="email" /></label>
+          <label class="field field-stack" for="supportMessage">
+            <span>Message <em class="req">(required)</em></span>
+            <textarea id="supportMessage" rows="3" required placeholder="Brief summary of your request or report…"></textarea>
+          </label>
+        </div>
+
+        <div class="support-section" id="supportSectionGarage" role="tabpanel" aria-labelledby="supportTabGarage" data-support-section="garage">
+          <label class="field" for="supportYear"><span>Year <em class="req">*</em></span><input type="text" id="supportYear" inputmode="numeric" autocomplete="off" /></label>
+          <label class="field" for="supportMake"><span>Make <em class="req">*</em></span><input type="text" id="supportMake" autocomplete="off" /></label>
+          <label class="field" for="supportModel"><span>Model <em class="req">*</em></span><input type="text" id="supportModel" autocomplete="off" /></label>
+          <label class="field field-stack" for="supportGarageNotes">
+            <span>Notes <em class="req">*</em></span>
+            <textarea id="supportGarageNotes" rows="3" placeholder="Trim, powertrain, why it should be added…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportGarageSources">
+            <span>Source links <em class="opt">(optional)</em></span>
+            <textarea id="supportGarageSources" rows="2" placeholder="https://…"></textarea>
+          </label>
+        </div>
+
+        <div class="support-section" id="supportSectionBug" role="tabpanel" aria-labelledby="supportTabBug" data-support-section="bug" hidden>
+          <label class="field field-stack" for="supportBugWhat">
+            <span>What broke <em class="req">*</em></span>
+            <textarea id="supportBugWhat" rows="2" placeholder="What went wrong…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportBugSteps">
+            <span>Steps <em class="req">*</em></span>
+            <textarea id="supportBugSteps" rows="3" placeholder="1. … 2. … 3. …"></textarea>
+          </label>
+          <label class="field" for="supportBrowser"><span>Browser / device <em class="req">*</em></span><input type="text" id="supportBrowser" autocomplete="off" placeholder="e.g. Chrome 128 / iPhone Safari" /></label>
+        </div>
+
+        <div class="support-section" id="supportSectionAccuracy" role="tabpanel" aria-labelledby="supportTabAccuracy" data-support-section="accuracy" hidden>
+          <label class="field" for="supportAccVehicle"><span>Vehicle <em class="req">*</em></span><input type="text" id="supportAccVehicle" autocomplete="off" placeholder="Year Make Model" /></label>
+          <label class="field field-stack" for="supportShown">
+            <span>Page shows <em class="req">*</em></span>
+            <textarea id="supportShown" rows="2" placeholder="What VelocityBench currently shows…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportExpected">
+            <span>Expected <em class="req">*</em></span>
+            <textarea id="supportExpected" rows="2" placeholder="What you believe is correct…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportSource">
+            <span>Source link <em class="req">*</em></span>
+            <textarea id="supportSource" rows="2" placeholder="https://…"></textarea>
+          </label>
+        </div>
+
+        <p class="support-error" id="supportError" hidden role="alert"></p>
+      </div>
+      <div class="modal-actions support-actions">
+        <button type="button" class="btn btn-load" id="btnSupportSubmit">Open email</button>
+        <button type="button" class="btn btn-close-modal" id="btnSupportCancel">Cancel</button>
       </div>
     </div>
   </div>

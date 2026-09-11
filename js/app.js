@@ -1019,7 +1019,20 @@
       html += '<li class="car-list-section">Fleet</li>';
     }
     renderItems(baked);
-    el.carList.innerHTML = html || '<li style="color:#666;cursor:default">No matches</li>';
+    if (html) {
+      el.carList.innerHTML = html;
+    } else {
+      var q = (el.garageSearch && el.garageSearch.value) ? String(el.garageSearch.value).trim() : '';
+      var hint = q
+        ? ('No garage match for “' + escapeHtml(q) + '”.')
+        : 'No vehicles match these filters.';
+      el.carList.innerHTML =
+        '<li class="garage-empty">' +
+          '<div class="garage-empty-title">Vehicle not in garage</div>' +
+          '<div class="garage-empty-hint">' + hint + '</div>' +
+          '<button type="button" class="btn-request-vehicle" id="btnRequestVehicle">Request this vehicle</button>' +
+        '</li>';
+    }
   }
 
   function escapeHtml(s) {
@@ -1035,6 +1048,13 @@
   }
 
   el.carList.addEventListener('click', function (e) {
+    var req = e.target.closest('#btnRequestVehicle, .btn-request-vehicle');
+    if (req) {
+      e.preventDefault();
+      var q = (el.garageSearch && el.garageSearch.value) ? String(el.garageSearch.value).trim() : '';
+      openSupport('garage', { query: q });
+      return;
+    }
     var li = e.target.closest('li[data-idx]');
     if (!li) return;
     selectedGarageIndex = parseInt(li.getAttribute('data-idx'), 10);
@@ -1350,7 +1370,13 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && el.garageModal.classList.contains('open')) {
+    if (e.key !== 'Escape') return;
+    var supportModal = document.getElementById('supportModal');
+    if (supportModal && supportModal.classList.contains('open')) {
+      closeSupport();
+      return;
+    }
+    if (el.garageModal.classList.contains('open')) {
       if (el.carEditor.classList.contains('open')) {
         hideCarEditor();
       } else {
@@ -1358,6 +1384,283 @@
       }
     }
   });
+
+
+  // ---- Support intake (Phase 9: static mailto; no backend / analytics) ----
+  const SUPPORT_EMAIL = 'support@velocitybench.com';
+
+  var supportEls = {
+    modal: document.getElementById('supportModal'),
+    type: document.getElementById('supportType'),
+    name: document.getElementById('supportName'),
+    email: document.getElementById('supportEmail'),
+    message: document.getElementById('supportMessage'),
+    year: document.getElementById('supportYear'),
+    make: document.getElementById('supportMake'),
+    model: document.getElementById('supportModel'),
+    garageNotes: document.getElementById('supportGarageNotes'),
+    garageSources: document.getElementById('supportGarageSources'),
+    bugWhat: document.getElementById('supportBugWhat'),
+    bugSteps: document.getElementById('supportBugSteps'),
+    browser: document.getElementById('supportBrowser'),
+    accVehicle: document.getElementById('supportAccVehicle'),
+    expected: document.getElementById('supportExpected'),
+    shown: document.getElementById('supportShown'),
+    source: document.getElementById('supportSource'),
+    sectionGarage: document.getElementById('supportSectionGarage'),
+    sectionBug: document.getElementById('supportSectionBug'),
+    sectionAccuracy: document.getElementById('supportSectionAccuracy'),
+    error: document.getElementById('supportError'),
+    tabs: document.querySelectorAll('.support-tab')
+  };
+
+  var SUPPORT_TYPE_LABEL = {
+    garage: 'Permanent garage add',
+    bug: 'Bug',
+    accuracy: 'Accuracy'
+  };
+
+  function supportVal(node) {
+    return node ? String(node.value || '').trim() : '';
+  }
+
+  function setSupportError(msg) {
+    if (!supportEls.error) return;
+    if (!msg) {
+      supportEls.error.hidden = true;
+      supportEls.error.textContent = '';
+      return;
+    }
+    supportEls.error.hidden = false;
+    supportEls.error.textContent = msg;
+  }
+
+  function syncSupportSections() {
+    var t = supportEls.type ? supportEls.type.value : 'garage';
+    if (supportEls.sectionGarage) supportEls.sectionGarage.hidden = t !== 'garage';
+    if (supportEls.sectionBug) supportEls.sectionBug.hidden = t !== 'bug';
+    if (supportEls.sectionAccuracy) supportEls.sectionAccuracy.hidden = t !== 'accuracy';
+    if (supportEls.tabs && supportEls.tabs.length) {
+      for (var i = 0; i < supportEls.tabs.length; i++) {
+        var tab = supportEls.tabs[i];
+        var on = tab.getAttribute('data-support-tab') === t;
+        tab.classList.toggle('active', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      }
+    }
+  }
+
+  function setSupportTab(type) {
+    var t = type || 'garage';
+    if (!SUPPORT_TYPE_LABEL[t]) t = 'garage';
+    if (supportEls.type) supportEls.type.value = t;
+    syncSupportSections();
+  }
+
+  function guessVehicleParts(query) {
+    var q = String(query || '').trim();
+    if (!q) return { year: '', make: '', model: '' };
+    var parts = q.split(/\s+/);
+    var year = '';
+    var rest = parts.slice();
+    if (/^(19|20)\d{2}$/.test(parts[0])) {
+      year = parts[0];
+      rest = parts.slice(1);
+    }
+    var make = rest[0] || '';
+    var model = rest.slice(1).join(' ');
+    return { year: year, make: make, model: model };
+  }
+
+  function resetSupportForm(prefType, opts) {
+    opts = opts || {};
+    setSupportTab(prefType || 'garage');
+    setSupportError('');
+    ['name', 'email', 'message', 'year', 'make', 'model', 'garageNotes', 'garageSources',
+      'bugWhat', 'bugSteps', 'browser', 'accVehicle', 'expected', 'shown', 'source'].forEach(function (k) {
+      if (supportEls[k]) supportEls[k].value = '';
+    });
+    if (opts.query) {
+      var g = guessVehicleParts(opts.query);
+      if (supportEls.year) supportEls.year.value = g.year;
+      if (supportEls.make) supportEls.make.value = g.make;
+      if (supportEls.model) supportEls.model.value = g.model;
+      if (supportEls.accVehicle) supportEls.accVehicle.value = String(opts.query).trim();
+      if (supportEls.message && !supportEls.message.value) {
+        supportEls.message.value = 'Request to add: ' + String(opts.query).trim();
+      }
+    }
+    if (supportEls.browser) {
+      try {
+        supportEls.browser.placeholder = (navigator && navigator.userAgent)
+          ? String(navigator.userAgent).slice(0, 90)
+          : 'e.g. Chrome / Safari';
+      } catch (e) { /* ignore */ }
+    }
+  }
+
+  function openSupport(prefType, opts) {
+    resetSupportForm(prefType || 'garage', opts || {});
+    if (!supportEls.modal) return;
+    supportEls.modal.classList.add('open');
+    if (location.hash !== '#support') {
+      try { history.replaceState(null, '', '#support'); } catch (e) { /* ignore */ }
+    }
+    var focusEl = supportEls.message || (supportEls.tabs && supportEls.tabs[0]);
+    if (focusEl && focusEl.focus) focusEl.focus();
+  }
+
+  function closeSupport() {
+    if (supportEls.modal) supportEls.modal.classList.remove('open');
+    if (location.hash === '#support') {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function shortTitleForMail(t) {
+    if (t === 'garage') {
+      var y = supportVal(supportEls.year);
+      var mk = supportVal(supportEls.make);
+      var md = supportVal(supportEls.model);
+      var title = [y, mk, md].filter(Boolean).join(' ');
+      return title || supportVal(supportEls.message).slice(0, 60) || 'vehicle request';
+    }
+    if (t === 'bug') {
+      return supportVal(supportEls.bugWhat).slice(0, 60) || supportVal(supportEls.message).slice(0, 60) || 'bug report';
+    }
+    return supportVal(supportEls.accVehicle).slice(0, 60) || supportVal(supportEls.message).slice(0, 60) || 'accuracy report';
+  }
+
+  function validateSupport() {
+    var t = supportEls.type ? supportEls.type.value : 'garage';
+    if (!supportVal(supportEls.message)) {
+      return 'Message is required.';
+    }
+    if (t === 'garage') {
+      if (!supportVal(supportEls.year) || !supportVal(supportEls.make) || !supportVal(supportEls.model)) {
+        return 'Year, make, and model are required for a permanent garage add.';
+      }
+      if (!supportVal(supportEls.garageNotes)) {
+        return 'Notes are required for a permanent garage add.';
+      }
+    } else if (t === 'bug') {
+      if (!supportVal(supportEls.bugWhat)) return 'Describe what broke.';
+      if (!supportVal(supportEls.bugSteps)) return 'Steps to reproduce are required.';
+      if (!supportVal(supportEls.browser)) return 'Browser / device is required.';
+    } else {
+      if (!supportVal(supportEls.accVehicle)) return 'Vehicle identity is required.';
+      if (!supportVal(supportEls.shown)) return '“Page shows” is required.';
+      if (!supportVal(supportEls.expected)) return 'Expected value is required.';
+      if (!supportVal(supportEls.source)) return 'A source link is required.';
+    }
+    return '';
+  }
+
+  function buildSupportMail() {
+    var t = supportEls.type ? supportEls.type.value : 'garage';
+    var typeLabel = SUPPORT_TYPE_LABEL[t] || t;
+    var subject = '[VB Support] ' + typeLabel + ' — ' + shortTitleForMail(t);
+    var lines = [];
+    lines.push('VelocityBench support intake');
+    lines.push('Type: ' + typeLabel);
+    lines.push('');
+    lines.push('Name: ' + (supportVal(supportEls.name) || '(not provided)'));
+    lines.push('Email: ' + (supportVal(supportEls.email) || '(not provided)'));
+    lines.push('');
+    lines.push('Message:');
+    lines.push(supportVal(supportEls.message));
+    lines.push('');
+
+    if (t === 'garage') {
+      lines.push('Year: ' + supportVal(supportEls.year));
+      lines.push('Make: ' + supportVal(supportEls.make));
+      lines.push('Model: ' + supportVal(supportEls.model));
+      lines.push('');
+      lines.push('Notes:');
+      lines.push(supportVal(supportEls.garageNotes));
+      lines.push('');
+      lines.push('Source links:');
+      lines.push(supportVal(supportEls.garageSources) || '(none)');
+    } else if (t === 'bug') {
+      lines.push('What broke:');
+      lines.push(supportVal(supportEls.bugWhat));
+      lines.push('');
+      lines.push('Steps:');
+      lines.push(supportVal(supportEls.bugSteps));
+      lines.push('');
+      lines.push('Browser / device: ' + supportVal(supportEls.browser));
+    } else {
+      lines.push('Vehicle: ' + supportVal(supportEls.accVehicle));
+      lines.push('');
+      lines.push('Page shows:');
+      lines.push(supportVal(supportEls.shown));
+      lines.push('');
+      lines.push('Expected:');
+      lines.push(supportVal(supportEls.expected));
+      lines.push('');
+      lines.push('Source link:');
+      lines.push(supportVal(supportEls.source));
+    }
+
+    lines.push('');
+    lines.push('—');
+    lines.push('Static mailto panel (no backend). Inbox monitoring may not be active yet.');
+
+    return { subject: subject, body: lines.join('\n') };
+  }
+
+  function submitSupportMailto() {
+    var err = validateSupport();
+    if (err) {
+      setSupportError(err);
+      return;
+    }
+    setSupportError('');
+    var mail = buildSupportMail();
+    var href = 'mailto:' + encodeURIComponent(SUPPORT_EMAIL).replace(/%40/g, '@')
+      + '?subject=' + encodeURIComponent(mail.subject)
+      + '&body=' + encodeURIComponent(mail.body);
+    window.location.href = href;
+  }
+
+  if (supportEls.tabs && supportEls.tabs.length) {
+    for (var ti = 0; ti < supportEls.tabs.length; ti++) {
+      supportEls.tabs[ti].addEventListener('click', function (e) {
+        var tab = e.currentTarget;
+        setSupportTab(tab.getAttribute('data-support-tab'));
+      });
+    }
+  }
+
+  var btnSupportFooter = document.getElementById('btnSupportFooter');
+  var btnSupportHeader = document.getElementById('btnSupportHeader');
+  var btnSupportSubmit = document.getElementById('btnSupportSubmit');
+  var btnSupportCancel = document.getElementById('btnSupportCancel');
+  var btnSupportX = document.getElementById('btnSupportX');
+
+  if (btnSupportFooter) {
+    btnSupportFooter.addEventListener('click', function () { openSupport('garage'); });
+  }
+  if (btnSupportHeader) {
+    btnSupportHeader.addEventListener('click', function () { openSupport('bug'); });
+  }
+  if (btnSupportSubmit) {
+    btnSupportSubmit.addEventListener('click', function () { submitSupportMailto(); });
+  }
+  if (btnSupportCancel) btnSupportCancel.addEventListener('click', closeSupport);
+  if (btnSupportX) btnSupportX.addEventListener('click', closeSupport);
+  if (supportEls.modal) {
+    supportEls.modal.addEventListener('click', function (e) {
+      if (e.target === supportEls.modal) closeSupport();
+    });
+  }
+
+  // Deep link: /#support
+  function maybeOpenSupportHash() {
+    if (location.hash === '#support') openSupport('garage');
+  }
+  window.addEventListener('hashchange', maybeOpenSupportHash);
+  maybeOpenSupportHash();
 
   // ---- UI Scale (whole-page zoom; persist) ----
   var UI_SCALE_KEY = 'velocitybench-ui-scale';
