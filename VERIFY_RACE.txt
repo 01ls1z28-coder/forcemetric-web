@@ -381,3 +381,119 @@ Verify:
   2. Bottom .race-actions has no Replay/Rematch dupes
   3. Replay / Rematch clicks still work
   4. No physics.js / garage-data.js / analytics / sprite changes
+
+Phase 29 — lean garage TireType + bake recalib (2026-09-11 CT)
+===============================================================
+Branch: review/vb-phase29-garage-recalib
+Base: origin/main 0f715f1
+Files: js/garage-data.js (+ scripts/phase29_tire_recalib.js harness).
+HARD HOLD: js/physics.js µ ladder untouched; race.html / sprites / chrome /
+analytics untouched. Soft/Slicks remain USER-ONLY bake defaults.
+
+Tire ladder HOLD (physics.js getTireGrip — unchanged):
+  AllSeason=0 → 0.80 / Summer=1 → 0.97 / UHP=2 → 1.12 /
+  SoftCompound=3 → 1.30 / Slicks=4 → 1.48
+
+Method (Phase 21 discipline):
+  - OEM class heuristic: pre-1990 + bikes (≤1500 lb) stay All-season;
+    Cup/Trofeo/RS-track/Z06/Performante/1LE/ZL1/SVJ/Jesko-class → UHP cap;
+    clear modern summer-OEM performance/supercars → Summer cap.
+  - Score pick among {current…cap} minimizing |0–60|+|¼ ET| after trap-first
+    loss fit (Standard Day 59°F / 0% / 29.92, driver 200, TX Manual−2/DCT−1).
+  - Skip promote when already faster than published on AS.
+  - Loss-only trap tweak when |trap err| > 1 mph and fit improves without
+    wrecking ET. Soft/Slicks never baked.
+  - Source strings on changers → "Phase 29 bake tire …; loss …; driver 200;
+    trap-first".
+
+Tire-default audit (331 vehicles):
+  before → after
+    All-season  287 → 265
+    Summer       34 →  53
+    UHP          10 →  13
+    SoftCompound  0 →   0
+    Slicks        0 →   0
+  Vehicle change count: 31 (22 TireType + loss, 9 loss-only).
+  Soft/Slicks bake defaults: 0 (no demotions needed).
+
+Drag-radial exceptions (bake TireType Soft/Slicks=3/4):
+  NONE. No vehicle’s published strip set clearly required drag radials as a
+  bake default within the Phase 21 grip ladder; Soft/Slicks stay user-selectable.
+
+Sample head-to-heads (Standard Day, driver 200, bake tire + TX offsets)
+-----------------------------------------------------------------------
+  2020 Ford Mustang GT — AS / loss 19 (unchanged)
+    Pub: Edmunds/AutoGuide ~4.3–4.6 0-60; class auto ~12.5@114
+    Sim: 60′ 2.22 · 0–60 3.97 · ⅛ 8.12@92.5 · ¼ 12.45@114 · 60–130 13.15
+    Residual: AS traction floor vs magazine (honest; Summer/UHP user ladder).
+
+  2020 Dodge Challenger Hellcat — AS / loss 18 (unchanged)
+    Pub: C&D Hellcat auto 3.6 / 11.7@126
+    Sim: 0–60 3.66 · ¼ 11.67@126
+
+  2023 Chevrolet Camaro ZL1 — UHP / loss 26.5 (unchanged)
+    Pub: C&D ZL1 1LE 3.4 / 11.5@124
+    Sim: 0–60 2.96 · ¼ 11.22@124 (0–60 optimistic vs mag; trap-first)
+
+  2024 Porsche 911 GT3 RS — UHP / loss 15.9 (unchanged)
+    Pub: C&D 2.7 / 10.9@127
+    Sim: 0–60 2.72 · ¼ 10.89@127
+
+  2023 Chevrolet Corvette Z06 — UHP / loss 20.2 (unchanged)
+    Pub: C&D 2.6 / 10.5@131
+    Sim: 0–60 2.67 · ¼ 10.69@131
+
+  2018 Honda Civic Type R — Summer / loss 23.1 (unchanged)
+    Pub: C&D ~5.0 / 13.5@106
+    Sim: 0–60 4.27 · ¼ 12.99@106 (trap-first; 0–60 still optimistic)
+
+  2020 Ford Mustang Shelby GT500 — Summer / loss 18 (unchanged)
+    Pub: C&D 3.6 / 11.4@132
+    Sim: 0–60 3.04 · ¼ 10.94@132 (needs Soft/Slicks user select for mag launch)
+
+  2022 Tesla Model S Plaid — Summer / loss 7.5 (unchanged)
+    Pub: C&D 2.1 / 9.4@151
+    Sim: 0–60 1.81 · ¼ 9.11@151
+
+  2019 Koenigsegg Jesko — AS→UHP / loss 5→19.8  [Phase 29]
+    Pub: ~2.5 / 9.1@170 (mfr/peer)
+    Sim: 60′ 1.83 · 0–60 2.46 · ⅛ 6.17@135 · ¼ 9.10@170 · 60–130 3.38
+
+  2019 Lamborghini Aventador SVJ — AS→UHP / loss 22.8→24.8  [Phase 29]
+    Pub: ~2.5 / 10.3@136
+    Sim: 60′ 1.83 · 0–60 2.57 · ¼ 10.41@136
+
+  2015 McLaren P1 — AS→Summer / loss 21.7→24.1  [Phase 29]
+    Pub: ~2.6 / 10.2@145
+    Sim: 0–60 2.84 · ¼ 10.23@145
+
+  2017 Ferrari 812 Superfast — AS→Summer / loss 19.9→21.8  [Phase 29]
+    Pub: ~2.7 / 10.4@138
+    Sim: 0–60 3.00 · ¼ 10.66@138 (0–60 still ~0.3s slow on Summer ladder)
+
+  2022 Porsche Taycan Turbo S — AS→Summer / loss 20.7→20.8  [Phase 29]
+    Pub: 2.4 / 10.5@130
+    Sim: 0–60 2.49 · ¼ 10.58@130
+
+  2024 BMW M2 — AS→Summer / loss 5.6→6.4  [Phase 29]
+    Pub: ~3.4 / 11.7@120
+    Sim: 0–60 3.28 · ¼ 11.65@120
+
+Honest residual gaps
+--------------------
+  - RWD muscle on AS (Mustang GT, etc.): magazine 0–60 often assumes hotter
+    rubber / prep; raising bake µ would fake it — user Soft/Slicks ladder.
+  - GT500 / similar: Summer bake still ~0.5s+ optimistic vs C&D 0–60; trap OK.
+  - Sportbikes: AS + loss clamp; 0–60 remains ~0.6–0.8s slow (light-curb /
+    wheelie model); trap tightened on 9 bikes via loss-only (still often +1–3 mph).
+  - Some hypercars (Regera, Elva, Huayra BC, Apollo): trap still hot or loss
+    at 32 clamp after Summer promote — physics/aero residual, not µ retune.
+  - Venom GT: Summer matches trap @170; ¼ ET ~0.5s optimistic vs ~10.0 claim.
+  - Classics / EV SUVs at loss 32 with optimistic ET: out of Phase 29 tire scope.
+  - No Soft/Slicks bake exceptions filed.
+
+Verify:
+  1. µ ladder in physics.js still 0.80/0.97/1.12/1.30/1.48
+  2. Garage Soft/Slicks bake count = 0; Jesko/SVJ load as UHP; P1 as Summer
+  3. race.html / assets/race-sprites / analytics untouched
+  4. Standard Day spot checks above within Phase 21 trap-first tolerance
