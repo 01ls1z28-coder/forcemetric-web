@@ -41,16 +41,32 @@
 
 
   /**
-   * Aftermarket torque converter launch multiplier (Phase 17).
-   * Stall matched to Peak TQ RPM peaks the boost; under-stall weaker;
-   * soft over-stall slip/heat penalty. Launch window fades with mph.
+   * Aftermarket torque converter launch multiplier (Phase 20 stall-band retune).
+   * Primary gain from stall-band idealBoost table (not flat +18%).
+   * Peak TQ is a match factor: Stall≈Peak TQ → full band target; mismatch softens.
+   * Launch window fades with mph so mid/high speed is not permanently inflated.
+   * Applied BEFORE traction clamp — mu path remains the hard limit.
    * Estimate grade only — not a K-factor / dyno converter map.
    * Caller must gate Auto-only / non-EV; returns 1 when disabled.
    */
-  var ATC_STALL_MIN = 1800;
+  var ATC_STALL_MIN = 1500;
   var ATC_STALL_MAX = 7000;
   var ATC_PEAK_TQ_MIN = 1500;
   var ATC_PEAK_TQ_MAX = 9000;
+
+  // Band centers (RPM) → matched ideal launch boost (force excess at mph≈0).
+  // Targets Δ60′ vs OFF when matched: 1650→−0.07, 3000→−0.15, 3850→−0.22,
+  // 4700→−0.26, 5850→−0.30; soft plateau above ~6500 (no free lunch past 0.30).
+  // Interpolate between centers. Traction-limited cars may undershoot.
+  var ATC_STALL_BAND_BOOST = [
+    [1650, 0.27],
+    [3000, 1.00],
+    [3850, 2.20],
+    [4700, 2.70],
+    [5850, 3.00],
+    [6500, 3.05],
+    [7000, 3.05]
+  ];
 
   function clampAtcStallRpm(v) {
     var n = Number(v);
@@ -68,10 +84,27 @@
     return n;
   }
 
+  /** Linear interpolate stall RPM → matched idealBoost from ATC_STALL_BAND_BOOST. */
+  function atcStallBandIdealBoost(stallRpm) {
+    var s = Number(stallRpm);
+    if (!isFinite(s)) s = 2800;
+    var bands = ATC_STALL_BAND_BOOST;
+    if (s <= bands[0][0]) return bands[0][1];
+    for (var i = 0; i < bands.length - 1; i++) {
+      var a = bands[i];
+      var b = bands[i + 1];
+      if (s <= b[0]) {
+        var u = (s - a[0]) / (b[0] - a[0]);
+        return a[1] + u * (b[1] - a[1]);
+      }
+    }
+    return bands[bands.length - 1][1];
+  }
+
   /**
    * @param {{enabled?:boolean, stallRpm?:number, peakTorqueRpm?:number}} atc
    * @param {number} speedMph
-   * @returns {number} force multiplier (≈0.85–1.22), 1.0 when off
+   * @returns {number} force multiplier (≈0.85–3.2), 1.0 when off
    */
   function aftermarketConverterForceMult(atc, speedMph) {
     if (!atc || !atc.enabled) return 1.0;
@@ -80,9 +113,9 @@
     if (peak < 1) peak = 1;
     var match = stall / peak;
 
-    // Match quality: 1 at Stall≈Peak TQ; under weaker; over soft penalty
+    // Stall-band primary gain; Peak TQ match softens under/over
+    var idealBoost = atcStallBandIdealBoost(stall);
     var signedBoost;
-    var idealBoost = 0.18; // +18% peak launch force when matched
     if (match <= 1.0) {
       signedBoost = idealBoost * Math.pow(Math.max(0, match), 1.35);
     } else {
@@ -101,7 +134,7 @@
 
     var mult = 1.0 + signedBoost * window;
     if (mult < 0.85) mult = 0.85;
-    if (mult > 1.22) mult = 1.22;
+    if (mult > 3.2) mult = 3.2;
     return mult;
   }
 
@@ -479,11 +512,13 @@
     getTireGrip: getTireGrip,
     CalibrationFactor: CalibrationFactor,
     aftermarketConverterForceMult: aftermarketConverterForceMult,
+    atcStallBandIdealBoost: atcStallBandIdealBoost,
     clampAtcStallRpm: clampAtcStallRpm,
     clampAtcPeakTorqueRpm: clampAtcPeakTorqueRpm,
     ATC_STALL_MIN: ATC_STALL_MIN,
     ATC_STALL_MAX: ATC_STALL_MAX,
     ATC_PEAK_TQ_MIN: ATC_PEAK_TQ_MIN,
-    ATC_PEAK_TQ_MAX: ATC_PEAK_TQ_MAX
+    ATC_PEAK_TQ_MAX: ATC_PEAK_TQ_MAX,
+    ATC_STALL_BAND_BOOST: ATC_STALL_BAND_BOOST
   };
 })(typeof window !== 'undefined' ? window : globalThis);
