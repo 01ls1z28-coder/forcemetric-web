@@ -2,7 +2,7 @@ ForceMetric — Drag Racing verification
 ======================================
 Date: 2026-09-07 (America/Chicago)
 Physics: js/physics.js ForceMetricPhysics.calculate (CalibrationFactor 0.81)
-Weather: Standard Day (59°F, 0%, 29.92 inHg), Street tires, neither NA/FI
+Weather: Standard Day (59°F, 0%, 29.92 inHg), All-season Street tires (Phase 21), neither NA/FI
 
 Sample head-to-head
 -------------------

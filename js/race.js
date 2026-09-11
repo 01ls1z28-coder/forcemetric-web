@@ -274,21 +274,43 @@
   // ---- DOM helpers ----
   function $(id) { return document.getElementById(id); }
 
+  /** Phase 21 tire enum. Legacy pre-21 numerics: 2 DragTire→4, 3 Slick→4. */
+  function migrateTireType(t, tireEnumPhase) {
+    if (typeof t === 'string') {
+      var s = t.trim();
+      if (s === 'Street' || s === 'AllSeason' || s === 'All-season' || s === 'All-season Street') return 0;
+      if (s === 'Sport' || s === 'Summer' || s === 'Summer / Sport') return 1;
+      if (s === 'UHP' || s === 'UHP Street') return 2;
+      if (s === 'SoftCompound' || s === 'Soft Compound' || s === 'Soft') return 3;
+      if (s === 'DragTire' || s === 'Slick' || s === 'Slicks' || s === 'Slicks / Drag Radials') return 4;
+      t = parseInt(s, 10);
+    }
+    if (!isFinite(t)) return 0;
+    var n = t | 0;
+    if (tireEnumPhase >= 21 || n === 4) {
+      if (n < 0) n = 0;
+      if (n > 4) n = 4;
+      return n;
+    }
+    if (n === 2) return 4;
+    if (n === 3) return 4;
+    if (n === 1) return 1;
+    return 0;
+  }
+
   function mapTireIndex(idx) {
-    switch (idx) {
-      case 0: return Physics.TireType.Street;
-      case 1: return Physics.TireType.Sport;
-      case 2: return Physics.TireType.DragTire;
-      case 3: return Physics.TireType.Slick;
-      default: return Physics.TireType.Street;
+    switch (migrateTireType(idx, 21)) {
+      case 0: return Physics.TireType.AllSeason;
+      case 1: return Physics.TireType.Summer;
+      case 2: return Physics.TireType.UHP;
+      case 3: return Physics.TireType.SoftCompound;
+      case 4: return Physics.TireType.Slicks;
+      default: return Physics.TireType.AllSeason;
     }
   }
 
-  function tireLabelFromEnum(t) {
-    if (t === 1 || t === 'Sport') return '1';
-    if (t === 2 || t === 'DragTire') return '2';
-    if (t === 3 || t === 'Slick') return '3';
-    return '0';
+  function tireLabelFromEnum(t, tireEnumPhase) {
+    return String(migrateTireType(t, tireEnumPhase));
   }
 
   var laneExtras = { you: {}, opp: {} };
@@ -645,8 +667,8 @@
     $(prefix + 'Area').value = snap.FrontalAreaSqFt != null ? snap.FrontalAreaSqFt : (snap.area != null ? snap.area : 22);
     $(prefix + 'Loss').value = snap.DrivetrainLossPercent != null ? snap.DrivetrainLossPercent : (snap.loss != null ? snap.loss : 15);
     var tire = snap.TireType != null ? snap.TireType : (snap.tireType != null ? snap.tireType : 0);
-    if (typeof tire === 'string') tire = parseInt(tire, 10) || 0;
-    $(prefix + 'Tire').value = String(tire);
+    var tirePhase = snap.TireEnumPhase != null ? snap.TireEnumPhase : (snap.tireEnumPhase != null ? snap.tireEnumPhase : 0);
+    $(prefix + 'Tire').value = tireLabelFromEnum(tire, tirePhase);
 
     var evOn = carIsEv(snap);
     if (!evOn && (snap.isEv || snap.chkEv)) evOn = true;
@@ -786,7 +808,8 @@
       DragCoefficient: car.DragCoefficient,
       FrontalAreaSqFt: car.FrontalAreaSqFt,
       DrivetrainLossPercent: car.DrivetrainLossPercent,
-      TireType: tireLabelFromEnum(car.TireType),
+      TireType: tireLabelFromEnum(car.TireType, 21),
+      TireEnumPhase: 21,
       DriveType: car.DriveType || 'RWD',
       EngineLayout: car.EngineLayout || 'Front',
       Differential: car.Differential || (carIsEv(car) ? 'Open' : 'LSD'),
@@ -818,7 +841,8 @@
       DragCoefficient: parseFloat($(prefix + 'Cd').value),
       FrontalAreaSqFt: parseFloat($(prefix + 'Area').value),
       DrivetrainLossPercent: parseFloat($(prefix + 'Loss').value),
-      TireType: $(prefix + 'Tire').value,
+      TireType: migrateTireType($(prefix + 'Tire').value, 21),
+      TireEnumPhase: 21,
       DriveType: getDrive(prefix),
       EngineLayout: getEngineLayout(prefix),
       Differential: getDifferential(prefix),

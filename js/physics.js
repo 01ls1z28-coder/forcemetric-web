@@ -7,19 +7,29 @@
 
   var CalibrationFactor = 0.81;
 
+  // Phase 21 — five-tire grip ladder (longitudinal peak µ).
+  // Layout/diff/drive/EV stacks still multiply on top. Honest traction floor:
+  // All-season stays at the prior Street µ so grip-limited cars are not faked.
+  // Legacy aliases: Street→AllSeason, Sport→Summer, DragTire/Slick→Slicks.
   var TireType = {
+    AllSeason: 0,
+    Summer: 1,
+    UHP: 2,
+    SoftCompound: 3,
+    Slicks: 4,
     Street: 0,
     Sport: 1,
-    DragTire: 2,
-    Slick: 3
+    DragTire: 4,
+    Slick: 4
   };
 
   function getTireGrip(t) {
     switch (t) {
-      case TireType.Street: return 0.80;
-      case TireType.Sport: return 0.98;
-      case TireType.DragTire: return 1.15;
-      case TireType.Slick: return 1.42;
+      case TireType.AllSeason: return 0.80;      // All-season Street
+      case TireType.Summer: return 0.97;         // Summer / Sport
+      case TireType.UHP: return 1.12;            // UHP Street (near race rubber)
+      case TireType.SoftCompound: return 1.30;   // Soft Compound
+      case TireType.Slicks: return 1.48;         // Slicks / Drag Radials (Track)
       default: return 0.80;
     }
   }
@@ -247,7 +257,7 @@
   function calculate(opts) {
     var horsepower = opts.hp;
     var weightLbs = opts.weightLbs;
-    var tireType = opts.tireType; // 0 Street, 1 Sport, 2 DragTire, 3 Slick
+    var tireType = opts.tireType; // Phase 21: 0 AllSeason, 1 Summer, 2 UHP, 3 SoftCompound, 4 Slicks
     var dragCoefficient = opts.Cd;
     var frontalAreaSqFt = opts.frontalAreaSqFt;
     var drivetrainLossPercent = opts.drivetrainLoss;

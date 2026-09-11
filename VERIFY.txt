@@ -296,3 +296,81 @@ Verify:
 Intentional skips: K-factor / dyno converter map; garage bake ATC columns;
 fleet retune; raising mu to fake 60′ gains on traction-capped cars;
 sessionStorage race→main hotfix (separate branch).
+
+Phase 21 — five-tire grip ladder + fleet recalib (2026-09-11 CT)
+----------------------------------------------------------------
+Branch: review/vb-phase21-tire-grip
+Files: js/physics.js, js/garage-data.js, js/app.js, js/race.js,
+       index.html, race.html (+ this note). No Pages push.
+
+TireType enum (shared physics.js — main + race):
+  0 All-season Street     µ = 0.80
+  1 Summer / Sport        µ = 0.97
+  2 UHP Street            µ = 1.12
+  3 Soft Compound         µ = 1.30
+  4 Slicks / Drag Radials µ = 1.48
+Layout / diff / drive / EV mu stacks unchanged. Honest traction floor:
+All-season kept at prior Street µ — do not raise µ to fake times on
+grip-limited cars. Soft/Slicks are user-selectable only (not baked).
+
+Old → new mapping (session restore + physics aliases):
+  Street(0)   → AllSeason(0)
+  Sport(1)    → Summer(1)
+  DragTire(2) → Slicks(4)
+  Slick(3)    → Slicks(4)
+Snapshots carry TireEnumPhase=21. Pre-21 numeric 2/3 migrate to 4;
+legacy string names DragTire/Slick → 4. UI labels on index + race +
+edit garage. Estimate disclaimer unchanged.
+
+Garage bake (331 cars, driver 200, trap-first, TX Auto|Manual|DCT −0/−2/−1):
+  Tire bake counts: All-season 287 · Summer 34 · UHP 10 · Soft 0 · Slicks 0
+  Default = All-season unless class clearly summer/UHP OEM (pre-1990 stay AS).
+  Loss recalib: 53 cars changed (avg |Δloss| ≈ 0.73 among changers; fleet mean Δ ≈ +0.12).
+  Method consistent with Phase 8B targets (60′ / 0–60 / 1/8 / 1/4 / 60–130 when available).
+
+Spot checks (Standard Day 59°F / 0% / 29.92, driver 200, bake tire):
+
+  2020 Ford Mustang GT — All-season / loss 19
+    Source: Edmunds/AutoGuide ~4.3–4.6 0-60; class auto ~12.5@114
+    Sim: 60′ 2.22 · 0–60 3.97 · 1/8 8.12 · 1/4 12.45@114 · 60–130 13.15
+    Traction-limited on AS (honest; Sport/Slicks improve launch, trap nearly flat).
+
+  2020 Dodge Challenger Hellcat — All-season / loss 18
+    Source: C&D Hellcat auto 3.6 / 11.7@126
+    Sim: 0–60 3.66 · 1/4 11.67@126 (trap-matched; AS kept — not summer-only OEM).
+
+  2024 Porsche 911 GT3 RS — UHP / loss 15.9 (was AS 14.7 → OFF 0–60 3.40)
+    Source: C&D 2023 911 GT3 RS 2.7 / 10.9@127 (Cup-class OEM → UHP bake)
+    Sim: 0–60 2.72 · 1/4 10.89@127 (was traction-capped on AS; UHP honest).
+
+  2023 Chevrolet Corvette Z06 — UHP / loss 20.2
+    Source: C&D 2023 Z06 coupe 2.6 / 10.5@131 (Cup 2 R class → UHP)
+    Sim: 0–60 2.67 · 1/4 10.69@131
+
+  2018 Honda Civic Type R — Summer / loss 23.1
+    Source: C&D FK8 CTR ~5.0 / 13.5@106 (dedicated summer OEM)
+    Sim: 0–60 4.27 · 1/4 12.99@106 (trap-first; 0–60 optimistic vs mag — not µ-faked).
+
+  2020 Ford Mustang Shelby GT500 — Summer / loss 18
+    Source: C&D 2020 GT500 3.6 / 11.4@132
+    Sim: 0–60 3.04 · 1/4 10.94@132 (still traction-flagged on Summer vs Slicks).
+
+  2022 Tesla Model S Plaid — Summer / loss 7.5
+    Source: C&D Model S Plaid 2.1 / 9.4@151
+    Sim: 0–60 1.81 · 1/4 9.11@151
+
+Mustang GT tire ladder (same loss 19 — launch only):
+  AS 0–60 3.97 / 60′ 2.22 → Summer 3.59 / 2.02 → UHP 3.38 / 1.89
+  → Soft 3.23 / 1.78 → Slicks 3.12 / 1.71 (trap ~114–114.5)
+
+Verify:
+  1. Tire selects show five labels on index, race (both lanes), edit garage
+  2. Load GT3 RS → UHP; Mustang GT → All-season; CTR → Summer
+  3. Raise tire on Hellcat/Mustang → faster 60′/0–60; trap barely moves
+  4. Session Drag Racing → Back restores TireEnumPhase 21 values
+  5. Legacy snapshot TireType "DragTire"/"Slick" or pre-21 2/3 → Slicks(4)
+  6. Shared physics.js grip; race + main identical µ ladder
+
+Intentional skips: Pages push; Soft/Slicks garage bake; speed/temp tire
+fade model; raising All-season µ to fake magazine 0–60 on grip-limited
+RWD; K-factor ATC map; new heavy deps.
