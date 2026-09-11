@@ -1,6 +1,8 @@
 /**
  * ForceMetric Drag Racing — dual-lane setup + arcade race playback
  * Phase 15: full parity with main sim (TX/DCT, Dual layout, driver 200, bake load, brass charts)
+ * Phase 16: setup-compare — lead delta, dial/bracket, DA/air strip, swap/copy, photo-finish, roll race
+ * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  */
 (function () {
   'use strict';
@@ -10,6 +12,12 @@
   var TRACK_FT = 1320;
   var DEFAULT_DRIVER_WEIGHT_LBS = 200;
   var DIST_MARKS_FT = [60, 330, 660, 1000, 1320];
+  var LEAD_DELTA_MARKS = [60, 330, 660, 1320];
+  var EIGHTH_FT = 660;
+  var MPH_PER_KMH = 1 / 1.609344;
+  var ROLL_START_MPH = 100 * MPH_PER_KMH;
+  var ROLL_END_MPH = 200 * MPH_PER_KMH;
+  var TREE_STEP_MS = 400;
 
   var garageData = (window.GARAGE_DATA || []).slice();
   var filteredOpp = garageData.slice();
@@ -507,6 +515,7 @@
   }
 
   function fmt2(n) { return (n == null || !isFinite(n)) ? '—' : Number(n).toFixed(2); }
+  function fmt3(n) { return (n == null || !isFinite(n)) ? '—' : Number(n).toFixed(3); }
   function fmt1(n) { return (n == null || !isFinite(n)) ? '—' : Number(n).toFixed(1); }
 
   function escapeHtml(s) {
@@ -700,6 +709,50 @@
     applyTune('opp', carSnapFromGarage(filteredOpp[selectedOppIdx]));
   }
 
+  // ---- Lane snapshot / swap / copy (Phase 16) ----
+  function captureLaneSnap(prefix) {
+    return {
+      Name: $(prefix + 'Name').value,
+      Horsepower: parseFloat($(prefix + 'Hp').value),
+      WeightLbs: parseFloat($(prefix + 'Weight').value),
+      DriverWeightLbs: $(prefix + 'DriverWeight') ? parseFloat($(prefix + 'DriverWeight').value) : DEFAULT_DRIVER_WEIGHT_LBS,
+      DragCoefficient: parseFloat($(prefix + 'Cd').value),
+      FrontalAreaSqFt: parseFloat($(prefix + 'Area').value),
+      DrivetrainLossPercent: parseFloat($(prefix + 'Loss').value),
+      TireType: $(prefix + 'Tire').value,
+      DriveType: getDrive(prefix),
+      EngineLayout: getEngineLayout(prefix),
+      Differential: (laneExtras[prefix] && laneExtras[prefix].differential) || 'LSD',
+      Transmission: getTransmission(prefix),
+      HpSource: getHpSource(prefix),
+      MaxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
+        ? laneExtras[prefix].maxSpeedMph : undefined,
+      IsEv: isEvMode(prefix),
+      IsForcedInduction: $(prefix + 'FI').checked,
+      isNA: $(prefix + 'NA').checked,
+      isFI: $(prefix + 'FI').checked,
+      isEv: isEvMode(prefix),
+      Dial: $(prefix + 'Dial') ? $(prefix + 'Dial').value : ''
+    };
+  }
+
+  function swapLanes() {
+    var a = captureLaneSnap('you');
+    var b = captureLaneSnap('opp');
+    applyTune('you', b);
+    applyTune('opp', a);
+    if ($('youDial') && b.Dial != null) $('youDial').value = b.Dial;
+    if ($('oppDial') && a.Dial != null) $('oppDial').value = a.Dial;
+    updateAirHpStrip();
+  }
+
+  function copyLane(fromPrefix, toPrefix) {
+    var snap = captureLaneSnap(fromPrefix);
+    applyTune(toPrefix, snap);
+    if ($(toPrefix + 'Dial') && snap.Dial != null) $(toPrefix + 'Dial').value = snap.Dial;
+    updateAirHpStrip();
+  }
+
   // ---- Weather ----
   function syncWeatherPreset() {
     switch (parseInt($('weatherPreset').value, 10)) {
@@ -713,6 +766,102 @@
         $('temp').value = '50'; $('humidity').value = '40'; $('pressure').value = '30.10';
         break;
     }
+    if ($('da')) $('da').value = '';
+    updateAirHpStrip();
+  }
+
+  function getDaInput() {
+    if (!$('da') || String($('da').value).trim() === '') return NaN;
+    var v = parseFloat(String($('da').value).trim());
+    return isFinite(v) ? v : NaN;
+  }
+
+  /** Mirror main Air/HP strip via Physics.computeWeatherAirState (no duplicated math). */
+  function updateAirHpStrip() {
+    if (!Physics || !Physics.computeWeatherAirState) return;
+    if (!$('airRhoValue')) return;
+    var tempF = parseFloat($('temp') && $('temp').value);
+    var humidity = parseFloat($('humidity') && $('humidity').value);
+    var pressure = parseFloat($('pressure') && $('pressure').value);
+    if (!isFinite(tempF)) tempF = 59;
+    if (!isFinite(humidity)) humidity = 0;
+    if (!isFinite(pressure)) pressure = 29.92;
+    var state = Physics.computeWeatherAirState({
+      tempF: tempF,
+      humidity: humidity,
+      pressureInHg: pressure,
+      densityAltitudeFtInput: getDaInput(),
+      isEv: isEvMode('you'),
+      isNA: !!( $('youNA') && $('youNA').checked ),
+      isFI: !!( $('youFI') && $('youFI').checked )
+    });
+    $('airRhoValue').textContent = state.airDensity.toFixed(3);
+    if ($('airRhoPct')) $('airRhoPct').textContent = (Math.round(state.densityPctOfStd * 10) / 10).toFixed(1) + '% std';
+    if ($('airDaValue')) $('airDaValue').textContent = String(Math.round(state.densityAltitudeFt));
+    if ($('airDaUnit')) $('airDaUnit').textContent = 'ft';
+    var factorPct = state.weatherHpFactor * 100.0;
+    if ($('airHpFactorValue')) $('airHpFactorValue').textContent = (Math.round(factorPct * 10) / 10).toFixed(1) + '%';
+    if ($('airHpFactorSub')) {
+      $('airHpFactorSub').textContent = state.mode === 'EV' ? 'no HP weather derate' : 'eff. WHP vs std air';
+    }
+    var badge = $('airModeBadge');
+    if (badge) {
+      badge.textContent = state.mode;
+      badge.setAttribute('data-mode', state.mode);
+    }
+    if ($('airHpNote')) {
+      var foot = 'Shared with main via ForceMetricPhysics.computeWeatherAirState — not dyno lab cert.';
+      $('airHpNote').textContent = state.mode === 'EV' ? (state.note + ' ' + foot) : foot;
+    }
+  }
+
+  function syncBracketUi() {
+    var on = !!( $('bracketEnabled') && $('bracketEnabled').checked );
+    if ($('youDial')) $('youDial').disabled = !on;
+    if ($('oppDial')) $('oppDial').disabled = !on;
+    if ($('bracketHint')) {
+      $('bracketHint').textContent = on
+        ? 'Bracket on: dial is ET target scoring only. Leave stays simultaneous — no RT/foul/holeshot.'
+        : 'Dial is scoring only — leave stays simultaneous. Breakout = ET under dial.';
+    }
+  }
+
+  function getRaceMode() {
+    var el = $('raceMode');
+    var v = el ? String(el.value) : 'quarter';
+    if (v !== 'quarter' && v !== 'eighth' && v !== 'roll') return 'quarter';
+    return v;
+  }
+
+  function finishDistanceFt() {
+    return getRaceMode() === 'eighth' ? EIGHTH_FT : TRACK_FT;
+  }
+
+  /** Interpolate time when a lane first reaches target mph (from Steps). */
+  function timeAtSpeedMph(steps, targetMph) {
+    if (!steps || !steps.length || !isFinite(targetMph)) return null;
+    if (steps[0].SpeedMph >= targetMph) return steps[0].Time;
+    for (var i = 1; i < steps.length; i++) {
+      var a = steps[i - 1];
+      var b = steps[i];
+      if (a.SpeedMph < targetMph && b.SpeedMph >= targetMph) {
+        var span = b.SpeedMph - a.SpeedMph;
+        if (span <= 1e-9) return b.Time;
+        var f = (targetMph - a.SpeedMph) / span;
+        return a.Time + f * (b.Time - a.Time);
+      }
+    }
+    return null;
+  }
+
+  function rollInterval(res) {
+    if (res && res.HundredToTwoHundredKmh != null && isFinite(res.HundredToTwoHundredKmh)) {
+      return res.HundredToTwoHundredKmh;
+    }
+    var t0 = timeAtSpeedMph(res && res.Steps, ROLL_START_MPH);
+    var t1 = timeAtSpeedMph(res && res.Steps, ROLL_END_MPH);
+    if (t0 == null || t1 == null) return null;
+    return t1 - t0;
   }
 
   // ---- Race state ----
@@ -724,12 +873,17 @@
   var playbackRaf = null;
   var playbackRunning = false;
   var playbackStart = 0;
+  var treeTimer = null;
 
   function stopPlayback() {
     playbackRunning = false;
     if (playbackRaf) {
       cancelAnimationFrame(playbackRaf);
       playbackRaf = null;
+    }
+    if (treeTimer) {
+      clearTimeout(treeTimer);
+      treeTimer = null;
     }
   }
 
@@ -775,45 +929,151 @@
     return leader + ' leads by ' + absFt.toFixed(1) + ' ft' + gapStr + '  ·  ' + behind + ' trailing';
   }
 
+  function markLabel(ft) {
+    if (ft === 60) return '60′';
+    if (ft === 330) return '330′';
+    if (ft === 660) return '⅛';
+    if (ft === 1320) return '¼';
+    return ft + '′';
+  }
+
+  function deltaAtMark(ft, elapsed) {
+    var a = marker(raceYou, ft);
+    var b = marker(raceOpp, ft);
+    var yn = raceMeta.youName;
+    var on = raceMeta.oppName;
+    // Live estimate before both have permanent markers: compare distance at elapsed
+    if ((!a || a.Time < 0) || (!b || b.Time < 0)) {
+      var ys = stepAtTime(raceYou.Steps, elapsed);
+      var os = stepAtTime(raceOpp.Steps, elapsed);
+      if (!ys || !os) return { text: '—', locked: false };
+      var youPassed = ys.DistanceFt >= ft;
+      var oppPassed = os.DistanceFt >= ft;
+      if (!youPassed && !oppPassed) return { text: 'pending', locked: false };
+      // One side reached mark: estimate gap using leadText-style timing
+      if (youPassed && !oppPassed) {
+        var leadT = a && a.Time >= 0 ? a.Time : ys.Time;
+        // trail still short of mark
+        return { text: shortName(yn) + ' +live', locked: false };
+      }
+      if (oppPassed && !youPassed) {
+        return { text: shortName(on) + ' +live', locked: false };
+      }
+    }
+    if (!a || a.Time < 0 || !b || b.Time < 0) return { text: '—', locked: false };
+    var gapS = a.Time - b.Time;
+    // Distance gap at the slower car's mark time
+    var laterT = Math.max(a.Time, b.Time);
+    var earlySteps = a.Time <= b.Time ? raceYou.Steps : raceOpp.Steps;
+    var lateSteps = a.Time <= b.Time ? raceOpp.Steps : raceYou.Steps;
+    var earlyAt = stepAtTime(earlySteps, laterT);
+    var lateAt = stepAtTime(lateSteps, laterT);
+    var gapFt = 0;
+    if (earlyAt && lateAt) gapFt = Math.abs(earlyAt.DistanceFt - lateAt.DistanceFt);
+    if (Math.abs(gapS) < 0.0005) return { text: 'even', locked: true };
+    var leader = gapS < 0 ? yn : on;
+    return {
+      text: shortName(leader) + ' +' + gapFt.toFixed(1) + ' ft / ' + Math.abs(gapS).toFixed(3) + ' s',
+      locked: true,
+      leader: leader,
+      gapFt: gapFt,
+      gapS: Math.abs(gapS)
+    };
+  }
+
+  function updateLeadDeltaStrip(elapsed) {
+    for (var i = 0; i < LEAD_DELTA_MARKS.length; i++) {
+      var ft = LEAD_DELTA_MARKS[i];
+      var el = $('delta' + ft);
+      if (!el) continue;
+      var d = deltaAtMark(ft, elapsed);
+      el.textContent = d.text;
+      el.classList.toggle('delta-locked', !!d.locked);
+      el.classList.toggle('delta-you', !!(d.leader && raceMeta && d.leader === raceMeta.youName));
+      el.classList.toggle('delta-opp', !!(d.leader && raceMeta && d.leader === raceMeta.oppName));
+    }
+  }
+
+  function resetLeadDeltaStrip() {
+    for (var i = 0; i < LEAD_DELTA_MARKS.length; i++) {
+      var el = $('delta' + LEAD_DELTA_MARKS[i]);
+      if (!el) continue;
+      el.textContent = '—';
+      el.classList.remove('delta-locked', 'delta-you', 'delta-opp');
+    }
+  }
+
   function updateLive(elapsed) {
     var ys = stepAtTime(raceYou.Steps, elapsed);
     var os = stepAtTime(raceOpp.Steps, elapsed);
     if (!ys || !os) return;
 
-    var youFt = Math.min(ys.DistanceFt, TRACK_FT);
-    var oppFt = Math.min(os.DistanceFt, TRACK_FT);
-    var youPct = (youFt / TRACK_FT) * 100;
-    var oppPct = (oppFt / TRACK_FT) * 100;
+    var trackFt = (raceMeta && raceMeta.trackFt) || TRACK_FT;
+    var mode = (raceMeta && raceMeta.mode) || 'quarter';
+    var youFt = Math.min(ys.DistanceFt, trackFt);
+    var oppFt = Math.min(os.DistanceFt, trackFt);
+    // Strip always visualizes against 1320 board; clamp display pct to 100
+    var youPct = (Math.min(ys.DistanceFt, TRACK_FT) / TRACK_FT) * 100;
+    var oppPct = (Math.min(os.DistanceFt, TRACK_FT) / TRACK_FT) * 100;
 
     $('youFill').style.width = youPct.toFixed(2) + '%';
     $('oppFill').style.width = oppPct.toFixed(2) + '%';
     $('youMarker').style.left = youPct.toFixed(2) + '%';
     $('oppMarker').style.left = oppPct.toFixed(2) + '%';
 
-    var youDone = ys.DistanceFt >= TRACK_FT;
-    var oppDone = os.DistanceFt >= TRACK_FT;
     var youMph = ys.SpeedMph;
     var oppMph = os.SpeedMph;
-    if (youDone && raceMeta && raceMeta.youTrapMph != null) youMph = raceMeta.youTrapMph;
-    if (oppDone && raceMeta && raceMeta.oppTrapMph != null) oppMph = raceMeta.oppTrapMph;
+    if (mode !== 'roll') {
+      var youDoneDist = ys.DistanceFt >= trackFt;
+      var oppDoneDist = os.DistanceFt >= trackFt;
+      if (youDoneDist && raceMeta && raceMeta.youTrapMph != null) youMph = raceMeta.youTrapMph;
+      if (oppDoneDist && raceMeta && raceMeta.oppTrapMph != null) oppMph = raceMeta.oppTrapMph;
+    }
     $('youSpeed').textContent = Math.round(youMph) + ' mph';
     $('oppSpeed').textContent = Math.round(oppMph) + ' mph';
-    $('youDist').textContent = Math.round(youFt) + ' ft';
-    $('oppDist').textContent = Math.round(oppFt) + ' ft';
-    var bothDone = youDone && oppDone;
-    var youET = raceMeta.youET1320;
-    var oppET = raceMeta.oppET1320;
+    $('youDist').textContent = Math.round(Math.min(ys.DistanceFt, TRACK_FT)) + ' ft';
+    $('oppDist').textContent = Math.round(Math.min(os.DistanceFt, TRACK_FT)) + ' ft';
+
     var raceOver = false;
-    if (youET != null && oppET != null) {
-      raceOver = elapsed >= Math.max(youET, oppET) + 0.15;
-    } else if (youET != null || oppET != null) {
-      var et = youET != null ? youET : oppET;
-      raceOver = elapsed >= et + 0.5;
+    if (mode === 'roll') {
+      var youEnd = raceMeta.youRollEndT;
+      var oppEnd = raceMeta.oppRollEndT;
+      if (youEnd != null && oppEnd != null) {
+        raceOver = elapsed >= Math.max(youEnd, oppEnd) + 0.15;
+      } else if (youEnd != null || oppEnd != null) {
+        var re = youEnd != null ? youEnd : oppEnd;
+        raceOver = elapsed >= re + 0.5;
+      } else {
+        raceOver = elapsed >= Math.max(
+          raceYou.Steps[raceYou.Steps.length - 1].Time,
+          raceOpp.Steps[raceOpp.Steps.length - 1].Time
+        );
+      }
+      var youStart = raceMeta.youRollStartT;
+      var oppStart = raceMeta.oppRollStartT;
+      if (youStart != null && elapsed >= youStart && (youEnd == null || elapsed < youEnd)) {
+        /* interval clocks run after simultaneous leave */
+      }
+      $('leadCallout').textContent = leadText(ys.DistanceFt, os.DistanceFt, ys.Time, os.Time, raceOver)
+        + (raceOver ? '' : ' · roll 100–200 km/h');
     } else {
-      raceOver = bothDone || elapsed >= Math.max(raceYou.Steps[raceYou.Steps.length - 1].Time, raceOpp.Steps[raceOpp.Steps.length - 1].Time);
+      var youET = raceMeta.youFinishET;
+      var oppET = raceMeta.oppFinishET;
+      if (youET != null && oppET != null) {
+        raceOver = elapsed >= Math.max(youET, oppET) + 0.15;
+      } else if (youET != null || oppET != null) {
+        var et = youET != null ? youET : oppET;
+        raceOver = elapsed >= et + 0.5;
+      } else {
+        raceOver = elapsed >= Math.max(
+          raceYou.Steps[raceYou.Steps.length - 1].Time,
+          raceOpp.Steps[raceOpp.Steps.length - 1].Time
+        );
+      }
+      $('leadCallout').textContent = leadText(ys.DistanceFt, os.DistanceFt, ys.Time, os.Time, raceOver);
     }
 
-    $('leadCallout').textContent = leadText(ys.DistanceFt, os.DistanceFt, ys.Time, os.Time, raceOver);
+    updateLeadDeltaStrip(elapsed);
 
     if (chartTime) chartTime.setPlayback(elapsed);
 
@@ -860,12 +1120,21 @@
       html += '<h3>' + escapeHtml(name) + '</h3>';
       html += metaLine(side === 'you' ? 'you' : 'opp');
       html += '<div class="stat-grid">';
-      html += '<div class="stat-pill"><span class="lbl">0–60</span><span class="val">' + (res.ZeroToSixty != null ? fmt2(res.ZeroToSixty) + ' s' : 'DNF') + '</span></div>';
-      html += '<div class="stat-pill"><span class="lbl">0–100</span><span class="val">' + (res.ZeroToHundred != null ? fmt2(res.ZeroToHundred) + ' s' : 'DNF') + '</span></div>';
-      html += '<div class="stat-pill"><span class="lbl">1/8 mile ET</span><span class="val">' + (m660 ? fmt2(m660.Time) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">0–60</span><span class="val">' + (res.ZeroToSixty != null ? fmt3(res.ZeroToSixty) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">0–100</span><span class="val">' + (res.ZeroToHundred != null ? fmt3(res.ZeroToHundred) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">1/8 mile ET</span><span class="val">' + (m660 ? fmt3(m660.Time) + ' s' : 'DNF') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/8 trap</span><span class="val">' + (m660 ? fmt1(m660.SpeedMph) + ' mph' : '—') + '</span></div>';
-      html += '<div class="stat-pill"><span class="lbl">1/4 mile ET</span><span class="val">' + (m1320 ? fmt2(m1320.Time) + ' s' : 'DNF') + '</span></div>';
+      html += '<div class="stat-pill"><span class="lbl">1/4 mile ET</span><span class="val">' + (m1320 ? fmt3(m1320.Time) + ' s' : 'DNF') + '</span></div>';
       html += '<div class="stat-pill"><span class="lbl">1/4 trap</span><span class="val">' + (m1320 ? fmt1(m1320.SpeedMph) + ' mph' : '—') + '</span></div>';
+      var roll = rollInterval(res);
+      html += '<div class="stat-pill"><span class="lbl">100–200 km/h</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
+      if (raceMeta && raceMeta.bracketOn) {
+        var dial = side === 'you' ? raceMeta.youDial : raceMeta.oppDial;
+        var finishEt = side === 'you' ? raceMeta.youFinishET : raceMeta.oppFinishET;
+        var bo = (dial != null && finishEt != null && finishEt < dial);
+        html += '<div class="stat-pill"><span class="lbl">Dial</span><span class="val">' + (dial != null ? fmt3(dial) + ' s' : '—') + '</span></div>';
+        html += '<div class="stat-pill"><span class="lbl">Bracket</span><span class="val">' + (bo ? 'BREAKOUT' : (dial != null && finishEt != null ? ('+' + fmt3(finishEt - dial) + ' s') : '—')) + '</span></div>';
+      }
       html += '</div>';
       html += '<div class="gap-row">' + gapsHtml + '</div>';
       html += '</div>';
@@ -881,52 +1150,176 @@
 
     function gapLine(label, g) {
       if (g == null) return label + ': n/a';
-      if (Math.abs(g) < 0.005) return label + ': dead even';
-      if (g < 0) return label + ': ' + yn + ' ahead by ' + Math.abs(g).toFixed(2) + ' s';
-      return label + ': ' + on + ' ahead by ' + Math.abs(g).toFixed(2) + ' s';
+      if (Math.abs(g) < 0.0005) return label + ': dead even';
+      if (g < 0) return label + ': ' + yn + ' ahead by ' + Math.abs(g).toFixed(3) + ' s';
+      return label + ': ' + on + ' ahead by ' + Math.abs(g).toFixed(3) + ' s';
     }
+
+    var gRoll = null;
+    var ry = rollInterval(you);
+    var ro = rollInterval(opp);
+    if (ry != null && ro != null) gRoll = ry - ro;
 
     var gapsHtml = gapLine('0–60', g60) + '<br/>' +
       gapLine('0–100', g100) + '<br/>' +
       gapLine('1/8 mile', g660) + '<br/>' +
-      gapLine('1/4 mile', g1320);
+      gapLine('1/4 mile', g1320) + '<br/>' +
+      gapLine('100–200 km/h', gRoll);
 
     $('resultsBoard').innerHTML =
       card('you', you, yn, gapsHtml) +
       card('opp', opp, on, gapsHtml);
   }
 
+  function bracketWinner(youET, oppET, youDial, oppDial) {
+    // Dial is ET target scoring only — leave was simultaneous.
+    var youBO = youET != null && youDial != null && youET < youDial;
+    var oppBO = oppET != null && oppDial != null && oppET < oppDial;
+    if (youET == null && oppET == null) return { side: 'tie', text: 'DNF — neither finished' };
+    if (youET == null) return { side: 'opp', text: 'WINNER · ' + raceMeta.oppName + '  (you DNF)' };
+    if (oppET == null) return { side: 'you', text: 'WINNER · ' + raceMeta.youName + '  (opponent DNF)' };
+    if (youBO && !oppBO) return { side: 'opp', text: 'WINNER · ' + raceMeta.oppName + '  ·  you BREAKOUT' };
+    if (oppBO && !youBO) return { side: 'you', text: 'WINNER · ' + raceMeta.youName + '  ·  opp BREAKOUT' };
+    if (youBO && oppBO) {
+      // Double breakout: closer to dial (smaller underage) wins
+      var youUnder = youDial - youET;
+      var oppUnder = oppDial - oppET;
+      var g = Math.abs(youUnder - oppUnder);
+      if (g < 0.0005) return { side: 'tie', text: 'TIE · double breakout' };
+      if (youUnder < oppUnder) return { side: 'you', text: 'WINNER · ' + raceMeta.youName + '  ·  less breakout by ' + g.toFixed(3) + ' s' };
+      return { side: 'opp', text: 'WINNER · ' + raceMeta.oppName + '  ·  less breakout by ' + g.toFixed(3) + ' s' };
+    }
+    // Neither broke out: closer to dial (smaller overage) wins
+    var youOver = youET - youDial;
+    var oppOver = oppET - oppDial;
+    var g2 = Math.abs(youOver - oppOver);
+    if (g2 < 0.0005) return { side: 'tie', text: 'TIE · dial ' + fmt3(youDial) + ' / ' + fmt3(oppDial) };
+    if (youOver < oppOver) return { side: 'you', text: 'WINNER · ' + raceMeta.youName + '  ·  closer to dial by ' + g2.toFixed(3) + ' s' };
+    return { side: 'opp', text: 'WINNER · ' + raceMeta.oppName + '  ·  closer to dial by ' + g2.toFixed(3) + ' s' };
+  }
+
+  function buildPhotoFinish() {
+    var pf = $('photoFinish');
+    var grid = $('photoFinishGrid');
+    if (!pf || !grid || !raceMeta) return;
+    var mode = raceMeta.mode || 'quarter';
+    var rows = '';
+    function laneRow(side, name) {
+      var et = side === 'you' ? raceMeta.youFinishET : raceMeta.oppFinishET;
+      var trap = side === 'you' ? raceMeta.youTrapMph : raceMeta.oppTrapMph;
+      var roll = side === 'you' ? raceMeta.youRollInterval : raceMeta.oppRollInterval;
+      var dial = side === 'you' ? raceMeta.youDial : raceMeta.oppDial;
+      var html = '<div class="photo-lane ' + side + '">';
+      html += '<div class="photo-name">' + escapeHtml(name) + '</div>';
+      if (mode === 'roll') {
+        html += '<div class="photo-stat"><span class="lbl">100–200 km/h</span><span class="val">' + (roll != null ? fmt3(roll) + ' s' : 'DNF') + '</span></div>';
+        html += '<div class="photo-stat"><span class="lbl">@200 km/h</span><span class="val">' + (side === 'you'
+          ? (raceMeta.youRollEndT != null ? fmt3(raceMeta.youRollEndT) + ' s' : '—')
+          : (raceMeta.oppRollEndT != null ? fmt3(raceMeta.oppRollEndT) + ' s' : '—')) + '</span></div>';
+      } else {
+        html += '<div class="photo-stat"><span class="lbl">ET</span><span class="val">' + (et != null ? fmt3(et) + ' s' : 'DNF') + '</span></div>';
+        html += '<div class="photo-stat"><span class="lbl">Trap</span><span class="val">' + (trap != null ? fmt3(trap) + ' mph' : '—') + '</span></div>';
+      }
+      if (raceMeta.bracketOn && dial != null) {
+        var bo = et != null && et < dial;
+        html += '<div class="photo-stat"><span class="lbl">Dial</span><span class="val">' + fmt3(dial) + ' s</span></div>';
+        html += '<div class="photo-stat"><span class="lbl">Result</span><span class="val">' + (bo ? 'BREAKOUT' : (et != null ? ('+' + fmt3(et - dial) + ' s') : '—')) + '</span></div>';
+      }
+      html += '</div>';
+      return html;
+    }
+    rows += laneRow('you', raceMeta.youName);
+    rows += '<div class="photo-vs">PHOTO<br/>FINISH</div>';
+    rows += laneRow('opp', raceMeta.oppName);
+    grid.innerHTML = rows;
+    pf.classList.remove('hidden');
+  }
+
   function showWinner() {
     var banner = $('winnerBanner');
     banner.classList.remove('show', 'win-you', 'win-opp', 'win-tie');
-    var youET = raceMeta.youET1320;
-    var oppET = raceMeta.oppET1320;
+    var mode = raceMeta.mode || 'quarter';
     var text;
-    if (youET == null && oppET == null) {
-      text = 'DNF — neither reached 1320 ft';
-      banner.classList.add('win-tie');
-    } else if (youET == null) {
-      text = 'WINNER · ' + raceMeta.oppName + '  (you DNF)';
-      banner.classList.add('win-opp');
-    } else if (oppET == null) {
-      text = 'WINNER · ' + raceMeta.youName + '  (opponent DNF)';
-      banner.classList.add('win-you');
-    } else {
-      var gap = Math.abs(youET - oppET);
-      if (gap < 0.005) {
-        text = 'TIE · 1/4 mile ' + fmt2(youET) + ' s';
-        banner.classList.add('win-tie');
-      } else if (youET < oppET) {
-        text = 'WINNER · ' + raceMeta.youName + '  ·  by ' + gap.toFixed(2) + ' s';
-        banner.classList.add('win-you');
+    var side = 'tie';
+
+    if (raceMeta.bracketOn && mode !== 'roll' && raceMeta.youDial != null && raceMeta.oppDial != null) {
+      var bw = bracketWinner(raceMeta.youFinishET, raceMeta.oppFinishET, raceMeta.youDial, raceMeta.oppDial);
+      text = bw.text;
+      side = bw.side;
+    } else if (mode === 'roll') {
+      var youR = raceMeta.youRollInterval;
+      var oppR = raceMeta.oppRollInterval;
+      if (youR == null && oppR == null) {
+        text = 'DNF — neither completed 100–200 km/h';
+        side = 'tie';
+      } else if (youR == null) {
+        text = 'WINNER · ' + raceMeta.oppName + '  (you DNF)';
+        side = 'opp';
+      } else if (oppR == null) {
+        text = 'WINNER · ' + raceMeta.youName + '  (opponent DNF)';
+        side = 'you';
       } else {
-        text = 'WINNER · ' + raceMeta.oppName + '  ·  by ' + gap.toFixed(2) + ' s';
-        banner.classList.add('win-opp');
+        var gapR = Math.abs(youR - oppR);
+        if (gapR < 0.0005) {
+          text = 'TIE · 100–200 km/h ' + fmt3(youR) + ' s';
+          side = 'tie';
+        } else if (youR < oppR) {
+          text = 'WINNER · ' + raceMeta.youName + '  ·  by ' + gapR.toFixed(3) + ' s (100–200)';
+          side = 'you';
+        } else {
+          text = 'WINNER · ' + raceMeta.oppName + '  ·  by ' + gapR.toFixed(3) + ' s (100–200)';
+          side = 'opp';
+        }
+      }
+    } else {
+      var youET = raceMeta.youFinishET;
+      var oppET = raceMeta.oppFinishET;
+      var label = mode === 'eighth' ? '1/8 mile' : '1/4 mile';
+      if (youET == null && oppET == null) {
+        text = 'DNF — neither reached ' + ((raceMeta.trackFt) || TRACK_FT) + ' ft';
+        side = 'tie';
+      } else if (youET == null) {
+        text = 'WINNER · ' + raceMeta.oppName + '  (you DNF)';
+        side = 'opp';
+      } else if (oppET == null) {
+        text = 'WINNER · ' + raceMeta.youName + '  (opponent DNF)';
+        side = 'you';
+      } else {
+        var gap = Math.abs(youET - oppET);
+        if (gap < 0.0005) {
+          text = 'TIE · ' + label + ' ' + fmt3(youET) + ' s';
+          side = 'tie';
+        } else if (youET < oppET) {
+          text = 'WINNER · ' + raceMeta.youName + '  ·  by ' + gap.toFixed(3) + ' s';
+          side = 'you';
+        } else {
+          text = 'WINNER · ' + raceMeta.oppName + '  ·  by ' + gap.toFixed(3) + ' s';
+          side = 'opp';
+        }
       }
     }
+
+    if (side === 'you') banner.classList.add('win-you');
+    else if (side === 'opp') banner.classList.add('win-opp');
+    else banner.classList.add('win-tie');
     banner.textContent = text;
     void banner.offsetWidth;
     banner.classList.add('show');
+    buildPhotoFinish();
+  }
+
+  function playbackEndTime() {
+    if (!raceMeta) return 0;
+    if (raceMeta.mode === 'roll') {
+      return Math.max(
+        raceMeta.youRollEndT != null ? raceMeta.youRollEndT : 0,
+        raceMeta.oppRollEndT != null ? raceMeta.oppRollEndT : 0
+      );
+    }
+    return Math.max(
+      raceMeta.youFinishET != null ? raceMeta.youFinishET : 0,
+      raceMeta.oppFinishET != null ? raceMeta.oppFinishET : 0
+    );
   }
 
   function playbackTick(now) {
@@ -934,10 +1327,7 @@
     var elapsed = (now - playbackStart) / 1000.0;
     var over = updateLive(elapsed);
     if (over) {
-      var endT = Math.max(
-        raceMeta.youET1320 != null ? raceMeta.youET1320 : 0,
-        raceMeta.oppET1320 != null ? raceMeta.oppET1320 : 0
-      );
+      var endT = playbackEndTime();
       updateLive(Math.max(elapsed, endT));
       stopPlayback();
       showWinner();
@@ -946,18 +1336,66 @@
     playbackRaf = requestAnimationFrame(playbackTick);
   }
 
+  function resetTreeBulbs() {
+    ['treeYouA1','treeYouA2','treeYouA3','treeYouG','treeOppA1','treeOppA2','treeOppA3','treeOppG'].forEach(function (id) {
+      var el = $(id);
+      if (el) el.classList.remove('on');
+    });
+    if ($('treeLabel')) $('treeLabel').textContent = 'Simultaneous tree';
+  }
+
+  function lightTreePair(step) {
+    // Cosmetic perfect tree — both lanes identical, no staggered leave
+    if (step === 1) {
+      if ($('treeYouA1')) $('treeYouA1').classList.add('on');
+      if ($('treeOppA1')) $('treeOppA1').classList.add('on');
+    } else if (step === 2) {
+      if ($('treeYouA2')) $('treeYouA2').classList.add('on');
+      if ($('treeOppA2')) $('treeOppA2').classList.add('on');
+    } else if (step === 3) {
+      if ($('treeYouA3')) $('treeYouA3').classList.add('on');
+      if ($('treeOppA3')) $('treeOppA3').classList.add('on');
+    } else if (step === 4) {
+      if ($('treeYouG')) $('treeYouG').classList.add('on');
+      if ($('treeOppG')) $('treeOppG').classList.add('on');
+      if ($('treeLabel')) $('treeLabel').textContent = 'GREEN — both leave t=0';
+    }
+  }
+
+  /** Begin shared clock at the same instant for both lanes (HARD RULE). */
+  function beginSimultaneousGo() {
+    $('leadCallout').textContent = 'Green light — both lanes t=0 — GO!';
+    playbackStart = performance.now();
+    playbackRunning = true;
+    playbackRaf = requestAnimationFrame(playbackTick);
+  }
+
   function startPlayback() {
     stopPlayback();
     $('winnerBanner').classList.remove('show', 'win-you', 'win-opp', 'win-tie');
     $('winnerBanner').textContent = '';
+    if ($('photoFinish')) $('photoFinish').classList.add('hidden');
     $('youFill').style.width = '0%';
     $('oppFill').style.width = '0%';
     $('youMarker').style.left = '0%';
     $('oppMarker').style.left = '0%';
-    $('leadCallout').textContent = 'Green light — GO!';
-    playbackStart = performance.now();
-    playbackRunning = true;
-    playbackRaf = requestAnimationFrame(playbackTick);
+    resetLeadDeltaStrip();
+    resetTreeBulbs();
+    $('leadCallout').textContent = 'Staging… simultaneous leave';
+
+    // Cosmetic tree only — both lanes share identical bulbs; physics clock starts together on green
+    var step = 0;
+    function treeStep() {
+      step += 1;
+      lightTreePair(step);
+      if (step < 4) {
+        treeTimer = setTimeout(treeStep, TREE_STEP_MS);
+      } else {
+        treeTimer = null;
+        beginSimultaneousGo();
+      }
+    }
+    treeTimer = setTimeout(treeStep, 120);
   }
 
   function laneCalcOpts(lane, weather) {
@@ -995,26 +1433,63 @@
       var tempF = parseNum($('temp'), 'Temp');
       var humidity = parseNum($('humidity'), 'Humidity');
       var pressure = parseNum($('pressure'), 'Pressure');
+      var daIn = getDaInput();
 
       var weather = {
         tempF: tempF,
         humidity: humidity,
         pressureInHg: pressure,
-        densityAltitudeFtInput: NaN
+        densityAltitudeFtInput: daIn
       };
 
+      // HARD RULE: same weather, same t=0 leave — no RT offset applied to either lane
       raceYou = Physics.calculate(laneCalcOpts(you, weather));
       raceOpp = Physics.calculate(laneCalcOpts(opp, weather));
 
-      var youM = marker(raceYou, 1320);
-      var oppM = marker(raceOpp, 1320);
+      var mode = getRaceMode();
+      var trackFt = mode === 'eighth' ? EIGHTH_FT : TRACK_FT;
+      var youM1320 = marker(raceYou, 1320);
+      var oppM1320 = marker(raceOpp, 1320);
+      var youFinishM = marker(raceYou, trackFt);
+      var oppFinishM = marker(raceOpp, trackFt);
+
+      var bracketOn = !!( $('bracketEnabled') && $('bracketEnabled').checked );
+      var youDial = null;
+      var oppDial = null;
+      if (bracketOn) {
+        if ($('youDial') && String($('youDial').value).trim() !== '') {
+          youDial = parseFloat($('youDial').value);
+          if (!isFinite(youDial) || youDial <= 0) throw new Error('Your Dial must be a positive ET (s).');
+        }
+        if ($('oppDial') && String($('oppDial').value).trim() !== '') {
+          oppDial = parseFloat($('oppDial').value);
+          if (!isFinite(oppDial) || oppDial <= 0) throw new Error('Opp Dial must be a positive ET (s).');
+        }
+        if (youDial == null || oppDial == null) {
+          throw new Error('Bracket mode needs dials for both lanes (ET target scoring only).');
+        }
+      }
+
       raceMeta = {
         youName: you.Name,
         oppName: opp.Name,
-        youET1320: youM ? youM.Time : null,
-        oppET1320: oppM ? oppM.Time : null,
-        youTrapMph: youM ? youM.SpeedMph : null,
-        oppTrapMph: oppM ? oppM.SpeedMph : null,
+        mode: mode,
+        trackFt: trackFt,
+        bracketOn: bracketOn,
+        youDial: youDial,
+        oppDial: oppDial,
+        youET1320: youM1320 ? youM1320.Time : null,
+        oppET1320: oppM1320 ? oppM1320.Time : null,
+        youFinishET: youFinishM ? youFinishM.Time : null,
+        oppFinishET: oppFinishM ? oppFinishM.Time : null,
+        youTrapMph: youFinishM ? youFinishM.SpeedMph : null,
+        oppTrapMph: oppFinishM ? oppFinishM.SpeedMph : null,
+        youRollStartT: timeAtSpeedMph(raceYou.Steps, ROLL_START_MPH),
+        oppRollStartT: timeAtSpeedMph(raceOpp.Steps, ROLL_START_MPH),
+        youRollEndT: timeAtSpeedMph(raceYou.Steps, ROLL_END_MPH),
+        oppRollEndT: timeAtSpeedMph(raceOpp.Steps, ROLL_END_MPH),
+        youRollInterval: rollInterval(raceYou),
+        oppRollInterval: rollInterval(raceOpp),
         youMeta: {
           isEv: you.isEv, isNA: you.isNA, isFI: you.isFI,
           transmission: you.transmission, hpSource: you.hpSource,
@@ -1031,6 +1506,7 @@
 
       $('setupView').classList.add('hidden');
       $('raceView').classList.remove('hidden');
+      if ($('photoFinish')) $('photoFinish').classList.add('hidden');
       $('liveYouName').textContent = you.Name;
       $('liveOppName').textContent = opp.Name;
       $('stripYouLabel').textContent = shortName(you.Name).toUpperCase();
@@ -1054,8 +1530,10 @@
 
   function rematch() {
     stopPlayback();
+    if ($('photoFinish')) $('photoFinish').classList.add('hidden');
     $('raceView').classList.add('hidden');
     $('setupView').classList.remove('hidden');
+    updateAirHpStrip();
   }
 
   // ---- Init from sessionStorage ----
@@ -1083,6 +1561,9 @@
       if (isFinite(snap.humidity)) $('humidity').value = snap.humidity;
       if (isFinite(snap.pressureInHg)) $('pressure').value = snap.pressureInHg;
       if (snap.weatherPreset != null) $('weatherPreset').value = String(snap.weatherPreset);
+      if ($('da') && snap.densityAltitudeFt != null && isFinite(snap.densityAltitudeFt)) {
+        $('da').value = String(snap.densityAltitudeFt);
+      }
       $('setupHint').textContent = 'Loaded your car from VelocityBench. Pick an opponent and LAUNCH.';
     } else {
       if (garageData.length) {
@@ -1105,9 +1586,11 @@
   function wireEngine(prefix) {
     $(prefix + 'NA').addEventListener('change', function () {
       if ($(prefix + 'NA').checked) $(prefix + 'FI').checked = false;
+      updateAirHpStrip();
     });
     $(prefix + 'FI').addEventListener('change', function () {
       if ($(prefix + 'FI').checked) $(prefix + 'NA').checked = false;
+      updateAirHpStrip();
     });
     $(prefix + 'Ev').addEventListener('change', function () {
       if ($(prefix + 'Ev').checked) {
@@ -1125,6 +1608,7 @@
         $(prefix + 'FI').disabled = false;
       }
       applyLightCurbLocks(prefix);
+      updateAirHpStrip();
     });
     $(prefix + 'Name').addEventListener('input', function () { updateLaneLabel(prefix); });
     $(prefix + 'Weight').addEventListener('change', function () { applyLightCurbLocks(prefix); });
@@ -1160,7 +1644,27 @@
   wireEngine('opp');
 
   $('weatherPreset').addEventListener('change', syncWeatherPreset);
+  ['temp', 'humidity', 'pressure', 'da'].forEach(function (id) {
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('input', updateAirHpStrip);
+    el.addEventListener('change', function () {
+      if (id !== 'da' && $('weatherPreset')) $('weatherPreset').value = '0';
+      updateAirHpStrip();
+    });
+  });
+  if ($('bracketEnabled')) $('bracketEnabled').addEventListener('change', syncBracketUi);
+  syncBracketUi();
   syncWeatherPreset();
+  updateAirHpStrip();
+
+  if ($('btnSwapLanes')) $('btnSwapLanes').addEventListener('click', swapLanes);
+  if ($('btnCopyYouToOpp')) $('btnCopyYouToOpp').addEventListener('click', function () { copyLane('you', 'opp'); });
+  if ($('btnCopyOppToYou')) $('btnCopyOppToYou').addEventListener('click', function () { copyLane('opp', 'you'); });
+  if ($('btnSwapLanesRace')) $('btnSwapLanesRace').addEventListener('click', function () {
+    swapLanes();
+    rematch();
+  });
 
   $('oppSearch').addEventListener('input', function () {
     var q = ($('oppSearch').value || '').toLowerCase();

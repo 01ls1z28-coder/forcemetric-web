@@ -898,7 +898,13 @@
       tempF: parseFloat(el.temp.value),
       humidity: parseFloat(el.humidity.value),
       pressureInHg: parseFloat(el.pressure.value),
-      weatherPreset: el.weatherPreset ? el.weatherPreset.value : '0'
+      weatherPreset: el.weatherPreset ? el.weatherPreset.value : '0',
+      densityAltitudeFt: (function () {
+        if (!el.da || String(el.da.value).trim() === '') return undefined;
+        var daRaw = parseFloat(String(el.da.value).trim());
+        if (!isFinite(daRaw)) return undefined;
+        return isMetric() ? daRaw / M_PER_FT : daRaw;
+      })()
     };
   }
 

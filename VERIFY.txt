@@ -118,3 +118,26 @@ Main snapshot also passes Transmission, DriverWeightLbs, HpSource.
 dual charts nice round ticks + brass face; playback preserved.
 
 Spot: PDK 911 + GT500 DCT loss-1; Mustang GT Auto; Civic Type R Manual; Plaid EV Auto Dual.
+
+Phase 16 — Drag Racing setup-comparison (2026-09-10 CT)
+-------------------------------------------------------
+race.html / js/race.js / css/race.css (+ minor app.js snapshot DA passthrough).
+No fleet retune / garage-data.js changes. Brass chrome stays in --brass* family.
+
+HARD RULE confirmed: both lanes leave at t=0 together. Cosmetic tree only.
+No reaction time, red-light foul, or holeshot RNG.
+
+Features:
+  - Live lead delta strip (60′/330′/⅛/¼) — ahead by ft + s
+  - Optional dial-in / bracket (breakout scoring; dial ≠ leave delay)
+  - Shared weather DA + Air/HP strip (computeWeatherAirState)
+  - Rematch, swap lanes, copy You↔Opp
+  - Photo-finish ET/trap to 0.001 s
+  - Optional 1/8 and roll-race 100–200 km/h modes (simultaneous leave)
+
+Verify:
+  1. Launch head-to-head — both markers move from the same green instant
+  2. Delta strip locks as each mark is crossed
+  3. Enable bracket dials — winner by dial/breakout, not RT
+  4. Roll mode — winner by 100–200 km/h interval; leave still t=0
+  5. Swap / copy / rematch round-trip without losing TX/layout/driver

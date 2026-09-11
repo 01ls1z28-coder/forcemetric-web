@@ -38,7 +38,52 @@
           <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
           <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="0" step="0.1" /></label>
           <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+          <label class="field"><span>Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
         </div>
+        <div class="air-hp-strip race-air-hp" id="airHpStrip" aria-live="polite">
+          <div class="air-hp-strip-head">
+            <span class="air-hp-title">Air / HP Correction</span>
+            <span class="air-mode-badge" id="airModeBadge">ICE</span>
+          </div>
+          <div class="air-hp-tiles">
+            <div class="air-tile">
+              <span class="air-tile-label">ρ air</span>
+              <span class="air-tile-value" id="airRhoValue">1.225</span>
+              <span class="air-tile-sub" id="airRhoPct">100% std</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label" id="airDaTileLabel">DA</span>
+              <span class="air-tile-value" id="airDaValue">0</span>
+              <span class="air-tile-sub" id="airDaUnit">ft</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label">HP weather</span>
+              <span class="air-tile-value" id="airHpFactorValue">100%</span>
+              <span class="air-tile-sub" id="airHpFactorSub">vs std-air WHP</span>
+            </div>
+          </div>
+          <div class="air-hp-note" id="airHpNote">Shared with main via ForceMetricPhysics.computeWeatherAirState — not dyno lab cert.</div>
+        </div>
+      </div>
+
+      <div class="race-opts card">
+        <div class="card-title">Race Mode · Simultaneous Leave</div>
+        <p class="race-hard-rule">Both lanes always leave at the exact same t=0. Tree is cosmetic perfect green only — no reaction delay, red-light foul, or holeshot RNG.</p>
+        <div class="race-opts-row">
+          <label class="field"><span>Course</span>
+            <select id="raceMode">
+              <option value="quarter" selected>1/4 mile (1320′)</option>
+              <option value="eighth">1/8 mile (660′)</option>
+              <option value="roll">Roll race 100–200 km/h</option>
+            </select>
+          </label>
+          <label class="field check-field"><span>Bracket / Dial-in</span>
+            <label class="inline-check"><input type="checkbox" id="bracketEnabled" /> Enable (ET target scoring only)</label>
+          </label>
+          <label class="field"><span>Your Dial (s)</span><input type="number" id="youDial" value="" placeholder="e.g. 12.50" step="0.001" min="0" disabled /></label>
+          <label class="field"><span>Opp Dial (s)</span><input type="number" id="oppDial" value="" placeholder="e.g. 11.90" step="0.001" min="0" disabled /></label>
+        </div>
+        <p class="setup-hint" id="bracketHint">Dial is scoring only — leave stays simultaneous. Breakout = ET under dial.</p>
       </div>
 
       <div class="lanes-grid">
@@ -174,6 +219,12 @@
         </section>
       </div>
 
+      <div class="setup-tools">
+        <button type="button" class="btn btn-ctrl" id="btnSwapLanes">Swap Lanes</button>
+        <button type="button" class="btn btn-ctrl" id="btnCopyYouToOpp">Copy You → Opp</button>
+        <button type="button" class="btn btn-ctrl" id="btnCopyOppToYou">Copy Opp → You</button>
+      </div>
+
       <div class="launch-bar">
         <p class="setup-hint" id="setupHint"></p>
         <button type="button" class="btn btn-launch" id="btnLaunch">LAUNCH</button>
@@ -188,6 +239,22 @@
         <div class="race-name you" id="liveYouName">—</div>
         <div class="race-vs">VS</div>
         <div class="race-name opp" id="liveOppName">—</div>
+      </div>
+
+      <div class="tree-board" id="treeBoard" aria-hidden="true">
+        <div class="tree-lane">
+          <span class="tree-bulb amber" id="treeYouA1"></span>
+          <span class="tree-bulb amber" id="treeYouA2"></span>
+          <span class="tree-bulb amber" id="treeYouA3"></span>
+          <span class="tree-bulb green" id="treeYouG"></span>
+        </div>
+        <div class="tree-label" id="treeLabel">Simultaneous tree</div>
+        <div class="tree-lane">
+          <span class="tree-bulb amber" id="treeOppA1"></span>
+          <span class="tree-bulb amber" id="treeOppA2"></span>
+          <span class="tree-bulb amber" id="treeOppA3"></span>
+          <span class="tree-bulb green" id="treeOppG"></span>
+        </div>
       </div>
 
       <div class="track-board">
@@ -214,13 +281,25 @@
           </div>
         </div>
         <div class="lead-callout" id="leadCallout">Staging…</div>
+        <div class="lead-delta-strip" id="leadDeltaStrip" aria-live="polite">
+          <div class="delta-cell" data-mark="60"><span class="delta-mark">60′</span><span class="delta-val" id="delta60">—</span></div>
+          <div class="delta-cell" data-mark="330"><span class="delta-mark">330′</span><span class="delta-val" id="delta330">—</span></div>
+          <div class="delta-cell" data-mark="660"><span class="delta-mark">⅛</span><span class="delta-val" id="delta660">—</span></div>
+          <div class="delta-cell" data-mark="1320"><span class="delta-mark">¼</span><span class="delta-val" id="delta1320">—</span></div>
+        </div>
         <div class="track-scale" aria-hidden="true">
           <span class="track-mark" style="left:0%">0'</span>
+          <span class="track-mark" style="left:4.545%">60'</span>
           <span class="track-mark" style="left:25%">330'</span>
           <span class="track-mark" style="left:50%">660'</span>
           <span class="track-mark" style="left:75.758%">1000'</span>
           <span class="track-mark track-mark-end" style="left:100%">1320'</span>
         </div>
+      </div>
+
+      <div class="photo-finish card hidden" id="photoFinish">
+        <div class="card-title">Photo Finish · 0.001 s</div>
+        <div class="photo-grid" id="photoFinishGrid"></div>
       </div>
 
       <div class="charts-row">
@@ -239,6 +318,7 @@
       <div class="race-actions">
         <button type="button" class="btn btn-ctrl" id="btnReplayRace">Replay</button>
         <button type="button" class="btn btn-ctrl" id="btnRematch">Rematch / Retune</button>
+        <button type="button" class="btn btn-ctrl" id="btnSwapLanesRace">Swap Lanes</button>
         <a class="btn btn-back" href="index.html">← Back to VelocityBench</a>
       </div>
     </div>

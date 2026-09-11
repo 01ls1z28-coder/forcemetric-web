@@ -47,3 +47,20 @@ Garage: IsEv/IsForcedInduction/Transmission/EngineLayout/Differential/TireType/D
 Spots: 911+GT500 DCT; Mustang GT Auto; Civic Type R Manual; Plaid EV Auto Dual.
 Physics: Manual-2/DCT-1/Auto0; dyno WHP loss0; Mustang x1.05; curb-200+driver; playback OK.
 No fleet retune — garage-data.js unchanged.
+
+Phase 16 — Race setup-comparison (2026-09-10 CT)
+================================================
+HARD RULE: both lanes ALWAYS leave at exact same t=0.
+No reaction delay, red-light foul, holeshot RNG, or staging delay.
+Tree is cosmetic perfect simultaneous green only.
+
+16A Live lead delta strip: 60′ / 330′ / ⅛ / ¼ during playback (ahead by X ft / Y s).
+16B Dial-in / bracket optional: ET target scoring + breakout only; leave stays simultaneous.
+16C Shared weather with main: DA field + Air/HP strip via Physics.computeWeatherAirState;
+    snapshot may pass densityAltitudeFt from Test.
+16D Rematch / Swap Lanes / Copy You↔Opp setup tools.
+16E Photo-finish at finish mark with ET/trap to 0.001 s (roll: 100–200 km/h to 0.001 s).
+16F Optional course: 1/4 · 1/8 · roll race 100–200 km/h (still simultaneous leave).
+
+Dual-lane playback preserved. Brass --brass* family. No fleet retune / garage-data changes.
+No RT path in race.js (gated / absent by design).
