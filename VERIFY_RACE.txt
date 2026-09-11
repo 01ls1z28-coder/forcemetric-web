@@ -146,3 +146,9 @@ Verify race:
   5. Shared Weather DA still fully inside brass bezel
   6. No new npm deps — static Pages-friendly canvas only
 
+Phase 20 — ATC 60′ stall-band retune (shared physics) (2026-09-11 CT)
+--------------------------------------------------------------------
+Race lanes use shared Physics.aftermarketConverterForceMult stall-band table.
+Stall RPM inputs min=1500 (you + opp). No race-only physics fork.
+No sessionStorage restore / snapshot plumbing changes in this phase.
+See VERIFY.txt Phase 20 for calib numbers + traction undershoot notes.
