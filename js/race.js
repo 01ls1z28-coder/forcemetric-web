@@ -4,6 +4,7 @@
  * Phase 16: setup-compare — lead delta, dial/bracket, DA/air strip, swap/copy, photo-finish, roll race
  * Phase 18: course 1000ft + custom roll start/end speeds
  * Phase 19: side-view dual-lane playback visual overhaul (physics-true Steps positions)
+ * Phase 24: race loss parity (bake/snap) + hide loss fields + body-class stage silhouettes
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  * HARD RULE (P19): car X / gaps from Steps DistanceFt·Time only — no cosmetic lead cheat
  */
@@ -377,6 +378,41 @@
     return 0;
   }
 
+  /** Bake/snap base drivetrain loss % — never leave HTML default 15 when calibrated value exists. */
+  function resolveDrivetrainLossPercent(src) {
+    if (!src) return 15;
+    var raw = src.DrivetrainLossPercent;
+    if (raw == null) raw = src.loss;
+    if (raw == null && src.baseLoss != null) raw = src.baseLoss;
+    var n = typeof raw === 'number' ? raw : parseFloat(raw);
+    if (!isFinite(n)) return 15;
+    if (n < 0) n = 0;
+    if (n > 35) n = 35;
+    return n;
+  }
+
+  /**
+   * Stage cosmetics only — body class from curb / name keywords / layout.
+   * Motorcycle ≤1500; else Hypercar / SUV·Truck / Coupe·Sports / Sedan.
+   */
+  function resolveBodyClass(name, curbLbs, layout) {
+    var curb = Number(curbLbs);
+    if (isFinite(curb) && curb > 0 && curb <= 1500) return 'motorcycle';
+    var n = String(name || '').toLowerCase();
+    if (/chiron|veyron|nevera|agera|jesko|huayra|regera|gemera|bolide|divo|tuatara|speedtail|valkyrie|amg one|\bp1\b|laferrari|918|senna|sf90|ep9|rimac|koenigsegg|bugatti|pagani/.test(n)) {
+      return 'hypercar';
+    }
+    if (/\bsuv\b|truck|pickup|bronco|tahoe|suburban|cybertruck|f-150|f150|\bram\b|silverado|sierra|tundra|titan|ranger|colorado|canyon|gladiator|wrangler|hummer|escalade|navigator|expedition|yukon|urus|cayenne|macan|dbx|levante|bentayga|cullinan|model x\b|lightning|\btrx\b|raptor|g-class|g wagon|\bg63\b|4runner|land cruiser|defender/.test(n)) {
+      return 'suv';
+    }
+    if (/coupe|roadster|spyder|spider|convertible|corvette|mustang|camaro|challenger|\b911\b|cayman|boxster|carrera|miata|mx-5|supra|370z|350z|gt-r|\bgtr\b|nsx|lfa|viper|gt3|gt2|gt4|gt350|gt500|zl1|hellcat|demon|vantage|huracan|aventador|gallardo|488|f8|roma|portofino|gr86|brz|s2000|elise|exige|evora|emira/.test(n)) {
+      return 'coupe';
+    }
+    var L = String(layout || '');
+    if (L === 'Mid' || L === 'Rear') return 'coupe';
+    return 'sedan';
+  }
+
   function getHpSource(prefix) {
     if ($(prefix + 'HpDynoJet') && $(prefix + 'HpDynoJet').checked) return 'dynojet';
     if ($(prefix + 'HpMustang') && $(prefix + 'HpMustang').checked) return 'mustang';
@@ -415,7 +451,7 @@
     var source = getHpSource(prefix);
     if (source === 'dynojet' || source === 'mustang') return 0;
     var base = parseFloat($(prefix + 'Loss').value);
-    if (Number.isNaN(base)) base = 15;
+    if (!isFinite(base)) base = 15;
     var eff = base + transmissionLossDelta(getTransmission(prefix));
     if (eff < 0) eff = 0;
     if (eff > 35) eff = 35;
@@ -691,7 +727,7 @@
     if ($(prefix + 'DriverWeight')) $(prefix + 'DriverWeight').value = dw;
     $(prefix + 'Cd').value = snap.DragCoefficient != null ? snap.DragCoefficient : (snap.cd != null ? snap.cd : 0.32);
     $(prefix + 'Area').value = snap.FrontalAreaSqFt != null ? snap.FrontalAreaSqFt : (snap.area != null ? snap.area : 22);
-    $(prefix + 'Loss').value = snap.DrivetrainLossPercent != null ? snap.DrivetrainLossPercent : (snap.loss != null ? snap.loss : 15);
+    $(prefix + 'Loss').value = String(resolveDrivetrainLossPercent(snap));
     var tire = snap.TireType != null ? snap.TireType : (snap.tireType != null ? snap.tireType : 0);
     var tirePhase = snap.TireEnumPhase != null ? snap.TireEnumPhase : (snap.tireEnumPhase != null ? snap.tireEnumPhase : 0);
     $(prefix + 'Tire').value = tireLabelFromEnum(tire, tirePhase);
@@ -799,7 +835,15 @@
       Cd: parseNum($(prefix + 'Cd'), prefix + ' Cd'),
       frontalAreaSqFt: parseNum($(prefix + 'Area'), prefix + ' Area'),
       drivetrainLoss: computeEffectiveLoss(prefix),
-      baseLoss: parseFloat($(prefix + 'Loss').value) || 15,
+      baseLoss: (function () {
+        var b = parseFloat($(prefix + 'Loss').value);
+        return isFinite(b) ? b : 15;
+      })(),
+      bodyClass: resolveBodyClass(
+        String($(prefix + 'Name').value || '').trim(),
+        parseFloat($(prefix + 'Weight').value),
+        getEngineLayout(prefix)
+      ),
       tireType: mapTireIndex(parseInt($(prefix + 'Tire').value, 10)),
       driveType: getDrive(prefix),
       engineLayout: getEngineLayout(prefix),
@@ -834,7 +878,7 @@
       WeightLbs: car.WeightLbs,
       DragCoefficient: car.DragCoefficient,
       FrontalAreaSqFt: car.FrontalAreaSqFt,
-      DrivetrainLossPercent: car.DrivetrainLossPercent,
+      DrivetrainLossPercent: resolveDrivetrainLossPercent(car),
       TireType: tireLabelFromEnum(car.TireType, 21),
       TireEnumPhase: 21,
       DriveType: car.DriveType || 'RWD',
@@ -869,7 +913,10 @@
       DriverWeightLbs: $(prefix + 'DriverWeight') ? parseFloat($(prefix + 'DriverWeight').value) : DEFAULT_DRIVER_WEIGHT_LBS,
       DragCoefficient: parseFloat($(prefix + 'Cd').value),
       FrontalAreaSqFt: parseFloat($(prefix + 'Area').value),
-      DrivetrainLossPercent: parseFloat($(prefix + 'Loss').value),
+      DrivetrainLossPercent: (function () {
+        var b = parseFloat($(prefix + 'Loss').value);
+        return isFinite(b) ? b : 15;
+      })(),
       TireType: migrateTireType($(prefix + 'Tire').value, 21),
       TireEnumPhase: 21,
       DriveType: getDrive(prefix),
@@ -1191,6 +1238,7 @@
     this._ro = null;
     this._smoke = { you: 0, opp: 0 };
     this._prevMph = { you: 0, opp: 0 };
+    this._body = { you: 'sedan', opp: 'sedan' };
     this.reset();
     if (canvas && typeof ResizeObserver !== 'undefined' && canvas.parentElement) {
       var self = this;
@@ -1206,6 +1254,14 @@
     this._smoke = { you: 0, opp: 0 };
     this._prevMph = { you: 0, opp: 0 };
     this.drawFrame(0, 0, 0, 0, TRACK_FT, false);
+  };
+
+  /** Cosmetics only — does not affect X / gaps / timing. */
+  RaceStage.prototype.setBodyClasses = function (youBody, oppBody) {
+    this._body = {
+      you: youBody || 'sedan',
+      opp: oppBody || 'sedan'
+    };
   };
 
   RaceStage.prototype.resize = function () {
@@ -1390,9 +1446,9 @@
       ctx.fillText(lab, mx, asphaltTop - 6);
     }
 
-    // Smoke / trails / cars — order: trails under cars
-    this._drawLaneCar(youFt, youMph, youLaneY, laneH, '#b8ff3c', 'you', racing);
-    this._drawLaneCar(oppFt, oppMph, oppLaneY, laneH, '#22d3ee', 'opp', racing);
+    // Smoke / trails / cars — order: trails under cars (X from DistanceFt only)
+    this._drawLaneCar(youFt, youMph, youLaneY, laneH, '#b8ff3c', 'you', racing, (this._body && this._body.you) || 'sedan');
+    this._drawLaneCar(oppFt, oppMph, oppLaneY, laneH, '#22d3ee', 'opp', racing, (this._body && this._body.opp) || 'sedan');
 
     // Brass bezel vignette
     ctx.strokeStyle = 'rgba(196,165,116,0.45)';
@@ -1408,12 +1464,14 @@
     }
   };
 
-  RaceStage.prototype._drawLaneCar = function (ft, mph, laneY, laneH, color, key, racing) {
+  RaceStage.prototype._drawLaneCar = function (ft, mph, laneY, laneH, color, key, racing, bodyClass) {
     var ctx = this.ctx;
+    /* HARD RULE: car X from physics DistanceFt only — shape/trails must not alter gap */
     var x = this._ftToX(ft);
     var cy = laneY + laneH * 0.55;
-    var carW = 54;
-    var carH = Math.min(22, laneH * 0.55);
+    var body = bodyClass || 'sedan';
+    var carW = body === 'motorcycle' ? 44 : (body === 'suv' ? 58 : (body === 'hypercar' ? 56 : 54));
+    var carH = Math.min(body === 'suv' ? 26 : (body === 'motorcycle' ? 24 : 22), laneH * (body === 'suv' ? 0.62 : 0.55));
 
     // Near-traction smoke: cosmetic only from real mph (launch window)
     var prev = this._prevMph[key] || 0;
@@ -1443,7 +1501,6 @@
     if (trailLen > 4) {
       var trail = ctx.createLinearGradient(x - trailLen, cy, x, cy);
       trail.addColorStop(0, 'rgba(0,0,0,0)');
-      // parse color
       if (color === '#b8ff3c') {
         trail.addColorStop(0.55, 'rgba(184,255,60,0)');
         trail.addColorStop(1, 'rgba(184,255,60,0.55)');
@@ -1459,7 +1516,6 @@
       ctx.lineTo(x - trailLen, cy + carH * 0.2);
       ctx.closePath();
       ctx.fill();
-      // streak lines
       ctx.strokeStyle = color;
       ctx.globalAlpha = 0.35;
       ctx.lineWidth = 1.5;
@@ -1473,14 +1529,136 @@
       ctx.globalAlpha = 1;
     }
 
-    // Car silhouette (side view)
+    // Body-class silhouette (side view) — drawn at physics X; no positional bias
     ctx.save();
     ctx.translate(x, cy);
     ctx.fillStyle = color;
     ctx.shadowColor = color;
     ctx.shadowBlur = 12;
-    // body
+    this._fillBodySilhouette(ctx, body, carW, carH, color);
+    ctx.restore();
+  };
+
+  RaceStage.prototype._fillBodySilhouette = function (ctx, body, carW, carH, color) {
     ctx.beginPath();
+    if (body === 'motorcycle') {
+      // Lean sportbike profile
+      ctx.moveTo(-carW * 0.42, carH * 0.12);
+      ctx.lineTo(-carW * 0.28, -carH * 0.55);
+      ctx.lineTo(-carW * 0.05, -carH * 0.72);
+      ctx.lineTo(carW * 0.12, -carH * 0.35);
+      ctx.lineTo(carW * 0.38, -carH * 0.08);
+      ctx.lineTo(carW * 0.45, carH * 0.18);
+      ctx.lineTo(carW * 0.22, carH * 0.32);
+      ctx.lineTo(-carW * 0.18, carH * 0.32);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#0a0c10';
+      ctx.beginPath();
+      ctx.arc(-carW * 0.22, carH * 0.28, carH * 0.34, 0, Math.PI * 2);
+      ctx.arc(carW * 0.28, carH * 0.28, carH * 0.34, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillRect(carW * 0.34, -carH * 0.05, 3, 4);
+      return;
+    }
+    if (body === 'suv') {
+      // Tall boxy SUV / truck cabin
+      ctx.moveTo(-carW * 0.48, carH * 0.2);
+      ctx.lineTo(-carW * 0.46, -carH * 0.15);
+      ctx.lineTo(-carW * 0.28, -carH * 0.55);
+      ctx.lineTo(carW * 0.28, -carH * 0.55);
+      ctx.lineTo(carW * 0.42, -carH * 0.18);
+      ctx.lineTo(carW * 0.48, carH * 0.2);
+      ctx.lineTo(carW * 0.4, carH * 0.38);
+      ctx.lineTo(-carW * 0.42, carH * 0.38);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(10,14,20,0.55)';
+      ctx.fillRect(-carW * 0.22, -carH * 0.48, carW * 0.44, carH * 0.28);
+      ctx.fillStyle = '#0a0c10';
+      ctx.beginPath();
+      ctx.arc(-carW * 0.28, carH * 0.34, carH * 0.26, 0, Math.PI * 2);
+      ctx.arc(carW * 0.28, carH * 0.34, carH * 0.26, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillRect(carW * 0.4, -carH * 0.05, 4, 5);
+      return;
+    }
+    if (body === 'hypercar') {
+      // Ultra-low wedge
+      ctx.moveTo(-carW * 0.48, carH * 0.18);
+      ctx.lineTo(-carW * 0.3, -carH * 0.12);
+      ctx.lineTo(-carW * 0.02, -carH * 0.42);
+      ctx.lineTo(carW * 0.28, -carH * 0.38);
+      ctx.lineTo(carW * 0.5, carH * 0.05);
+      ctx.lineTo(carW * 0.42, carH * 0.28);
+      ctx.lineTo(-carW * 0.4, carH * 0.28);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(10,14,20,0.5)';
+      ctx.beginPath();
+      ctx.moveTo(carW * 0.02, -carH * 0.36);
+      ctx.lineTo(carW * 0.22, -carH * 0.34);
+      ctx.lineTo(carW * 0.28, -carH * 0.12);
+      ctx.lineTo(carW * 0.06, -carH * 0.12);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#0a0c10';
+      ctx.beginPath();
+      ctx.arc(-carW * 0.26, carH * 0.26, carH * 0.24, 0, Math.PI * 2);
+      ctx.arc(carW * 0.26, carH * 0.26, carH * 0.24, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.fillRect(carW * 0.42, -carH * 0.02, 5, 4);
+      return;
+    }
+    if (body === 'coupe') {
+      // Low long-hood sports coupe
+      ctx.moveTo(-carW * 0.46, carH * 0.12);
+      ctx.lineTo(-carW * 0.4, -carH * 0.18);
+      ctx.lineTo(-carW * 0.08, -carH * 0.48);
+      ctx.lineTo(carW * 0.18, -carH * 0.5);
+      ctx.lineTo(carW * 0.4, -carH * 0.18);
+      ctx.lineTo(carW * 0.48, carH * 0.12);
+      ctx.lineTo(carW * 0.36, carH * 0.32);
+      ctx.lineTo(-carW * 0.38, carH * 0.32);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(10,14,20,0.55)';
+      ctx.beginPath();
+      ctx.moveTo(-carW * 0.02, -carH * 0.44);
+      ctx.lineTo(carW * 0.14, -carH * 0.46);
+      ctx.lineTo(carW * 0.26, -carH * 0.18);
+      ctx.lineTo(carW * 0.02, -carH * 0.18);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#0a0c10';
+      ctx.beginPath();
+      ctx.arc(-carW * 0.28, carH * 0.3, carH * 0.26, 0, Math.PI * 2);
+      ctx.arc(carW * 0.28, carH * 0.3, carH * 0.26, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillRect(carW * 0.4, -carH * 0.06, 4, 5);
+      return;
+    }
+    // Sedan (default generic)
     ctx.moveTo(-carW * 0.45, 0);
     ctx.lineTo(-carW * 0.38, -carH * 0.35);
     ctx.lineTo(-carW * 0.05, -carH * 0.55);
@@ -1491,7 +1669,6 @@
     ctx.lineTo(-carW * 0.4, carH * 0.35);
     ctx.closePath();
     ctx.fill();
-    // cabin glass
     ctx.shadowBlur = 0;
     ctx.fillStyle = 'rgba(10,14,20,0.55)';
     ctx.beginPath();
@@ -1501,7 +1678,6 @@
     ctx.lineTo(carW * 0.02, -carH * 0.22);
     ctx.closePath();
     ctx.fill();
-    // wheels
     ctx.fillStyle = '#0a0c10';
     ctx.beginPath();
     ctx.arc(-carW * 0.28, carH * 0.32, carH * 0.28, 0, Math.PI * 2);
@@ -1510,10 +1686,8 @@
     ctx.strokeStyle = color;
     ctx.lineWidth = 1.5;
     ctx.stroke();
-    // nose highlight
     ctx.fillStyle = 'rgba(255,255,255,0.35)';
     ctx.fillRect(carW * 0.4, -carH * 0.08, 4, 5);
-    ctx.restore();
   };
 
   var raceStage = null;
@@ -2210,6 +2384,12 @@
         chartDist.resize();
       }, 30);
 
+      if (raceStage) {
+        raceStage.setBodyClasses(
+          you.bodyClass || resolveBodyClass(you.Name, you.curbWeightLbs, you.engineLayout),
+          opp.bodyClass || resolveBodyClass(opp.Name, opp.curbWeightLbs, opp.engineLayout)
+        );
+      }
       buildResultsCards();
       startPlayback();
     } catch (err) {
@@ -2452,6 +2632,8 @@
     if (!li) return;
     selectedOppIdx = parseInt(li.getAttribute('data-idx'), 10);
     renderOppList();
+    /* Selecting a calibrated garage car must apply bake loss (not leave HTML default 15). */
+    loadOppSelected();
   });
 
   $('oppCarList').addEventListener('dblclick', function (e) {

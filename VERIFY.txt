@@ -460,3 +460,48 @@ Intentional skips: Pages push; physics / garage / fleet; analytics/gtag;
 JSON-LD; twitter:title extra tags (card + og fallback); favicon set.
 GitHub repo homepage https://velocitybench.com/ is optional via gh —
 see commit/report for whether auth worked.
+
+Phase 24 — race loss parity + body silhouettes (2026-09-11 CT)
+--------------------------------------------------------------
+Branch: review/vb-phase24-race-parity
+Drag Racing only. No physics.js formula change. No garage-data retune.
+No analytics.
+
+Loss parity
+  - resolveDrivetrainLossPercent(bake/snap) coerces finite base loss (0–35);
+    default 15 only when missing/NaN.
+  - carSnapFromGarage / applyTune / captureLaneSnap / readLane baseLoss all
+    use that path so calibrated garage cars never leave HTML default 15.
+  - Same computeEffectiveLoss + TX deltas as main (Manual −2 / DCT −1 /
+    Auto 0; DynoJet/Mustang WHP → effective 0).
+  - Garage list single-click now loads opponent (bake incl. loss) — selecting
+    a car no longer leaves stale/default loss until Load.
+  - Capture / swap / copy / Back→main restore keep DrivetrainLossPercent
+    (isFinite, including 0).
+
+Hide UI
+  - youLoss + oppLoss labels use loss-field-hidden + hidden (still in DOM).
+  - No drivetrain/powertrain loss editing on race setup.
+  - Results LOSS meta-pill kept read-only showing effective % (honesty).
+
+Stage cosmetics (body-class silhouettes)
+  - resolveBodyClass(name, curb, layout):
+      Motorcycle ≤1500 curb; Hypercar keywords; SUV/Truck keywords;
+      Coupe/Sports keywords (+ Mid/Rear layout); else Sedan.
+  - RaceStage.setBodyClasses + _fillBodySilhouette (motorcycle / coupe /
+    sedan / suv / hypercar). Lime YOU / cyan OPP colors unchanged.
+  - HARD RULE unchanged: car X from Steps DistanceFt only — trails/smoke/
+    shape do not alter gap/timing. Simultaneous leave t=0 unchanged.
+
+Verify:
+  1. Load garage Mustang GT on You (session or default) → base loss 19 (not 15);
+     Manual TX → effective LOSS pill 17%
+  2. Click opponent ZL1 in list → opp loss bake applied without Load button
+  3. youLoss/oppLoss not visible in setup; still present in DOM
+  4. Swap/copy/Back preserve loss; rematch unchanged
+  5. Stage: bike→motorcycle, Chiron→hypercar, Bronco→suv, Mustang→coupe;
+     cars still aligned at green; lead matches DistanceFt
+  6. No physics.js / garage-data.js / analytics change
+
+Intentional skips: Pages push; physics formula; garage-data fleet retune;
+analytics/gtag; editable loss on race; RT / holeshot.
