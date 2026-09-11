@@ -26,7 +26,7 @@
 
   function layoutMuMult(layout) {
     var L = String(layout || 'Front');
-    if (L === 'Mid') return 1.00;
+    if (L === 'Mid' || L === 'Dual') return 1.00;
     if (L === 'Rear') return 1.03;
     return 0.95; // Front default
   }

@@ -40,6 +40,7 @@
     layoutFront: document.getElementById('layoutFront'),
     layoutMid: document.getElementById('layoutMid'),
     layoutRear: document.getElementById('layoutRear'),
+    layoutDual: document.getElementById('layoutDual'),
     diffOpen: document.getElementById('diffOpen'),
     diffLSD: document.getElementById('diffLSD'),
     diffElectronic: document.getElementById('diffElectronic'),
@@ -249,6 +250,7 @@
 
 
   function getEngineLayout() {
+    if (el.layoutDual && el.layoutDual.checked) return 'Dual';
     if (el.layoutMid && el.layoutMid.checked) return 'Mid';
     if (el.layoutRear && el.layoutRear.checked) return 'Rear';
     return 'Front';
@@ -256,10 +258,26 @@
 
   function setEngineLayout(v) {
     var L = String(v || 'Front');
-    if (L !== 'Front' && L !== 'Mid' && L !== 'Rear') L = 'Front';
+    if (L !== 'Front' && L !== 'Mid' && L !== 'Rear' && L !== 'Dual') L = 'Front';
     if (el.layoutFront) el.layoutFront.checked = (L === 'Front');
     if (el.layoutMid) el.layoutMid.checked = (L === 'Mid');
     if (el.layoutRear) el.layoutRear.checked = (L === 'Rear');
+    if (el.layoutDual) el.layoutDual.checked = (L === 'Dual');
+  }
+
+  /** EV motor layout from drivetrain. AWD→Dual; preserve Mid (e.g. Nevera garage bake). */
+  function bakeEvEngineLayout(driveType, opts) {
+    opts = opts || {};
+    var d = String(driveType || '').toUpperCase();
+    if (d === 'FWD') return 'Front';
+    if (d === 'RWD') return 'Rear';
+    if (d === 'AWD') {
+      var name = String(opts.name || '').toLowerCase();
+      if (/\bnevera\b/.test(name)) return 'Mid';
+      if (opts.preserveMid && String(opts.currentLayout || '') === 'Mid') return 'Mid';
+      return 'Dual';
+    }
+    return 'Front';
   }
 
   function getDifferential() {
@@ -320,7 +338,7 @@
     setInputWeightLbs(el.driverWeight, DEFAULT_DRIVER_WEIGHT_LBS);
   }
 
-  /** Engine = base ± Manual; DynoJet/Mustang WHP = loss 0. Clamp 0–35. */
+  /** HP = base ± Manual; DynoJet/Mustang Dyno WHP = loss 0. Clamp 0–35. */
   function computeEffectiveLoss() {
     var source = getHpSource();
     if (source === 'dynojet' || source === 'mustang') return 0;
@@ -409,11 +427,11 @@
   function syncHpLossUi() {
     var source = getHpSource();
     var labels = {
-      engine: 'Engine HP',
+      engine: 'HP',
       dynojet: 'DynoJet WHP',
       mustang: 'Mustang Dyno WHP'
     };
-    if (el.hpLabel) el.hpLabel.textContent = labels[source] || 'Engine HP';
+    if (el.hpLabel) el.hpLabel.textContent = labels[source] || 'HP';
 
     var lockLoss = source !== 'engine';
     if (el.loss) {
@@ -490,9 +508,9 @@
     } else if (el.chkFI.checked && !el.chkNA.checked) {
       engineLabel = 'Forced ind.';
     }
-    lines.push(slipLine('ENGINE', engineLabel));
+    lines.push(slipLine(el.chkEv && el.chkEv.checked ? 'MOTOR' : 'ENGINE', engineLabel));
     var srcHp = getHpSource();
-    var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang WHP' : 'Engine HP');
+    var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang Dyno WHP' : 'HP');
     lines.push(slipLine('HP SOURCE', srcLabel));
     lines.push(slipLine('TRANS', getTransmission() === 'manual' ? 'Manual' : 'Automatic'));
     var dwDisp = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
@@ -830,6 +848,10 @@
       el.chkFI.checked = false;
       el.chkNA.disabled = true;
       el.chkFI.disabled = true;
+      setEngineLayout(bakeEvEngineLayout(getDriveType(), {
+        preserveMid: true,
+        currentLayout: getEngineLayout()
+      }));
       /* Preserve user drivetrain loss % and tire selection across EV toggle. */
       el.resultsOut.textContent += '\nEV Mode enabled.';
     } else {
@@ -841,7 +863,14 @@
   });
 
   function onDriveTypeChange() {
-    el.resultsOut.textContent += '\nDrivetrain: ' + getDriveType() + '.';
+    var dt = getDriveType();
+    if (el.chkEv && el.chkEv.checked) {
+      setEngineLayout(bakeEvEngineLayout(dt, {
+        preserveMid: true,
+        currentLayout: getEngineLayout()
+      }));
+    }
+    el.resultsOut.textContent += '\nDrivetrain: ' + dt + '.';
   }
   if (el.driveFWD) el.driveFWD.addEventListener('change', onDriveTypeChange);
   if (el.driveRWD) el.driveRWD.addEventListener('change', onDriveTypeChange);
@@ -1310,6 +1339,14 @@
       if (prev2.Differential) differential = prev2.Differential;
       if (prev2.MaxSpeedMph != null && isFinite(prev2.MaxSpeedMph)) maxSpeedMph = prev2.MaxSpeedMph;
     }
+    if (isEv) {
+      engineLayout = bakeEvEngineLayout(driveType, {
+        name: name,
+        preserveMid: true,
+        currentLayout: engineLayout
+      });
+      if (!differential || differential === 'LSD') differential = 'Open';
+    }
     var out = {
       Name: name,
       Horsepower: hp,
@@ -1766,6 +1803,9 @@
     parseGarageMeta: parseGarageMeta,
     getDriveType: getDriveType,
     setDriveType: setDriveType,
+    getEngineLayout: getEngineLayout,
+    setEngineLayout: setEngineLayout,
+    bakeEvEngineLayout: bakeEvEngineLayout,
     getTransmission: getTransmission,
     setTransmission: setTransmission,
     isLightCurb: isLightCurb,

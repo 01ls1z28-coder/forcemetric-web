@@ -1367,6 +1367,16 @@ input[type="text"] {
   overflow: hidden;
 }
 
+.drive-seg.drive-seg-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.drive-seg.drive-seg-4 .drive-opt span {
+  padding: 8px 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
 .drive-opt {
   position: relative;
   cursor: pointer;

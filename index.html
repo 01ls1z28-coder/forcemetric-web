@@ -42,12 +42,12 @@
         <div class="drive-row hp-source-row">
           <span class="drive-label">HP Source</span>
           <div class="drive-seg" role="radiogroup" aria-label="HP Source">
-            <label class="drive-opt"><input type="radio" name="hpSource" id="hpEngine" value="engine" checked /><span>Engine HP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpEngine" value="engine" checked /><span>HP</span></label>
             <label class="drive-opt"><input type="radio" name="hpSource" id="hpDynoJet" value="dynojet" /><span>DynoJet WHP</span></label>
-            <label class="drive-opt"><input type="radio" name="hpSource" id="hpMustang" value="mustang" /><span>Mustang WHP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpMustang" value="mustang" /><span>Mustang Dyno WHP</span></label>
           </div>
         </div>
-        <label class="field"><span id="hpLabel">Engine HP</span><input type="number" id="hp" value="450" step="1" /></label>
+        <label class="field"><span id="hpLabel">HP</span><input type="number" id="hp" value="450" step="1" /></label>
         <label class="field"><span id="weightLabel">Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
         <label class="field"><span id="driverWeightLabel">Driver Weight (lbs)</span><input type="number" id="driverWeight" value="200" step="1" min="0" /></label>
         <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
@@ -86,11 +86,12 @@
           </div>
         </div>
         <div class="drive-row">
-          <span class="drive-label">Engine Layout</span>
-          <div class="drive-seg" role="radiogroup" aria-label="Engine Layout">
+          <span class="drive-label">Engine/Motor Layout</span>
+          <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Engine/Motor Layout">
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutFront" value="Front" checked /><span>Front</span></label>
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutMid" value="Mid" /><span>Mid</span></label>
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutRear" value="Rear" /><span>Rear</span></label>
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutDual" value="Dual" /><span>Front + Rear</span></label>
           </div>
         </div>
         <div class="drive-row">

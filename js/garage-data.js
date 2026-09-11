@@ -4,6 +4,7 @@
  * Phase 3: TireType enum (Street=0,Sport=1,Drag=2,Slick=3), EngineLayout, Differential, MaxSpeedMph.
  * Phase 4: DrivetrainLossPercent calibrated (driver 175 era — superseded per-car by Phase 8B where cited).
  * Phase 8B batch 1–2: fleet recalib driver 200, Street, trap-first (batch1 ~50 + batch2 rest of fleet).
+ * Phase 11: EV EngineLayout bake — FWD→Front, RWD→Rear, AWD→Dual (Rimac Nevera→Mid).
  */
 window.GARAGE_DATA = [
   {
@@ -812,7 +813,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 200,
     "Source": "Perf: C&D Model S Plaid 2.1 / 9.4@151 (loss 6.9, TX AUTO, driver 200, Street, trap-first)"
@@ -828,7 +829,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 162,
     "Source": "Perf: C&D 2024 Model 3 Perf 2.8 / 11.0@125 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
@@ -844,7 +845,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Rear",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 161,
     "Source": "Perf: C&D Taycan Turbo S 2.4 / 10.5@130 (loss 20.7, TX AUTO, driver 200, Street, trap-first)"
@@ -860,7 +861,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 205,
     "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss 8.1, TX AUTO, driver 200, Street, trap-first)"
@@ -876,7 +877,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 162,
     "Source": "Perf: C&D Ioniq 5 N 3.0 / 11.1@123 (loss 25.1, TX AUTO, driver 200, Street, trap-first)"
@@ -892,7 +893,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 110,
     "Source": "Perf: C&D F-150 Lightning Platinum 4.0 / 12.7@107 (loss 20.4, TX AUTO, driver 200, Street, trap-first)"
@@ -908,7 +909,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D Model Y Perf ~3.5–3.6 / 12.0–12.1@113–114 (loss 21.9, TX AUTO, driver 200, Street, trap-first)"
@@ -924,7 +925,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 163,
     "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~10.4@128 (loss 32, TX AUTO, driver 200, Street, trap-first)"
@@ -940,7 +941,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D EV6 GT (576 hp gen) ~3.4 / ~11.4@120 (loss 21.7, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -955,7 +956,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 127,
     "Source": "Perf: C&D 2023 Polestar 2 Performance 3.9 / 12.2@116 (loss 16.7, TX AUTO, driver 200, Street, trap-first)"
@@ -971,7 +972,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D iX M60 3.2 / 11.5@120 (loss 11.8, TX AUTO, driver 200, Street, trap-first)"
@@ -987,7 +988,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 149,
     "Source": "Perf: C&D/peer EQE AMG 53 Dual Motor ~3.2 / ~11.6@118 (loss 30.2, TX AUTO, driver 200, Street, trap-first)"
@@ -1003,7 +1004,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D 2023 Lyriq AWD 4.6 / 12.9@113 (loss 11.1, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1018,7 +1019,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 130,
     "Source": "Perf: C&D Cybertruck Beast 2.6 / 11.0@119 (loss 24.5, TX AUTO, driver 200, Street, trap-first)"
@@ -1034,7 +1035,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D 2023 GV60 Performance 3.7 / 12.2@112 (loss 14.2, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1049,7 +1050,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D EX90 Twin Motor Performance 4.1 / 12.9@106 (loss 19.6, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1064,7 +1065,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D Q4 e-tron Quattro 5.0 / 13.7@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1079,7 +1080,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer EQB 350 4MATIC ~5.8 / ~14.5@95 (loss 20.1, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1094,7 +1095,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D/peer Model X Dual Motor LR ~3.8 / ~12.3@112 (loss 32, TX AUTO, driver 200, Street, trap-first)"
@@ -1110,7 +1111,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer Ariya e-4ORCE Platinum+ ~5.0 / ~13.4@105 (loss 20.9, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1125,7 +1126,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: peer/OEM Solterra AWD ~6.5 / ~15.0@90 (loss 10.9, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1140,7 +1141,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: peer/OEM bZ4X AWD ~6.9 / ~15.2@89 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1155,7 +1156,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: peer Fisker Ocean Extreme Dual Motor ~4.0 / ~12.5@110 (loss 30.4, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1170,7 +1171,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer Ioniq 6 Long Range AWD ~4.4 / ~12.9@110 (loss 5, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1185,7 +1186,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer ID.4 Dual Motor (295hp class) ~5.4 / ~14.0@97 (loss 17.6, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1200,7 +1201,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D Blazer EV SS 3.3 / 11.8@117 (loss 14.3, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1215,7 +1216,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 149,
     "Source": "Perf: C&D Mach-E GT Performance 3.7 / 12.7@101 (loss 32, TX AUTO, driver 200, Street, trap-first)"
@@ -1231,7 +1232,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D 2024 i5 M60 3.3 / 11.5@124 (loss 10.6, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1246,7 +1247,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 135,
     "Source": "Perf: C&D/peer R1S Quad ~3.0 / ~11.5@112 (loss 32, TX AUTO, driver 200, Street, trap-first)"
@@ -1262,7 +1263,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D 2023 i7 xDrive60 4.1 / 12.5@114 (loss 12.5, TX AUTO, driver 200, Street, trap-first)"
@@ -1278,7 +1279,7 @@ window.GARAGE_DATA = [
     "DriveType": "RWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Rear",
     "Differential": "Open",
     "MaxSpeedMph": 130,
     "Source": "Perf: C&D/peer EQS 450+ RWD ~5.5 / ~14.0@100 (loss 15.9, TX AUTO, driver 200, Street, trap-first)"
@@ -1294,7 +1295,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer e-tron GT (non-RS) ~3.9 / ~12.3@113 (loss 24.6, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -1309,7 +1310,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D Lucid Air Touring 3.0 / 11.0@126 (loss 16.1, TX AUTO, driver 200, Street, trap-first)"
@@ -1325,7 +1326,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
     "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss 32, TX AUTO, driver 200, Street, trap-first)"
@@ -1371,7 +1372,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 130,
     "Source": "Perf: C&D/peer EQS 580 SUV Dual Motor ~4.0 / ~12.5@112 (loss 11.1, TX AUTO, driver 200, Street, trap-first)"
@@ -1387,7 +1388,7 @@ window.GARAGE_DATA = [
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
-    "EngineLayout": "Front",
+    "EngineLayout": "Dual",
     "Differential": "Open",
     "Source": "Perf: C&D/peer XC40 Recharge Twin Motor ~4.3 / ~12.8@108 (loss 18, TX AUTO, driver 200, Street, trap-first)"
   },
@@ -4731,11 +4732,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 13.7,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump. | Perf: C&D 2023 911 GT3 RS 2.7 / 10.9@127 (loss 13.7, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 518 / DIN curb 1450 kg (3197 lb): Porsche Newsroom tech data PDF S22_3515. Cd/area: class estimate near bake 2019 911 GT3 (0.33/20.5) with RS aero bump. | Perf: C&D 2023 911 GT3 RS 2.7 / 10.9@127 (loss 13.7, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Porsche 718 Cayman GT4 RS",
@@ -4746,11 +4747,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 11,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m² (≈21.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF. | Perf: C&D 718 Cayman GT4 RS 2.8 / 11.0@126 (loss 11, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Rear",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 493, US curb 3227 lb, Cd 0.33, A 2.033 m² (≈21.9 sq ft): Porsche Newsroom 718 Cayman GT4 RS Technical Data PDF. | Perf: C&D 718 Cayman GT4 RS 2.8 / 11.0@126 (loss 11, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Toyota GR Supra 3.0",
@@ -4761,11 +4762,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 9.9,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5). | Perf: C&D GR Supra auto ~3.7 / ~12.2@116 (loss 9.9, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 382 / curb 3400 lb: Toyota MY23 GR Supra eBrochure. Cd/area: class estimate matching bake Supra peers (0.33/21.5). | Perf: C&D GR Supra auto ~3.7 / ~12.2@116 (loss 9.9, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Nissan Z Performance",
@@ -4776,11 +4777,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 19,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe. | Perf: C&D Nissan Z MT ~4.3 / ~12.8@112 (loss 19, TX MANUAL, driver 200, Street, trap-first; FLAG IsForcedInduction=false but name/source looks FI)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 400 / MT curb 3536 lb: Nissan USA 2023 Z brochure. Cd/area: class estimate for modern RWD sports coupe. | Perf: C&D Nissan Z MT ~4.3 / ~12.8@112 (loss 19, TX MANUAL, driver 200, Street, trap-first; FLAG IsForcedInduction=false but name/source looks FI)"
   },
   {
     "Name": "2024 BMW M2",
@@ -4791,11 +4792,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 5.6,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe. | Perf: C&D 2024 M2 ~3.4 / ~11.7@120 (loss 5.6, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "Electronic"
+    "Differential": "Electronic",
+    "Source": "HP 453: Car and Driver 2024 M2 instrumented. Curb 3814 lb: KBB/BMW USA curb listings for 2024 M2. Cd/area: class estimate compact RWD coupe. | Perf: C&D 2024 M2 ~3.4 / ~11.7@120 (loss 5.6, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Chevrolet Corvette Stingray",
@@ -4806,11 +4807,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 15.5,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight). | Perf: C&D C8 Stingray Z51 2.8 / 11.2@122 (loss 15.5, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 490 (std LT2) / coupe curb 3366 lb: Chevrolet 2024 Corvette Stingray specs. Cd/area: class estimate mid-engine sports (no invented HP/weight). | Perf: C&D C8 Stingray Z51 2.8 / 11.2@122 (loss 15.5, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Mazda MX-5 Miata Club",
@@ -4821,11 +4822,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 24.2,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 181: Mazda USA 2023 MX-5 pricing/packaging. Curb 2341 lb: KBB/TheCarConnection Club soft-top. Cd/area: class estimate matching bake NA Miata peers. | Perf: C&D ND Miata Club class ~5.7 / ~14.4@95 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 181: Mazda USA 2023 MX-5 pricing/packaging. Curb 2341 lb: KBB/TheCarConnection Club soft-top. Cd/area: class estimate matching bake NA Miata peers. | Perf: C&D ND Miata Club class ~5.7 / ~14.4@95 (loss 24.2, TX MANUAL, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Lexus LC 500 Coupe",
@@ -4836,11 +4837,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 17.9,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 471 @ 7100 / curb 4340 lb coupe: U.S. News / KBB 2024 LC 500 Coupe specs. Cd/area: class estimate grand tourer coupe. | Perf: C&D LC 500 coupe ~4.7 / 13.2@111 (loss 17.9, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 471 @ 7100 / curb 4340 lb coupe: U.S. News / KBB 2024 LC 500 Coupe specs. Cd/area: class estimate grand tourer coupe. | Perf: C&D LC 500 coupe ~4.7 / 13.2@111 (loss 17.9, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Ford Bronco Raptor",
@@ -4851,11 +4852,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 21.9,
     "TireType": 0,
     "DriveType": "AWD",
-    "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s). | Perf: C&D Bronco Raptor 5.6 / 14.4@94 (loss 21.9, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "Locker"
+    "Differential": "Locker",
+    "Source": "HP 418: Ford/Road & Track 2023 Bronco Raptor. Curb 5733 lb: Edmunds/JD Power base curb. Cd/area: high-drag off-road SUV class estimate (boxy body + 37s). | Perf: C&D Bronco Raptor 5.6 / 14.4@94 (loss 21.9, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Toyota GR86",
@@ -4866,11 +4867,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 17.3,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 228: Toyota 2024 GR86 eBrochure. Curb 2811 lb MT base: Car and Driver / Toyota curb tables. Cd/area: class estimate RWD sports coupe (no OEM Cd published in brochure excerpt). | Perf: C&D 2024 GR86 MT 5.4 / 14.0@101 (loss 17.3, TX MANUAL, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 228: Toyota 2024 GR86 eBrochure. Curb 2811 lb MT base: Car and Driver / Toyota curb tables. Cd/area: class estimate RWD sports coupe (no OEM Cd published in brochure excerpt). | Perf: C&D 2024 GR86 MT 5.4 / 14.0@101 (loss 17.3, TX MANUAL, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Subaru BRZ",
@@ -4881,11 +4882,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 17,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 228 / Premium MT curb 2820 lb: Subaru 2024 BRZ brochure. Cd/area: class estimate twin of GR86 (no OEM Cd in brochure). | Perf: C&D 2024 BRZ tS MT 5.5 / 14.0@101 (loss 17, TX MANUAL, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 228 / Premium MT curb 2820 lb: Subaru 2024 BRZ brochure. Cd/area: class estimate twin of GR86 (no OEM Cd in brochure). | Perf: C&D 2024 BRZ tS MT 5.5 / 14.0@101 (loss 17, TX MANUAL, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Chevrolet Corvette Z06",
@@ -4896,11 +4897,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 16.6,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss 16.6, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Mid",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 670 LT6: Chevrolet/GMAuthority Z06 specs. Curb 3666 lb: Car and Driver instrumented coupe (GM dry weight listed 3500 lb — using C&D curb, not dry). Cd/area: class estimate mid-engine sports. | Perf: C&D 2023 Z06 coupe 2.6 / 10.5@131 (loss 16.6, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Acura Integra Type S",
@@ -4911,11 +4912,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 24.1,
     "TireType": 0,
     "DriveType": "FWD",
-    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22). | Perf: C&D Integra Type S MT ~5.0 / ~13.5@106 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 320 @ 6500 / curb 3219 lb: Acura 2024 Integra & Type S specifications release. Cd/area: class estimate matching bake Civic Type R peer (0.32/22). | Perf: C&D Integra Type S MT ~5.0 / ~13.5@106 (loss 24.1, TX MANUAL, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Acura TLX Type S",
@@ -4926,11 +4927,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 13.2,
     "TireType": 0,
     "DriveType": "AWD",
-    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss 13.2, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 355 @ 5500 / curb 4221 lb SH-AWD: Acura 2023 TLX Type S specifications PDF. Cd/area: class estimate performance sedan. | Perf: C&D 2024 TLX Type S 4.6 / 13.3@105 (loss 13.2, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Lexus IS 500",
@@ -4941,11 +4942,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 24.6,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 472 @ 7100 / curb 3891 lb: Cars.com / Auto123 / C&D curb tables for 2024 IS 500 F SPORT Performance. Cd/area: class estimate compact RWD sedan. | Perf: C&D IS500 F Sport 4.3 / 12.8@112 (loss 24.6, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 472 @ 7100 / curb 3891 lb: Cars.com / Auto123 / C&D curb tables for 2024 IS 500 F SPORT Performance. Cd/area: class estimate compact RWD sedan. | Perf: C&D IS500 F Sport 4.3 / 12.8@112 (loss 24.6, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Audi RS 3",
@@ -4956,11 +4957,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 5,
     "TireType": 0,
     "DriveType": "AWD",
-    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan. | Perf: C&D Audi RS 3 ~3.3 / ~11.6@119 (loss 5, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 401: Audi/Car and Driver 2024 RS 3. Curb 3649 lb: KBB 2024 RS 3. Cd/area: class estimate compact quattro sedan. | Perf: C&D Audi RS 3 ~3.3 / ~11.6@119 (loss 5, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2024 Lexus RC F",
@@ -4971,11 +4972,11 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 21,
     "TireType": 0,
     "DriveType": "RWD",
-    "Source": "HP 472: Lexus USA Newsroom 2024 RC F. Curb 3902 lb: Carbuzz / AutomartUSA 2024 RC F curb. Cd/area: class estimate RWD coupe. | Perf: C&D RC F 4.1 / 12.7@113 (loss 21, TX AUTO, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": false,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 472: Lexus USA Newsroom 2024 RC F. Curb 3902 lb: Carbuzz / AutomartUSA 2024 RC F curb. Cd/area: class estimate RWD coupe. | Perf: C&D RC F 4.1 / 12.7@113 (loss 21, TX AUTO, driver 200, Street, trap-first)"
   },
   {
     "Name": "2023 Honda Civic Type R",
@@ -4986,10 +4987,10 @@ window.GARAGE_DATA = [
     "DrivetrainLossPercent": 23.4,
     "TireType": 0,
     "DriveType": "FWD",
-    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 Civic Type R MT 4.9 / 13.5@106 (loss 23.4, TX MANUAL, driver 200, Street, trap-first)",
     "IsEv": false,
     "IsForcedInduction": true,
     "EngineLayout": "Front",
-    "Differential": "LSD"
+    "Differential": "LSD",
+    "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 Civic Type R MT 4.9 / 13.5@106 (loss 23.4, TX MANUAL, driver 200, Street, trap-first)"
   }
-]
+];
