@@ -141,3 +141,47 @@ Verify:
   3. Enable bracket dials — winner by dial/breakout, not RT
   4. Roll mode — winner by 100–200 km/h interval; leave still t=0
   5. Swap / copy / rematch round-trip without losing TX/layout/driver
+
+Phase 17 — Aftermarket Torque Converter Stall+Peak TQ (2026-09-11 CT)
+
+---------------------------------------------------------------------
+
+Main + race both lanes under Differential. Brass --brass* tokens.
+
+No fleet retune / garage-data.js changes. Session-only ATC for v1.
+
+
+
+UI: toggle; Stall RPM 1800-7000; Peak TQ RPM 1500-9000; Auto TX only.
+
+Manual/DCT/EV disable ATC. Disclaimer: compiled estimate, not dyno-certified converter map.
+
+Race: Differential radios both lanes + ATC under Diff.
+
+
+
+Physics: aftermarketConverterForceMult — launch-window force mult vs mph
+
+before traction min; mu path hard limit. Match=Stall/PeakTQ peaks ~+18%;
+
+under-stall weaker; soft over-stall slip/heat penalty; window fades 40-70 mph;
+
+mult clamp 0.85-1.22. Estimate grade — not K-factor CFD.
+
+
+
+Verify:
+
+  1. Auto ATC OFF == baseline ET
+
+  2. Matched Stall~PeakTQ stronger 60ft/0-60 vs OFF; still traction-capped
+
+  3. Under-stall weaker than matched; over-stall soft penalty
+
+  4. Manual/DCT/EV gate ATC off
+
+  5. Race lanes + swap/copy session ATC fields
+
+
+
+Intentional skips: K-factor map; garage bake ATC columns; fleet retune.

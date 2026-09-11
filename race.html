@@ -147,6 +147,26 @@
               <label class="drive-opt"><input type="radio" name="youEngineLayout" id="youLayoutDual" value="Dual" /><span>Front + Rear</span></label>
             </div>
           </div>
+          <div class="drive-row">
+            <span class="drive-label">Differential</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Your differential">
+              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffOpen" value="Open" /><span>Open</span></label>
+              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLSD" value="LSD" checked /><span>LSD</span></label>
+              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+              <label class="drive-opt"><input type="radio" name="youDifferential" id="youDiffLocker" value="Locker" /><span>Locker</span></label>
+            </div>
+          </div>
+          <div class="atc-block" id="youAtcBlock">
+            <div class="atc-head">
+              <label class="atc-toggle"><input type="checkbox" id="youAtc" /> Aftermarket Torque Converter</label>
+              <span class="atc-badge" id="youAtcBadge">Auto TX</span>
+            </div>
+            <div class="atc-fields" id="youAtcFields">
+              <label class="field"><span>Stall RPM</span><input type="number" id="youAtcStallRpm" value="2800" min="1800" max="7000" step="50" /></label>
+              <label class="field"><span>Peak Torque RPM</span><input type="number" id="youAtcPeakTorqueRpm" value="4000" min="1500" max="9000" step="50" /></label>
+            </div>
+            <p class="field-hint atc-hint">Compiled estimate, not dyno-certified converter map. Auto TX only.</p>
+          </div>
         </section>
 
         <!-- OPPONENT -->
@@ -215,6 +235,26 @@
               <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutRear" value="Rear" /><span>Rear</span></label>
               <label class="drive-opt"><input type="radio" name="oppEngineLayout" id="oppLayoutDual" value="Dual" /><span>Front + Rear</span></label>
             </div>
+          </div>
+          <div class="drive-row">
+            <span class="drive-label">Differential</span>
+            <div class="drive-seg" role="radiogroup" aria-label="Opponent differential">
+              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffOpen" value="Open" /><span>Open</span></label>
+              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLSD" value="LSD" checked /><span>LSD</span></label>
+              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+              <label class="drive-opt"><input type="radio" name="oppDifferential" id="oppDiffLocker" value="Locker" /><span>Locker</span></label>
+            </div>
+          </div>
+          <div class="atc-block" id="oppAtcBlock">
+            <div class="atc-head">
+              <label class="atc-toggle"><input type="checkbox" id="oppAtc" /> Aftermarket Torque Converter</label>
+              <span class="atc-badge" id="oppAtcBadge">Auto TX</span>
+            </div>
+            <div class="atc-fields" id="oppAtcFields">
+              <label class="field"><span>Stall RPM</span><input type="number" id="oppAtcStallRpm" value="2800" min="1800" max="7000" step="50" /></label>
+              <label class="field"><span>Peak Torque RPM</span><input type="number" id="oppAtcPeakTorqueRpm" value="4000" min="1500" max="9000" step="50" /></label>
+            </div>
+            <p class="field-hint atc-hint">Compiled estimate, not dyno-certified converter map. Auto TX only.</p>
           </div>
         </section>
       </div>

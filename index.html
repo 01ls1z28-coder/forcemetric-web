@@ -104,6 +104,17 @@
             <label class="drive-opt"><input type="radio" name="differential" id="diffLocker" value="Locker" /><span>Locker</span></label>
           </div>
         </div>
+        <div class="atc-block" id="atcBlock">
+          <div class="atc-head">
+            <label class="atc-toggle"><input type="checkbox" id="chkAtc" /> Aftermarket Torque Converter</label>
+            <span class="atc-badge" id="atcBadge">Auto TX</span>
+          </div>
+          <div class="atc-fields" id="atcFields">
+            <label class="field"><span>Stall RPM</span><input type="number" id="atcStallRpm" value="2800" min="1800" max="7000" step="50" /></label>
+            <label class="field"><span>Peak Torque RPM</span><input type="number" id="atcPeakTorqueRpm" value="4000" min="1500" max="9000" step="50" /></label>
+          </div>
+          <p class="field-hint atc-hint" id="atcHint">Compiled estimate, not dyno-certified converter map. Auto TX only — Manual / Dual Clutch / EV disabled.</p>
+        </div>
       </section>
 
       <!-- Atmosphere: DA Calculator above Weather Presets -->

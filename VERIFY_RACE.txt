@@ -70,7 +70,20 @@ Hotfix — Shared Weather DA clip (2026-09-11 CT)
 Bug: Race Shared Weather clipped Density Altitude (ft) input on the right (Phase 16 live Pages).
 Fix: CSS-only in css/race.css — weather-row 5-col minmax auto-fit, weather-strip/race-opts overflow:visible,
 stacked field labels, inputs width 100% / min-width 0 / border-box; race-opts-row same mid-width guard.
-≤980 media queries unchanged (collapse). No JS / physics / garage / ATC changes.
+<=980 media queries unchanged (collapse). No JS / physics / garage / ATC changes.
 
 VERIFY: hard refresh /race.html — Shared Weather DA box fully inside brass bezel; "(auto)" visible;
 no overlap with Air/HP strip.
+
+Phase 17 — ATC Stall+Peak TQ on race lanes (2026-09-11 CT)
+============================================================
+Differential UI both lanes + Aftermarket Torque Converter under Diff.
+Shared Physics.aftermarketConverterForceMult; Auto TX only; Manual/DCT/EV gated.
+Session ATC fields via snapshot/swap/copy; not garage bake. No fleet retune.
+Hard rule unchanged: simultaneous leave t=0. Weather DA hotfix CSS left alone.
+
+Verify race:
+  1. ATC OFF both lanes == Phase 16 baseline ET
+  2. You ATC ON matched stall improves 60ft vs Opp ATC OFF
+  3. EV lane ATC badge EV N/A; Manual/DCT locks ATC off
+  4. Swap/copy preserves Stall/PeakTQ session values

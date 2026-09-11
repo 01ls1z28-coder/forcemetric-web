@@ -40,6 +40,72 @@
   }
 
 
+  /**
+   * Aftermarket torque converter launch multiplier (Phase 17).
+   * Stall matched to Peak TQ RPM peaks the boost; under-stall weaker;
+   * soft over-stall slip/heat penalty. Launch window fades with mph.
+   * Estimate grade only — not a K-factor / dyno converter map.
+   * Caller must gate Auto-only / non-EV; returns 1 when disabled.
+   */
+  var ATC_STALL_MIN = 1800;
+  var ATC_STALL_MAX = 7000;
+  var ATC_PEAK_TQ_MIN = 1500;
+  var ATC_PEAK_TQ_MAX = 9000;
+
+  function clampAtcStallRpm(v) {
+    var n = Number(v);
+    if (!isFinite(n)) n = 2800;
+    if (n < ATC_STALL_MIN) n = ATC_STALL_MIN;
+    if (n > ATC_STALL_MAX) n = ATC_STALL_MAX;
+    return n;
+  }
+
+  function clampAtcPeakTorqueRpm(v) {
+    var n = Number(v);
+    if (!isFinite(n)) n = 4000;
+    if (n < ATC_PEAK_TQ_MIN) n = ATC_PEAK_TQ_MIN;
+    if (n > ATC_PEAK_TQ_MAX) n = ATC_PEAK_TQ_MAX;
+    return n;
+  }
+
+  /**
+   * @param {{enabled?:boolean, stallRpm?:number, peakTorqueRpm?:number}} atc
+   * @param {number} speedMph
+   * @returns {number} force multiplier (≈0.85–1.22), 1.0 when off
+   */
+  function aftermarketConverterForceMult(atc, speedMph) {
+    if (!atc || !atc.enabled) return 1.0;
+    var stall = clampAtcStallRpm(atc.stallRpm);
+    var peak = clampAtcPeakTorqueRpm(atc.peakTorqueRpm);
+    if (peak < 1) peak = 1;
+    var match = stall / peak;
+
+    // Match quality: 1 at Stall≈Peak TQ; under weaker; over soft penalty
+    var signedBoost;
+    var idealBoost = 0.18; // +18% peak launch force when matched
+    if (match <= 1.0) {
+      signedBoost = idealBoost * Math.pow(Math.max(0, match), 1.35);
+    } else {
+      var over = Math.min(match - 1.0, 1.0);
+      signedBoost = idealBoost * (1.0 - 1.55 * over) - 0.10 * over * over;
+    }
+
+    var mph = Number(speedMph);
+    if (!isFinite(mph) || mph < 0) mph = 0;
+    // Launch window: full near 0, fades through ~40–70 mph (lockup region)
+    var window;
+    if (mph <= 4) window = 1.0;
+    else if (mph < 40) window = 1.0 - 0.72 * ((mph - 4) / 36);
+    else if (mph < 70) window = 0.28 * (1.0 - (mph - 40) / 30);
+    else window = 0;
+
+    var mult = 1.0 + signedBoost * window;
+    if (mult < 0.85) mult = 0.85;
+    if (mult > 1.22) mult = 1.22;
+    return mult;
+  }
+
+
   function airDensityFromDA(daFt) {
     var rho0 = 1.225;
     return rho0 * Math.exp(-daFt / 145366.45);
@@ -175,6 +241,11 @@
     var isNaturallyAspirated = !!opts.isNA;
     var isForcedInduction = !!opts.isFI;
 
+    // Aftermarket TC (Auto ICE only — UI gates; physics also ignores EV / disabled)
+    var atcEnabled = !!opts.atcEnabled && !isEv;
+    var atcStallRpm = opts.stallRpm;
+    var atcPeakTorqueRpm = opts.peakTorqueRpm;
+
     var timestamp = opts.timestamp || new Date();
 
     var massKg = weightLbs * 0.45359237;
@@ -276,6 +347,14 @@
           mphEv < 160 ? 0.85 :
                         0.93;
         forceFromPowerN *= powerMult;
+      } else if (atcEnabled) {
+        // ATC launch multiply BEFORE traction clamp — mu path stays the hard limit
+        var mphAtc = mpsToMph(v);
+        forceFromPowerN *= aftermarketConverterForceMult({
+          enabled: true,
+          stallRpm: atcStallRpm,
+          peakTorqueRpm: atcPeakTorqueRpm
+        }, mphAtc);
       }
 
       var driveForceN = Math.min(forceFromPowerN, tractionLimitN);
@@ -398,6 +477,13 @@
     airDensityFromDA: airDensityFromDA,
     computeWeatherAirState: computeWeatherAirState,
     getTireGrip: getTireGrip,
-    CalibrationFactor: CalibrationFactor
+    CalibrationFactor: CalibrationFactor,
+    aftermarketConverterForceMult: aftermarketConverterForceMult,
+    clampAtcStallRpm: clampAtcStallRpm,
+    clampAtcPeakTorqueRpm: clampAtcPeakTorqueRpm,
+    ATC_STALL_MIN: ATC_STALL_MIN,
+    ATC_STALL_MAX: ATC_STALL_MAX,
+    ATC_PEAK_TQ_MIN: ATC_PEAK_TQ_MIN,
+    ATC_PEAK_TQ_MAX: ATC_PEAK_TQ_MAX
   };
 })(typeof window !== 'undefined' ? window : globalThis);

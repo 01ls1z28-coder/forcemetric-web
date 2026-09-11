@@ -46,6 +46,13 @@
     diffLSD: document.getElementById('diffLSD'),
     diffElectronic: document.getElementById('diffElectronic'),
     diffLocker: document.getElementById('diffLocker'),
+    chkAtc: document.getElementById('chkAtc'),
+    atcBlock: document.getElementById('atcBlock'),
+    atcBadge: document.getElementById('atcBadge'),
+    atcFields: document.getElementById('atcFields'),
+    atcStallRpm: document.getElementById('atcStallRpm'),
+    atcPeakTorqueRpm: document.getElementById('atcPeakTorqueRpm'),
+    atcHint: document.getElementById('atcHint'),
     activeVehicleLabel: document.getElementById('activeVehicleLabel'),
     editDriveType: document.getElementById('editDriveType'),
     weatherPreset: document.getElementById('weatherPreset'),
@@ -307,6 +314,60 @@
     if (el.diffLocker) el.diffLocker.checked = (D === 'Locker');
   }
 
+  function atcAllowed() {
+    return !isEvMode() && getTransmission() === 'auto';
+  }
+
+  function getAtcEnabled() {
+    return !!(el.chkAtc && el.chkAtc.checked && atcAllowed());
+  }
+
+  function getAtcStallRpm() {
+    var raw = el.atcStallRpm ? parseFloat(el.atcStallRpm.value) : 2800;
+    return Physics && Physics.clampAtcStallRpm
+      ? Physics.clampAtcStallRpm(raw)
+      : Math.max(1800, Math.min(7000, isFinite(raw) ? raw : 2800));
+  }
+
+  function getAtcPeakTorqueRpm() {
+    var raw = el.atcPeakTorqueRpm ? parseFloat(el.atcPeakTorqueRpm.value) : 4000;
+    return Physics && Physics.clampAtcPeakTorqueRpm
+      ? Physics.clampAtcPeakTorqueRpm(raw)
+      : Math.max(1500, Math.min(9000, isFinite(raw) ? raw : 4000));
+  }
+
+  /** Auto TX only; Manual / DCT / EV force ATC off and disable inputs. */
+  function syncAtcUi() {
+    var allowed = atcAllowed();
+    if (el.atcBlock) {
+      if (allowed) el.atcBlock.classList.remove('is-disabled');
+      else el.atcBlock.classList.add('is-disabled');
+    }
+    if (el.chkAtc) {
+      el.chkAtc.disabled = !allowed;
+      if (!allowed) el.chkAtc.checked = false;
+    }
+    if (el.atcStallRpm) el.atcStallRpm.disabled = !allowed || !(el.chkAtc && el.chkAtc.checked);
+    if (el.atcPeakTorqueRpm) el.atcPeakTorqueRpm.disabled = !allowed || !(el.chkAtc && el.chkAtc.checked);
+    if (el.atcBadge) {
+      if (!allowed) {
+        el.atcBadge.textContent = isEvMode() ? 'EV N/A' : 'Auto TX only';
+        el.atcBadge.setAttribute('data-state', 'locked');
+      } else if (el.chkAtc && el.chkAtc.checked) {
+        el.atcBadge.textContent = 'ATC ON';
+        el.atcBadge.setAttribute('data-state', 'on');
+      } else {
+        el.atcBadge.textContent = 'Auto TX';
+        el.atcBadge.setAttribute('data-state', 'ready');
+      }
+    }
+    if (el.atcHint) {
+      el.atcHint.textContent = allowed
+        ? 'Compiled estimate, not dyno-certified converter map. Peaks when Stall ≈ Peak TQ RPM.'
+        : 'Compiled estimate, not dyno-certified converter map. Auto TX only — Manual / Dual Clutch / EV disabled.';
+    }
+  }
+
   function getDriveType() {
     if (el.driveAWD && el.driveAWD.checked) return 'AWD';
     if (el.driveFWD && el.driveFWD.checked) return 'FWD';
@@ -545,6 +606,7 @@
     }
 
     lightCurbLocksActive = light;
+    syncAtcUi();
   }
 
   function syncHpLossUi() {
@@ -636,6 +698,9 @@
     var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang Dyno WHP' : 'HP');
     lines.push(slipLine('HP SOURCE', srcLabel));
     lines.push(slipLine('TRANS', transmissionSlipLabel(getTransmission())));
+    if (getAtcEnabled()) {
+      lines.push(slipLine('ATC', 'Stall ' + Math.round(getAtcStallRpm()) + ' / PeakTQ ' + Math.round(getAtcPeakTorqueRpm())));
+    }
     var dwDisp = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
     if (dwDisp > 0) {
       lines.push(slipLine('DRIVER WT', Math.round(dwDisp) + ' ' + (isMetric() ? 'kg' : 'lb')));
@@ -849,6 +914,9 @@
         densityAltitudeFtInput: daInput,
         isNA: el.chkNA.checked,
         isFI: el.chkFI.checked,
+        atcEnabled: getAtcEnabled(),
+        stallRpm: getAtcStallRpm(),
+        peakTorqueRpm: getAtcPeakTorqueRpm(),
         timestamp: new Date()
       };
       if (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph) && activeMaxSpeedMph > 0) {
@@ -894,6 +962,9 @@
       isNA: !!(el.chkNA && el.chkNA.checked),
       isFI: !!(el.chkFI && el.chkFI.checked),
       isEv: !!(el.chkEv && el.chkEv.checked),
+      AtcEnabled: getAtcEnabled(),
+      StallRpm: getAtcStallRpm(),
+      PeakTorqueRpm: getAtcPeakTorqueRpm(),
       MaxSpeedMph: (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph)) ? activeMaxSpeedMph : undefined,
       tempF: parseFloat(el.temp.value),
       humidity: parseFloat(el.humidity.value),
@@ -1024,6 +1095,7 @@
 
   function onHpSourceOrTxChange() {
     syncHpLossUi();
+    syncAtcUi();
     updateAirHpStrip();
   }
   if (el.hpEngine) el.hpEngine.addEventListener('change', onHpSourceOrTxChange);
@@ -1044,7 +1116,26 @@
   setDriverWeightDefault();
   syncHpLossUi();
   syncTransmissionForCurb();
+  syncAtcUi();
   updateAirHpStrip();
+
+  if (el.chkAtc) el.chkAtc.addEventListener('change', syncAtcUi);
+  function clampAtcInputs() {
+    if (el.atcStallRpm && Physics && Physics.clampAtcStallRpm) {
+      el.atcStallRpm.value = String(Math.round(Physics.clampAtcStallRpm(el.atcStallRpm.value)));
+    }
+    if (el.atcPeakTorqueRpm && Physics && Physics.clampAtcPeakTorqueRpm) {
+      el.atcPeakTorqueRpm.value = String(Math.round(Physics.clampAtcPeakTorqueRpm(el.atcPeakTorqueRpm.value)));
+    }
+  }
+  if (el.atcStallRpm) {
+    el.atcStallRpm.addEventListener('change', clampAtcInputs);
+    el.atcStallRpm.addEventListener('blur', clampAtcInputs);
+  }
+  if (el.atcPeakTorqueRpm) {
+    el.atcPeakTorqueRpm.addEventListener('change', clampAtcInputs);
+    el.atcPeakTorqueRpm.addEventListener('blur', clampAtcInputs);
+  }
 
   document.getElementById('btnPlay').addEventListener('click', function () {
     if (!playbackResult || !playbackResult.Steps || !playbackResult.Steps.length) return;
