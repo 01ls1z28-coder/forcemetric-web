@@ -72,3 +72,28 @@ Phase 13 — Dual Clutch TX + brass chrome + chart mark stagger (2026-09-10 CT)
 13C Chart distance marks:
   - 60'/330'/660'/1000'/1320' (and metric m) labels stagger alternate Y so late marks never overlap;
     dashed vertical mark lines unchanged
+
+Phase 14 — Full-site brass chrome beauty pass (2026-09-10 CT)
+-------------------------------------------------------------
+Visual/CSS only. Reuses Phase 13 `--brass*` tokens (no second palette).
+No TX/DCT/physics/garage numbers/fleet calib/bake JSON/math changes.
+
+Chrome extended to the rest of the instrument cluster:
+  - Header + footer: champagne bezel / brass face matching cards
+  - Hub pill + Support buttons: brass borders; hub keeps cyan/lime energy
+  - Inputs, selects, textareas, checkboxes, drive-seg radios: brass borders,
+    dark carbon faces, soft gold labels
+  - Garage list / filters / car editor + Support modal panels/tabs/dividers:
+    unified brass bezel language
+  - Time slip paper: subtle brass outer frame (paper readability preserved)
+  - Distance progress + run timer: stay polished, brass family
+  - Optional corner ticks on cards / gauge / chart / modals (light, not clutter)
+  - race.html shares styles.css header/inputs/cards; race.css lightly aligned
+
+Verify:
+  1. Hard refresh https://velocitybench.com (and /race.html)
+  2. Side-by-side: gauge + chart + vehicle + weather + results read as ONE cluster
+  3. Lime TEST CTA still high-contrast
+  4. Mobile: no horizontal overflow; 3-col TX / Engine Layout radios still readable
+  5. Open Garage + Support + car editor — bezels/titles/dividers match main cards
+

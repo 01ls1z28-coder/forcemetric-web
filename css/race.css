@@ -542,3 +542,42 @@
     margin: 0 56px;
   }
 }
+
+/* Phase 14 — align race chrome with main brass instrument cluster */
+.btn-back {
+  border: 1px solid var(--brass);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  color: var(--brass-text);
+  background:
+    linear-gradient(180deg, rgba(240, 226, 196, 0.06), transparent 55%),
+    var(--panel-2);
+}
+
+.btn-back:hover {
+  border-color: rgba(240, 226, 196, 0.65);
+}
+
+.lane-card {
+  border: 1px solid var(--brass);
+  background: var(--brass-face);
+  box-shadow: var(--brass-shadow);
+}
+
+.race-car-list {
+  border: 1px solid var(--brass);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+}
+
+.track-board,
+.results-board .result-card,
+.winner-banner,
+.race-chart-wrap {
+  border-color: var(--brass);
+}
+
+.stat-pill .lbl,
+.lane-header,
+.setup-hint {
+  color: var(--brass-text);
+}
+
