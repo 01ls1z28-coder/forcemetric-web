@@ -64,3 +64,13 @@ Tree is cosmetic perfect simultaneous green only.
 
 Dual-lane playback preserved. Brass --brass* family. No fleet retune / garage-data changes.
 No RT path in race.js (gated / absent by design).
+
+Hotfix — Shared Weather DA clip (2026-09-11 CT)
+=================================================
+Bug: Race Shared Weather clipped Density Altitude (ft) input on the right (Phase 16 live Pages).
+Fix: CSS-only in css/race.css — weather-row 5-col minmax auto-fit, weather-strip/race-opts overflow:visible,
+stacked field labels, inputs width 100% / min-width 0 / border-box; race-opts-row same mid-width guard.
+≤980 media queries unchanged (collapse). No JS / physics / garage / ATC changes.
+
+VERIFY: hard refresh /race.html — Shared Weather DA box fully inside brass bezel; "(auto)" visible;
+no overlap with Air/HP strip.
