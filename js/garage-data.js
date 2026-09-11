@@ -10,6 +10,7 @@
  * Phase 21: five-tire grip ladder + full fleet recalib (driver 200, bake tire All-season default /
  *   Summer/UHP when clear, trap-first, TX Auto|Manual|DCT offsets). Soft/Slicks are user-selectable only.
  * Phase 29: lean TireType (OEM summer/UHP) + trap-first loss recalib; Soft/Slicks remain user-only.
+ * Phase 30: editable via static GitHub-backed admin (review branches only; never main).
  */
 window.GARAGE_DATA = [
   {
@@ -18,7 +19,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 3705,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 19,
+    "DrivetrainLossPercent": 18,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
@@ -34,7 +35,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 3705,
     "DragCoefficient": 0.36,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 19,
+    "DrivetrainLossPercent": 18,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
@@ -50,7 +51,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 3685,
     "DragCoefficient": 0.35,
     "FrontalAreaSqFt": 23.5,
-    "DrivetrainLossPercent": 14.5,
+    "DrivetrainLossPercent": 14,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
@@ -66,7 +67,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 4232,
     "DragCoefficient": 0.39,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 12.4,
+    "DrivetrainLossPercent": 12,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
