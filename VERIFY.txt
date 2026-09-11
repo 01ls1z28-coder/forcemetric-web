@@ -209,7 +209,7 @@ Phase 19 — Race playback visual overhaul (2026-09-11 CT)
 -------------------------------------------------------
 race.html / js/race.js / css/race.css (+ VERIFY_RACE.txt).
 
-Side-view dual-lane canvas: silhouettes, parallax asphalt, finish,
+Side-view dual-lane canvas: per-vehicle SVG sprites (Phase 25), parallax asphalt, finish,
 follow-cam, mph trails, optional launch smoke. Brass HUD.
 Positions/gaps ONLY from Steps DistanceFt·Time (interp for smoothness).
 Simultaneous leave t=0 kept. Lead-delta + photo-finish 0.001 s kept.
@@ -505,3 +505,39 @@ Verify:
 
 Intentional skips: Pages push; physics formula; garage-data fleet retune;
 analytics/gtag; editable loss on race; RT / holeshot.
+
+Phase 25 — per-vehicle race stage sprites (2026-09-11 CT)
+---------------------------------------------------------
+Branch: review/vb-phase25-vehicle-sprites
+Drag Racing stage cosmetics only. No physics.js formula change.
+No garage-data retune. No analytics. No Three.js.
+
+Sprites (assets/race-sprites/*.svg)
+  - Original side-view SVG silhouettes (facing right); no trademark logos/badges.
+  - Class fallbacks (never blank): motorcycle, coupe, sedan, suv, hypercar.
+  - Keyed high-traffic / keyword vehicles:
+      mustang, camaro, corvette, challenger, charger, civic,
+      porsche-911, tesla-model-s, tesla-model-3, sportbike, pickup,
+      bronco, supra, gtr, viper, miata, wrx, firebird, huracan, chiron,
+      model-x, cybertruck, nsx, amg-gt, m3, golf, tahoe
+  - resolveSpriteKey(name, bodyClass) → asset key; RaceStage tints white SVG
+    to lime YOU / cyan OPP via offscreen source-in + drawImage.
+  - Polygon _fillBodySilhouette kept as load/error fallback (never blank).
+
+HARD RULE unchanged
+  - Car X from Steps DistanceFt only; simultaneous leave t=0.
+  - Trails/smoke/sprites cosmetic only — no gap/timing bias.
+
+Verify:
+  1. Mustang GT → mustang sprite (lime/cyan tint); lead still matches DistanceFt
+  2. Camaro / Corvette / Challenger / Charger / Civic / 911 / Model S Plaid
+     map to keyed sprites
+  3. Ninja / GSX-R / R1 → sportbike; unknown bike → motorcycle fallback
+  4. F-150 / Silverado / Ram → pickup; Bronco → bronco; Tahoe-class → tahoe
+  5. Chiron → chiron; unknown hypercar → hypercar; unknown sedan → sedan
+  6. Cars aligned at green; no blank lanes if SVG 404 (polygon fallback)
+  7. No physics.js / garage-data.js / analytics change
+
+Intentional skips: Pages push; physics formula; garage-data fleet retune;
+analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
+full 331 unique art (class fallback covers remainder).

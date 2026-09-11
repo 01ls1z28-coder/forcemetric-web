@@ -5,6 +5,7 @@
  * Phase 18: course 1000ft + custom roll start/end speeds
  * Phase 19: side-view dual-lane playback visual overhaul (physics-true Steps positions)
  * Phase 24: race loss parity (bake/snap) + hide loss fields + body-class stage silhouettes
+ * Phase 25: per-vehicle side-view SVG sprites (class fallback; physics X unchanged)
  * HARD RULE: both lanes always leave at exact same t=0 (no RT / foul / holeshot)
  * HARD RULE (P19): car X / gaps from Steps DistanceFt·Time only — no cosmetic lead cheat
  */
@@ -412,6 +413,63 @@
     if (L === 'Mid' || L === 'Rear') return 'coupe';
     return 'sedan';
   }
+
+  /** Map vehicle name → sprite asset key; always returns a class fallback (never blank). */
+  var SPRITE_ASSET_BASE = 'assets/race-sprites/';
+  var SPRITE_CLASS_KEYS = ['motorcycle', 'coupe', 'sedan', 'suv', 'hypercar'];
+  var SPRITE_ALL_KEYS = [
+    'motorcycle', 'coupe', 'sedan', 'suv', 'hypercar',
+    'mustang', 'camaro', 'corvette', 'challenger', 'charger', 'civic',
+    'porsche-911', 'tesla-model-s', 'tesla-model-3', 'sportbike', 'pickup',
+    'bronco', 'supra', 'gtr', 'viper', 'miata', 'wrx', 'firebird',
+    'huracan', 'chiron', 'model-x', 'cybertruck', 'nsx', 'amg-gt', 'm3',
+    'golf', 'tahoe'
+  ];
+
+  function resolveSpriteKey(name, bodyClass) {
+    var n = String(name || '').toLowerCase();
+    var body = bodyClass || 'sedan';
+    // Keyed high-traffic / keyword matches (specific → general)
+    if (/cybertruck/.test(n)) return 'cybertruck';
+    if (/mustang\s*mach-?e/.test(n)) return 'model-x';
+    if (/\bmustang\b|shelby|boss 302|gt350|gt500|dark horse|terminator|mach 1/.test(n)) return 'mustang';
+    if (/camaro|iroc/.test(n)) return 'camaro';
+    if (/corvette|stingray/.test(n)) return 'corvette';
+    if (/challenger/.test(n)) return 'challenger';
+    if (/charger/.test(n)) return 'charger';
+    if (/civic/.test(n)) return 'civic';
+    if (/\b911\b|carrera gt|gt3 rs|gt2 rs|gt3\b/.test(n) && /porsche|carrera|gt3|gt2|911/.test(n)) return 'porsche-911';
+    if (/\b911\b/.test(n)) return 'porsche-911';
+    if (/model s/.test(n)) return 'tesla-model-s';
+    if (/model 3/.test(n)) return 'tesla-model-3';
+    if (/model x|model y|mach-?e|lyriq|ioniq 5|ev6|ariya|solterra|bz4x|id\.?4|blazer ev|ex90|xc40 recharge|eqb|q4 e-tron|gv60|ocean extreme|kona electric|niro ev/.test(n)) return 'model-x';
+    if (/ninja|gsx-?r|yzf-?r|cbr|hayabusa|panigale|s1000|\bh2\b|zx-10|zx-14|fireblade/.test(n)) return 'sportbike';
+    if (/f- ?150|f- ?250|silverado|sierra|\bram\b|trx\b|tundra|tacoma|titan|frontier|avalanche|lightning/.test(n) && !/mustang/.test(n)) return 'pickup';
+    if (/bronco/.test(n)) return 'bronco';
+    if (/supra/.test(n)) return 'supra';
+    if (/gt-?r|skyline/.test(n)) return 'gtr';
+    if (/\bviper\b/.test(n)) return 'viper';
+    if (/miata|mx- ?5/.test(n)) return 'miata';
+    if (/wrx|impreza|\bsti\b/.test(n)) return 'wrx';
+    if (/firebird|trans am/.test(n)) return 'firebird';
+    if (/huracan|aventador|gallardo|murci|diablo|reventon|revuelto/.test(n)) return 'huracan';
+    if (/chiron|veyron|divo|bolide/.test(n)) return 'chiron';
+    if (/\bnsx\b/.test(n)) return 'nsx';
+    if (/amg gt|sls amg/.test(n)) return 'amg-gt';
+    if (/\bm3\b|\bm4\b|\bm2\b|m5 competition|335i|330ci|\bm5\b/.test(n) && /bmw|m3|m4|m2|m5|335|330/.test(n)) return 'm3';
+    if (/\bm3\b|\bm4\b|\bm2\b/.test(n)) return 'm3';
+    if (/golf|volkswagen|\bvw\b/.test(n)) return 'golf';
+    if (/tahoe|suburban|escalade|yukon|expedition|navigator|sequoia|4runner|highlander|durango|trackhawk|grand cherokee|x5m|x6m|range rover|pilot|commander|liberty|wrangler|gladiator|hummer|cullinan|bentayga|levante|dbx|cayenne|macan|g-class|g63|g wagon|urus/.test(n)) return 'tahoe';
+    if (/plaid/.test(n) && /model s|tesla/.test(n)) return 'tesla-model-s';
+    if (/plaid/.test(n) && /model x/.test(n)) return 'model-x';
+    // Class fallbacks — never blank
+    if (body === 'motorcycle') return 'motorcycle';
+    if (body === 'hypercar') return 'hypercar';
+    if (body === 'suv') return 'suv';
+    if (body === 'coupe') return 'coupe';
+    return 'sedan';
+  }
+
 
   function getHpSource(prefix) {
     if ($(prefix + 'HpDynoJet') && $(prefix + 'HpDynoJet').checked) return 'dynojet';
@@ -1239,6 +1297,10 @@
     this._smoke = { you: 0, opp: 0 };
     this._prevMph = { you: 0, opp: 0 };
     this._body = { you: 'sedan', opp: 'sedan' };
+    this._spriteKey = { you: 'sedan', opp: 'sedan' };
+    this._spriteImgs = {};
+    this._tintCache = {};
+    this._preloadSprites();
     this.reset();
     if (canvas && typeof ResizeObserver !== 'undefined' && canvas.parentElement) {
       var self = this;
@@ -1257,11 +1319,52 @@
   };
 
   /** Cosmetics only — does not affect X / gaps / timing. */
-  RaceStage.prototype.setBodyClasses = function (youBody, oppBody) {
+  RaceStage.prototype.setBodyClasses = function (youBody, oppBody, youName, oppName) {
     this._body = {
       you: youBody || 'sedan',
       opp: oppBody || 'sedan'
     };
+    this._spriteKey = {
+      you: resolveSpriteKey(youName, this._body.you),
+      opp: resolveSpriteKey(oppName, this._body.opp)
+    };
+  };
+
+  RaceStage.prototype._preloadSprites = function () {
+    var self = this;
+    for (var i = 0; i < SPRITE_ALL_KEYS.length; i++) {
+      (function (key) {
+        if (self._spriteImgs[key]) return;
+        var img = new Image();
+        img.decoding = 'async';
+        img.onload = function () { self._tintCache = {}; };
+        img.onerror = function () { /* class polygon fallback remains */ };
+        img.src = SPRITE_ASSET_BASE + key + '.svg';
+        self._spriteImgs[key] = img;
+      })(SPRITE_ALL_KEYS[i]);
+    }
+  };
+
+  /** Tint white SVG silhouette to lane color; null if not ready → polygon fallback. */
+  RaceStage.prototype._getTintedSprite = function (key, color, w, h) {
+    var img = this._spriteImgs[key];
+    if (!img || !img.complete || !(img.naturalWidth > 0)) return null;
+    var tw = Math.max(8, Math.round(w));
+    var th = Math.max(6, Math.round(h));
+    var ck = key + '|' + color + '|' + tw + 'x' + th;
+    if (this._tintCache[ck]) return this._tintCache[ck];
+    var c = document.createElement('canvas');
+    c.width = tw;
+    c.height = th;
+    var x = c.getContext('2d');
+    x.clearRect(0, 0, tw, th);
+    x.drawImage(img, 0, 0, tw, th);
+    x.globalCompositeOperation = 'source-in';
+    x.fillStyle = color;
+    x.fillRect(0, 0, tw, th);
+    x.globalCompositeOperation = 'source-over';
+    this._tintCache[ck] = c;
+    return c;
   };
 
   RaceStage.prototype.resize = function () {
@@ -1447,8 +1550,8 @@
     }
 
     // Smoke / trails / cars — order: trails under cars (X from DistanceFt only)
-    this._drawLaneCar(youFt, youMph, youLaneY, laneH, '#b8ff3c', 'you', racing, (this._body && this._body.you) || 'sedan');
-    this._drawLaneCar(oppFt, oppMph, oppLaneY, laneH, '#22d3ee', 'opp', racing, (this._body && this._body.opp) || 'sedan');
+    this._drawLaneCar(youFt, youMph, youLaneY, laneH, '#b8ff3c', 'you', racing, (this._body && this._body.you) || 'sedan', (this._spriteKey && this._spriteKey.you) || 'sedan');
+    this._drawLaneCar(oppFt, oppMph, oppLaneY, laneH, '#22d3ee', 'opp', racing, (this._body && this._body.opp) || 'sedan', (this._spriteKey && this._spriteKey.opp) || 'sedan');
 
     // Brass bezel vignette
     ctx.strokeStyle = 'rgba(196,165,116,0.45)';
@@ -1464,14 +1567,15 @@
     }
   };
 
-  RaceStage.prototype._drawLaneCar = function (ft, mph, laneY, laneH, color, key, racing, bodyClass) {
+  RaceStage.prototype._drawLaneCar = function (ft, mph, laneY, laneH, color, key, racing, bodyClass, spriteKey) {
     var ctx = this.ctx;
     /* HARD RULE: car X from physics DistanceFt only — shape/trails must not alter gap */
     var x = this._ftToX(ft);
     var cy = laneY + laneH * 0.55;
     var body = bodyClass || 'sedan';
-    var carW = body === 'motorcycle' ? 44 : (body === 'suv' ? 58 : (body === 'hypercar' ? 56 : 54));
-    var carH = Math.min(body === 'suv' ? 26 : (body === 'motorcycle' ? 24 : 22), laneH * (body === 'suv' ? 0.62 : 0.55));
+    var sprKey = spriteKey || body || 'sedan';
+    var carW = body === 'motorcycle' ? 48 : (body === 'suv' ? 62 : (body === 'hypercar' ? 60 : 58));
+    var carH = Math.min(body === 'suv' ? 28 : (body === 'motorcycle' ? 26 : 24), laneH * (body === 'suv' ? 0.65 : 0.58));
 
     // Near-traction smoke: cosmetic only from real mph (launch window)
     var prev = this._prevMph[key] || 0;
@@ -1529,14 +1633,68 @@
       ctx.globalAlpha = 1;
     }
 
-    // Body-class silhouette (side view) — drawn at physics X; no positional bias
+    // Per-vehicle / class sprite (side view) — drawn at physics X; no positional bias
     ctx.save();
     ctx.translate(x, cy);
-    ctx.fillStyle = color;
     ctx.shadowColor = color;
     ctx.shadowBlur = 12;
-    this._fillBodySilhouette(ctx, body, carW, carH, color);
+    var tinted = this._getTintedSprite(sprKey, color, carW * 1.15, carH * 1.55);
+    if (!tinted && sprKey !== body) {
+      tinted = this._getTintedSprite(body, color, carW * 1.15, carH * 1.55);
+    }
+    if (tinted) {
+      ctx.drawImage(tinted, -carW * 0.55, -carH * 0.95, carW * 1.15, carH * 1.55);
+      ctx.shadowBlur = 0;
+      // Dark wheels + glass + lamp overlays (cosmetic; X unchanged)
+      this._overlaySpriteDetails(ctx, body, carW, carH, color);
+    } else {
+      ctx.fillStyle = color;
+      this._fillBodySilhouette(ctx, body, carW, carH, color);
+    }
     ctx.restore();
+  };
+
+  RaceStage.prototype._overlaySpriteDetails = function (ctx, body, carW, carH, color) {
+    ctx.fillStyle = 'rgba(10,14,20,0.5)';
+    if (body === 'motorcycle') {
+      ctx.beginPath();
+      ctx.moveTo(-carW * 0.05, -carH * 0.55);
+      ctx.lineTo(carW * 0.12, -carH * 0.35);
+      ctx.lineTo(carW * 0.05, -carH * 0.1);
+      ctx.lineTo(-carW * 0.1, -carH * 0.2);
+      ctx.closePath();
+      ctx.fill();
+    } else if (body === 'hypercar') {
+      ctx.beginPath();
+      ctx.moveTo(carW * 0.02, -carH * 0.55);
+      ctx.lineTo(carW * 0.28, -carH * 0.5);
+      ctx.lineTo(carW * 0.32, -carH * 0.18);
+      ctx.lineTo(carW * 0.06, -carH * 0.18);
+      ctx.closePath();
+      ctx.fill();
+    } else if (body === 'suv') {
+      ctx.fillRect(-carW * 0.2, -carH * 0.7, carW * 0.48, carH * 0.35);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(-carW * 0.02, -carH * 0.65);
+      ctx.lineTo(carW * 0.2, -carH * 0.68);
+      ctx.lineTo(carW * 0.3, -carH * 0.22);
+      ctx.lineTo(carW * 0.02, -carH * 0.22);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.fillStyle = '#0a0c10';
+    var wr = body === 'motorcycle' ? carH * 0.34 : (body === 'suv' ? carH * 0.26 : carH * 0.24);
+    var wy = carH * (body === 'suv' ? 0.42 : 0.38);
+    ctx.beginPath();
+    ctx.arc(-carW * 0.28, wy, wr, 0, Math.PI * 2);
+    ctx.arc(carW * 0.28, wy, wr, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.25;
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.fillRect(carW * 0.42, -carH * 0.08, 4, 4);
   };
 
   RaceStage.prototype._fillBodySilhouette = function (ctx, body, carW, carH, color) {
@@ -2387,7 +2545,9 @@
       if (raceStage) {
         raceStage.setBodyClasses(
           you.bodyClass || resolveBodyClass(you.Name, you.curbWeightLbs, you.engineLayout),
-          opp.bodyClass || resolveBodyClass(opp.Name, opp.curbWeightLbs, opp.engineLayout)
+          opp.bodyClass || resolveBodyClass(opp.Name, opp.curbWeightLbs, opp.engineLayout),
+          you.Name,
+          opp.Name
         );
       }
       buildResultsCards();

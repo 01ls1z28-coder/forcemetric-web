@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 48" width="256" height="96">
+  <!-- Original side-view silhouette — no logos/badges; facing right -->
+  <path id="body" fill="#ffffff" d="M28 28 L36 12 L52 6 L68 14 L88 22 L100 26 L96 32 L70 34 L40 34 Z"/>
+  <path fill="#ffffff" d="M68 14 L78 4 L86 8 L80 18 Z"/>
+</svg>
