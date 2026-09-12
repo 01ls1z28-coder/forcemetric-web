@@ -1015,7 +1015,7 @@ drive / TX / Diff retune unless required — none applied).
 Phase 32 — Trap-first garage rebake + ATC removal (2026-09-12 CT)
 =================================================================
 Branch: review/vb-phase32-trap-first-atc-out
-Tip SHA: (set after commit)
+Tip SHA: bcce0dda4831efb4d2e9d63c21ad4fd9f6f8bb53 (bake); branch tip follows VERIFY stamps
 Harness: scripts/phase32_trap_first_recalib.js
 Targets: /workspace/garage-export/phase31_targets.json (332 vehicles)
 SKIP: 2011 - 2014 Ford F-150 Enrique's 3.5EB (not in targets; left unchanged)
