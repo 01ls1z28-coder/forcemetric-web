@@ -986,7 +986,7 @@ window.GARAGE_DATA = [
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 27,
     "DrivetrainLossPercent": 22,
-    "TireType": 0,
+    "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
