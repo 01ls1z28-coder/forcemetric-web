@@ -522,7 +522,7 @@ Verify Phase 30:
 Phase 31 — Excel TireType + loss recalib (2026-09-12 CT)
 ========================================================
 Branch: review/vb-phase31-excel-recalib
-Tip SHA: 2e5da4a9cd51052dc4c59fe0883af16c15d30c92 (includes bake bcce0dda4831efb4d2e9d63c21ad4fd9f6f8bb53)
+Tip SHA: b4b0ca426af01db7e69fd38d0af106da8ce4d7f2 (bake); branch tip follows VERIFY stamps
 Harness: scripts/phase31_excel_recalib.js
 Targets: /workspace/garage-export/phase31_targets.json (332 vehicles)
 SKIP: 2011 - 2014 Ford F-150 Enrique's 3.5EB (not in targets; left unchanged)
@@ -1015,7 +1015,7 @@ drive / TX / Diff retune unless required — none applied).
 Phase 32 — Trap-first garage rebake + ATC removal (2026-09-12 CT)
 =================================================================
 Branch: review/vb-phase32-trap-first-atc-out
-Tip SHA: bcce0dda4831efb4d2e9d63c21ad4fd9f6f8bb53 (bake); VERIFY tip after stamps tracked on branch
+Tip SHA: bcce0dda4831efb4d2e9d63c21ad4fd9f6f8bb53 (bake); branch tip will stamp next
 Harness: scripts/phase32_trap_first_recalib.js
 Targets: /workspace/garage-export/phase31_targets.json (332 vehicles)
 SKIP: 2011 - 2014 Ford F-150 Enrique's 3.5EB (not in targets; left unchanged)
