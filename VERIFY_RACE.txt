@@ -518,3 +518,496 @@ Verify Phase 30:
   3. Commit path creates review/* ref only (code refuses main/master)
   4. physics.js / race.html / assets/race-sprites / analytics untouched
 
+
+Phase 31 — Excel TireType + loss recalib (2026-09-12 CT)
+========================================================
+Branch: review/vb-phase31-excel-recalib
+Tip SHA: (filled at commit)
+Harness: scripts/phase31_excel_recalib.js
+Targets: /workspace/garage-export/phase31_targets.json (332 vehicles)
+SKIP: 2011 - 2014 Ford F-150 Enrique's 3.5EB (not in targets; left unchanged)
+Weather: Standard Day 59°F / 0% / 29.92 inHg; Driver Weight 200
+         (mass = curb − 200 + driver; driver 200 ⇒ mass = curb)
+µ ladder HOLD (physics.js untouched): AS 0.80 / Summer 0.97 / UHP 1.12 / Soft 1.30 / Slicks 1.48
+Race chrome / app.js / physics.js: untouched
+
+Controls searched: TireType 0–4 × DrivetrainLossPercent 5–35 (0.1 fine)
+Prefer lowest TireType that meets full tolerance; Soft/Slicks allowed when needed.
+Best-effort when grip ladder cannot hit: weighted match-order cost (0-60 > ET > trap > 60-130).
+
+Tolerance aim: ≤0.05s 0-60 & ET; ≤1 mph trap; ≤0.10s 60-130 when present.
+
+Results
+-------
+Vehicles changed: 329 (tire changes 73, loss-only 256)
+Full tolerance hits: 20 / 332
+Best-effort misses (grip/power ladder residual): 312
+WeightLbs Excel deltas applied: 3
+Loss outliers (outside ~5–32 comfort / at band edge): 122
+
+Tire distribution before → after (garage 333; Enrique unchanged):
+  AllSeason (0): 264 → 266
+  Summer    (1): 55 → 42
+  UHP       (2): 12 → 19
+  Soft      (3): 1 → 3
+  Slicks    (4): 1 → 3
+
+WeightLbs Excel updates
+  - 2020 Ford Mustang Shelby GT500: 4225 → 4171 lb
+  - 2022 Tesla Model S Plaid: 4766 → 4827 lb
+  - 2024 Lucid Air Sapphire: 5200 → 5345 lb
+
+Soft/Slicks bake list (6)
+  - 1984 Chevrolet Corvette C4: SoftCompound loss 30 (best-effort dz60=+0 de4=+0.14 dt4=-3.54)
+  - 2024 Tesla Cybertruck Tri-Motor: Slicks loss 18.7 (best-effort dz60=+0 de4=-0.02 dt4=+2.23)
+  - 2001 Mitsubishi Eclipse GSX: Slicks loss 34.2 (best-effort dz60=+0 de4=+0.03 dt4=-4.62)
+  - 2010 Nissan Titan 5.6: SoftCompound loss 27.9 (best-effort dz60=+0 de4=+0.02 dt4=-5.31)
+  - 2008 Chevrolet Silverado 6.0 Vortec Max: SoftCompound loss 33.4 (best-effort dz60=+0 de4=+0.04 dt4=-5.95)
+  - 2012 Nissan Titan Pro-4X: Slicks loss 28.9 (best-effort dz60=+0 de4=+0.02 dt4=-5.54)
+
+Loss outliers (document; band search 5–35)
+  - 2013 Ford Mustang Boss 302: loss 32.4 tire AS
+  - 2004 Pontiac GTO: loss 34 tire AS
+  - 2002 Chevrolet Camaro SS: loss 34.3 tire AS
+  - 1996 Ford Mustang SVT Cobra: loss 35 tire AS
+  - 1979 Pontiac Firebird Trans Am: loss 35 tire AS
+  - 2010 Chevrolet Camaro LT: loss 35 tire AS
+  - 2011 Chevrolet Camaro LT: loss 35 tire AS
+  - 1982 Pontiac Firebird Trans Am: loss 35 tire AS
+  - 2012 Ford Mustang Boss 302 Laguna Seca: loss 32.4 tire AS
+  - 2007 Dodge Charger SRT8: loss 33.2 tire AS
+  - 2024 Lucid Air Sapphire: loss 5 tire AS
+  - 2023 Hyundai Ioniq 5 N: loss 33.8 tire AS
+  - 2023 Polestar 2 Performance: loss 35 tire AS
+  - 2024 Cadillac Lyriq AWD: loss 34.5 tire AS
+  - 2024 Volvo EX90 Twin Motor: loss 32.9 tire AS
+  - 2024 Tesla Model X Long Range: loss 34.9 tire AS
+  - 2023 Nissan Ariya e-4ORCE: loss 35 tire AS
+  - 2024 Fisker Ocean Extreme: loss 32.2 tire AS
+  - 2024 BMW i5 M60: loss 32.3 tire AS
+  - 2007 Lamborghini Murciélago LP640: loss 34.3 tire AS
+  - 2001 Lamborghini Diablo VT 6.0: loss 35 tire AS
+  - 2003 Ferrari 360 Modena: loss 35 tire AS
+  - 2007 Porsche 911 Turbo: loss 32.9 tire AS
+  - 2013 SRT Viper GTS: loss 33.8 tire Summer
+  - 2002 Porsche 911 Turbo (996): loss 34.9 tire AS
+  - 2006 Ferrari 612 Scaglietti: loss 34.7 tire AS
+  - 2008 Lamborghini Reventón: loss 34 tire AS
+  - 2015 Koenigsegg One:1: loss 35 tire Summer
+  - 2019 Koenigsegg Jesko: loss 35 tire UHP
+  - 2011 Koenigsegg Agera R: loss 35 tire Summer
+  - 2010 Pagani Zonda R: loss 32.4 tire Summer
+  - 2010 Gumpert Apollo Sport: loss 34.7 tire Summer
+  - 2018 Zenvo TSR-S: loss 35 tire Summer
+  - 2008 Koenigsegg CCX: loss 32.5 tire AS
+  - 2019 McLaren Speedtail: loss 35 tire UHP
+  - 2016 Koenigsegg Regera: loss 35 tire Summer
+  - 2020 McLaren Elva: loss 35 tire Summer
+  - 2014 Koenigsegg Agera S: loss 34.7 tire Summer
+  - 2019 Pagani Huayra Roadster BC: loss 34.5 tire Summer
+  - 2010 Mazda RX-8 R3: loss 35 tire AS
+  - 1999 Subaru Impreza 22B STI: loss 35 tire AS
+  - 2001 Honda S2000: loss 35 tire AS
+  - 2004 Mazda RX-8: loss 35 tire AS
+  - 1995 Nissan Silvia S14: loss 35 tire AS
+  - 1991 Nissan 240SX (S13): loss 32.6 tire UHP
+  - 2003 Acura RSX Type-S: loss 34.2 tire AS
+  - 2013 Scion FR-S: loss 32.4 tire AS
+  - 1997 Honda Civic Type R EK9: loss 35 tire AS
+  - 2005 Mitsubishi Eclipse GT: loss 32.8 tire AS
+  - 1992 Nissan Pulsar GTI-R: loss 35 tire AS
+  - 1998 Toyota Celica GT-Four: loss 34.9 tire AS
+  - 2001 Mitsubishi Eclipse GSX: loss 34.2 tire Slicks
+  - 2006 Honda Accord Euro R: loss 35 tire AS
+  - 2010 Hyundai Genesis Coupe 3.8: loss 34.9 tire AS
+  - 1991 Toyota Soarer GT-T: loss 35 tire AS
+  - 1994 Nissan 180SX Type X: loss 34.9 tire AS
+  - 2011 MazdaSpeed6: loss 35 tire AS
+  - 2021 Kawasaki Ninja ZX-10R: loss 34.7 tire Summer
+  - 2016 Kawasaki Ninja ZX-10R: loss 34.1 tire Summer
+  - 2020 Suzuki GSX-R1000: loss 32.6 tire Summer
+  - 2020 Suzuki GSX-R1000R: loss 32.4 tire Summer
+  - 2020 Yamaha YZF-R1: loss 32.8 tire Summer
+  - 2020 Yamaha YZF-R1M: loss 32.3 tire Summer
+  - 2021 BMW S1000RR: loss 32.7 tire Summer
+  - 2021 Honda CBR1000RR-R Fireblade: loss 33 tire Summer
+  - 2021 Ducati Panigale V4: loss 32.2 tire Summer
+  - 2021 Ram TRX: loss 33.2 tire AS
+  - 2019 Ford F-250 6.7 PowerStroke: loss 34.2 tire UHP
+  - 2018 Ford F-150 5.0: loss 35 tire AS
+  - 2017 Chevrolet Silverado 5.3: loss 35 tire AS
+  - 2016 Ram 1500 5.7 Hemi: loss 34.6 tire AS
+  - 2012 Ford F-150 EcoBoost: loss 33 tire AS
+  - 2013 Ram 1500 5.7 Hemi: loss 35 tire AS
+  - 2008 Chevrolet Silverado 6.0 Vortec Max: loss 33.4 tire Soft
+  - 2015 Nissan Frontier 4.0: loss 33.7 tire AS
+  - 2005 Ford F-250 V10: loss 35 tire AS
+  - 1969 Dodge Charger 440: loss 35 tire AS
+  - 1967 Ford Mustang GT 390: loss 35 tire AS
+  - 1970 Chevrolet Chevelle SS 454: loss 35 tire AS
+  - 1970 Dodge Challenger 426 Hemi: loss 35 tire AS
+  - 1969 Chevrolet Camaro SS 396: loss 35 tire AS
+  - 1971 Dodge Demon 340: loss 35 tire AS
+  - 1970 Plymouth Road Runner 440: loss 35 tire AS
+  - 1968 Dodge Dart GTS 383: loss 35 tire AS
+  - 1964 Pontiac GTO: loss 35 tire AS
+  - 1965 Chevrolet Chevelle SS396: loss 35 tire AS
+  - 1963 Corvette Stingray 327: loss 35 tire AS
+  - 1972 Oldsmobile 442: loss 35 tire AS
+  - 1962 Chevrolet Impala SS 409: loss 35 tire AS
+  - 1967 Plymouth GTX 440: loss 35 tire AS
+  - 1973 Ford Torino 351: loss 35 tire AS
+  - 1978 Dodge Magnum XE: loss 34.7 tire AS
+  - 1957 Chevrolet Bel Air 283: loss 35 tire AS
+  - 1960 Ford Galaxie 352: loss 35 tire AS
+  - 1974 Pontiac Firebird 400: loss 35 tire AS
+  - 1955 Ford Thunderbird: loss 35 tire AS
+  - 1961 Chevrolet Corvette 283: loss 35 tire AS
+  - 1968 Mercury Cougar XR-7: loss 35 tire AS
+  - 2023 Toyota GR Corolla: loss 33.7 tire AS
+  - 2022 Cadillac Escalade V: loss 34.9 tire AS
+  - 2021 Range Rover Sport SVR: loss 34.9 tire AS
+  - 2012 Chevrolet Tahoe 5.3: loss 32.2 tire AS
+  - 2014 Jeep Wrangler Rubicon: loss 35 tire AS
+  - 2008 Toyota Highlander V6: loss 33.8 tire AS
+  - 2010 Jeep Commander 5.7: loss 33.5 tire AS
+  - 1992 Honda NSX: loss 34.5 tire AS
+  - 1990 Nissan 300ZX NA: loss 32.3 tire AS
+  - 2008 Audi S5: loss 34.9 tire AS
+  - 1986 Toyota Corolla AE86: loss 34.8 tire AS
+  - 1990 Mazda RX-7 FC Turbo: loss 33 tire AS
+  - 1995 Mitsubishi Eclipse GSX: loss 32.8 tire Summer
+  - 1993 Honda Accord SiR: loss 34.5 tire AS
+  - 1997 Toyota Chaser Tourer V: loss 34.7 tire AS
+  - 1983 Toyota Supra (Mk2): loss 34.1 tire AS
+  - 1996 Honda Integra SiR: loss 35 tire AS
+  - 2013 Audi RS4 Avant: loss 34.1 tire AS
+  - 2008 Audi S5: loss 34.9 tire AS
+  - 2009 Mercedes CLS550: loss 35 tire AS
+  - 2007 Audi S6 V10: loss 35 tire AS
+  - 2008 Audi RS4: loss 35 tire AS
+  - 2024 Acura Integra Type S: loss 33.8 tire AS
+  - 2024 Lexus IS 500: loss 32.8 tire AS
+
+Miss list — best-effort residual after TireType×loss search (312)
+(Positive residual = sim slower / lower trap than Excel target)
+  - 1960 Ford Galaxie 352: AS loss 35 | dz60=-2.43 de4=-1.69 dt4=+6.53
+  - 1968 Mercury Cougar XR-7: AS loss 35 | dz60=-1.76 de4=-1.24 dt4=+4.62
+  - 1967 Ford Mustang GT 390: AS loss 35 | dz60=-1.38 de4=-0.93 dt4=+2.11
+  - 1965 Chevrolet Chevelle SS396: AS loss 35 | dz60=-1.35 de4=-0.83 dt4=+0.94
+  - 1963 Corvette Stingray 327: AS loss 35 | dz60=-1.17 de4=-0.91 dt4=+2.67
+  - 1962 Chevrolet Impala SS 409: AS loss 35 | dz60=-1.35 de4=-0.83 dt4=+0.63
+  - 1964 Pontiac GTO: AS loss 35 | dz60=-1.38 de4=-0.75 dt4=-0.95
+  - 2014 Jeep Wrangler Rubicon: AS loss 35 | dz60=-1.06 de4=-0.86 dt4=-1.57
+  - 1972 Oldsmobile 442: AS loss 35 | dz60=-1.18 de4=-0.77 dt4=-0.39
+  - 1957 Chevrolet Bel Air 283: AS loss 35 | dz60=-0.97 de4=-0.62 dt4=+0.47
+  - 1969 Chevrolet Camaro SS 396: AS loss 35 | dz60=-0.96 de4=-0.55 dt4=+0.22
+  - 1973 Ford Torino 351: AS loss 35 | dz60=-0.85 de4=-0.49 dt4=-1.91
+  - 1970 Dodge Challenger 426 Hemi: AS loss 35 | dz60=-1.01 de4=-0.23 dt4=-2.16
+  - 1979 Pontiac Firebird Trans Am: AS loss 35 | dz60=-0.74 de4=-0.44 dt4=-2.73
+  - 1961 Chevrolet Corvette 283: AS loss 35 | dz60=-0.86 de4=-0.43 dt4=-0.36
+  - 1970 Chevrolet Chevelle SS 454: AS loss 35 | dz60=-0.93 de4=-0.24 dt4=-1.97
+  - 1968 Dodge Dart GTS 383: AS loss 35 | dz60=-0.83 de4=-0.31 dt4=-2.43
+  - 2024 Tesla Model X Long Range: AS loss 34.9 | dz60=-0.25 de4=+0.43 dt4=-11.28
+  - 1955 Ford Thunderbird: AS loss 35 | dz60=-0.71 de4=-0.47 dt4=-1.18
+  - 1970 Plymouth Road Runner 440: AS loss 35 | dz60=-0.86 de4=-0.25 dt4=-1.63
+  - 1967 Plymouth GTX 440: AS loss 35 | dz60=-0.73 de4=-0.21 dt4=-2.9
+  - 1966 Ford GT40 MkII: AS loss 27.3 | dz60=-0.72 de4=+0 dt4=-6.31
+  - 1971 Dodge Demon 340: AS loss 35 | dz60=-0.62 de4=-0.21 dt4=-3.22
+  - 2023 Hyundai Ioniq 5 N: AS loss 33.8 | dz60=-0.03 de4=+0.59 dt4=-6.87
+  - 2021 Ram TRX: AS loss 33.2 | dz60=-0.01 de4=+0.61 dt4=-6.83
+  - 2007 Porsche 911 Turbo: AS loss 32.9 | dz60=-0.01 de4=+0.38 dt4=-10.43
+  - 2016 Koenigsegg Regera: Summer loss 35 | dz60=+0.14 de4=-0.2 dt4=+11.36 d60-130=+0.07
+  - 2018 Zenvo TSR-S: Summer loss 35 | dz60=+0.05 de4=-0.37 dt4=+9.59 d60-130=-1.19
+  - 2007 Audi S6 V10: AS loss 35 | dz60=-0.47 de4=-0.2 dt4=-4.37
+  - 1998 Toyota Celica GT-Four: AS loss 34.9 | dz60=-0.49 de4=-0.23 dt4=-3.35
+  - 1969 Dodge Charger 440: AS loss 35 | dz60=-0.57 de4=+0.05 dt4=-4.43
+  - 2021 Jeep Trackhawk: AS loss 30.5 | dz60=-0.01 de4=+0.52 dt4=-6.1
+  - 2001 Lamborghini Diablo VT 6.0: AS loss 35 | dz60=-0.44 de4=-0.14 dt4=-4.88
+  - 2022 Cadillac Escalade V: AS loss 34.9 | dz60=-0.08 de4=+0.31 dt4=-8.61
+  - 2007 Lamborghini Murciélago LP640: AS loss 34.3 | dz60=-0.39 de4=+0 dt4=-8.57
+  - 2002 Porsche 911 Turbo (996): AS loss 34.9 | dz60=-0.1 de4=+0.31 dt4=-6.96
+  - 2020 Dodge Durango SRT: AS loss 24 | dz60=+0 de4=+0.31 dt4=-8.39
+  - 2019 Koenigsegg Jesko: UHP loss 35 | dz60=-0.14 de4=-0.2 dt4=+7.65 d60-130=-0.49
+  - 2014 Chevrolet Camaro Z/28: AS loss 21.7 | dz60=-0.6 de4=+0 dt4=-1.98 d60-130=+1.75
+  - 2013 Audi RS4 Avant: AS loss 34.1 | dz60=+0 de4=+0.25 dt4=-8.71
+  - 2002 Nissan Skyline GT-R R34: AS loss 25.7 | dz60=+0 de4=+0.28 dt4=-8
+  - 1999 Nissan Skyline GT-R R34: AS loss 25.7 | dz60=+0 de4=+0.28 dt4=-8
+  - 2012 Audi R8 V10: AS loss 26.6 | dz60=-0.37 de4=+0 dt4=-6.18 d60-130=+3.07
+  - 2005 Ford F-250 V10: AS loss 35 | dz60=-0.32 de4=-0.27 dt4=-1.64
+  - 1997 Honda Civic Type R EK9: AS loss 35 | dz60=-0.42 de4=-0.23 dt4=-0.32
+  - 2008 Lamborghini Reventón: AS loss 34 | dz60=-0.34 de4=+0.01 dt4=-6.31
+  - 2021 BMW S1000RR: Summer loss 32.7 | dz60=-0.24 de4=-0.17 dt4=-4.84 d60-130=-0.01
+  - 2021 Range Rover Sport SVR: AS loss 34.9 | dz60=-0.1 de4=+0.18 dt4=-7.34
+  - 2008 Audi S5: AS loss 34.9 | dz60=+0 de4=+0.29 dt4=-6.97
+  - 2008 Audi S5: AS loss 34.9 | dz60=+0 de4=+0.29 dt4=-6.97
+  - 2023 Acura TLX Type S: AS loss 25.4 | dz60=+0 de4=+0.28 dt4=-7.15
+  - 2024 Lexus RC F: AS loss 29.9 | dz60=+0 de4=+0.32 dt4=-6.3
+  - 2008 Mitsubishi Lancer Evolution X: AS loss 30.5 | dz60=+0 de4=+0.29 dt4=-6.75
+  - 1995 Nissan Silvia S14: AS loss 35 | dz60=-0.35 de4=-0.25 dt4=-0.38
+  - 1992 Honda NSX: AS loss 34.5 | dz60=+0 de4=+0.26 dt4=-6.97
+  - 2022 Volkswagen Golf R: AS loss 19.9 | dz60=+0 de4=+0.26 dt4=-6.9
+  - 2015 Koenigsegg One:1: Summer loss 35 | dz60=+0.05 de4=-0.14 dt4=+8.25 d60-130=-0.75
+  - 2003 Ferrari 360 Modena: AS loss 35 | dz60=-0.13 de4=+0.21 dt4=-5.25
+  - 2009 Lamborghini Gallardo LP560-4: AS loss 30.7 | dz60=-0.28 de4=+0.02 dt4=-5.93
+  - 2020 McLaren Elva: Summer loss 35 | dz60=+0.05 de4=-0.25 dt4=+5.74 d60-130=-0.36
+  - 2008 Koenigsegg CCX: AS loss 32.5 | dz60=+0.25 de4=+0.23 dt4=+2.12 d60-130=-0.03
+  - 2004 Mazda RX-8: AS loss 35 | dz60=-0.3 de4=-0.21 dt4=-1.52
+  - 2023 Ford Bronco Raptor: AS loss 28.5 | dz60=+0 de4=+0.2 dt4=-7.7
+  - 2008 Audi RS4: AS loss 35 | dz60=-0.17 de4=+0.11 dt4=-6.03
+  - 2011 Audi A7 3.0T: AS loss 24.4 | dz60=+0 de4=+0.25 dt4=-6.58
+  - 2006 Ferrari 612 Scaglietti: AS loss 34.7 | dz60=-0.07 de4=+0.21 dt4=-5.93
+  - 2018 Jeep Grand Cherokee SRT: AS loss 24.9 | dz60=-0.01 de4=+0.2 dt4=-7.29
+  - 1994 Nissan 180SX Type X: AS loss 34.9 | dz60=-0.35 de4=-0.16 dt4=-1.15
+  - 2008 Dodge Challenger SRT8: AS loss 30.7 | dz60=+0 de4=+0.25 dt4=-6.27
+  - 2014 Mercedes CLA45 AMG: AS loss 29.1 | dz60=+0 de4=+0.26 dt4=-5.94
+  - 2011 Ford Mustang GT 5.0: AS loss 30.5 | dz60=+0 de4=+0.28 dt4=-5.52
+  - 2007 Dodge Charger SRT8: AS loss 33.2 | dz60=+0 de4=+0.26 dt4=-5.92
+  - 2000 Chevrolet Camaro SS: AS loss 31.4 | dz60=+0 de4=+0.26 dt4=-5.88
+  - 2010 Dodge Challenger SRT8: AS loss 28.5 | dz60=+0 de4=+0.24 dt4=-6.23
+  - 1987 Nissan Skyline GTS-R: AS loss 30.1 | dz60=+0 de4=+0.28 dt4=-5.42
+  - 2011 Chevrolet Camaro LT: AS loss 35 | dz60=-0.27 de4=-0.14 dt4=-2.75
+  - 2002 Chevrolet Camaro SS: AS loss 34.3 | dz60=+0 de4=+0.26 dt4=-5.74
+  - 2024 Lexus LC 500 Coupe: AS loss 24.9 | dz60=-0.01 de4=+0.22 dt4=-6.2
+  - 2005 Mercedes E55 AMG: AS loss 27.9 | dz60=-0.01 de4=+0.29 dt4=-4.78
+  - 2024 Lexus IS 500: AS loss 32.8 | dz60=-0.01 de4=+0.22 dt4=-6.15
+  - 2013 Ford Mustang Boss 302: AS loss 32.4 | dz60=+0 de4=+0.24 dt4=-5.9
+  - 2012 Ford Mustang Boss 302 Laguna Seca: AS loss 32.4 | dz60=+0 de4=+0.24 dt4=-5.9
+  - 2006 Mercedes CLK55 AMG: AS loss 30 | dz60=+0 de4=+0.25 dt4=-5.6
+  - 2004 Pontiac GTO: AS loss 34 | dz60=+0 de4=+0.25 dt4=-5.5
+  - 2010 Chevrolet Camaro LT: AS loss 35 | dz60=-0.25 de4=-0.14 dt4=-2.57
+  - 2012 Lamborghini Gallardo LP570-4: AS loss 28.9 | dz60=-0.31 de4=+0 dt4=-4.13
+  - 2007 BMW 550i: AS loss 31.7 | dz60=+0 de4=+0.24 dt4=-5.18
+  - 2003 Mitsubishi Lancer Evolution VIII: AS loss 27.9 | dz60=+0 de4=+0.21 dt4=-5.59
+  - 2009 Mercedes CLS550: AS loss 35 | dz60=-0.1 de4=+0.14 dt4=-4.91
+  - 2003 BMW M3 E46: AS loss 29.3 | dz60=+0 de4=+0.24 dt4=-4.77
+  - 2010 Pagani Zonda R: Summer loss 32.4 | dz60=+0.15 de4=+0.14 dt4=+3.54 d60-130=+0
+  - 2009 BMW 335i: AS loss 24.5 | dz60=+0 de4=+0.24 dt4=-4.45
+  - 2009 BMW 335i: AS loss 24.5 | dz60=+0 de4=+0.24 dt4=-4.45
+  - 2002 Pontiac Firebird WS6: AS loss 27.8 | dz60=+0 de4=+0.23 dt4=-4.59
+  - 2001 Pontiac Firebird Trans Am WS6: AS loss 27.6 | dz60=+0 de4=+0.23 dt4=-4.58
+  - 1992 Nissan Pulsar GTI-R: AS loss 35 | dz60=-0.11 de4=+0.11 dt4=-4.75
+  - 2024 Acura Integra Type S: AS loss 33.8 | dz60=+0 de4=+0.23 dt4=-4.52
+  - 2006 Subaru WRX STI: AS loss 31 | dz60=+0 de4=+0.21 dt4=-4.79
+  - 2024 Tesla Model S Long Range: AS loss 19.9 | dz60=-0.41 de4=+0.01 dt4=-0.53
+  - 2023 Kia EV6 GT: AS loss 26 | dz60=+0 de4=+0.23 dt4=-4.22
+  - 1999 Subaru Impreza 22B STI: AS loss 35 | dz60=-0.17 de4=+0.06 dt4=-4.05
+  - 1991 Toyota Soarer GT-T: AS loss 35 | dz60=-0.25 de4=-0.06 dt4=-2.27
+  - 2014 Hennessey Venom GT: Summer loss 15.2 | dz60=+0.16 de4=-0.25 dt4=-0.18 d60-130=-0.89
+  - 2004 Ford Mustang Mach 1: AS loss 26.1 | dz60=+0 de4=+0.17 dt4=-4.95
+  - 2023 Honda Civic Type R: AS loss 28.5 | dz60=+0 de4=+0.2 dt4=-4.27
+  - 2023 Nissan Z Performance: AS loss 9.7 | dz60=-0.39 de4=+0.02 dt4=-0.06
+  - 2005 Nissan 350Z: AS loss 29.1 | dz60=+0 de4=+0.15 dt4=-5.23
+  - 2009 Dodge Challenger R/T: AS loss 31.9 | dz60=+0 de4=+0.17 dt4=-4.78
+  - 2013 Ram 1500 5.7 Hemi: AS loss 35 | dz60=-0.07 de4=+0.13 dt4=-4.16
+  - 2022 Tesla Model X Plaid: AS loss 14.8 | dz60=-0.3 de4=+0 dt4=-2.1
+  - 2020 Ford F-150 Raptor: AS loss 27.6 | dz60=+0 de4=+0.12 dt4=-5.65
+  - 2010 Hyundai Genesis Coupe 3.8: AS loss 34.9 | dz60=+0 de4=+0.15 dt4=-5.02
+  - 2023 BMW i7 xDrive60: AS loss 30.5 | dz60=+0 de4=+0.12 dt4=-5.5
+  - 2007 Ford Mustang GT: AS loss 25.9 | dz60=+0 de4=+0.18 dt4=-4.26
+  - 2020 Subaru WRX STI: AS loss 30.2 | dz60=+0 de4=+0.2 dt4=-3.76
+  - 2018 Ford Mustang GT PP2: AS loss 23.1 | dz60=-0.24 de4=+0 dt4=-2.93 d60-130=+2.46
+  - 2017 BMW X6M: AS loss 22 | dz60=-0.18 de4=+0 dt4=-3.93 d60-130=+6.43
+  - 2009 GMC Sierra Denali 6.2: AS loss 26.7 | dz60=+0 de4=+0.16 dt4=-4.32
+  - 1996 Chevrolet Impala SS: UHP loss 31.8 | dz60=+0 de4=+0.11 dt4=-5.31
+  - 2008 Subaru Legacy GT Spec.B: AS loss 25.2 | dz60=+0 de4=+0.14 dt4=-4.7
+  - 2019 Dodge Durango R/T: AS loss 29.5 | dz60=+0 de4=+0.15 dt4=-4.5
+  - 2021 Kawasaki Ninja ZX-10R: Summer loss 34.7 | dz60=-0.24 de4=-0.12 dt4=-0.18 d60-130=+0.42
+  - 1998 Toyota Supra Turbo (Mk4): AS loss 20.6 | dz60=-0.01 de4=+0.19 dt4=-3.36
+  - 1987 Ford Mustang 5.0 LX: AS loss 30.4 | dz60=+0 de4=+0.21 dt4=-3.14
+  - 1995 Mitsubishi Eclipse GSX: Summer loss 32.8 | dz60=+0 de4=+0.1 dt4=-5.3
+  - 1989 Ford Mustang GT 5.0: AS loss 28.9 | dz60=+0 de4=+0.21 dt4=-3.05
+  - 2023 Chevrolet Silverado ZR2: AS loss 32 | dz60=+0 de4=+0.05 dt4=-6.23
+  - 2024 Chevrolet Corvette Stingray: Summer loss 16.2 | dz60=-0.16 de4=+0.2 dt4=-0.03
+  - 2013 SRT Viper GTS: Summer loss 33.8 | dz60=-0.11 de4=+0 dt4=-5.02 d60-130=+1.75
+  - 2006 Dodge Charger R/T: AS loss 27 | dz60=+0 de4=+0.17 dt4=-3.77
+  - 2004 Maserati MC12: AS loss 19.9 | dz60=-0.24 de4=+0.02 dt4=+1.96 d60-130=-0.13
+  - 2009 Nissan GT-R: AS loss 15.4 | dz60=-0.18 de4=+0 dt4=-3.54
+  - 1965 Shelby Cobra 427: AS loss 29.5 | dz60=-0.3 de4=+0 dt4=-1.14
+  - 2010 Gumpert Apollo Sport: Summer loss 34.7 | dz60=-0.13 de4=-0.16 dt4=-1.33 d60-130=+0.75
+  - 2011 MazdaSpeed6: AS loss 35 | dz60=-0.13 de4=-0.02 dt4=-4.1
+  - 2023 Polestar 2 Performance: AS loss 35 | dz60=-0.01 de4=+0.13 dt4=-4.26
+  - 2020 Chevrolet Silverado 6.2: AS loss 22 | dz60=+0 de4=+0.21 dt4=-2.86
+  - 2018 Honda Civic Type R: AS loss 30.6 | dz60=+0 de4=+0.12 dt4=-4.6
+  - 2010 Mercedes C63 AMG: AS loss 18.5 | dz60=-0.14 de4=+0.2 dt4=-0.1
+  - 2005 Mitsubishi Eclipse GT: AS loss 32.8 | dz60=+0 de4=+0.15 dt4=-3.86
+  - 1990 Mazda RX-7 FC Turbo: AS loss 33 | dz60=+0 de4=+0.15 dt4=-3.86
+  - 2024 Chevrolet Blazer EV SS: AS loss 19.8 | dz60=+0 de4=+0.21 dt4=-2.56
+  - 2008 Chevrolet Silverado 6.0 Vortec Max: Soft loss 33.4 | dz60=+0 de4=+0.04 dt4=-5.95
+  - 1996 Ford Mustang SVT Cobra: AS loss 35 | dz60=-0.02 de4=+0.15 dt4=-3.3
+  - 2019 Pagani Huayra Roadster BC: Summer loss 34.5 | dz60=+0.05 de4=+0.06 dt4=+4.38 d60-130=-0.11
+  - 2018 Ford F-150 5.0: AS loss 35 | dz60=-0.09 de4=+0.07 dt4=-3.36
+  - 2002 Subaru WRX Wagon: AS loss 30.8 | dz60=+0 de4=+0.12 dt4=-4.11
+  - 2019 McLaren Speedtail: UHP loss 35 | dz60=-0.04 de4=-0.26 dt4=+0.49 d60-130=-0.31
+  - 2004 BMW 330Ci ZHP: AS loss 19.1 | dz60=+0 de4=+0.14 dt4=-3.67
+  - 1998 Pontiac Firebird Formula: AS loss 27.6 | dz60=+0 de4=+0.14 dt4=-3.6
+  - 2017 Chevrolet Silverado 5.3: AS loss 35 | dz60=-0.11 de4=+0.03 dt4=-3.58
+  - 2023 Toyota GR Corolla: AS loss 33.7 | dz60=+0 de4=+0.12 dt4=-3.98
+  - 2011 Koenigsegg Agera R: Summer loss 35 | dz60=+0.04 de4=-0.05 dt4=+4.57 d60-130=-0.4
+  - 1977 Chevrolet Monte Carlo: AS loss 32 | dz60=+0.01 de4=-0.14 dt4=-3.36
+  - 1984 Chevrolet Corvette C4: Soft loss 30 | dz60=+0 de4=+0.14 dt4=-3.54
+  - 2023 Mazda MX-5 Miata Club: AS loss 28.4 | dz60=-0.01 de4=+0.17 dt4=-2.73
+  - 2014 Chevrolet SS: AS loss 20 | dz60=-0.15 de4=+0 dt4=-3.3 d60-130=+2.63
+  - 2023 Mercedes EQS 580 SUV: AS loss 30.8 | dz60=+0 de4=+0.06 dt4=-5.05
+  - 2009 Pontiac G8 GXP: AS loss 25.4 | dz60=+0 de4=+0.17 dt4=-2.83
+  - 2019 Audi RS5 Sportback: AS loss 18.3 | dz60=-0.01 de4=+0.19 dt4=-2.22
+  - 2023 Audi Q4 e-tron: AS loss 25.6 | dz60=+0 de4=-0.14 dt4=-3.41
+  - 2020 Suzuki GSX-R1000: Summer loss 32.6 | dz60=-0.14 de4=-0.16 dt4=+0.06 d60-130=+0.38
+  - 1974 Pontiac Firebird 400: AS loss 35 | dz60=-0.07 de4=+0.01 dt4=-4.4
+  - 2023 Toyota bZ4X AWD: AS loss 14.3 | dz60=+0 de4=-0.18 dt4=-2.39
+  - 2016 Ram 1500 5.7 Hemi: AS loss 34.6 | dz60=+0 de4=+0.1 dt4=-3.99
+  - 2020 Ford Mustang Shelby GT500: AS loss 17 | dz60=+0.23 de4=+0.06 dt4=+0.18 d60-130=-0.23
+  - 2024 Subaru Solterra: AS loss 11.9 | dz60=+0 de4=-0.18 dt4=-2.35
+  - 2012 Nissan Titan Pro-4X: Slicks loss 28.9 | dz60=+0 de4=+0.02 dt4=-5.54
+  - 2010 Aston Martin V12 Vantage: AS loss 28.8 | dz60=-0.14 de4=+0 dt4=-3.1 d60-130=+2.04
+  - 2022 Ford F-150 Lightning: AS loss 22.8 | dz60=+0 de4=+0.19 dt4=-2.09
+  - 2010 Mazda RX-8 R3: AS loss 35 | dz60=-0.01 de4=+0.05 dt4=-4.64
+  - 2023 Tesla Model Y Performance: AS loss 22.8 | dz60=+0 de4=+0.22 dt4=-1.43
+  - 2012 Ford F-150 EcoBoost: AS loss 33 | dz60=+0 de4=+0.12 dt4=-3.42
+  - 2012 Chevrolet Corvette ZR1: AS loss 24.5 | dz60=+0.24 de4=+0 dt4=+0.96
+  - 2010 Nissan Titan 5.6: Soft loss 27.9 | dz60=+0 de4=+0.02 dt4=-5.31
+  - 2017 Pagani Huayra BC: Summer loss 30.5 | dz60=+0.05 de4=+0.02 dt4=+4.23 d60-130=-0.25
+  - 2021 McLaren Sabre: Summer loss 30.1 | dz60=+0.14 de4=+0 dt4=+2.83 d60-130=+0.02
+  - 2008 BMW 135i: AS loss 22 | dz60=+0 de4=+0.14 dt4=-2.83
+  - 2024 Lucid Air Sapphire: AS loss 5 | dz60=-0.13 de4=+0.07 dt4=-1.52 d60-130=-0.49
+  - 2016 Audi TT RS: AS loss 17.5 | dz60=-0.04 de4=+0.06 dt4=-3.47
+  - 1997 Toyota Chaser Tourer V: AS loss 34.7 | dz60=+0 de4=+0.11 dt4=-3.21
+  - 2023 Genesis GV60 Performance: AS loss 19.5 | dz60=-0.01 de4=+0.09 dt4=-3.36
+  - 2001 Honda S2000: AS loss 35 | dz60=-0.15 de4=+0 dt4=-2.35
+  - 2003 Ford Mustang Cobra (Terminator): AS loss 30 | dz60=-0.01 de4=+0.18 dt4=-1.5
+  - 2010 Ferrari 458 Italia: Summer loss 13.4 | dz60=-0.06 de4=+0 dt4=+4.07 d60-130=+0.57
+  - 2021 Kawasaki Ninja H2: UHP loss 31.4 | dz60=-0.13 de4=-0.12 dt4=-0.25 d60-130=+0.61
+  - 2023 VW ID.4 AWD Pro: AS loss 24.3 | dz60=+0 de4=-0.12 dt4=-2.84
+  - 2016 Kawasaki Ninja ZX-10R: Summer loss 34.1 | dz60=-0.14 de4=-0.12 dt4=-0.03 d60-130=+0.42
+  - 2023 Chevrolet Camaro ZL1: Summer loss 28.3 | dz60=-0.15 de4=+0 dt4=-2.22 d60-130=+1.45
+  - 2001 Mitsubishi Eclipse GSX: Slicks loss 34.2 | dz60=+0 de4=+0.03 dt4=-4.62
+  - 2013 Toyota Sequoia 5.7: UHP loss 30.8 | dz60=+0 de4=+0.05 dt4=-4.18
+  - 2022 Mercedes EQB 350: AS loss 26.4 | dz60=+0 de4=-0.07 dt4=-3.69
+  - 1996 Honda Integra SiR: AS loss 35 | dz60=-0.07 de4=+0.08 dt4=-2.09
+  - 2024 Rivian R1S Quad Motor: AS loss 17.8 | dz60=+0 de4=+0.24 dt4=+0.2
+  - 2007 Ford F-150 4.6 Triton: AS loss 28.6 | dz60=+0 de4=-0.05 dt4=-3.92
+  - 2023 Nissan Ariya e-4ORCE: AS loss 35 | dz60=-0.03 de4=-0.07 dt4=-2.77
+  - 2024 Toyota GR86: AS loss 26 | dz60=+0 de4=+0.06 dt4=-3.57
+  - 2021 Toyota Tundra: AS loss 19.4 | dz60=+0 de4=+0.1 dt4=-2.76
+  - 1975 Chevrolet Nova 350: AS loss 23.4 | dz60=+0 de4=-0.11 dt4=-2.56
+  - 2024 Subaru BRZ: AS loss 25.7 | dz60=+0 de4=+0.06 dt4=-3.52
+  - 1992 Ford Mustang LX 5.0: AS loss 27.4 | dz60=+0 de4=+0.14 dt4=-1.91
+  - 1982 Pontiac Firebird Trans Am: AS loss 35 | dz60=+0.01 de4=-0.05 dt4=-3.5
+  - 2020 Dodge Challenger R/T Scat Pack: AS loss 13.8 | dz60=-0.2 de4=+0 dt4=-0.6 d60-130=+0.71
+  - 2006 Ford GT: AS loss 5.1 | dz60=+0.15 de4=+0.04 dt4=+0.79
+  - 2002 Ferrari Enzo: AS loss 19 | dz60=+0.15 de4=+0.07 dt4=+0.19 d60-130=-0.01
+  - 2021 Porsche 911 Turbo S: Summer loss 9.5 | dz60=+0 de4=-0.22 dt4=-0.16 d60-130=+1.01
+  - 2019 Ford F-250 6.7 PowerStroke: UHP loss 34.2 | dz60=+0 de4=+0.01 dt4=-4.32
+  - 2024 Volvo EX90 Twin Motor: AS loss 32.9 | dz60=+0 de4=+0.06 dt4=-3.3
+  - 2006 Honda Accord Euro R: AS loss 35 | dz60=-0.02 de4=+0.08 dt4=-2.47
+  - 2008 Toyota Highlander V6: AS loss 33.8 | dz60=+0 de4=+0.07 dt4=-3.06
+  - 2010 Jeep Commander 5.7: AS loss 33.5 | dz60=+0 de4=+0.07 dt4=-3.06
+  - 2024 Audi RS 3: AS loss 8.9 | dz60=-0.04 de4=+0.06 dt4=-2.46
+  - 2012 Scion tC: Summer loss 27.7 | dz60=+0 de4=+0.01 dt4=-4.25
+  - 2023 Dodge Charger Scat Pack: AS loss 9.2 | dz60=-0.14 de4=+0.01 dt4=-1.41
+  - 2009 Toyota 4Runner V8: Summer loss 25.8 | dz60=+0 de4=+0 dt4=-4.39
+  - 1978 Dodge Magnum XE: AS loss 34.7 | dz60=-0.01 de4=-0.08 dt4=-2.58
+  - 1983 Toyota Supra (Mk2): AS loss 34.1 | dz60=+0 de4=+0.02 dt4=-3.95
+  - 2011 Jeep Liberty 3.7: AS loss 28.9 | dz60=+0.01 de4=-0.06 dt4=-2.93
+  - 2010 Toyota Tundra 5.7: AS loss 25.1 | dz60=+0 de4=+0.06 dt4=-3.12
+  - 2018 BMW M3 Competition: AS loss 9 | dz60=-0.15 de4=+0 dt4=-1.31
+  - 2017 Mercedes-AMG C63 S: AS loss 8.1 | dz60=-0.19 de4=+0 dt4=-0.48
+  - 2019 Porsche 911 GT3: Summer loss 23.6 | dz60=-0.09 de4=+0 dt4=-2.45
+  - 2007 Toyota Tundra 4.7: AS loss 25.6 | dz60=+0 de4=-0.09 dt4=-2.33
+  - 1994 Toyota Supra Twin Turbo: AS loss 17.6 | dz60=+0 de4=+0.14 dt4=-1.32
+  - 1991 Nissan 240SX (S13): UHP loss 32.6 | dz60=+0 de4=+0 dt4=-4.11
+  - 2008 Ford F-150 Harley-Davidson: AS loss 26.1 | dz60=+0 de4=+0.03 dt4=-3.48
+  - 2005 Ferrari F430: AS loss 29.1 | dz60=-0.17 de4=+0.01 dt4=-0.47
+  - 2012 Pagani Huayra: Summer loss 31.1 | dz60=-0.13 de4=+0 dt4=+1.47 d60-130=+0.21
+  - 2011 Chevrolet Avalanche 5.3: AS loss 25.4 | dz60=+0 de4=+0.03 dt4=-3.46
+  - 1994 Pontiac Firebird Formula: AS loss 25.9 | dz60=+0 de4=+0.14 dt4=-1.2
+  - 1993 Pontiac Firebird Formula: AS loss 25.9 | dz60=+0 de4=+0.14 dt4=-1.2
+  - 1994 Ford Mustang GT: AS loss 20.5 | dz60=+0 de4=+0.1 dt4=-1.99
+  - 2011 Mercedes SLS AMG: AS loss 7.6 | dz60=+0.16 de4=+0 dt4=+0.72
+  - 2013 Ford Mustang V6: AS loss 27 | dz60=+0 de4=+0.08 dt4=-2.28
+  - 2014 Koenigsegg Agera S: Summer loss 34.7 | dz60=+0.04 de4=+0 dt4=+3.08 d60-130=-0.15
+  - 2012 Chevrolet Tahoe 5.3: AS loss 32.2 | dz60=+0 de4=-0.06 dt4=-2.68
+  - 1990 Nissan 300ZX NA: AS loss 32.3 | dz60=+0 de4=+0.06 dt4=-2.68
+  - 2023 Audi e-tron GT: AS loss 24.9 | dz60=+0 de4=+0.03 dt4=-3.19
+  - 2024 Hyundai Ioniq 6 AWD: AS loss 23.7 | dz60=+0 de4=+0.04 dt4=-2.97
+  - 2006 Chevrolet Silverado 2500HD 6.0: AS loss 24.6 | dz60=+0 de4=-0.07 dt4=-2.32
+  - 2020 Audi RS7: AS loss 14.3 | dz60=-0.05 de4=+0 dt4=-2.57
+  - 1991 Chevrolet Camaro Z28: AS loss 30.1 | dz60=+0 de4=+0.07 dt4=-2.16
+  - 1985 Chevrolet Camaro IROC-Z: AS loss 30.9 | dz60=+0 de4=+0.02 dt4=-3.13
+  - 2023 BMW X5M Competition: AS loss 15.5 | dz60=-0.02 de4=+0.02 dt4=-2.73
+  - 2003 Acura RSX Type-S: AS loss 34.2 | dz60=+0 de4=+0.02 dt4=-3.12
+  - 2013 Scion FR-S: AS loss 32.4 | dz60=+0 de4=+0.05 dt4=-2.47
+  - 2007 MazdaSpeed3: AS loss 22.6 | dz60=+0 de4=+0.12 dt4=-1.06
+  - 2017 Porsche 911 GT2 RS: Summer loss 25.5 | dz60=+0.1 de4=+0 dt4=+1.45 d60-130=+0.71
+  - 2016 Ferrari 488 GTB: Summer loss 22.6 | dz60=+0.08 de4=+0 dt4=+1.82 d60-130=+0.43
+  - 2012 Chevrolet Camaro ZL1: AS loss 28.6 | dz60=-0.02 de4=+0.15 dt4=-0.01
+  - 2015 BMW M4: AS loss 12 | dz60=-0.16 de4=+0 dt4=-0.2
+  - 2018 Mercedes-AMG GT R: AS loss 20.7 | dz60=+0.14 de4=+0 dt4=+0.56
+  - 2024 Ford Mustang Dark Horse: AS loss 8.6 | dz60=+0.06 de4=+0.01 dt4=+1.96 d60-130=-0.57
+  - 2014 Ferrari F12 Berlinetta: UHP loss 31.8 | dz60=-0.08 de4=+0 dt4=-1.72 d60-130=+1.42
+  - 1985 Mazda RX-7 GSL-SE: UHP loss 28.2 | dz60=+0 de4=+0 dt4=-3.3
+  - 1998 Honda Prelude Type SH: AS loss 31 | dz60=+0 de4=+0.06 dt4=-2.03
+  - 1999 Honda Prelude SH: AS loss 31 | dz60=+0 de4=+0.06 dt4=-2.03
+  - 1993 Honda Accord SiR: AS loss 34.5 | dz60=-0.01 de4=+0.05 dt4=-2.02
+  - 2015 Nissan Frontier 4.0: AS loss 33.7 | dz60=+0 de4=+0 dt4=-3.2
+  - 2013 Ford Expedition 5.4: AS loss 28 | dz60=+0 de4=-0.03 dt4=-2.55
+  - 2015 McLaren P1: UHP loss 19.3 | dz60=-0.14 de4=+0 dt4=+0.29 d60-130=-0.32
+  - 1981 Chevrolet Camaro Z28: AS loss 32 | dz60=+0 de4=+0 dt4=-3.07
+  - 2004 Porsche Carrera GT: AS loss 24 | dz60=-0.04 de4=+0.1 dt4=+0.26 d60-130=+0
+  - 2010 Mercedes C63 AMG: AS loss 21.1 | dz60=-0.09 de4=+0 dt4=-1.24 d60-130=+2.57
+  - 2006 Saleen S7 Twin Turbo: AS loss 30.1 | dz60=+0.15 de4=+0 dt4=-0.04 d60-130=-0.45
+  - 2021 Ducati Panigale V4: Summer loss 32.2 | dz60=+0.07 de4=-0.08 dt4=-0.01 d60-130=+0.3
+  - 2021 Rimac Nevera: Summer loss 25.7 | dz60=-0.15 de4=+0 d60-130=+0.02
+  - 2010 Chevrolet Suburban 5.3: AS loss 30.3 | dz60=+0 de4=-0.02 dt4=-2.55
+  - 2019 Lamborghini Aventador SVJ: UHP loss 22.1 | dz60=-0.05 de4=+0.02 dt4=+1.54 d60-130=+0.81
+  - 2014 Toyota Tacoma V6: AS loss 30.6 | dz60=+0 de4=-0.02 dt4=-2.54
+  - 2011 Toyota Tacoma 4.0 V6: AS loss 30.6 | dz60=+0 de4=-0.02 dt4=-2.54
+  - 2009 Honda Pilot: AS loss 29.9 | dz60=+0 de4=-0.02 dt4=-2.54
+  - 2024 Tesla Model 3 Performance: AS loss 16.3 | dz60=-0.07 de4=+0.06 dt4=+0.3 d60-130=+0.05
+  - 2020 Lamborghini Huracán EVO: AS loss 17.3 | dz60=+0.07 de4=-0.07 dt4=+0.06 d60-130=+0.64
+  - 1986 Toyota Corolla AE86: AS loss 34.8 | dz60=+0 de4=+0.01 dt4=-2.63
+  - 2013 Bugatti Veyron Super Sport: AS loss 29.4 | dz60=+0 de4=+0 dt4=-2.81 d60-130=+0.71
+  - 2024 BMW M2: Summer loss 11.5 | dz60=-0.02 de4=+0.01 dt4=-2.21
+  - 2020 McLaren 765LT: UHP loss 32 | dz60=-0.08 de4=+0 dt4=-1.16 d60-130=+0.23
+  - 2023 Ford Mustang Mach-E GT: AS loss 21.3 | dz60=+0 de4=-0.02 dt4=-2.34
+  - 2016 Ford Mustang GT350R: AS loss 25.7 | dz60=-0.06 de4=+0 dt4=-1.47 d60-130=+0.18
+  - 2024 Tesla Cybertruck Tri-Motor: Slicks loss 18.7 | dz60=+0 de4=-0.02 dt4=+2.23
+  - 2020 Suzuki GSX-R1000R: Summer loss 32.4 | dz60=-0.04 de4=-0.09 dt4=-0.03 d60-130=+0.39
+  - 2024 BMW i5 M60: AS loss 32.3 | dz60=+0 de4=+0.03 dt4=-2
+  - 2020 Kawasaki Ninja ZX-14R: UHP loss 21 | dz60=-0.13 de4=+0 dt4=+0 d60-130=+0.16
+  - 2024 Cadillac Lyriq AWD: AS loss 34.5 | dz60=+0 de4=-0.03 dt4=-1.99
+  - 2026 Chevrolet Corvette ZR1X: AS loss 15.1 | dz60=-0.12 de4=-0.005 dt4=-0.06 d60-130=-0.37
+  - 2022 BMW iX M60: AS loss 27.4 | dz60=+0 de4=+0.05 dt4=-1.54
+  - 1990 Mazda Miata NA: AS loss 31.8 | dz60=+0 de4=+0 dt4=-2.51
+  - 2018 McLaren 600LT: Summer loss 22.3 | dz60=+0.07 de4=-0.04 dt4=+0.25 d60-130=+0.13
+  - 2017 Ferrari 812 Superfast: UHP loss 26 | dz60=-0.12 de4=+0 dt4=+0.01 d60-130=+0.37
+  - 2008 Aston Martin DBS: AS loss 23.8 | dz60=-0.06 de4=+0 dt4=-1.09
+  - 2014 Porsche 911 Carrera S: AS loss 17.8 | dz60=+0 de4=+0.1 dt4=+0.27
+  - 2019 Lamborghini Huracán Performante: UHP loss 22.6 | dz60=+0.09 de4=-0.01 dt4=+0.22 d60-130=+0.69
+  - 2020 Dodge Challenger Hellcat: AS loss 15.4 | dz60=-0.05 de4=+0 dt4=+1.21 d60-130=+0
+  - 2022 Tesla Model S Plaid: AS loss 5.6 | dz60=-0.07 de4=+0.03 dt4=+0.12 d60-130=-0.24
+  - 2023 Porsche 718 Cayman GT4 RS: Summer loss 17.6 | dz60=-0.04 de4=+0 dt4=-1.25
+  - 2005 Bugatti Veyron: AS loss 20.9 | dz60=-0.06 de4=+0 dt4=-0.84 d60-130=+0.67
+  - 2020 Yamaha YZF-R1: Summer loss 32.8 | dz60=-0.04 de4=-0.05 dt4=-0.12 d60-130=+0.52
+  - 2024 Volvo XC40 Recharge: AS loss 29.8 | dz60=+0 de4=-0.02 dt4=-1.51
+  - 2001 Chevrolet Camaro Z28 (H/C/E) MS3-TSP5.3stage2.5-1.3/4LT-TrueDuals: UHP loss 24.1 | dz60=-0.04 de4=+0 dt4=-1.04 d60-130=+0.43
+  - 2015 Dodge Challenger Hellcat: AS loss 17.8 | dz60=+0.06 de4=+0 dt4=+0.55 d60-130=+0.35
+  - 2020 Chevrolet Camaro SS: AS loss 10.7 | dz60=-0.06 de4=-0.01 dt4=-0.31 d60-130=+0.25
+  - 2021 Honda CBR1000RR-R Fireblade: Summer loss 33 | dz60=-0.03 de4=-0.05 dt4=-0.07 d60-130=+0.29
+  - 2023 Chevrolet Corvette Z06: Summer loss 19.7 | dz60=-0.06 de4=+0 dt4=+0.01
+  - 2013 McLaren MP4-12C: Summer loss 19.4 | dz60=-0.01 de4=+0 dt4=+0.91 d60-130=+0.21
+  - 2016 Bugatti Chiron: AS loss 25.9 | dz60=-0.03 de4=+0 dt4=-0.4 d60-130=-0.81
+  - 2019 Bugatti Chiron: AS loss 25.9 | dz60=-0.03 de4=+0 dt4=-0.37 d60-130=-0.81
+  - 2017 Bugatti Chiron Sport: AS loss 26.9 | dz60=-0.03 de4=+0 dt4=-0.35 d60-130=-0.81
+  - 2020 Yamaha YZF-R1M: Summer loss 32.3 | dz60=-0.04 de4=+0 dt4=+0.13 d60-130=+0.49
+  - 2018 Bugatti Divo: AS loss 32 | dz60=-0.02 de4=+0 dt4=-0.48 d60-130=-0.57
+  - 2020 McLaren 720S: UHP loss 18.4 | dz60=+0 de4=+0 dt4=+0.31 d60-130=+0.31
+  - 2022 Porsche Taycan Turbo S: UHP loss 20.5 | dz60=+0 de4=+0 dt4=+0.24 d60-130=+1.56
+
+Notes
+-----
+Many Excel 0-60 vs trap pairs are inconsistent under the held µ ladder: sticky enough
+to hit 0-60 often overshoots ET or requires high loss that under-shoots trap by >1 mph.
+Discrete tire steps also leave gaps (e.g. AS too slow / Summer too fast on 0-60).
+Residuals above are honest best-effort under Phase 31 controls (no µ / physics / Cd / area /
+drive / TX / Diff retune unless required — none applied).
