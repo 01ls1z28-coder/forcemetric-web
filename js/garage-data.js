@@ -1429,7 +1429,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 4760,
     "DragCoefficient": 0.21,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 32,
+    "DrivetrainLossPercent": 16,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
@@ -1437,7 +1437,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 155,
-    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.2 / ~11.6@118 (loss 32, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 32; driver 200; trap-first",
+    "Source": "Perf: C&D/peer Model S Dual Motor LR ~3.1 / ~10.6@130 (loss 16, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 16; driver 200; trap-first",
     "Transmission": "Auto"
   },
   {
