@@ -314,7 +314,7 @@ window.GARAGE_DATA = [
     "IsForcedInduction": false,
     "EngineLayout": "Front",
     "Differential": "LSD",
-    "Source": "Perf: C&D/peer 2002 Camaro SS MT ~5.2 / ~13.8@104 (loss 21.6, TX MANUAL, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 21.6; driver 200; trap-first",
+    "Source": "Perf: C&D/peer 2001 Camaro Z28 AT ~3.4 / ~11.5@119.72 (loss 21.6, TX AUTO, driver 200, SLICKS, trap-first) | Phase 21 bake tire All-season; loss 21.6; driver 200; trap-first",
     "Transmission": "Auto"
   },
   {
