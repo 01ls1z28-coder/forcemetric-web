@@ -1110,7 +1110,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Electronic",
     "MaxSpeedMph": 130,
-    "Source": "Perf: C&D Cybertruck Beast 2.6 / 11.0@119 (loss 24.5, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 24.5; driver 200; trap-first",
+    "Source": "Perf: C&D Cybertruck Beast 2.6 / 11.0@119 (loss 19, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 19; driver 200; trap-first",
     "Transmission": "Auto"
   },
   {
