@@ -99,7 +99,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 3900,
     "DragCoefficient": 0.34,
     "FrontalAreaSqFt": 24,
-    "DrivetrainLossPercent": 23.3,
+    "DrivetrainLossPercent": 18,
     "TireType": 1,
     "DriveType": "RWD",
     "IsEv": false,
@@ -107,7 +107,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Front",
     "Differential": "LSD",
     "Source": "Perf: C&D 2024 Dark Horse MT 4.1 / 12.5@115 (loss 22.7, TX MANUAL, driver 200, Summer, trap-first) | Phase 21 bake tire Summer; loss 23.3; driver 200; trap-first",
-    "Transmission": "Manual"
+    "Transmission": "Auto"
   },
   {
     "Name": "2023 Chevrolet Camaro ZL1",
