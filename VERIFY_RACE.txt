@@ -1104,3 +1104,32 @@ race.html / js/race.js:
 
 Holds intact: µ ladder, physics.js formulas, simultaneous leave, brass chrome,
 physics X-from-DistanceFt playback.
+
+Phase 33 — Brass button upgrade (2026-09-12 CT)
+===============================================
+Branch: review/vb-phase33-brass-buttons
+Tip SHA: (stamped after commit)
+
+Scope: VelocityBench main (index.html surfaces via css/styles.css) + race
+(race.html surfaces via css/race.css) button chrome only.
+
+Changes
+  - Shared --btn-brass-face / --btn-brass-face-strong / --btn-brass-rim* tokens
+  - Test + Drag Racing identical outer size (42px height, equal 2-col grid width)
+  - Shared brass metallic face + inset rim; lime vs cyan accent edge + label tint
+    (not full-face neon slabs)
+  - Cohesion pass: Play/Pause/Replay, Garage, Generate, Load, Launch, Back,
+    Rematch/Replay header, lane Load, roll presets, modal Add/Edit/Delete/Close
+  - Hover / active / focus-visible polished; keyboard focus ring retained
+
+Holds intact
+  - No garage bake / physics.js / µ ladder / DistanceFt playback retune
+  - No ATC restoration; Test/Drag remain under Differential (Phase 32 layout)
+
+Verify
+  1. Test + Drag Racing same height/width in vehicle-run-actions 2-col grid
+  2. Buttons read as brass bezels with role accents (lime/cyan/crimson/green/blue)
+  3. Race Launch / Back / Load / Replay-Rematch match brass language
+  4. Desktop first; mobile breakpoints not badly broken
+  5. No physics.js / garage-data.js change
+

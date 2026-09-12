@@ -61,6 +61,30 @@
     inset 0 0 0 3px var(--brass-inset),
     inset 0 0 28px rgba(0, 0, 0, 0.35),
     0 12px 36px rgba(0, 0, 0, 0.45);
+  /* Phase 33 — shared brass button language (instrument-panel bezels) */
+  --btn-brass-face:
+    linear-gradient(180deg, rgba(255, 246, 224, 0.16) 0%, transparent 38%),
+    linear-gradient(145deg, rgba(240, 226, 196, 0.14), transparent 42%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, transparent 48%),
+    var(--carbon-fine),
+    #141820;
+  --btn-brass-face-strong:
+    linear-gradient(180deg, rgba(255, 246, 224, 0.22) 0%, transparent 40%),
+    linear-gradient(145deg, rgba(240, 226, 196, 0.18), transparent 45%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+    var(--carbon-fine),
+    #171d27;
+  --btn-brass-rim:
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 2px var(--brass-inset),
+    inset 0 1px 0 rgba(255, 246, 224, 0.12),
+    0 4px 14px rgba(0, 0, 0, 0.4);
+  --btn-brass-rim-hover:
+    inset 0 0 0 1px rgba(240, 226, 196, 0.38),
+    inset 0 0 0 2px var(--brass-inset),
+    inset 0 1px 0 rgba(255, 246, 224, 0.18),
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(215, 196, 160, 0.12);
 }
 
 html {
@@ -512,20 +536,59 @@ input[type="email"] {
 }
 
 /* ── Buttons ── */
+/* Phase 33 — classy brass instrument-panel bezels (shared chrome language) */
 .btn {
-  border: none;
+  border: 1px solid var(--brass);
   border-radius: var(--radius-sm);
   padding: 9px 14px;
   font-size: 13px;
   font-weight: 650;
   cursor: pointer;
   font-family: var(--sans);
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease, border-color 0.15s ease;
   letter-spacing: 0.01em;
+  color: var(--brass-text);
+  background: var(--btn-brass-face);
+  box-shadow: var(--btn-brass-rim);
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.05s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    filter 0.15s ease;
+}
+
+.btn:hover {
+  border-color: rgba(240, 226, 196, 0.65);
+  color: #fff6e0;
+  background: var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
 }
 
 .btn:active {
   transform: translateY(1px);
+  box-shadow:
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 2px var(--brass-inset),
+    inset 0 2px 6px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.btn:focus-visible {
+  outline: none;
+  border-color: var(--brass-text);
+  box-shadow:
+    var(--btn-brass-rim),
+    0 0 0 2px var(--bg),
+    0 0 0 4px rgba(215, 196, 160, 0.4);
+}
+
+.btn:disabled,
+.btn.btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  filter: grayscale(0.25);
 }
 
 /* Garage: fixed 74×74 square beside vertical NA/FI/EV — never % height */
@@ -561,8 +624,6 @@ input[type="email"] {
 
 #btnGarage.btn-garage,
 .btn-garage {
-  background: linear-gradient(180deg, #ff3d54, var(--red));
-  color: #fff;
   box-sizing: border-box;
   width: 74px !important;
   height: 74px !important;
@@ -574,18 +635,34 @@ input[type="email"] {
   margin: 0 !important;
   padding: 0 !important;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   white-space: nowrap;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 4px 14px rgba(239, 35, 60, 0.28);
+  /* Brass body + crimson gem accent (role), not flat neon slab */
+  color: #ffe0e6;
+  border: 1px solid rgba(255, 80, 100, 0.55);
+  background:
+    linear-gradient(90deg, rgba(255, 51, 85, 0.55) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 18%, rgba(255, 120, 140, 0.22), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow:
+    var(--btn-brass-rim),
+    0 0 16px rgba(239, 35, 60, 0.18);
 }
 
 .btn-garage:hover {
-  background: linear-gradient(180deg, #ff556a, var(--red-hover));
+  color: #fff;
+  border-color: rgba(255, 120, 140, 0.75);
+  background:
+    linear-gradient(90deg, rgba(255, 85, 110, 0.7) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 18%, rgba(255, 140, 160, 0.28), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover), 0 0 20px rgba(239, 35, 60, 0.28);
 }
 
 .vehicle-card {
@@ -593,79 +670,114 @@ input[type="email"] {
 }
 
 .btn-generate {
-  background: linear-gradient(180deg, #3b9eff, #2563eb);
-  color: #fff;
   width: 100%;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 4px 12px rgba(37, 99, 235, 0.25);
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  color: #d7ecff;
+  border-color: rgba(76, 160, 255, 0.5);
+  background:
+    linear-gradient(90deg, rgba(59, 158, 255, 0.55) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 12%, rgba(90, 170, 255, 0.18), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim), 0 0 14px rgba(37, 99, 235, 0.14);
 }
 
 .btn-generate:hover {
-  background: linear-gradient(180deg, #56abff, #3b82f6);
+  color: #eff7ff;
+  border-color: rgba(120, 180, 255, 0.7);
+  background:
+    linear-gradient(90deg, rgba(86, 171, 255, 0.7) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 12%, rgba(110, 185, 255, 0.24), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover), 0 0 18px rgba(37, 99, 235, 0.22);
+}
+
+/*
+ * Test + Drag Racing — identical outer size in 2-col grid under Diff.
+ * Shared brass body; lime vs cyan accent edge + label tint (not full-face neon).
+ */
+.btn-test,
+.btn-drag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  margin-top: 0;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  background: var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim);
 }
 
 .btn-test {
-  background: linear-gradient(180deg, #d4ff6a, var(--lime));
-  color: #0a0c0f;
-  font-size: 17px;
-  font-weight: 800;
-  padding: 14px 24px;
-  min-width: 120px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 10px;
-  /* Keep Test CTA high-contrast against brass chrome (Phase 13) */
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
-    0 0 22px var(--lime-glow),
-    0 6px 18px rgba(184, 255, 60, 0.22);
+  color: #e2ff9a;
+  border: 1px solid rgba(200, 255, 74, 0.48);
+  background:
+    linear-gradient(90deg, rgba(200, 255, 74, 0.65) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 18% 50%, rgba(200, 255, 74, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(255, 246, 224, 0.14) 0%, transparent 40%),
+    var(--btn-brass-face-strong);
+  text-shadow: 0 0 10px rgba(200, 255, 74, 0.22);
 }
 
 .btn-test:hover {
-  background: linear-gradient(180deg, #e2ff8a, var(--lime-hover));
+  color: #f2ffc4;
+  border-color: rgba(217, 255, 120, 0.72);
+  background:
+    linear-gradient(90deg, rgba(217, 255, 120, 0.8) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 18% 50%, rgba(200, 255, 74, 0.24), transparent 48%),
+    var(--btn-brass-face-strong);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
-    0 0 28px rgba(184, 255, 60, 0.45),
-    0 6px 20px rgba(184, 255, 60, 0.28);
+    var(--btn-brass-rim-hover),
+    0 0 16px rgba(200, 255, 74, 0.18);
 }
 
 .btn-drag {
-  background: linear-gradient(180deg, #56f0ff, #22d3ee);
-  color: #041016;
-  font-size: 15px;
-  font-weight: 800;
-  padding: 12px 18px;
-  min-width: 120px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 10px;
-  margin-top: 8px;
-  width: 100%;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
-    0 0 20px rgba(34, 211, 238, 0.35),
-    0 6px 16px rgba(34, 211, 238, 0.2);
+  color: #9ef4f7;
+  border: 1px solid rgba(45, 226, 230, 0.48);
+  background:
+    linear-gradient(90deg, rgba(45, 226, 230, 0.65) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 18% 50%, rgba(45, 226, 230, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(255, 246, 224, 0.14) 0%, transparent 40%),
+    var(--btn-brass-face-strong);
+  text-shadow: 0 0 10px rgba(45, 226, 230, 0.22);
 }
 
 .btn-drag:hover {
-  background: linear-gradient(180deg, #7af5ff, #67e8f9);
+  color: #c5fbff;
+  border-color: rgba(103, 232, 249, 0.72);
+  background:
+    linear-gradient(90deg, rgba(103, 232, 249, 0.8) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 18% 50%, rgba(45, 226, 230, 0.24), transparent 48%),
+    var(--btn-brass-face-strong);
+  box-shadow:
+    var(--btn-brass-rim-hover),
+    0 0 16px rgba(45, 226, 230, 0.18);
 }
 
 .btn-ctrl {
-  background:
-    linear-gradient(180deg, rgba(240, 226, 196, 0.06), transparent 50%),
-    var(--panel-2);
-  color: #e8ecf1;
+  color: var(--brass-text);
   border: 1px solid var(--brass);
   width: 100%;
-  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  background: var(--btn-brass-face);
+  box-shadow: var(--btn-brass-rim);
 }
 
 .btn-ctrl:hover {
-  background: #1c222b;
-  border-color: rgba(240, 226, 196, 0.55);
+  color: #fff6e0;
+  border-color: rgba(240, 226, 196, 0.65);
+  background: var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
 }
-
 
 /* ── Air / HP correction strip (fills empty band under Weather) ── */
 .air-hp-strip {
@@ -834,9 +946,12 @@ input[type="email"] {
   width: 100%;
   min-width: 0;
   margin-top: 0;
-  padding: 10px 8px;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  padding: 0 8px;
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   border-radius: 8px;
 }
 
@@ -1319,48 +1434,93 @@ input[type="email"] {
 }
 
 .btn-load {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
-  color: #fff;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  color: #c6f5d4;
+  border: 1px solid rgba(74, 222, 128, 0.48);
+  background:
+    linear-gradient(90deg, rgba(34, 197, 94, 0.6) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 12%, rgba(74, 222, 128, 0.16), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim);
 }
 
-.btn-load:hover { background: linear-gradient(180deg, #4ade80, #22c55e); }
+.btn-load:hover {
+  color: #e6ffe0;
+  border-color: rgba(74, 222, 128, 0.72);
+  background:
+    linear-gradient(90deg, rgba(74, 222, 128, 0.75) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 12%, rgba(74, 222, 128, 0.22), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
+}
 
 .btn-close-modal {
-  background: #1c222b;
-  color: #e8ecf1;
+  color: var(--brass-text);
   border: 1px solid var(--brass);
-  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  background: var(--btn-brass-face);
+  box-shadow: var(--btn-brass-rim);
 }
 
 .btn-close-modal:hover {
-  background: #262d38;
-  border-color: rgba(240, 226, 196, 0.55);
+  color: #fff6e0;
+  border-color: rgba(240, 226, 196, 0.65);
+  background: var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
 }
 
 .btn-disabled {
   background: #161a20;
   color: #555;
   cursor: not-allowed;
+  box-shadow: none;
+  border-color: rgba(120, 130, 145, 0.25);
 }
 
 .btn-add {
-  background: linear-gradient(180deg, #3b9eff, #2563eb);
-  color: #fff;
+  color: #d7ecff;
+  border: 1px solid rgba(76, 160, 255, 0.5);
+  background:
+    linear-gradient(90deg, rgba(59, 158, 255, 0.55) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim);
 }
-.btn-add:hover { background: linear-gradient(180deg, #56abff, #3b82f6); }
+.btn-add:hover {
+  color: #eff7ff;
+  border-color: rgba(120, 180, 255, 0.7);
+  background:
+    linear-gradient(90deg, rgba(86, 171, 255, 0.7) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
+}
 
 .btn-edit {
-  background: #374151;
-  color: #fff;
+  color: var(--brass-text);
+  border: 1px solid var(--brass);
+  background: var(--btn-brass-face);
+  box-shadow: var(--btn-brass-rim);
 }
-.btn-edit:hover { background: #4b5563; }
+.btn-edit:hover {
+  color: #fff6e0;
+  border-color: rgba(240, 226, 196, 0.65);
+  background: var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
+}
 
 .btn-delete {
-  background: #b91c1c;
-  color: #fff;
+  color: #ffd0d6;
+  border: 1px solid rgba(255, 80, 100, 0.5);
+  background:
+    linear-gradient(90deg, rgba(185, 28, 28, 0.65) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim);
 }
-.btn-delete:hover { background: #dc2626; }
+.btn-delete:hover {
+  color: #fff;
+  border-color: rgba(255, 120, 140, 0.7);
+  background:
+    linear-gradient(90deg, rgba(220, 38, 38, 0.75) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
+}
 
 .car-editor {
   display: none;
@@ -1864,9 +2024,7 @@ label.field.loss-field-hidden {
 
 /* ── Support intake (Phase 9) ── */
 .header-support-btn {
-  background:
-    linear-gradient(180deg, rgba(240, 226, 196, 0.08), transparent 60%),
-    #12161d;
+  background: var(--btn-brass-face);
   border: 1px solid var(--brass);
   color: var(--brass-text);
   font-size: 11px;
@@ -1877,13 +2035,15 @@ label.field.loss-field-hidden {
   padding: 6px 10px;
   border-radius: 999px;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  box-shadow: var(--btn-brass-rim);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .header-support-btn:hover {
-  background: #1a212b;
+  background: var(--btn-brass-face-strong);
   border-color: rgba(240, 226, 196, 0.65);
-  color: #fff;
+  color: #fff6e0;
+  box-shadow: var(--btn-brass-rim-hover);
 }
 
 .header-support-btn:focus-visible {
@@ -2083,9 +2243,8 @@ label.field.loss-field-hidden {
 }
 
 .btn-request-vehicle {
-  background: linear-gradient(180deg, #3b9eff, #2563eb);
-  color: #fff;
-  border: none;
+  color: #d7ecff;
+  border: 1px solid rgba(76, 160, 255, 0.5);
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 12px;
@@ -2094,10 +2253,19 @@ label.field.loss-field-hidden {
   text-transform: uppercase;
   font-family: var(--sans);
   cursor: pointer;
+  background:
+    linear-gradient(90deg, rgba(59, 158, 255, 0.55) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim);
 }
 
 .btn-request-vehicle:hover {
-  background: linear-gradient(180deg, #56abff, #3b82f6);
+  color: #eff7ff;
+  border-color: rgba(120, 180, 255, 0.7);
+  background:
+    linear-gradient(90deg, rgba(86, 171, 255, 0.7) 0 3px, transparent 3px),
+    var(--btn-brass-face-strong);
+  box-shadow: var(--btn-brass-rim-hover);
 }
 
 @media (max-width: 560px) {
@@ -2198,9 +2366,12 @@ label.field.loss-field-hidden {
   width: 100%;
   min-width: 0;
   margin-top: 0;
-  padding: 10px 8px;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  padding: 0 8px;
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
 }
 
 .vehicle-run-actions .run-timer {
