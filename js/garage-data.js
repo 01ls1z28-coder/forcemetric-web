@@ -934,7 +934,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 5200,
     "DragCoefficient": 0.197,
     "FrontalAreaSqFt": 25,
-    "DrivetrainLossPercent": 8.9,
+    "DrivetrainLossPercent": 13,
     "TireType": 1,
     "DriveType": "AWD",
     "IsEv": true,
@@ -942,7 +942,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 205,
-    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.1@155 (loss 8.1, TX AUTO, driver 200, Summer, trap-first) | Phase 21 bake tire Summer; loss 8.9; driver 200; trap-first",
+    "Source": "Perf: C&D Lucid Air Sapphire 1.9 / 9.0@155 (loss 13, TX AUTO, driver 200, Summer, trap-first) | Phase 21 bake tire Summer; loss 13; driver 200; trap-first",
     "Transmission": "Auto"
   },
   {
