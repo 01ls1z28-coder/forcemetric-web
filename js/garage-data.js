@@ -302,6 +302,22 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
+    "Name": "2002 Chevrolet Camaro SS (H/C/E)",
+    "Horsepower": 494,
+    "WeightLbs": 3340,
+    "DragCoefficient": 0.34,
+    "FrontalAreaSqFt": 22.5,
+    "DrivetrainLossPercent": 21.6,
+    "TireType": 4,
+    "DriveType": "RWD",
+    "IsEv": false,
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "LSD",
+    "Source": "Perf: C&D/peer 2002 Camaro SS MT ~5.2 / ~13.8@104 (loss 21.6, TX MANUAL, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 21.6; driver 200; trap-first",
+    "Transmission": "Auto"
+  },
+  {
     "Name": "1996 Chevrolet Impala SS",
     "Horsepower": 260,
     "WeightLbs": 4218,
