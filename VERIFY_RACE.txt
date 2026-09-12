@@ -1108,7 +1108,7 @@ physics X-from-DistanceFt playback.
 Phase 33 — Brass button upgrade (2026-09-12 CT)
 ===============================================
 Branch: review/vb-phase33-brass-buttons
-Tip SHA: 3fac1e38988a2c3fa0811ab5c6603272f4466907
+Tip SHA: aae025d9e9b4b1ade4afbc0c8c8d49b209d84680
 
 Scope: VelocityBench main (index.html surfaces via css/styles.css) + race
 (race.html surfaces via css/race.css) button chrome only.
