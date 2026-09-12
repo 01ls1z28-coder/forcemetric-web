@@ -5251,6 +5251,22 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
+    "Name": "2026 Chevrolet Corvette ZR1X",
+    "Horsepower": 1250,
+    "WeightLbs": 4152,
+    "DragCoefficient": 0.4,
+    "FrontalAreaSqFt": 22.5,
+    "DrivetrainLossPercent": 24,
+    "TireType": 2,
+    "DriveType": "AWD",
+    "IsEv": true,
+    "IsForcedInduction": false,
+    "EngineLayout": "Dual",
+    "Differential": "LSD",
+    "Source": "2026 Chevrolet Corvette ZR1X",
+    "Transmission": "Auto"
+  },
+  {
     "Name": "2024 Acura Integra Type S",
     "Horsepower": 320,
     "WeightLbs": 3219,
