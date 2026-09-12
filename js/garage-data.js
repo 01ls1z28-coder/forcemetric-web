@@ -1002,7 +1002,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 5328,
     "DragCoefficient": 0.25,
     "FrontalAreaSqFt": 30,
-    "DrivetrainLossPercent": 32,
+    "DrivetrainLossPercent": 15,
     "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
@@ -1010,7 +1010,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Dual",
     "Differential": "Open",
     "MaxSpeedMph": 163,
-    "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~10.4@128 (loss 32, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 32; driver 200; trap-first",
+    "Source": "Perf: C&D/peer Model X Plaid ~2.5 / ~9.8@146 (loss 15, TX AUTO, driver 200, All-season, trap-first) | Phase 21 bake tire All-season; loss 32; driver 200; trap-first",
     "Transmission": "Auto"
   },
   {
