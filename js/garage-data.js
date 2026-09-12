@@ -1100,7 +1100,7 @@ window.GARAGE_DATA = [
     "Name": "2024 Tesla Cybertruck Tri-Motor",
     "Horsepower": 845,
     "WeightLbs": 6800,
-    "DragCoefficient": 0.34,
+    "DragCoefficient": 0.4,
     "FrontalAreaSqFt": 35,
     "DrivetrainLossPercent": 19,
     "TireType": 3,
