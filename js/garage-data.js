@@ -302,7 +302,7 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
-    "Name": "2002 Chevrolet Camaro SS (H/C/E)",
+    "Name": "2001 Chevrolet Camaro Z28 (H/C/E) MS3-TSP5.3stage2.5-1.3/4LT-TrueDuals",
     "Horsepower": 494,
     "WeightLbs": 3340,
     "DragCoefficient": 0.34,
