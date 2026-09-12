@@ -1011,3 +1011,96 @@ to hit 0-60 often overshoots ET or requires high loss that under-shoots trap by 
 Discrete tire steps also leave gaps (e.g. AS too slow / Summer too fast on 0-60).
 Residuals above are honest best-effort under Phase 31 controls (no µ / physics / Cd / area /
 drive / TX / Diff retune unless required — none applied).
+
+Phase 32 — Trap-first garage rebake + ATC removal (2026-09-12 CT)
+=================================================================
+Branch: review/vb-phase32-trap-first-atc-out
+Tip SHA: (set after commit)
+Harness: scripts/phase32_trap_first_recalib.js
+Targets: /workspace/garage-export/phase31_targets.json (332 vehicles)
+SKIP: 2011 - 2014 Ford F-150 Enrique's 3.5EB (not in targets; left unchanged)
+Weather: Standard Day 59°F / 0% / 29.92 inHg; Driver Weight 200
+         (mass = curb − 200 + driver; driver 200 ⇒ mass = curb)
+µ ladder HOLD (physics.js untouched): AS 0.80 / Summer 0.97 / UHP 1.12 / Soft 1.30 / Slicks 1.48
+Physics formulas / µ: HOLD. Brass chrome + simultaneous leave + X-from-DistanceFt: HOLD.
+
+Match priority (Jorge explicit): 1) ¼ trap mph >> 2) ¼ ET >> 3) 60–130 >> 4) 0–60 (least)
+Cost weights (norm by tol): trap×8, ET×3, 60–130×1.5, 0–60×0.4
+Prefer lowest TireType that best satisfies that order; Soft/Slicks bake OK when needed.
+Controls ONLY: TireType 0–4 × DrivetrainLossPercent 5–35 (0.1 fine). NO Cd/area/HP/µ/TX/Diff unlock.
+
+Tolerance aim (reporting): ≤1 mph trap; ≤0.05s ET; ≤0.10s 60–130; ≤0.05s 0–60.
+
+A) Garage rebake results
+------------------------
+Vehicles changed: 291 (tire changes 29, loss-only 262)
+Full tolerance hits: 19 / 332
+Per-metric hits (honest, post-bake):
+  trap ≤1 mph:     222 / 331
+  ET ≤0.05 s:      143 / 332
+  60–130 ≤0.10 s:  12 / 77
+  0–60 ≤0.05 s:    64 / 332   (least important — intentionally soft)
+Best-effort misses (grip/power ladder residual): 313
+Loss outliers (outside ~5–32 comfort / at band edge): 74
+
+Tire distribution before → after (garage 333; Enrique unchanged):
+  AllSeason (0): 266 → 281
+  Summer    (1): 42 → 36
+  UHP       (2): 19 → 14
+  Soft      (3): 3 → 0
+  Slicks    (4): 3 → 2
+
+Soft/Slicks bake list (2)
+  - 2024 Tesla Cybertruck Tri-Motor: Slicks loss 23 (best-effort dz60=0.14 de4=0.17 dt4=0)
+  - 2024 Rivian R1S Quad Motor: Slicks loss 18.4 (best-effort dz60=-0.26 de4=0.01 dt4=0)
+
+Worst trap residuals (honest; top 30 by |dt4|)
+  - 2016 Koenigsegg Regera: tire Summer loss 35 | dz60=0.14 de4=-0.2 dt4=11.36 d60-130=0.07
+  - 2015 Koenigsegg One:1: tire Summer loss 35 | dz60=0.05 de4=-0.14 dt4=8.25 d60-130=-0.75
+  - 2018 Zenvo TSR-S: tire AS loss 35 | dz60=0.66 de4=0.24 dt4=7.89 d60-130=-0.95
+  - 2019 Koenigsegg Jesko: tire Summer loss 34.9 | dz60=0.24 de4=0.17 dt4=6.56 d60-130=-0.37
+  - 1960 Ford Galaxie 352: tire AS loss 35 | dz60=-2.43 de4=-1.69 dt4=6.53
+  - 2023 Ford Bronco Raptor: tire AS loss 25 | dz60=-0.24 de4=-0.01 dt4=-6.23
+  - 2023 Chevrolet Silverado ZR2: tire AS loss 31.2 | dz60=-0.07 de4=0 dt4=-5.87
+  - 2020 McLaren Elva: tire AS loss 35 | dz60=0.65 de4=0.27 dt4=4.7 d60-130=-0.28
+  - 1968 Mercury Cougar XR-7: tire AS loss 35 | dz60=-1.76 de4=-1.24 dt4=4.62
+  - 2011 Audi A7 3.0T: tire AS loss 19.7 | dz60=-0.27 de4=0 dt4=-4.61
+  - 2011 Koenigsegg Agera R: tire Summer loss 35 | dz60=0.04 de4=-0.05 dt4=4.57 d60-130=-0.4
+  - 2020 Ford F-150 Raptor: tire AS loss 25.1 | dz60=-0.15 de4=-0.02 dt4=-4.55
+  - 2012 Nissan Titan Pro-4X: tire AS loss 25.7 | dz60=-0.1 de4=0 dt4=-4.31
+  - 1974 Pontiac Firebird 400: tire AS loss 34.8 | dz60=-0.1 de4=0 dt4=-4.31
+  - 2010 Mazda RX-8 R3: tire AS loss 34 | dz60=-0.09 de4=-0.01 dt4=-4.19
+  - 2019 Pagani Huayra Roadster BC: tire Summer loss 35 | dz60=0.05 de4=0.08 dt4=4.07 d60-130=-0.06
+  - 2007 Ford F-150 4.6 Triton: tire AS loss 29 | dz60=0.04 de4=-0.02 dt4=-4.06
+  - 2011 MazdaSpeed6: tire AS loss 34.8 | dz60=-0.15 de4=-0.03 dt4=-4
+  - 1995 Mitsubishi Eclipse GSX: tire AS loss 29.7 | dz60=-0.16 de4=0 dt4=-3.99
+  - 1977 Chevrolet Monte Carlo: tire AS loss 33.6 | dz60=0.27 de4=-0.01 dt4=-3.94
+  - 1992 Nissan Pulsar GTI-R: tire AS loss 33.2 | dz60=-0.24 de4=0 dt4=-3.91
+  - 2022 Mercedes EQB 350: tire AS loss 26.8 | dz60=0.03 de4=-0.04 dt4=-3.85
+  - 1983 Toyota Supra (Mk2): tire AS loss 33.8 | dz60=-0.03 de4=0 dt4=-3.82
+  - 2023 Audi Q4 e-tron: tire AS loss 26.5 | dz60=0.06 de4=-0.08 dt4=-3.8
+  - 2008 Subaru Legacy GT Spec.B: tire AS loss 22.7 | dz60=-0.16 de4=0 dt4=-3.7
+  - 1982 Pontiac Firebird Trans Am: tire AS loss 35 | dz60=0.01 de4=-0.05 dt4=-3.5
+  - 2019 Dodge Durango R/T: tire AS loss 26.9 | dz60=-0.19 de4=0 dt4=-3.4
+  - 2017 Chevrolet Silverado 5.3: tire AS loss 34.5 | dz60=-0.15 de4=0 dt4=-3.35
+  - 2011 Chevrolet Avalanche 5.3: tire AS loss 25 | dz60=-0.04 de4=0 dt4=-3.33
+  - 2008 Ford F-150 Harley-Davidson: tire AS loss 25.6 | dz60=-0.05 de4=0 dt4=-3.29
+
+Source strings: Phase 32 trap-first; tire <label>; loss <n>; driver 200
+
+B) UI — ATC out; Test/Drag + timer relocated
+-------------------------------------------
+index.html / js/app.js / css/styles.css:
+  - Removed Aftermarket Torque Converter block (#atcBlock / chkAtc / stall / peak TQ / hint)
+    and all ATC session wiring from Test (snapshot/calc/slip/listeners).
+  - Moved Test + Drag Racing buttons into vacated ATC location (under Differential).
+  - Moved run timer under those Test/Drag buttons at the new location.
+  - Play / Pause / Replay left in atmosphere run-controls (unchanged position).
+  - Brass chrome retained on vehicle-run-actions bezel.
+
+race.html / js/race.js:
+  - Stripped ATC blocks from both lanes + lane ATC UI/wiring/calc opts.
+  - Physics ATC helpers may remain unused in physics.js — not retuned; µ HOLD.
+
+Holds intact: µ ladder, physics.js formulas, simultaneous leave, brass chrome,
+physics X-from-DistanceFt playback.

@@ -568,61 +568,6 @@
     });
   }
 
-  function atcAllowed(prefix) {
-    return !isEvMode(prefix) && getTransmission(prefix) === 'auto';
-  }
-
-  function getAtcEnabled(prefix) {
-    return !!( $(prefix + 'Atc') && $(prefix + 'Atc').checked && atcAllowed(prefix) );
-  }
-
-  function getAtcStallRpm(prefix) {
-    var el = $(prefix + 'AtcStallRpm');
-    var raw = el ? parseFloat(el.value) : 2800;
-    return Physics && Physics.clampAtcStallRpm
-      ? Physics.clampAtcStallRpm(raw)
-      : Math.max(1500, Math.min(7000, isFinite(raw) ? raw : 2800));
-  }
-
-  function getAtcPeakTorqueRpm(prefix) {
-    var el = $(prefix + 'AtcPeakTorqueRpm');
-    var raw = el ? parseFloat(el.value) : 4000;
-    return Physics && Physics.clampAtcPeakTorqueRpm
-      ? Physics.clampAtcPeakTorqueRpm(raw)
-      : Math.max(1500, Math.min(9000, isFinite(raw) ? raw : 4000));
-  }
-
-  function syncAtcUi(prefix) {
-    var allowed = atcAllowed(prefix);
-    var block = $(prefix + 'AtcBlock');
-    var chk = $(prefix + 'Atc');
-    var stall = $(prefix + 'AtcStallRpm');
-    var peak = $(prefix + 'AtcPeakTorqueRpm');
-    var badge = $(prefix + 'AtcBadge');
-    if (block) {
-      if (allowed) block.classList.remove('is-disabled');
-      else block.classList.add('is-disabled');
-    }
-    if (chk) {
-      chk.disabled = !allowed;
-      if (!allowed) chk.checked = false;
-    }
-    var on = !!(chk && chk.checked && allowed);
-    if (stall) stall.disabled = !on;
-    if (peak) peak.disabled = !on;
-    if (badge) {
-      if (!allowed) {
-        badge.textContent = isEvMode(prefix) ? 'EV N/A' : 'Auto TX only';
-        badge.setAttribute('data-state', 'locked');
-      } else if (on) {
-        badge.textContent = 'ATC ON';
-        badge.setAttribute('data-state', 'on');
-      } else {
-        badge.textContent = 'Auto TX';
-        badge.setAttribute('data-state', 'ready');
-      }
-    }
-  }
 
   /** EV motor layout from drivetrain. AWD→Dual; preserve Mid (e.g. Nevera garage bake). */
   function bakeEvEngineLayout(driveType, opts) {
@@ -725,7 +670,6 @@
     lightCurbLocksActive[prefix] = light;
     syncHpLossUi(prefix);
     updateLayoutLabel(prefix);
-    syncAtcUi(prefix);
   }
 
   function updateLayoutLabel(prefix) {
@@ -849,16 +793,6 @@
     setDifferential(prefix, diffVal);
     lastNonLightDiff[prefix] = peekDifferential(prefix);
 
-    if ($(prefix + 'Atc')) {
-      var atcOn = !!(snap.AtcEnabled || snap.atcEnabled);
-      $(prefix + 'Atc').checked = atcOn && !evOn;
-    }
-    if ($(prefix + 'AtcStallRpm') && (snap.StallRpm != null || snap.stallRpm != null)) {
-      $(prefix + 'AtcStallRpm').value = String(snap.StallRpm != null ? snap.StallRpm : snap.stallRpm);
-    }
-    if ($(prefix + 'AtcPeakTorqueRpm') && (snap.PeakTorqueRpm != null || snap.peakTorqueRpm != null)) {
-      $(prefix + 'AtcPeakTorqueRpm').value = String(snap.PeakTorqueRpm != null ? snap.PeakTorqueRpm : snap.peakTorqueRpm);
-    }
 
     laneExtras[prefix] = {
       engineLayout: getEngineLayout(prefix),
@@ -914,10 +848,7 @@
       hpSource: getHpSource(prefix),
       isNA: $(prefix + 'NA').checked,
       isFI: $(prefix + 'FI').checked,
-      isEv: $(prefix + 'Ev').checked,
-      atcEnabled: getAtcEnabled(prefix),
-      stallRpm: getAtcStallRpm(prefix),
-      peakTorqueRpm: getAtcPeakTorqueRpm(prefix)
+      isEv: $(prefix + 'Ev').checked
     };
   }
 
@@ -984,9 +915,6 @@
       Differential: getDifferential(prefix),
       Transmission: getTransmission(prefix),
       HpSource: getHpSource(prefix),
-      AtcEnabled: getAtcEnabled(prefix),
-      StallRpm: getAtcStallRpm(prefix),
-      PeakTorqueRpm: getAtcPeakTorqueRpm(prefix),
       MaxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
         ? laneExtras[prefix].maxSpeedMph : undefined,
       IsEv: isEvMode(prefix),
@@ -2478,9 +2406,6 @@
       isEv: lane.isEv,
       isNA: lane.isNA,
       isFI: lane.isFI,
-      atcEnabled: !!lane.atcEnabled,
-      stallRpm: lane.stallRpm,
-      peakTorqueRpm: lane.peakTorqueRpm,
       timestamp: new Date(),
       tempF: weather.tempF,
       humidity: weather.humidity,
@@ -2708,7 +2633,6 @@
           lastNonLightTx[prefix] = getTransmission(prefix);
         }
         syncHpLossUi(prefix);
-        syncAtcUi(prefix);
       });
     });
 
@@ -2721,21 +2645,6 @@
       });
     });
 
-    if ($(prefix + 'Atc')) {
-      $(prefix + 'Atc').addEventListener('change', function () { syncAtcUi(prefix); });
-    }
-    function clampAtcLane(prefix2) {
-      var s = $(prefix2 + 'AtcStallRpm');
-      var p = $(prefix2 + 'AtcPeakTorqueRpm');
-      if (s && Physics && Physics.clampAtcStallRpm) s.value = String(Math.round(Physics.clampAtcStallRpm(s.value)));
-      if (p && Physics && Physics.clampAtcPeakTorqueRpm) p.value = String(Math.round(Physics.clampAtcPeakTorqueRpm(p.value)));
-    }
-    ['AtcStallRpm', 'AtcPeakTorqueRpm'].forEach(function (suf) {
-      var el = $(prefix + suf);
-      if (!el) return;
-      el.addEventListener('change', function () { clampAtcLane(prefix); });
-      el.addEventListener('blur', function () { clampAtcLane(prefix); });
-    });
 
     ['FWD', 'RWD', 'AWD'].forEach(function (d) {
       var el = $(prefix + d);
@@ -2792,8 +2701,6 @@
   // ---- Boot ----
   wireEngine('you');
   wireEngine('opp');
-  syncAtcUi('you');
-  syncAtcUi('opp');
 
   $('weatherPreset').addEventListener('change', syncWeatherPreset);
   ['temp', 'humidity', 'pressure', 'da'].forEach(function (id) {

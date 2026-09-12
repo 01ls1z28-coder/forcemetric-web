@@ -2173,104 +2173,39 @@ label.field.loss-field-hidden {
 }
 
 
-/* Phase 17 — Aftermarket Torque Converter (under Differential) */
-.atc-block {
-  margin-top: 8px;
-  padding: 8px 9px 7px;
+/* Phase 32 — Test / Drag + run timer in former ATC location (under Differential) */
+.vehicle-run-actions {
+  margin-top: 10px;
+  padding: 9px 9px 8px;
   border: 1px solid var(--brass);
   border-radius: var(--radius-sm);
   background: rgba(10, 12, 15, 0.72);
   box-shadow: inset 0 0 0 1px var(--brass-inset);
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   min-width: 0;
 }
 
-.atc-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.atc-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 650;
-  color: var(--brass-text);
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  user-select: none;
-}
-
-.atc-toggle input[type="checkbox"] {
-  width: 14px;
-  height: 14px;
-  accent-color: #c8a96a;
-}
-
-.atc-badge {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brass-text);
-  border: 1px solid var(--brass);
-  border-radius: 999px;
-  padding: 2px 7px;
-  opacity: 0.9;
-  white-space: nowrap;
-}
-
-.atc-badge[data-state="locked"] {
-  opacity: 0.55;
-  color: var(--text-muted);
-}
-
-.atc-fields {
+.vehicle-run-actions .run-controls-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 8px;
-  margin-top: 7px;
-  min-width: 0;
+  gap: 6px;
 }
 
-/* Stack label above input so 2-col ATC grid does not squeeze Peak TQ RPM */
-.atc-fields .field {
-  margin: 0;
-  grid-template-columns: 1fr;
-  min-width: 0;
-}
-
-.atc-fields .field > span {
-  white-space: normal;
-}
-
-.atc-fields input {
+.vehicle-run-actions .btn-test,
+.vehicle-run-actions .btn-drag {
   width: 100%;
   min-width: 0;
-  box-sizing: border-box;
+  margin-top: 0;
+  padding: 10px 8px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
 }
 
-.atc-hint {
-  margin: 6px 0 0;
-  color: var(--text-muted);
-}
-
-.atc-block.is-disabled {
-  opacity: 0.58;
-}
-
-.atc-block.is-disabled .atc-fields input,
-.atc-block.is-disabled .atc-toggle {
-  cursor: not-allowed;
-}
-
-/* Stack ATC fields earlier so Peak TQ stays inside brass bezel on tablet/desktop squeeze */
-@media (max-width: 720px) {
-  .atc-fields {
-    grid-template-columns: 1fr;
-  }
+.vehicle-run-actions .run-timer {
+  font-size: 16px;
+  padding: 7px 6px;
+  margin: 0;
+  text-align: center;
 }

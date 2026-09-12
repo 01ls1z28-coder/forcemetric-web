@@ -116,16 +116,12 @@
             <span class="diff-wheelie-note" id="diffWheelieNote" hidden>Wheelie control</span>
           </div>
         </div>
-        <div class="atc-block" id="atcBlock">
-          <div class="atc-head">
-            <label class="atc-toggle"><input type="checkbox" id="chkAtc" /> Aftermarket Torque Converter</label>
-            <span class="atc-badge" id="atcBadge">Auto TX</span>
+        <div class="vehicle-run-actions" id="vehicleRunActions">
+          <div class="run-controls-actions">
+            <button type="button" class="btn btn-test" id="btnTest">Test</button>
+            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
           </div>
-          <div class="atc-fields" id="atcFields">
-            <label class="field"><span>Stall RPM</span><input type="number" id="atcStallRpm" value="2800" min="1500" max="7000" step="50" /></label>
-            <label class="field"><span>Peak Torque RPM</span><input type="number" id="atcPeakTorqueRpm" value="4000" min="1500" max="9000" step="50" /></label>
-          </div>
-          <p class="field-hint atc-hint" id="atcHint">Compiled estimate, not dyno-certified converter map. Auto TX only — Manual / Dual Clutch / EV disabled.</p>
+          <div class="run-timer" id="runTimer">0.00 s</div>
         </div>
       </section>
 
@@ -181,16 +177,11 @@
           <div class="air-hp-note" id="airHpNote">Compiled estimate from current weather model — not dyno lab cert.</div>
         </div>
         <div class="card-divider run-controls-divider" role="separator" aria-hidden="true"></div>
-        <div class="run-controls" role="toolbar" aria-label="Run controls">
+        <div class="run-controls" role="toolbar" aria-label="Playback controls">
           <div class="run-controls-playback">
             <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
             <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
             <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
-          </div>
-          <div class="run-timer" id="runTimer">0.00 s</div>
-          <div class="run-controls-actions">
-            <button type="button" class="btn btn-test" id="btnTest">Test</button>
-            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
           </div>
         </div>
       </section>
