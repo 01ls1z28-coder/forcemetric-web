@@ -2380,3 +2380,84 @@ label.field.loss-field-hidden {
   margin: 0;
   text-align: center;
 }
+
+
+/* ── Phase 35 — mobile: contain layout after garage load (long Name/Source) ── */
+@media (max-width: 800px) {
+  .top-grid,
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .card,
+  .vehicle-card,
+  .atmosphere-card,
+  .results-card,
+  .gauge-wrap,
+  .chart-card {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* Override global/desktop .vehicle-card { overflow: visible !important } */
+    overflow-x: clip !important;
+  }
+
+  .field {
+    min-width: 0;
+    max-width: 100%;
+    grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  }
+
+  .field > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .drive-row,
+  .drive-seg,
+  .drive-seg.drive-seg-4,
+  .tx-row .drive-seg,
+  .hp-source-row,
+  .diff-seg-row,
+  .check-garage-row,
+  .vehicle-run-actions {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .results-out,
+  .results-out.track-slip {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .active-vehicle-label {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+}
+
+@media (max-width: 700px) {
+  .top-grid,
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field {
+    grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  }
+}
