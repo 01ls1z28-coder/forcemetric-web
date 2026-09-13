@@ -1133,3 +1133,5 @@ Verify
   4. Desktop first; mobile breakpoints not badly broken
   5. No physics.js / garage-data.js change
 
+
+PHASE 34: WeightLbs < 1500 → TireType AllSeason (0) bake default. Loss/HP/Cd/physics/UI untouched. Bikes flipped from Summer/UHP.
