@@ -3075,7 +3075,7 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
-    "Name": "2011 Kawasaki Ninja ZX-10R (copy)",
+    "Name": "2011 Kawasaki Ninja ZX-10R (Enriques)",
     "Horsepower": 197,
     "WeightLbs": 427,
     "DragCoefficient": 0.58,
