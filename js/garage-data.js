@@ -5409,5 +5409,21 @@ window.GARAGE_DATA = [
     "Differential": "LSD",
     "Source": "HP 315 @ 6500 / curb 3188 lb: Honda News 2023 Civic Type R Specifications & Features. Cd/area: class estimate matching bake 2018 CTR peer (0.32/22). | Perf: C&D 2023 Civic Type R MT 4.9 / 13.5@106 (loss 23.4, TX MANUAL, driver 200, Summer, trap-first) | Phase 32 trap-first; tire AllSeason; loss 18.9; driver 200",
     "Transmission": "Manual"
+  },
+  {
+    "Name": "2018 INTIFINI Q50 VR30 LUXE RWD",
+    "Horsepower": 300,
+    "WeightLbs": 3730,
+    "DragCoefficient": 0.26,
+    "FrontalAreaSqFt": 24.24,
+    "DrivetrainLossPercent": 18,
+    "TireType": 0,
+    "DriveType": "RWD",
+    "IsEv": false,
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "Open",
+    "Source": "Don't modify",
+    "Transmission": "Auto"
   }
 ]
