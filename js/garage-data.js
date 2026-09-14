@@ -5428,11 +5428,11 @@ window.GARAGE_DATA = [
   },
   {
     "Name": "2018 INTIFINI Q50 VR30 LUXE RWD - AMS Intakes, 2.5\" downpipes, 2.5\" catback, BMS Heat Exchanger, RACEBOX tuned (Jorge's)",
-    "Horsepower": 538,
+    "Horsepower": 513,
     "WeightLbs": 3730,
     "DragCoefficient": 0.26,
     "FrontalAreaSqFt": 24.24,
-    "DrivetrainLossPercent": 8,
+    "DrivetrainLossPercent": 15.2,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
