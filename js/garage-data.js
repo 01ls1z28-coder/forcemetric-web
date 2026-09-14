@@ -11,7 +11,6 @@
  *   Summer/UHP when clear, trap-first, TX Auto|Manual|DCT offsets). Soft/Slicks are user-selectable only.
  * Phase 29: lean TireType (OEM summer/UHP) + trap-first loss recalib; Soft/Slicks remain user-only.
  * Phase 30: editable via static GitHub-backed admin (review branches only; never main).
- * Phase 32: trap-first TireType + loss recalib (Soft/Slicks bake allowed when needed).
  */
 window.GARAGE_DATA = [
   {
@@ -901,8 +900,8 @@ window.GARAGE_DATA = [
     "WeightLbs": 4072,
     "DragCoefficient": 0.23,
     "FrontalAreaSqFt": 23,
-    "DrivetrainLossPercent": 17.1,
-    "TireType": 1,
+    "DrivetrainLossPercent": 15.5,
+    "TireType": 0,
     "DriveType": "AWD",
     "IsEv": true,
     "IsForcedInduction": false,
