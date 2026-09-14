@@ -3080,7 +3080,7 @@ window.GARAGE_DATA = [
     "WeightLbs": 427,
     "DragCoefficient": 0.58,
     "FrontalAreaSqFt": 3.8,
-    "DrivetrainLossPercent": 9.2,
+    "DrivetrainLossPercent": 9.7,
     "TireType": 0,
     "DriveType": "RWD",
     "IsEv": false,
