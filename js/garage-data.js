@@ -382,6 +382,22 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
+    "Name": "2013 Chevrolet Camaro ZL1 Convertible (Jorge's)",
+    "Horsepower": 706,
+    "WeightLbs": 4374,
+    "DragCoefficient": 0.39,
+    "FrontalAreaSqFt": 23.5,
+    "DrivetrainLossPercent": 19,
+    "TireType": 0,
+    "DriveType": "RWD",
+    "IsEv": false,
+    "IsForcedInduction": true,
+    "EngineLayout": "Front",
+    "Differential": "LSD",
+    "Source": "Jorge's ZL1",
+    "Transmission": "Auto"
+  },
+  {
     "Name": "2011 Ford Mustang GT 5.0",
     "Horsepower": 412,
     "WeightLbs": 3605,
