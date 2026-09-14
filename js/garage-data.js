@@ -3075,6 +3075,22 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
+    "Name": "2011 Kawasaki Ninja ZX-10R (copy)",
+    "Horsepower": 197,
+    "WeightLbs": 427,
+    "DragCoefficient": 0.58,
+    "FrontalAreaSqFt": 3.8,
+    "DrivetrainLossPercent": 9.2,
+    "TireType": 0,
+    "DriveType": "RWD",
+    "IsEv": false,
+    "IsForcedInduction": false,
+    "EngineLayout": "Mid",
+    "Differential": "LSD",
+    "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 34.1; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
+    "Transmission": "Manual"
+  },
+  {
     "Name": "2020 Suzuki GSX-R1000",
     "Horsepower": 199,
     "WeightLbs": 445,
