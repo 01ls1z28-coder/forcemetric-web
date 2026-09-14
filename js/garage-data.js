@@ -3363,6 +3363,22 @@ window.GARAGE_DATA = [
     "Transmission": "Auto"
   },
   {
+    "Name": "2020 Ford F-150 5.0 (Jorge's)",
+    "Horsepower": 531,
+    "WeightLbs": 4770,
+    "DragCoefficient": 0.44,
+    "FrontalAreaSqFt": 33,
+    "DrivetrainLossPercent": 20,
+    "TireType": 0,
+    "DriveType": "AWD",
+    "IsEv": false,
+    "IsForcedInduction": false,
+    "EngineLayout": "Front",
+    "Differential": "Open",
+    "Source": "Perf: C&D/peer F-150 5.0 ~6.1 / ~14.6@96 (loss 25.1, TX AUTO, driver 200, All-season, trap-first) | Phase 32 trap-first; tire AllSeason; loss 33.5; driver 200",
+    "Transmission": "Auto"
+  },
+  {
     "Name": "2017 Chevrolet Silverado 5.3",
     "Horsepower": 355,
     "WeightLbs": 4800,
