@@ -5075,7 +5075,7 @@ window.GARAGE_DATA = [
     "Transmission": "Manual"
   },
   {
-    "Name": "2011 - 2014 Ford F-150 Enrique's 3.5EB",
+    "Name": "2011 Ford F-150 3.5 EcoBoost (Enrique's)",
     "Horsepower": 462,
     "WeightLbs": 5688,
     "DragCoefficient": 0.44,
