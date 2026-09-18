@@ -1309,3 +1309,8 @@ Holds
   - Phase 37 auto-Slicks restore untouched
   - UI layout / H-Pattern / Sequential / Dual / TX untouched
   - EV: opts.dragPack ignored in physics (ON==OFF)
+
+PHASE 40: Undo Phase 37 Drag Pack auto-Slicks — pack ON leaves TireType alone.
+Hover/title tooltip on Drag Setup (Test + race lanes) documents wheels/sticky tires,
+launch control/transbrake/2-step, rear gearing, deleted seats, prepped-surface assumption.
+No physics retune.

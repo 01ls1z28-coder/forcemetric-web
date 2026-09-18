@@ -727,10 +727,7 @@
     return !!(chk && chk.checked && isDragPackEligible(prefix));
   }
 
-  /* Phase 37: per-lane TireType remembered before Drag Pack auto-Slicks. */
-  var dragPackPrevTire = { you: null, opp: null };
-  var dragPackWasOn = { you: false, opp: false };
-
+  /* Phase 40: Drag Pack does not change TireType (Phase 37 auto-Slicks removed). */
   function syncDragPackUi(prefix) {
     var chk = $(prefix + 'DragPack');
     if (!chk) return;
@@ -742,22 +739,6 @@
       chk.disabled = false;
     }
     var on = getDragPackOn(prefix);
-    var tireEl = $(prefix + 'Tire');
-    /* Phase 37: ON → Slicks (4); OFF → restore pre-auto TireType. */
-    if (on && !dragPackWasOn[prefix]) {
-      if (tireEl) {
-        var cur = parseInt(tireEl.value, 10);
-        if (!isFinite(cur)) cur = 0;
-        if (dragPackPrevTire[prefix] == null) dragPackPrevTire[prefix] = cur;
-        tireEl.value = '4';
-      }
-    } else if (!on && dragPackWasOn[prefix]) {
-      if (tireEl && dragPackPrevTire[prefix] != null) {
-        tireEl.value = String(dragPackPrevTire[prefix]);
-      }
-      dragPackPrevTire[prefix] = null;
-    }
-    dragPackWasOn[prefix] = on;
     var hint = $(prefix + 'DragPackHint');
     if (hint) hint.textContent = on ? 'Session · ON' : 'Session · OFF';
   }
