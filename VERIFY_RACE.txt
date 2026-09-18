@@ -1202,3 +1202,49 @@ VERIFY
   1. You: Summer + Drag Pack ON → Slicks; OFF → Summer. Opp independent.
   2. You Drag Pack ON → Ev → pack OFF + tire restored.
   3. No physics.js / garage-data.js change.
+
+PHASE 38 — Drag Pack more aggressive 60′ launch (2026-09-17 CT)
+================================================================
+Branch: review/vb-phase38-dragpack-60ft
+Base: origin/main @ f046675 (Phase 37)
+
+Problem
+  Phase 36 force-only Drag Pack (before traction clamp) left Soft/Slicks ~grip-limited
+  at launch, so pack ON only shaved ~0.01–0.03 s in 60′ vs OFF. Live pack felt ~0.4 s
+  too slow in the 60′ window.
+
+Physics (js/physics.js only — Race + Test share calculate())
+  µ ladder getTireGrip UNCHANGED: AS 0.80 / Summer 0.97 / UHP 1.12 / Soft 1.30 / Slicks 1.48
+  Eligibility UNCHANGED (UI): NA/FI only; never EV; never WeightLbs ≤1500.
+  Phase 37 auto-Slicks restore UNCHANGED.
+  (a) NEW dragPackLaunchMuMult — prep/bite on tractionLimitN in-loop; hold ≤25 mph,
+      linear fade to mid by 60 mph:
+        Peak: AS 1.35 / Summer 1.50 / UHP 1.65 / Soft 1.95 / Slicks 2.20
+        Mid (≥60 mph): AS 1.04 / Summer 1.05 / UHP 1.06 / Soft 1.07 / Slicks 1.08
+  (b) RAISED dragPackForceMult (still before clamp); hold ≤25 mph, fade to mid by 60:
+        Peak: AS 0.30 / Summer 0.42 / UHP 0.55 / Soft 0.72 / Slicks 0.90
+          (was Phase 36: 0.10 / 0.14 / 0.18 / 0.26 / 0.32)
+        Mid: AS 0.04 / Summer 0.05 / UHP 0.065 / Soft 0.08 / Slicks 0.10
+          (was 0.012 / 0.016 / 0.020 / 0.028 / 0.034)
+
+Node spot checks (Standard Day 59°F / 0% RH / 29.92 inHg; Slicks=4; pack ON vs Phase 37 ON)
+  2020 Ford Mustang GT (NA Auto RWD, loss 7.7, 3705 lb)
+    BEFORE pack ON 60′ 1.660 s  (OFF 1.680 s)
+    AFTER  pack ON 60′ 1.260 s @ 51.7 mph  (OFF 1.680 s)
+    Δ60′ vs Phase 37 ON: −0.400 s   |   ON−OFF: −0.420 s
+  2023 Chevrolet Camaro ZL1 (FI Auto RWD, loss 26.5, 3886 lb)
+    BEFORE pack ON 60′ 1.650 s  (OFF 1.670 s)
+    AFTER  pack ON 60′ 1.240 s @ 53.1 mph  (OFF 1.670 s)
+    Δ60′ vs Phase 37 ON: −0.410 s   |   ON−OFF: −0.430 s
+  2023 Chevrolet Corvette Z06 (NA Auto RWD, loss 20.2, 3333 lb)
+    BEFORE pack ON 60′ 1.630 s  (OFF 1.640 s)
+    AFTER  pack ON 60′ 1.200 s @ 56.4 mph  (OFF 1.640 s)
+    Δ60′ vs Phase 37 ON: −0.430 s   |   ON−OFF: −0.440 s
+
+Holds
+  - getTireGrip base numbers unchanged
+  - garage TireType / loss bake untouched
+  - eligibility NA/FI only; never EV; never ≤1500 lb
+  - Phase 37 auto-Slicks restore untouched
+  - UI layout / H-Pattern / Sequential / Dual untouched
+  - EV: opts.dragPack ignored in physics (ON==OFF)

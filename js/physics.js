@@ -95,27 +95,36 @@
   }
 
   /**
-   * Phase 36 — Drag Setup + Track Prep (session toggle; NA/FI only, never EV / light curb).
-   * Does NOT retune µ ladder constants. Applied as force multiplier BEFORE traction clamp
-   * (same pattern as ATC): strong 60′/launch gain, small mid-run from lighter wheels,
-   * biggest on high-grip tires (Soft/Slicks).
-   * Peak launch boost by tire: AS 0.10, Summer 0.14, UHP 0.18, Soft 0.26, Slicks 0.32
-   * Mid-run residual (≥60 mph): AS 0.012, Summer 0.016, UHP 0.020, Soft 0.028, Slicks 0.034
+   * Phase 36/38 — Drag Setup + Track Prep (session toggle; NA/FI only, never EV / light curb).
+   * Does NOT retune µ ladder constants (getTireGrip unchanged).
+   *
+   * Phase 38: launch is often already grip-limited on Soft/Slicks, so force-only boost
+   * before clamp cannot fix 60′. Add a documented launch µ mult (prep/bite) that fades
+   * by ~60 mph, AND raise peak/mid force mults so power can use the extra bite.
+   *
+   * Force mult (BEFORE traction clamp; same pattern as ATC):
+   *   Peak launch (≤25 mph): AS 0.30, Summer 0.42, UHP 0.55, Soft 0.72, Slicks 0.90
+   *   Mid-run residual (≥60 mph): AS 0.04, Summer 0.05, UHP 0.065, Soft 0.08, Slicks 0.10
+   * Launch µ mult (multiplies tractionLimitN in-loop; fades 25→60 mph):
+   *   Peak: AS 1.35, Summer 1.50, UHP 1.65, Soft 1.95, Slicks 2.20
+   *   Mid (≥60 mph): AS 1.04, Summer 1.05, UHP 1.06, Soft 1.07, Slicks 1.08
    */
   function dragPackForceMult(enabled, tireType, speedMph) {
     if (!enabled) return 1.0;
     var t = tireType | 0;
     if (t < 0) t = 0;
     if (t > 4) t = 4;
-    var peak = [0.10, 0.14, 0.18, 0.26, 0.32][t];
-    var mid = [0.012, 0.016, 0.020, 0.028, 0.034][t];
+    // Phase 38 raised peaks/mids (was Phase 36: 0.10/0.14/0.18/0.26/0.32 and 0.012…0.034)
+    var peak = [0.30, 0.42, 0.55, 0.72, 0.90][t];
+    var mid = [0.04, 0.05, 0.065, 0.08, 0.10][t];
     var mph = Number(speedMph);
     if (!isFinite(mph) || mph < 0) mph = 0;
     var boost;
-    if (mph <= 8) {
+    // Hold peak through early launch (~25 mph), fade to mid by 60 mph (60′ window)
+    if (mph <= 25) {
       boost = peak;
     } else if (mph < 60) {
-      var u = (mph - 8) / 52;
+      var u = (mph - 25) / 35;
       boost = peak + u * (mid - peak);
     } else if (mph < 130) {
       boost = mid;
@@ -125,6 +134,25 @@
     return 1.0 + boost;
   }
 
+  /**
+   * Phase 38 — Drag Pack launch µ (prep/bite). Applied to traction limit in-loop.
+   * Peak hold ≤25 mph; linear fade to mid residual by 60 mph; mid holds after.
+   * Does NOT change getTireGrip base ladder.
+   */
+  function dragPackLaunchMuMult(enabled, tireType, speedMph) {
+    if (!enabled) return 1.0;
+    var t = tireType | 0;
+    if (t < 0) t = 0;
+    if (t > 4) t = 4;
+    var peak = [1.35, 1.50, 1.65, 1.95, 2.20][t];
+    var mid = [1.04, 1.05, 1.06, 1.07, 1.08][t];
+    var mph = Number(speedMph);
+    if (!isFinite(mph) || mph < 0) mph = 0;
+    if (mph <= 25) return peak;
+    if (mph >= 60) return mid;
+    var u = (mph - 25) / 35;
+    return peak + u * (mid - peak);
+  }
 
   /**
    * Aftermarket torque converter launch multiplier (Phase 20 stall-band retune).
@@ -492,12 +520,15 @@
         forceFromPowerN *= hPatternShiftForceMult(tireType, mphNow);
       }
 
-      // Phase 36: Drag Setup + Track Prep (caller gates EV/light; physics also skips EV)
+      // Phase 36/38: Drag Pack force + launch µ (caller gates EV/light; physics skips EV)
+      // Force mult alone cannot fix grip-limited 60′ — µ mult raises the clamp ceiling.
+      var tractionNow = tractionLimitN;
       if (dragPackOn) {
         forceFromPowerN *= dragPackForceMult(true, tireType, mphNow);
+        tractionNow *= dragPackLaunchMuMult(true, tireType, mphNow);
       }
 
-      var driveForceN = Math.min(forceFromPowerN, tractionLimitN);
+      var driveForceN = Math.min(forceFromPowerN, tractionNow);
       var netForceN = Math.max(driveForceN - dragN, 0);
       var accel = netForceN / massKg;
 
@@ -623,6 +654,7 @@
     hPatternLaunchMuMult: hPatternLaunchMuMult,
     hPatternShiftForceMult: hPatternShiftForceMult,
     dragPackForceMult: dragPackForceMult,
+    dragPackLaunchMuMult: dragPackLaunchMuMult,
     aftermarketConverterForceMult: aftermarketConverterForceMult,
     atcStallBandIdealBoost: atcStallBandIdealBoost,
     clampAtcStallRpm: clampAtcStallRpm,
