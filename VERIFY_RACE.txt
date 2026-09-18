@@ -1186,3 +1186,19 @@ Bike TX bake count: 13 → Sequential
 VERIFY spot checks (node):
   H-Pattern ET > Sequential/Auto/DCT (AS); Dual EV ET < Rear; DragPack slicks 60′/ET quicker;
   AS H-Pattern penalty > Soft penalty.
+
+PHASE 37 — Drag Pack auto-selects Slicks (2026-09-17 CT)
+========================================================
+Branch: review/vb-phase37-dragpack-slicks
+Base: origin/main @ ba16740 (Phase 36)
+
+Race lanes (you/opp)
+  - Drag Pack ON (eligible) → that lane's Tire select → Slicks (4).
+  - OFF / ineligible clear → restore that lane's pre-auto TireType (in-memory per prefix).
+  - Eligibility unchanged: NA/FI only; never EV; never light curb.
+  - Sequential radio label → "Sequential / Quick-Shifter"; slip label matches.
+
+VERIFY
+  1. You: Summer + Drag Pack ON → Slicks; OFF → Summer. Opp independent.
+  2. You Drag Pack ON → Ev → pack OFF + tire restored.
+  3. No physics.js / garage-data.js change.

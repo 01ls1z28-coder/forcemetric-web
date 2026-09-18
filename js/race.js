@@ -380,7 +380,7 @@
   function transmissionSlipLabel(tx) {
     var v = normalizeTransmission(tx);
     if (v === 'manual') return 'H-Pattern Manual';
-    if (v === 'sequential') return 'Sequential';
+    if (v === 'sequential') return 'Sequential / Quick-Shifter';
     if (v === 'dct') return 'Dual Clutch';
     return 'Automatic';
   }
@@ -727,6 +727,10 @@
     return !!(chk && chk.checked && isDragPackEligible(prefix));
   }
 
+  /* Phase 37: per-lane TireType remembered before Drag Pack auto-Slicks. */
+  var dragPackPrevTire = { you: null, opp: null };
+  var dragPackWasOn = { you: false, opp: false };
+
   function syncDragPackUi(prefix) {
     var chk = $(prefix + 'DragPack');
     if (!chk) return;
@@ -737,8 +741,25 @@
     } else {
       chk.disabled = false;
     }
+    var on = getDragPackOn(prefix);
+    var tireEl = $(prefix + 'Tire');
+    /* Phase 37: ON → Slicks (4); OFF → restore pre-auto TireType. */
+    if (on && !dragPackWasOn[prefix]) {
+      if (tireEl) {
+        var cur = parseInt(tireEl.value, 10);
+        if (!isFinite(cur)) cur = 0;
+        if (dragPackPrevTire[prefix] == null) dragPackPrevTire[prefix] = cur;
+        tireEl.value = '4';
+      }
+    } else if (!on && dragPackWasOn[prefix]) {
+      if (tireEl && dragPackPrevTire[prefix] != null) {
+        tireEl.value = String(dragPackPrevTire[prefix]);
+      }
+      dragPackPrevTire[prefix] = null;
+    }
+    dragPackWasOn[prefix] = on;
     var hint = $(prefix + 'DragPackHint');
-    if (hint) hint.textContent = getDragPackOn(prefix) ? 'Session · ON' : 'Session · OFF';
+    if (hint) hint.textContent = on ? 'Session · ON' : 'Session · OFF';
   }
 
   function parseNum(el, name) {

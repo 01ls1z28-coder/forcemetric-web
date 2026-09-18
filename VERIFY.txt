@@ -541,3 +541,28 @@ Verify:
 Intentional skips: Pages push; physics formula; garage-data fleet retune;
 analytics/gtag; RT / holeshot; Three.js / WebGL; trademark logos on bodies;
 full 331 unique art (class fallback covers remainder).
+
+PHASE 37 — Drag Pack auto-selects Slicks (2026-09-17 CT)
+========================================================
+Branch: review/vb-phase37-dragpack-slicks
+Base: origin/main @ ba16740 (Phase 36)
+
+Behavior
+  - When Drag Setup + Track Prep turns ON (and eligible): TireType → Slicks / Drag Radials (4).
+  - When it turns OFF (toggle or becomes ineligible): restore TireType remembered before auto-switch.
+  - Memory is in-page session vars (Test: dragPackPrevTire; Race: per-lane you/opp). Not persisted.
+  - Eligibility UNCHANGED: NA/FI only; never EV; never light curb (≤1500). No physics/layout changes.
+
+Polish
+  - TX radio label "Sequential" → "Sequential / Quick-Shifter" (Test + both race lanes).
+  - Slip label matches on Test + race.
+
+Files: js/app.js, js/race.js, index.html, race.html (+ this note, VERIFY_RACE.txt).
+
+VERIFY
+  1. NA car, Tire=Summer → enable Drag Pack → Tire becomes Slicks; disable → Summer restored.
+  2. Drag Pack ON → switch to EV → pack forced OFF + previous tire restored; pack disabled.
+  3. Bike / light curb: pack stays ineligible; tire not auto-forced.
+  4. Race you + opp independent restore memory.
+  5. Sequential radio reads "Sequential / Quick-Shifter" on index + race.
+  6. No physics.js / garage-data.js change; eligibility rules untouched.
