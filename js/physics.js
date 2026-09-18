@@ -95,27 +95,28 @@
   }
 
   /**
-   * Phase 36/38 — Drag Setup + Track Prep (session toggle; NA/FI only, never EV / light curb).
+   * Phase 36/38/39 — Drag Setup + Track Prep (session toggle; NA/FI only, never EV / light curb).
    * Does NOT retune µ ladder constants (getTireGrip unchanged).
    *
-   * Phase 38: launch is often already grip-limited on Soft/Slicks, so force-only boost
-   * before clamp cannot fix 60′. Add a documented launch µ mult (prep/bite) that fades
-   * by ~60 mph, AND raise peak/mid force mults so power can use the extra bite.
+   * Phase 38 added launch µ mult (prep/bite) + raised force peaks. Phase 39 softens both
+   * so mild/mid NA/FI pack ON−OFF 60′ gains stay ~0.10–0.25 s (not ~0.42 s fantasy),
+   * while high-power (Demon 170) stays near NHRA ET/trap with a softer 60′.
+   * Fade still ≤25 mph peak → mid by 60 mph; force still BEFORE traction clamp.
    *
    * Force mult (BEFORE traction clamp; same pattern as ATC):
-   *   Peak launch (≤25 mph): AS 0.30, Summer 0.42, UHP 0.55, Soft 0.72, Slicks 0.90
+   *   Peak launch (≤25 mph): AS 0.14, Summer 0.20, UHP 0.26, Soft 0.36, Slicks 0.46
    *   Mid-run residual (≥60 mph): AS 0.04, Summer 0.05, UHP 0.065, Soft 0.08, Slicks 0.10
    * Launch µ mult (multiplies tractionLimitN in-loop; fades 25→60 mph):
-   *   Peak: AS 1.35, Summer 1.50, UHP 1.65, Soft 1.95, Slicks 2.20
-   *   Mid (≥60 mph): AS 1.04, Summer 1.05, UHP 1.06, Soft 1.07, Slicks 1.08
+   *   Peak: AS 1.12, Summer 1.18, UHP 1.26, Soft 1.38, Slicks 1.46
+   *   Mid (≥60 mph): AS 1.03, Summer 1.04, UHP 1.05, Soft 1.05, Slicks 1.06
    */
   function dragPackForceMult(enabled, tireType, speedMph) {
     if (!enabled) return 1.0;
     var t = tireType | 0;
     if (t < 0) t = 0;
     if (t > 4) t = 4;
-    // Phase 38 raised peaks/mids (was Phase 36: 0.10/0.14/0.18/0.26/0.32 and 0.012…0.034)
-    var peak = [0.30, 0.42, 0.55, 0.72, 0.90][t];
+    // Phase 39 softened peaks vs Phase 38 (mids kept for trap/ET); was P38: 0.30…0.90
+    var peak = [0.14, 0.20, 0.26, 0.36, 0.46][t];
     var mid = [0.04, 0.05, 0.065, 0.08, 0.10][t];
     var mph = Number(speedMph);
     if (!isFinite(mph) || mph < 0) mph = 0;
@@ -135,8 +136,9 @@
   }
 
   /**
-   * Phase 38 — Drag Pack launch µ (prep/bite). Applied to traction limit in-loop.
+   * Phase 38/39 — Drag Pack launch µ (prep/bite). Applied to traction limit in-loop.
    * Peak hold ≤25 mph; linear fade to mid residual by 60 mph; mid holds after.
+   * Phase 39 softens peaks/mids vs Phase 38 (mild/mid realism first).
    * Does NOT change getTireGrip base ladder.
    */
   function dragPackLaunchMuMult(enabled, tireType, speedMph) {
@@ -144,8 +146,8 @@
     var t = tireType | 0;
     if (t < 0) t = 0;
     if (t > 4) t = 4;
-    var peak = [1.35, 1.50, 1.65, 1.95, 2.20][t];
-    var mid = [1.04, 1.05, 1.06, 1.07, 1.08][t];
+    var peak = [1.12, 1.18, 1.26, 1.38, 1.46][t];
+    var mid = [1.03, 1.04, 1.05, 1.05, 1.06][t];
     var mph = Number(speedMph);
     if (!isFinite(mph) || mph < 0) mph = 0;
     if (mph <= 25) return peak;

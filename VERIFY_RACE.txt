@@ -1248,3 +1248,64 @@ Holds
   - Phase 37 auto-Slicks restore untouched
   - UI layout / H-Pattern / Sequential / Dual untouched
   - EV: opts.dragPack ignored in physics (ON==OFF)
+
+PHASE 39 — Soften Drag Pack toward Demon 170 NHRA (2026-09-17 CT)
+=================================================================
+Branch: review/vb-phase39-dragpack-retune
+Base: origin/main @ 8b79439 (Phase 38)
+
+Problem
+  Phase 38 pack ON was too aggressive: Jorge Demon 170 re-run ~1.17 s 60′ / 8.74 @ 149.8
+  / 0–60 ~1.20 vs NHRA-certified Demon 170 (prepped, E85, factory drag radials + Drag Mode)
+  60′ 1.24 s (slip 1.244), 1/4 8.91 @ 151.17, press 0–60 ~1.66 (1-ft rollout).
+  Milder cars (Mustang GT class) saw ~0.42 s 60′ ON−OFF fantasy gains.
+
+Priority
+  1) Mild/mid NA/FI (~400–500 hp): pack ON−OFF 60′ gain ~0.10–0.25 s (not ~0.42).
+  2) High-power ceiling: Demon 170 pack ON near trap ≈151.2, ET ≈8.91, 60′ ≈1.24
+     (0–60 softer — rollout model differs). Same mults couple 60′ across power levels;
+     mild realism wins when they conflict.
+
+Physics (js/physics.js only — Race + Test share calculate())
+  µ ladder getTireGrip UNCHANGED: AS 0.80 / Summer 0.97 / UHP 1.12 / Soft 1.30 / Slicks 1.48
+  Eligibility UNCHANGED (UI): NA/FI only; never EV; never WeightLbs ≤1500.
+  Phase 37 auto-Slicks restore UNCHANGED. No garage TireType/loss rebake.
+  Softened dragPackLaunchMuMult + dragPackForceMult (still fade by ~60 mph; force before clamp):
+  (a) dragPackLaunchMuMult peaks/mids:
+        Peak: AS 1.12 / Summer 1.18 / UHP 1.26 / Soft 1.38 / Slicks 1.46
+          (was Phase 38: 1.35 / 1.50 / 1.65 / 1.95 / 2.20)
+        Mid (≥60 mph): AS 1.03 / Summer 1.04 / UHP 1.05 / Soft 1.05 / Slicks 1.06
+          (was 1.04 / 1.05 / 1.06 / 1.07 / 1.08)
+  (b) dragPackForceMult peaks (mids held for trap/ET):
+        Peak: AS 0.14 / Summer 0.20 / UHP 0.26 / Soft 0.36 / Slicks 0.46
+          (was Phase 38: 0.30 / 0.42 / 0.55 / 0.72 / 0.90)
+        Mid: AS 0.04 / Summer 0.05 / UHP 0.065 / Soft 0.08 / Slicks 0.10 (unchanged vs P38)
+
+Node VERIFY — Demon 170 manual inputs (FI Auto RWD Front LSD; Slicks=4; loss 15;
+  curb/driver mass 4280 lb; HP 1025; Cd 0.38; area 25.5; 59°F / 40% RH / 29.92 inHg)
+  Target pack ON: 60′ ≈1.24 / ET ≈8.91 @ trap ≈151.2 ; 0–60 ≈1.66 softer
+            | 60′ s   | ET s    | trap mph | 0–60 s
+  P38 ON    | 1.170   | 8.660   | 151.31   | 1.180
+  P39 ON    | 1.370   | 8.960   | 150.94   | 1.540
+  P39 OFF   | 1.630   | 9.560   | 146.06   | 2.050
+  Note: same mults cannot nail Demon 1.24 60′ and Mustang-class ≤0.25 s Δ60′ together;
+  P39 prioritizes mild Δ and lands Demon ET/trap near NHRA with softer 60′/0–60.
+
+Node VERIFY — milder samples (Standard Day 59°F / 0% RH / 29.92; Slicks=4; pack ON vs OFF)
+  2020 Ford Mustang GT (NA Auto RWD, loss 7.7, 3705 lb, Cd 0.36, A 24)
+    P38 ON−OFF Δ60′ −0.420 s (ON 1.260 / OFF 1.680)
+    P39 ON−OFF Δ60′ −0.240 s (ON 1.440 / OFF 1.680)  ET ON 10.590 @ 123.8
+  2023 Chevrolet Camaro ZL1 (FI Auto RWD, loss 26.5, 3886 lb, Cd 0.35, A 23.5)
+    P38 ON−OFF Δ60′ −0.430 s
+    P39 ON−OFF Δ60′ −0.250 s (ON 1.420 / OFF 1.670)  ET ON 10.270 @ 128.6
+  2023 Chevrolet Corvette Z06 (NA Auto RWD, loss 20.2, 3333 lb, Cd 0.34, A 22.5)
+    P38 ON−OFF Δ60′ −0.440 s
+    P39 ON−OFF Δ60′ −0.250 s (ON 1.390 / OFF 1.640)  ET ON 9.620 @ 138.3
+
+Holds
+  - getTireGrip base numbers unchanged
+  - garage TireType / loss bake untouched
+  - eligibility NA/FI only; never EV; never ≤1500 lb
+  - Phase 37 auto-Slicks restore untouched
+  - UI layout / H-Pattern / Sequential / Dual / TX untouched
+  - EV: opts.dragPack ignored in physics (ON==OFF)
