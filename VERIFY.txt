@@ -1,3 +1,29 @@
+SEO / indexing polish (2026-09-18 CT)
+=====================================
+Branch: review/vb-seo-index
+Base: origin/main @ 9419f38 (Hub front-door LIVE)
+
+Static crawl/share meta only — no physics, garage, analytics, or deploy.
+
+Hub `/` + Bench `/bench/` + Race `/bench/race.html`:
+  - Full Twitter tags (title/description/image) + og:site_name
+  - robots index,follow on public pages
+  - Bench/Race brand title → semantic <h1 class="logo-text"> (CSS margin:0)
+Root stubs `/race.html` + `/admin.html`: keep noindex + redirect (unchanged)
+`/bench/admin.html`: keep noindex,nofollow (unchanged; not in sitemap)
+
+robots.txt: Allow / ; Disallow admin stubs; Sitemap → velocitybench.com/sitemap.xml
+sitemap.xml: / , /bench/ , /bench/race.html (no admin)
+
+VERIFY
+  1. View-source hub/bench/race: unique title + description + canonical + OG/Twitter
+  2. Stubs race.html/admin.html still meta robots=noindex
+  3. /robots.txt Allow + Sitemap; /sitemap.xml lists three public URLs only
+  4. One visible H1 on hub, bench, race; layout unchanged
+  5. No JS/physics/garage-data change; no Pages push
+
+Intentional skips: deploy; tracking; admin index; guerra-tools-hub content rebase.
+
 VelocityBench Hub front-door — VERIFY
 =======================================
 Date: 2026-09-18 CT (America/Chicago)
