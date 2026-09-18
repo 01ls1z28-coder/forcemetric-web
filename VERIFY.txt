@@ -1,3 +1,36 @@
+VelocityBench Hub front-door — VERIFY
+=======================================
+Date: 2026-09-18 CT (America/Chicago)
+Branch: review/vb-hub-front-door
+
+Layout (ARCH LOCK — single tree, CNAME stays here):
+  /                  → Tool Hub (Family Brass, star)
+  /bench/            → calculator (was former domain root)
+  /bench/race.html   → race
+  /bench/admin.html  → admin
+  /race.html         → stub → /bench/race.html (meta + JS replace)
+  /admin.html        → stub → /bench/admin.html
+
+Hub cards (absolute):
+  Bench      https://velocitybench.com/bench/
+  PowerCurve https://01ls1z28-coder.github.io/velocitybench-powercurve/
+  SDC        https://01ls1z28-coder.github.io/sound-distance-calculator/
+  GSPS       https://01ls1z28-coder.github.io/gunshot-sound-propagation/
+
+Shared chrome:
+  css/vb-chrome.css on hub + bench/css/vb-chrome.css on calculator pages
+  Hub link → https://velocitybench.com/
+  Tool switcher: Bench | PowerCurve | SDC | GSPS
+
+Checks:
+  1. Open index.html locally — hub is star, four live cards, chrome present
+  2. Open bench/index.html — calculator loads; relative css/js/assets OK
+  3. Open race.html / admin.html stubs — land under /bench/
+  4. CNAME still velocitybench.com; no second-repo CNAME
+  5. Disclaimers unchanged on calculator pages
+  6. No deploy from this tip — Seraph clears
+
+--- prior VERIFY ---
 ForceMetric — verification notes
 ================================
 Date: 2026-09-08 (America/Chicago)

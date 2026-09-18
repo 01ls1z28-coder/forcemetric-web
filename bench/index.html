@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VelocityBench — Quarter-Mile Drag Race Calculator</title>
+  <meta name="description" content="Free quarter-mile calculator: compiled 0–60, 60-foot, ET, and trap from HP, weight, tires, and weather. Estimates for comparison — not dyno or track certified." />
+  <link rel="canonical" href="https://velocitybench.com/bench/" />
+  <meta property="og:title" content="VelocityBench — Quarter-Mile Drag Race Calculator" />
+  <meta property="og:description" content="Free quarter-mile calculator: compiled 0–60, 60-foot, ET, and trap from HP, weight, tires, and weather. Estimates for comparison — not dyno or track certified." />
+  <meta property="og:url" content="https://velocitybench.com/bench/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://velocitybench.com/bench/og.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/vb-chrome.css" />
+</head>
+<body>
+  <nav class="vb-chrome" aria-label="VelocityBench tools">
+    <a class="vb-chrome-hub" href="https://velocitybench.com/">
+      <span class="vb-chrome-hub-badge">HUB</span>
+      <span>Tool Hub</span>
+    </a>
+    <div class="vb-chrome-tools" role="list">
+      <a role="listitem" href="https://velocitybench.com/bench/" aria-current="page">Bench</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/">PowerCurve</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/sound-distance-calculator/">SDC</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/gunshot-sound-propagation/">GSPS</a>
+    </div>
+  </nav>
+
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo-mark" aria-hidden="true">F</div>
+        <div class="brand-text">
+          <div class="logo-text">VelocityBench</div>
+          <div class="logo-badge">Performance Telemetry</div>
+        </div>
+      </div>
+      <div class="header-controls">
+        <label class="ui-scale" title="Scale the whole page">
+          <span class="ui-scale-label">UI Scale</span>
+          <input type="range" id="uiScale" min="75" max="125" step="5" value="100" />
+          <span class="ui-scale-val" id="uiScaleVal">100%</span>
+        </label>
+        <div class="units-toggle" role="radiogroup" aria-label="Units" title="Display units">
+          <span class="ui-scale-label">Units</span>
+          <label class="units-opt"><input type="radio" name="unitsMode" id="unitsStandard" value="standard" checked /><span>Standard</span></label>
+          <label class="units-opt"><input type="radio" name="unitsMode" id="unitsMetric" value="metric" /><span>Metric</span></label>
+        </div>
+      </div>
+      <div class="header-credit">
+        <button type="button" class="header-support-btn" id="btnSupportHeader" title="Support" aria-label="Open support">Support</button>
+        <span class="header-credit-label">Created by</span>
+        <span class="header-credit-name"><em>Jorge Guerra</em></span>
+      </div>
+    </header>
+
+    <div class="top-grid">
+      <!-- Vehicle Parameters -->
+      <section class="card vehicle-card">
+        <div class="garage-step-row">
+          <button type="button" class="btn btn-garage btn-garage-step" id="btnGarage" title="Step 1 — open garage">Garage</button>
+          <div class="garage-step-copy">
+            <span class="garage-step-num">Step 1</span>
+            <span class="garage-step-hint">Pick a vehicle from the garage</span>
+          </div>
+        </div>
+        <div class="card-title">Vehicle Parameters</div>
+        <div class="drive-row hp-source-row">
+          <span class="drive-label">HP Source</span>
+          <div class="drive-seg" role="radiogroup" aria-label="HP Source">
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpEngine" value="engine" checked /><span>HP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpDynoJet" value="dynojet" /><span>DynoJet WHP</span></label>
+            <label class="drive-opt"><input type="radio" name="hpSource" id="hpMustang" value="mustang" /><span>Mustang Dyno WHP</span></label>
+          </div>
+        </div>
+        <label class="field"><span id="hpLabel">HP</span><input type="number" id="hp" value="450" step="1" /></label>
+        <label class="field"><span id="weightLabel">Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
+        <label class="field"><span id="driverWeightLabel">Driver Weight (lbs)</span><input type="number" id="driverWeight" value="200" step="1" min="0" /></label>
+        <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
+        <label class="field"><span id="areaLabel">Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
+        <div class="drive-row tx-row">
+          <span class="drive-label">Transmission</span>
+          <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Transmission">
+            <label class="drive-opt"><input type="radio" name="transmission" id="txAuto" value="auto" checked /><span>Automatic</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txDct" value="dct" /><span>Dual Clutch</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txSequential" value="sequential" /><span>Sequential / Quick-Shifter</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txManual" value="manual" /><span>H-Pattern Manual</span></label>
+          </div>
+        </div>
+        <label class="field loss-field-hidden" hidden><span>Drivetrain Loss %</span><input type="number" id="loss" value="15" step="0.1" /></label>
+        <label class="field">
+          <span>Tire Type</span>
+          <select id="tireType">
+            <option value="0" selected>All-season Street</option>
+            <option value="1">Summer / Sport</option>
+            <option value="2">UHP Street</option>
+            <option value="3">Soft Compound</option>
+            <option value="4">Slicks / Drag Radials</option>
+          </select>
+        </label>
+        <div class="check-garage-row">
+          <div class="check-row">
+            <label><input type="checkbox" id="chkNA" /> Naturally Aspirated</label>
+            <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
+            <label><input type="checkbox" id="chkEv" /> (Electric Vehicle)</label>
+          </div>
+          <button type="button" class="btn btn-edit-params" id="btnEditParams" title="Quick edit selected params">Edit Vehicle</button>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Drivetrain</span>
+          <div class="drive-seg" role="radiogroup" aria-label="Drivetrain">
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveFWD" value="FWD" /><span>FWD</span></label>
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveRWD" value="RWD" checked /><span>RWD</span></label>
+            <label class="drive-opt"><input type="radio" name="driveType" id="driveAWD" value="AWD" /><span>AWD</span></label>
+          </div>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Engine/Motor Layout</span>
+          <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Engine/Motor Layout">
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutFront" value="Front" checked /><span>Front</span></label>
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutMid" value="Mid" /><span>Mid</span></label>
+            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutRear" value="Rear" /><span>Rear</span></label>
+            <label class="drive-opt" id="layoutDualWrap"><input type="radio" name="engineLayout" id="layoutDual" value="Dual" /><span>Front + Rear</span></label>
+          </div>
+        </div>
+        <div class="drive-row">
+          <span class="drive-label">Differential</span>
+          <div class="diff-seg-row">
+            <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Differential">
+              <label class="drive-opt"><input type="radio" name="differential" id="diffOpen" value="Open" /><span>Open</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffLSD" value="LSD" checked /><span>LSD</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffElectronic" value="Electronic" /><span>Electronic TC</span></label>
+              <label class="drive-opt"><input type="radio" name="differential" id="diffLocker" value="Locker" /><span>Locker</span></label>
+            </div>
+            <span class="diff-wheelie-note" id="diffWheelieNote" hidden>Wheelie control</span>
+          </div>
+        </div>
+        <div class="drag-pack-row" id="dragPackRow">
+          <label class="drag-pack-toggle" title="Lightweight drag wheels & Sticky tires at optimal tire pressure.&#10;Launch control / transbrake / 2-step&#10;Optimal rear gearing&#10;Passenger seats deleted.&#10;&#10;Times shown with Drag Setup on assume a prepped surface and these changes. Street-tire / full-interior numbers will be slower.">
+            <input type="checkbox" id="chkDragPack" />
+            <span>Drag Setup + Track Prep</span>
+          </label>
+          <span class="drag-pack-hint" id="dragPackHint">Session · OFF</span>
+        </div>
+      </section>
+
+      <!-- Atmosphere: DA Calculator above Weather Presets -->
+      <section class="card atmosphere-card">
+        <div class="card-section da-section">
+          <div class="card-title">DA Calculator</div>
+          <label class="field"><span id="calcTempLabel">Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
+          <label class="field"><span>Humidity (%)</span><input type="number" id="calcHumidity" value="40" step="0.1" /></label>
+          <label class="field"><span id="calcPressureLabel">Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
+          <div class="da-result" id="calcDAResult">—</div>
+          <button type="button" class="btn btn-generate" id="btnGenerateDA">Generate</button>
+        </div>
+        <div class="card-divider" role="separator" aria-hidden="true"></div>
+        <div class="card-section weather-section">
+          <div class="card-title">Weather Presets</div>
+          <label class="field">
+            <span>Preset</span>
+            <select id="weatherPreset">
+              <option value="0" selected>Custom</option>
+              <option value="1" data-std="Standard Day (59°F, 0%, 29.92 inHg)" data-metric="Standard Day (15°C, 0%, 1013 hPa)">Standard Day (59°F, 0%, 29.92 inHg)</option>
+              <option value="2" data-std="Hot / High DA (90°F, 60%, 29.50 inHg)" data-metric="Hot / High DA (32°C, 60%, 999 hPa)">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
+              <option value="3" data-std="Cool / Low DA (50°F, 40%, 30.10 inHg)" data-metric="Cool / Low DA (10°C, 40%, 1019 hPa)">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
+            </select>
+          </label>
+          <label class="field"><span id="tempLabel">Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
+          <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
+          <label class="field"><span id="pressureLabel">Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+          <label class="field"><span id="daLabel">Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
+        </div>
+        <div class="air-hp-strip" id="airHpStrip" aria-live="polite">
+          <div class="air-hp-strip-head">
+            <span class="air-hp-title">Air / HP Correction</span>
+            <span class="air-mode-badge" id="airModeBadge">NA</span>
+          </div>
+          <div class="air-hp-tiles">
+            <div class="air-tile">
+              <span class="air-tile-label">ρ air</span>
+              <span class="air-tile-value" id="airRhoValue">1.225</span>
+              <span class="air-tile-sub" id="airRhoPct">100% std</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label" id="airDaTileLabel">DA</span>
+              <span class="air-tile-value" id="airDaValue">0</span>
+              <span class="air-tile-sub" id="airDaUnit">ft</span>
+            </div>
+            <div class="air-tile">
+              <span class="air-tile-label">HP weather</span>
+              <span class="air-tile-value" id="airHpFactorValue">100%</span>
+              <span class="air-tile-sub" id="airHpFactorSub">vs std-air WHP</span>
+            </div>
+          </div>
+          <div class="air-hp-note" id="airHpNote">Compiled estimate from current weather model — not dyno lab cert.</div>
+        </div>
+        <div class="vehicle-run-actions" id="vehicleRunActions">
+          <div class="run-controls-actions">
+            <button type="button" class="btn btn-test" id="btnTest">Test</button>
+            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
+          </div>
+          <div class="run-timer" id="runTimer">0.00 s</div>
+        </div>
+        <div class="card-divider run-controls-divider" role="separator" aria-hidden="true"></div>
+        <div class="run-controls" role="toolbar" aria-label="Playback controls">
+          <div class="run-controls-playback">
+            <button type="button" class="btn btn-ctrl" id="btnPlay">Play</button>
+            <button type="button" class="btn btn-ctrl" id="btnPause">Pause</button>
+            <button type="button" class="btn btn-ctrl" id="btnReplay">Replay</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results (expanded into freed column) -->
+      <section class="card results-card">
+        <div class="card-title">Time Slip</div>
+        <pre class="results-out track-slip" id="resultsOut">  VELOCITYBENCH TIME SLIP
+  -----------------------
+  Ready — load a car, set
+  weather, hit Test.</pre>
+      </section>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+      <div class="gauge-wrap">
+        <div class="active-vehicle-label" id="activeVehicleLabel">Custom setup</div>
+        <canvas id="speedGauge" width="260" height="260"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="progress-wrap">
+          <div class="progress-labels" aria-hidden="true">
+            <span class="progress-mark" style="left:0%" data-ft="0">0'</span>
+            <span class="progress-mark" style="left:4.545%" data-ft="60">60'</span>
+            <span class="progress-mark" style="left:25%" data-ft="330">330'</span>
+            <span class="progress-mark" style="left:50%" data-ft="660">660'</span>
+            <span class="progress-mark" style="left:75.758%" data-ft="1000">1000'</span>
+            <span class="progress-mark progress-mark-end" style="left:100%" data-ft="1320">1320'</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-ticks" aria-hidden="true">
+              <i style="left:4.545%"></i><i style="left:25%"></i><i style="left:50%"></i><i style="left:75.758%"></i>
+            </div>
+            <div class="progress-fill" id="distanceFill"></div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="speedChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <div class="footer-credit">Created by <span>Jorge Guerra</span></div>
+      <div class="footer-hub">
+        <a class="hub-link" href="https://velocitybench.com/" rel="noopener">
+          <span class="hub-link-badge" aria-hidden="true">HUB</span>
+          <span class="hub-link-text">Tool Hub</span>
+          <span class="hub-link-arrow" aria-hidden="true">→</span>
+        </a>
+        <button type="button" class="footer-support-link" id="btnSupportFooter">Support</button>
+      </div>
+      <div class="footer-admin" style="opacity:0.35;font-size:0.75rem;margin:4px 0 2px;">
+        <a href="admin.html" style="color:inherit;text-decoration:none;" title="Garage admin">Admin</a>
+      </div>
+      <div class="footer-disclaimer">
+        Simulation estimates for comparison only — not dyno or track certified.
+        Physics port of VelocityBench PerformanceCalc (CalibrationFactor 0.81).
+      </div>
+    <br />Vehicle numbers are approximate published specs compiled for comparison; not manufacturer-certified performance claims.
+    </footer>
+  </div>
+
+  <!-- Garage Modal -->
+  <div class="modal-backdrop" id="garageModal" role="dialog" aria-modal="true" aria-labelledby="garageTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="garageTitle">VelocityBench Garage</h2>
+        <button type="button" class="btn btn-close-modal" id="btnGarageX" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="garage-search">
+          <label for="garageSearch">Search Cars:</label>
+          <input type="text" id="garageSearch" placeholder="Type to filter…" autocomplete="off" />
+        </div>
+        <div class="garage-filters" aria-label="Brand model year filters">
+          <label class="garage-filter">
+            <span>Brand</span>
+            <select id="garageBrand"><option value="">All brands</option></select>
+          </label>
+          <label class="garage-filter">
+            <span>Model</span>
+            <select id="garageModel" disabled><option value="">All models</option></select>
+          </label>
+          <label class="garage-filter">
+            <span>Year</span>
+            <select id="garageYear" disabled><option value="">All years</option></select>
+          </label>
+        </div>
+        <ul class="car-list" id="carList"></ul>
+      </div>
+      <div class="car-editor" id="carEditor">
+        <div class="editor-title" id="editorTitle">Edit Vehicle</div>
+        <div class="editor-grid">
+          <label class="field"><span>Name</span><input type="text" id="editName" autocomplete="off" /></label>
+          <label class="field"><span>Horsepower</span><input type="number" id="editHp" step="1" /></label>
+          <label class="field"><span id="editWeightLabel">Weight lbs</span><input type="number" id="editWeight" step="1" /></label>
+          <label class="field"><span>Drag Coefficient</span><input type="number" id="editCd" step="0.01" /></label>
+          <label class="field"><span id="editAreaLabel">Frontal Area sq ft</span><input type="number" id="editArea" step="0.1" /></label>
+          <label class="field"><span>Drivetrain Loss %</span><input type="number" id="editLoss" step="0.1" /></label>
+          <label class="field">
+            <span>Tire Type</span>
+            <select id="editTireType">
+              <option value="0">All-season Street</option>
+              <option value="1">Summer / Sport</option>
+              <option value="2">UHP Street</option>
+              <option value="3">Soft Compound</option>
+              <option value="4">Slicks / Drag Radials</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Drive Type</span>
+            <select id="editDriveType">
+              <option value="FWD">FWD</option>
+              <option value="RWD" selected>RWD</option>
+              <option value="AWD">AWD</option>
+            </select>
+          </label>
+        </div>
+        <div class="editor-actions">
+          <button type="button" class="btn btn-load" id="btnSaveCar">Save</button>
+          <button type="button" class="btn btn-close-modal" id="btnCancelCar">Cancel</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-load" id="btnLoadVehicle">Load Vehicle</button>
+        <button type="button" class="btn btn-add" id="btnAddVehicle">Add Vehicle</button>
+        <button type="button" class="btn btn-edit" id="btnEditVehicle">Edit Vehicle</button>
+        <button type="button" class="btn btn-close-modal" id="btnCloseGarage">Close Garage</button>
+      </div>
+      <div class="garage-reset-row">
+        <button type="button" class="link-reset" id="btnResetGarage">Reset garage to site defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Support intake (Phase 9: static mailto; no backend) -->
+  <div class="modal-backdrop" id="supportModal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+    <div class="modal support-modal">
+      <div class="modal-header">
+        <h2 id="supportTitle">Support</h2>
+        <button type="button" class="btn btn-close-modal" id="btnSupportX" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body support-body">
+        <p class="support-disclaimer">
+          Reports are reviewed manually. Figures in VelocityBench are compiled estimates for comparison — not lab-certified measurements.
+        </p>
+        <p class="support-live-note" id="supportLiveNote">
+          Opens your email client with a prefilled message to VelocityBench support.
+        </p>
+
+        <div class="support-tabs" role="tablist" aria-label="Support type">
+          <button type="button" class="support-tab active" role="tab" id="supportTabGarage" aria-selected="true" aria-controls="supportSectionGarage" data-support-tab="garage">Permanent garage add</button>
+          <button type="button" class="support-tab" role="tab" id="supportTabBug" aria-selected="false" aria-controls="supportSectionBug" data-support-tab="bug">Bug</button>
+          <button type="button" class="support-tab" role="tab" id="supportTabAccuracy" aria-selected="false" aria-controls="supportSectionAccuracy" data-support-tab="accuracy">Accuracy</button>
+        </div>
+        <input type="hidden" id="supportType" value="garage" />
+
+        <div class="support-shared" aria-label="Shared fields">
+          <label class="field" for="supportName"><span>Name <em class="opt">(optional)</em></span><input type="text" id="supportName" autocomplete="name" /></label>
+          <label class="field" for="supportEmail"><span>Email <em class="opt">(optional)</em></span><input type="email" id="supportEmail" autocomplete="email" /></label>
+          <label class="field field-stack" for="supportMessage">
+            <span>Message <em class="req">(required)</em></span>
+            <textarea id="supportMessage" rows="3" required placeholder="Brief summary of your request or report…"></textarea>
+          </label>
+        </div>
+
+        <div class="support-section" id="supportSectionGarage" role="tabpanel" aria-labelledby="supportTabGarage" data-support-section="garage">
+          <label class="field" for="supportYear"><span>Year <em class="req">*</em></span><input type="text" id="supportYear" inputmode="numeric" autocomplete="off" /></label>
+          <label class="field" for="supportMake"><span>Make <em class="req">*</em></span><input type="text" id="supportMake" autocomplete="off" /></label>
+          <label class="field" for="supportModel"><span>Model <em class="req">*</em></span><input type="text" id="supportModel" autocomplete="off" /></label>
+          <label class="field field-stack" for="supportGarageNotes">
+            <span>Notes <em class="req">*</em></span>
+            <textarea id="supportGarageNotes" rows="3" placeholder="Trim, powertrain, why it should be added…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportGarageSources">
+            <span>Source links <em class="opt">(optional)</em></span>
+            <textarea id="supportGarageSources" rows="2" placeholder="https://…"></textarea>
+          </label>
+        </div>
+
+        <div class="support-section" id="supportSectionBug" role="tabpanel" aria-labelledby="supportTabBug" data-support-section="bug" hidden>
+          <label class="field field-stack" for="supportBugWhat">
+            <span>What broke <em class="req">*</em></span>
+            <textarea id="supportBugWhat" rows="2" placeholder="What went wrong…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportBugSteps">
+            <span>Steps <em class="req">*</em></span>
+            <textarea id="supportBugSteps" rows="3" placeholder="1. … 2. … 3. …"></textarea>
+          </label>
+          <label class="field" for="supportBrowser"><span>Browser / device <em class="req">*</em></span><input type="text" id="supportBrowser" autocomplete="off" placeholder="e.g. Chrome 128 / iPhone Safari" /></label>
+        </div>
+
+        <div class="support-section" id="supportSectionAccuracy" role="tabpanel" aria-labelledby="supportTabAccuracy" data-support-section="accuracy" hidden>
+          <label class="field" for="supportAccVehicle"><span>Vehicle <em class="req">*</em></span><input type="text" id="supportAccVehicle" autocomplete="off" placeholder="Year Make Model" /></label>
+          <label class="field field-stack" for="supportShown">
+            <span>Page shows <em class="req">*</em></span>
+            <textarea id="supportShown" rows="2" placeholder="What VelocityBench currently shows…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportExpected">
+            <span>Expected <em class="req">*</em></span>
+            <textarea id="supportExpected" rows="2" placeholder="What you believe is correct…"></textarea>
+          </label>
+          <label class="field field-stack" for="supportSource">
+            <span>Source link <em class="req">*</em></span>
+            <textarea id="supportSource" rows="2" placeholder="https://…"></textarea>
+          </label>
+        </div>
+
+        <p class="support-error" id="supportError" hidden role="alert"></p>
+      </div>
+      <div class="modal-actions support-actions">
+        <button type="button" class="btn btn-load" id="btnSupportSubmit">Open email</button>
+        <button type="button" class="btn btn-close-modal" id="btnSupportCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/garage-data.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/gauge.js"></script>
+  <script src="js/speed-chart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -2589,3 +2589,15 @@ label.field.loss-field-hidden {
   margin-top: 12px;
 }
 
+
+/* Hub front-door — shared chrome above .app */
+body > .vb-chrome {
+  max-width: 1440px;
+  margin: 0.65rem auto 0;
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+}
+body.race-page > .vb-chrome,
+body > .vb-chrome {
+  box-sizing: border-box;
+}

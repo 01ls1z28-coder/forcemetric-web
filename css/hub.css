@@ -1,0 +1,484 @@
+:root {
+  --bg-deep: #07090c;
+  --bg-panel: #10141b;
+  --bg-elevated: #171d27;
+  --panel: #12171f;
+  --border: #2a3344;
+  --border-glow: rgba(201, 162, 39, 0.35);
+  --accent: #c9a227;
+  --accent-2: #5ec8ff;
+  --text: #e9edf2;
+  --text-muted: #b0b8c4;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --max: 1100px;
+  --input-bg: rgba(4, 6, 9, 0.88);
+  /* Shared carbon weave (VB family) */
+  --carbon-fine: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.028) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.28) 0 1px,
+      transparent 1px 3px
+    );
+  /* Phase 13/14 — classic brass / champagne chrome (exact VB token names) */
+  --brass: rgba(215, 196, 160, 0.42);
+  --brass-strong: rgba(240, 226, 196, 0.22);
+  --brass-inset: rgba(106, 87, 56, 0.35);
+  --brass-text: #e8d7b0;
+  --brass-face:
+    linear-gradient(145deg, rgba(240, 226, 196, 0.12), transparent 38%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
+    var(--carbon-fine),
+    var(--panel);
+  --brass-shadow:
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 0 0 3px var(--brass-inset),
+    inset 0 0 28px rgba(0, 0, 0, 0.35),
+    0 12px 36px rgba(0, 0, 0, 0.45);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font);
+  color: var(--text);
+  background-color: var(--bg-deep);
+  background-image:
+    radial-gradient(1100px 520px at 50% -8%, rgba(94, 200, 255, 0.06), transparent 58%),
+    radial-gradient(800px 480px at 92% 88%, rgba(201, 162, 39, 0.04), transparent 52%),
+    var(--carbon-fine),
+    linear-gradient(180deg, #0b0e13 0%, var(--bg-deep) 42%, #030405 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,0.028) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255,255,255,0.028) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(255,255,255,0.028) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255,255,255,0.028) 25%, transparent 25%);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 0, 5px -5px, 0 5px;
+  opacity: 0.55;
+}
+
+.bg-glow {
+  position: fixed;
+  inset: -20% -10% auto;
+  height: 55vh;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(215, 196, 160, 0.12), transparent 55%),
+    radial-gradient(ellipse at 80% 10%, rgba(94,200,255,0.10), transparent 50%);
+}
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Header — VB brass bezel */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.25rem;
+  padding: 0.95rem 1.15rem;
+  background: var(--brass-face);
+  border: 1px solid var(--brass);
+  border-radius: var(--radius);
+  box-shadow: var(--brass-shadow);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-mark {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--brass-text);
+  background:
+    linear-gradient(145deg, rgba(240, 226, 196, 0.22), transparent 55%),
+    linear-gradient(320deg, rgba(94,200,255,0.18), transparent 50%),
+    var(--carbon-fine),
+    var(--bg-elevated);
+  box-shadow:
+    0 0 0 3px rgba(215, 196, 160, 0.14),
+    inset 0 0 0 1px var(--brass-strong),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.brand-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+  font-weight: 700;
+}
+
+.brand h1 {
+  margin: 0.1rem 0 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.header-tag {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--brass-text);
+  letter-spacing: 0.04em;
+  opacity: 0.88;
+}
+
+.hero {
+  padding: 1.75rem 0 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.hero h2 {
+  margin: 0 0 0.85rem;
+  max-width: 18ch;
+  font-size: clamp(1.65rem, 4vw, 2.45rem);
+  line-height: 1.15;
+  font-weight: 750;
+}
+
+.hero-lead {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.motif-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 1.35rem 0 0;
+  padding: 0;
+}
+
+.motif-row li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--brass);
+  background: rgba(4, 6, 9, 0.55);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.motif-ico {
+  color: var(--brass-text);
+  font-size: 0.85rem;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.section-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--brass-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Tool cards — VB instrument cluster chrome + Phase 14 corner ticks */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.15rem 1.15rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid var(--brass);
+  background: var(--brass-face);
+  box-shadow: var(--brass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.tool-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(240, 226, 196, 0.28), transparent);
+  pointer-events: none;
+}
+
+/* Phase 14 — tasteful brass corner ticks */
+.tool-card::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0.42;
+  background:
+    linear-gradient(var(--brass-text), var(--brass-text)) top left / 11px 1px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) top left / 1px 11px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) top right / 11px 1px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) top right / 1px 11px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) bottom left / 11px 1px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) bottom left / 1px 11px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) bottom right / 11px 1px no-repeat,
+    linear-gradient(var(--brass-text), var(--brass-text)) bottom right / 1px 11px no-repeat;
+}
+
+.tool-card:hover {
+  border-color: rgba(240, 226, 196, 0.62);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--brass-shadow),
+    0 0 0 1px rgba(215, 196, 160, 0.12);
+}
+
+.tool-card--soon {
+  opacity: 0.78;
+  border-style: dashed;
+}
+
+.tool-card--soon:hover {
+  transform: none;
+  border-color: var(--brass);
+  box-shadow: var(--brass-shadow);
+}
+
+.card-badge {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+}
+
+.card-top h4 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.card-goal {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.btn-open,
+.btn-soon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-open {
+  color: #0a0c0f;
+  background: linear-gradient(180deg, #dfb83a, var(--accent));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 0 0 1px rgba(106, 87, 56, 0.25);
+}
+
+.btn-open:hover {
+  filter: brightness(1.06);
+}
+
+.btn-open:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-deep),
+    0 0 0 4px rgba(215, 196, 160, 0.35);
+}
+
+.btn-soon {
+  color: var(--text-muted);
+  background: rgba(4, 6, 9, 0.55);
+  border: 1px solid var(--brass);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  cursor: default;
+}
+
+.site-footer {
+  padding-top: 1.25rem;
+  padding-bottom: 2.25rem;
+  border-top: 1px solid var(--brass);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.site-footer strong {
+  color: var(--brass-text);
+}
+
+.footer-note,
+.footer-counter {
+  margin: 0.55rem 0 0;
+  max-width: 48rem;
+}
+
+.footer-counter code {
+  color: var(--brass-text);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 1.15rem;
+  }
+
+  .hero h2 {
+    max-width: none;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    margin-top: 0.85rem;
+  }
+}
+
+/* Hub root polish — star layout */
+:root {
+  --max: 1120px;
+}
+
+.site-header {
+  margin-top: 0.85rem;
+}
+
+.vb-chrome {
+  max-width: var(--max);
+  margin: 0.85rem auto 0;
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero {
+  padding: 2rem 0 1.75rem;
+}
+
+.hero h2 {
+  max-width: 22ch;
+  background: linear-gradient(180deg, #f5edd8 0%, var(--brass-text) 55%, #c9a227 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+
+.tool-card {
+  min-height: 220px;
+}
+
+.card-meta {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(232, 215, 176, 0.65);
+}
+
+.tool-card--featured {
+  border-color: rgba(240, 226, 196, 0.55);
+}
+
+.tool-card--featured .btn-open {
+  background: linear-gradient(180deg, #f0d56a, #c9a227);
+}
+
+.site-footer .vb-chrome {
+  margin: 1rem 0 0;
+  max-width: none;
+}
