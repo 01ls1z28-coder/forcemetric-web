@@ -1,3 +1,32 @@
+Hub polish — flashy Family Brass (2026-09-18 CT)
+=================================================
+Branch: review/vb-hub-polish
+Base: origin/main @ 261bc8e (SEO tip LIVE — Merovingian hold)
+
+Removals (Jorge red circles on velocitybench.com/):
+  1. Header tagline “Cars · Motorcycles · Firearms · Sound” — deleted
+  2. Footer GoatCounter blurb / config prompt — deleted
+     Goat stays inactive (enabled:false); loader no longer writes UI notes
+
+Elevations (static CSS/JS only):
+  - Stronger hero glow + brand-mark pulse + gradient H1/H2
+  - Ambient grid pulse + soft particles + glow drift (prefers-reduced-motion off)
+  - Tool cards: lift/glow/shine + light tilt (pointer fine only; hub.js)
+  - Motif chips: hover/focus transitions
+  - Chrome switcher + four tool cards unchanged in targets
+  - SEO/OG/Twitter/robots/sitemap from 261bc8e preserved
+  - Disclaimers preserved; no tracking cookies; no secrets
+
+VERIFY
+  1. View-source / : no “Cars · Motorcycles…”; no GoatCounter footer blurb
+  2. Four live cards + vb-chrome links still open Bench/PowerCurve/SDC/GSPS
+  3. Hover cards → lift + shine; tilt on desktop; reduced-motion = static
+  4. Meta canonical/OG/Twitter + robots + sitemap unchanged from SEO tip
+  5. goatcounter-config enabled:false; no visitCounterNote element
+  6. No deploy from this tip
+
+Intentional skips: deploy; Merovingian ask; git config; tracking activation.
+
 SEO / indexing polish (2026-09-18 CT)
 =====================================
 Branch: review/vb-seo-index

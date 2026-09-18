@@ -1,11 +1,7 @@
 (function () {
   var cfg = window.GUERRA_GOATCOUNTER || {};
-  var note = document.getElementById('visitCounterNote');
+  /* Inactive until enabled + real endpoint — no UI prompts, no fake counts. */
   if (!cfg.enabled || !cfg.endpoint || /YOUR-CODE/.test(cfg.endpoint)) {
-    if (note) {
-      note.textContent =
-        'Visit counter ready (GoatCounter). Set your site code in js/goatcounter-config.js to activate — privacy-friendly, no ads/cookies. Inactive until configured (no fake counts).';
-    }
     return;
   }
   window.goatcounter = { path: location.pathname + location.search + location.hash };
@@ -14,7 +10,4 @@
   s.src = cfg.src || 'https://gc.zgo.at/count.js';
   s.dataset.goatcounter = cfg.endpoint;
   document.head.appendChild(s);
-  if (note) {
-    note.textContent = 'Visits counted with GoatCounter (privacy-friendly, no ads).';
-  }
 })();

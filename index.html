@@ -24,6 +24,7 @@
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-particles" aria-hidden="true"></div>
 
   <nav class="vb-chrome" aria-label="VelocityBench tools">
     <a class="vb-chrome-hub" href="https://velocitybench.com/" aria-current="page">
@@ -46,7 +47,6 @@
         <h1>VelocityBench Hub</h1>
       </div>
     </div>
-    <p class="header-tag">Cars · Motorcycles · Firearms · Sound</p>
   </header>
 
   <main>
@@ -58,10 +58,10 @@
         Static Pages only — each tool keeps its own credits and disclaimers.
       </p>
       <ul class="motif-row" aria-label="Themes">
-        <li><span class="motif-ico" aria-hidden="true">▣</span> Vehicles</li>
-        <li><span class="motif-ico" aria-hidden="true">◎</span> Firearms</li>
-        <li><span class="motif-ico" aria-hidden="true">∿</span> Sound</li>
-        <li><span class="motif-ico" aria-hidden="true">⚡</span> Metrics</li>
+        <li class="motif-chip" tabindex="0"><span class="motif-ico" aria-hidden="true">▣</span> Vehicles</li>
+        <li class="motif-chip" tabindex="0"><span class="motif-ico" aria-hidden="true">◎</span> Firearms</li>
+        <li class="motif-chip" tabindex="0"><span class="motif-ico" aria-hidden="true">∿</span> Sound</li>
+        <li class="motif-chip" tabindex="0"><span class="motif-ico" aria-hidden="true">⚡</span> Metrics</li>
       </ul>
     </section>
 
@@ -72,7 +72,8 @@
       </div>
 
       <div class="card-grid">
-        <article class="tool-card tool-card--featured">
+        <article class="tool-card tool-card--featured" data-tilt>
+          <span class="card-shine" aria-hidden="true"></span>
           <div class="card-top">
             <span class="card-badge">Vehicles · Flagship</span>
             <h4>VelocityBench</h4>
@@ -85,7 +86,8 @@
           <a class="btn-open" href="https://velocitybench.com/bench/" rel="noopener">Open Bench</a>
         </article>
 
-        <article class="tool-card">
+        <article class="tool-card" data-tilt>
+          <span class="card-shine" aria-hidden="true"></span>
           <div class="card-top">
             <span class="card-badge">Vehicles · Gearing</span>
             <h4>PowerCurve</h4>
@@ -98,7 +100,8 @@
           <a class="btn-open" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/" rel="noopener">Open PowerCurve</a>
         </article>
 
-        <article class="tool-card">
+        <article class="tool-card" data-tilt>
+          <span class="card-shine" aria-hidden="true"></span>
           <div class="card-top">
             <span class="card-badge">Acoustics</span>
             <h4>Sound Distance Calculator</h4>
@@ -111,7 +114,8 @@
           <a class="btn-open" href="https://01ls1z28-coder.github.io/sound-distance-calculator/" rel="noopener">Open SDC</a>
         </article>
 
-        <article class="tool-card">
+        <article class="tool-card" data-tilt>
+          <span class="card-shine" aria-hidden="true"></span>
           <div class="card-top">
             <span class="card-badge">Firearms · Sound</span>
             <h4>Gunshot Sound Propagation</h4>
@@ -134,13 +138,10 @@
       non-affiliation notices, and “compiled estimates / not lab-certified” disclaimers.
       Static hosting — no server, database, or tracking cookies required.
     </p>
-    <p class="footer-counter" id="visitCounterNote">
-      Visit counter: GoatCounter (privacy-friendly). Activate by setting your
-      site code in <code>js/goatcounter-config.js</code> — no fake local counts.
-    </p>
   </footer>
 
   <script src="js/goatcounter-config.js"></script>
   <script src="js/goatcounter-loader.js"></script>
+  <script src="js/hub.js"></script>
 </body>
 </html>
