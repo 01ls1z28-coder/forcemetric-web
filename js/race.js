@@ -339,7 +339,14 @@
 
   function normalizeTransmission(tx) {
     var v = String(tx == null ? '' : tx).trim().toLowerCase();
-    if (v === 'manual' || v === 'mt' || v === '6mt' || v === '7mt') return 'manual';
+    if (v === 'manual' || v === 'mt' || v === '6mt' || v === '7mt' ||
+        v === 'hpattern' || v === 'h-pattern' || v === 'h pattern' || v === 'h-pattern manual') {
+      return 'manual';
+    }
+    if (v === 'sequential' || v === 'seq' || v === 'quickshifter' || v === 'quick-shifter' ||
+        v === 'quick shifter' || v === 'sequential / quick-shifter') {
+      return 'sequential';
+    }
     if (v === 'dct' || v === 'dual' || v === 'dual clutch' || v === 'dualclutch' || v === 'pdk' || v === 'dsg') return 'dct';
     if (v === 'auto' || v === 'automatic' || v === 'at') return 'auto';
     return 'auto';
@@ -347,6 +354,8 @@
 
   function transmissionFromBake(car) {
     if (!car) return 'auto';
+    var curb = car.WeightLbs != null ? Number(car.WeightLbs) : NaN;
+    if (isFinite(curb) && curb < 1500) return 'sequential';
     if (car.Transmission != null && String(car.Transmission).trim() !== '') {
       return normalizeTransmission(car.Transmission);
     }
@@ -355,6 +364,7 @@
 
   function getTransmission(prefix) {
     if ($(prefix + 'TxManual') && $(prefix + 'TxManual').checked) return 'manual';
+    if ($(prefix + 'TxSequential') && $(prefix + 'TxSequential').checked) return 'sequential';
     if ($(prefix + 'TxDct') && $(prefix + 'TxDct').checked) return 'dct';
     return 'auto';
   }
@@ -363,20 +373,22 @@
     var v = normalizeTransmission(tx);
     if ($(prefix + 'TxAuto')) $(prefix + 'TxAuto').checked = (v === 'auto');
     if ($(prefix + 'TxDct')) $(prefix + 'TxDct').checked = (v === 'dct');
+    if ($(prefix + 'TxSequential')) $(prefix + 'TxSequential').checked = (v === 'sequential');
     if ($(prefix + 'TxManual')) $(prefix + 'TxManual').checked = (v === 'manual');
   }
 
   function transmissionSlipLabel(tx) {
     var v = normalizeTransmission(tx);
-    if (v === 'manual') return 'Manual';
+    if (v === 'manual') return 'H-Pattern Manual';
+    if (v === 'sequential') return 'Sequential';
     if (v === 'dct') return 'Dual Clutch';
     return 'Automatic';
   }
 
-  /** Manual = base−2; DCT = base−1; Auto = base. */
+  /** Sequential = base−2 (former Manual); H-Pattern = base−2 + physics penalty; DCT = base−1; Auto = base. */
   function transmissionLossDelta(tx) {
     var v = normalizeTransmission(tx);
-    if (v === 'manual') return -2;
+    if (v === 'manual' || v === 'sequential') return -2;
     if (v === 'dct') return -1;
     return 0;
   }
@@ -626,19 +638,24 @@
 
     var txAuto = $(prefix + 'TxAuto');
     var txDct = $(prefix + 'TxDct');
+    var txSequential = $(prefix + 'TxSequential');
     var txManual = $(prefix + 'TxManual');
 
     if (ev) {
       if (txAuto) { txAuto.checked = true; txAuto.disabled = false; }
       if (txDct) { txDct.checked = false; txDct.disabled = true; }
+      if (txSequential) { txSequential.checked = false; txSequential.disabled = true; }
       if (txManual) { txManual.checked = false; txManual.disabled = true; }
     } else if (light) {
-      if (txManual) { txManual.checked = true; txManual.disabled = false; }
+      /* Phase 36: bikes → Sequential-only (was Manual-only). */
+      if (txSequential) { txSequential.checked = true; txSequential.disabled = false; }
+      if (txManual) { txManual.checked = false; txManual.disabled = true; }
       if (txAuto) { txAuto.checked = false; txAuto.disabled = true; }
       if (txDct) { txDct.checked = false; txDct.disabled = true; }
     } else {
       if (txAuto) txAuto.disabled = false;
       if (txDct) txDct.disabled = false;
+      if (txSequential) txSequential.disabled = false;
       if (txManual) txManual.disabled = false;
       if (leavingLight) setTransmission(prefix, lastNonLightTx[prefix]);
     }
@@ -670,12 +687,58 @@
     lightCurbLocksActive[prefix] = light;
     syncHpLossUi(prefix);
     updateLayoutLabel(prefix);
+    syncDualLayoutForEv(prefix);
+    syncDragPackUi(prefix);
   }
 
   function updateLayoutLabel(prefix) {
     var lab = $(prefix + 'LayoutLabel');
     if (!lab) return;
     lab.textContent = isEvMode(prefix) ? 'Motor Layout' : 'Engine/Motor Layout';
+  }
+
+  /** Phase 36: Dual selectable only when EV. */
+  function syncDualLayoutForEv(prefix) {
+    var ev = isEvMode(prefix);
+    var wrap = $(prefix + 'LayoutDualWrap');
+    var dual = $(prefix + 'LayoutDual');
+    if (wrap) wrap.hidden = !ev;
+    if (dual) {
+      dual.disabled = !ev;
+      if (!ev && dual.checked) {
+        if ($(prefix + 'LayoutRear')) $(prefix + 'LayoutRear').checked = true;
+        else if ($(prefix + 'LayoutMid')) $(prefix + 'LayoutMid').checked = true;
+        else if ($(prefix + 'LayoutFront')) $(prefix + 'LayoutFront').checked = true;
+        dual.checked = false;
+      }
+    }
+  }
+
+  function isDragPackEligible(prefix) {
+    if (isEvMode(prefix)) return false;
+    if (isLightCurb(prefix)) return false;
+    var na = !!($(prefix + 'NA') && $(prefix + 'NA').checked);
+    var fi = !!($(prefix + 'FI') && $(prefix + 'FI').checked);
+    return na || fi;
+  }
+
+  function getDragPackOn(prefix) {
+    var chk = $(prefix + 'DragPack');
+    return !!(chk && chk.checked && isDragPackEligible(prefix));
+  }
+
+  function syncDragPackUi(prefix) {
+    var chk = $(prefix + 'DragPack');
+    if (!chk) return;
+    var eligible = isDragPackEligible(prefix);
+    if (!eligible) {
+      chk.checked = false;
+      chk.disabled = true;
+    } else {
+      chk.disabled = false;
+    }
+    var hint = $(prefix + 'DragPackHint');
+    if (hint) hint.textContent = getDragPackOn(prefix) ? 'Session · ON' : 'Session · OFF';
   }
 
   function parseNum(el, name) {
@@ -845,6 +908,7 @@
       maxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
         ? laneExtras[prefix].maxSpeedMph : null,
       transmission: getTransmission(prefix),
+      dragPack: getDragPackOn(prefix),
       hpSource: getHpSource(prefix),
       isNA: $(prefix + 'NA').checked,
       isFI: $(prefix + 'FI').checked,
@@ -2402,6 +2466,8 @@
       driveType: lane.driveType,
       engineLayout: lane.engineLayout,
       differential: lane.differential,
+      transmission: lane.transmission,
+      dragPack: !!lane.dragPack,
       maxSpeedMph: lane.maxSpeedMph,
       isEv: lane.isEv,
       isNA: lane.isNA,
@@ -2598,10 +2664,12 @@
   function wireEngine(prefix) {
     $(prefix + 'NA').addEventListener('change', function () {
       if ($(prefix + 'NA').checked) $(prefix + 'FI').checked = false;
+      syncDragPackUi(prefix);
       updateAirHpStrip();
     });
     $(prefix + 'FI').addEventListener('change', function () {
       if ($(prefix + 'FI').checked) $(prefix + 'NA').checked = false;
+      syncDragPackUi(prefix);
       updateAirHpStrip();
     });
     $(prefix + 'Ev').addEventListener('change', function () {
@@ -2626,7 +2694,7 @@
     $(prefix + 'Weight').addEventListener('change', function () { applyLightCurbLocks(prefix); });
     $(prefix + 'Weight').addEventListener('blur', function () { applyLightCurbLocks(prefix); });
 
-    ['HpEngine', 'HpDynoJet', 'HpMustang', 'TxAuto', 'TxDct', 'TxManual'].forEach(function (suf) {
+    ['HpEngine', 'HpDynoJet', 'HpMustang', 'TxAuto', 'TxDct', 'TxSequential', 'TxManual'].forEach(function (suf) {
       var el = $(prefix + suf);
       if (el) el.addEventListener('change', function () {
         if (suf.indexOf('Tx') === 0 && !isEvMode(prefix) && !isLightCurb(prefix)) {
@@ -2635,6 +2703,9 @@
         syncHpLossUi(prefix);
       });
     });
+
+    var dp = $(prefix + 'DragPack');
+    if (dp) dp.addEventListener('change', function () { syncDragPackUi(prefix); });
 
     ['DiffOpen', 'DiffLSD', 'DiffElectronic', 'DiffLocker'].forEach(function (suf) {
       var el = $(prefix + suf);

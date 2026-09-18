@@ -1,13 +1,23 @@
-ForceMetric — factory Transmission bake (Phase 13)
+ForceMetric — factory Transmission bake (Phase 13 + Phase 36)
 ============================================================
-Field: Transmission = "Auto" | "Manual" | "DCT"  (missing → Auto in UI)
+Field: Transmission = "Auto" | "Manual" | "DCT" | "Sequential"
+  (missing → Auto in UI)
+
+Phase 36 UI labels:
+  Manual → "H-Pattern Manual" (bake value stays "Manual" / radio value "manual")
+  Sequential / Quick-Shifter → bake "Sequential" / radio value "sequential"
+  Dual Clutch → DCT; Automatic → Auto
 
 Do NOT keyword-guess. Bake only accurate factory gearboxes.
 DCT = dual-clutch / PDK / DSG / S tronic / Tremec DCT / McLaren SSG /
      Ferrari 7–8DCT / Bugatti DCT / GT-R GR6 / AMG Speedshift DCT-MCT /
      Lamborghini LDF DCT, plus ISR / e-gear / Ferrari F1 automated
 Manual = true H-pattern manuals (Civic Type R, GR Corolla, Carrera GT, …)
+Sequential = bike / sequential / quick-shifter (all WeightLbs < 1500 bake Sequential)
 Auto = torque-converter / Tiptronic / ZF / EV single-speed
+
+Phase 36 bake rule: WeightLbs < 1500 → Transmission Sequential (bikes).
+Legacy Manual on light curb maps to Sequential on load when WeightLbs < 1500.
 
 DCT bake (51 unique; 52 rows — duplicate 2010 C63 AMG):
   Tremec: GT500
@@ -24,5 +34,14 @@ DCT bake (51 unique; 52 rows — duplicate 2010 C63 AMG):
 NOT DCT: Civic Type R (MT), GR Corolla (MT), Blackwing (absent), Tiptronic Turbos,
   2012 R8 R-tronic, 2024 M2 ZF8, RS5/RS7 tiptronic, all EVs
 
-Loss: Manual=base−2; DCT=base−1; Auto=base; DynoJet/Mustang=0; clamp 0–35
+Loss: Sequential=base−2 (former Manual); H-Pattern Manual=base−2 + physics
+  launch/shift penalty (see physics.js); DCT=base−1; Auto=base;
+  DynoJet/Mustang=0; clamp 0–35
 Phase 13 recalib: DCT-only, driver 200 / Street / trap-first (Phase 8B method).
+
+Phase 36 H-Pattern physics (documented; µ ladder numbers unchanged):
+  Launch µ mult: AS 0.86, Summer 0.88, UHP 0.91, Soft 0.95, Slicks 0.96
+  Shift force (25–110 mph): AS/Summer 0.90, UHP 0.93, Soft 0.96, Slicks 0.97
+Phase 36 Dual layout µ: Dual 1.055 (EV-only selectable; slightly > Rear 1.03)
+Phase 36 Drag Pack force boost (before clamp; NA/FI only): peak AS→Slicks
+  0.10 / 0.14 / 0.18 / 0.26 / 0.32; mid residual 0.012 / 0.016 / 0.020 / 0.028 / 0.034

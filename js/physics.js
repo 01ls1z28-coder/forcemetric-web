@@ -36,7 +36,10 @@
 
   function layoutMuMult(layout) {
     var L = String(layout || 'Front');
-    if (L === 'Mid' || L === 'Dual') return 1.00;
+    // Phase 36: Dual (EV Front+Rear motors) slightly quicker than Rear-only.
+    // Documented: Dual 1.055 vs Rear 1.03 vs Mid 1.00 vs Front 0.95. µ ladder unchanged.
+    if (L === 'Dual') return 1.055;
+    if (L === 'Mid') return 1.00;
     if (L === 'Rear') return 1.03;
     return 0.95; // Front default
   }
@@ -47,6 +50,79 @@
     if (D === 'Electronic') return 1.04;
     if (D === 'Locker') return 1.06;
     return 1.00; // LSD
+  }
+
+  /**
+   * Phase 36 — H-Pattern Manual human shift/launch penalty (vs Sequential/Auto/DCT).
+   * Sequential inherits former Manual drivetrain-loss delta (−2) with NO physics penalty.
+   * H-Pattern keeps the −2 loss in UI but these multipliers outweigh that advantage so
+   * H-Pattern cannot beat Auto / DCT / Sequential. Penalty larger on AS/Summer than Soft/Slicks.
+   * Documented launch µ mult by tire index (0..4):
+   *   AS 0.86, Summer 0.88, UHP 0.91, Soft 0.95, Slicks 0.96
+   * Documented shift-band force mult (≈25–110 mph human shifts):
+   *   AS/Summer 0.90, UHP 0.93, Soft 0.96, Slicks 0.97
+   */
+  function hPatternLaunchMuMult(tireType) {
+    var t = tireType | 0;
+    if (t <= 0) return 0.86;
+    if (t === 1) return 0.88;
+    if (t === 2) return 0.91;
+    if (t === 3) return 0.95;
+    return 0.96; // Slicks
+  }
+
+  function hPatternShiftForceMult(tireType, speedMph) {
+    var t = tireType | 0;
+    var band;
+    if (t <= 1) band = 0.90;
+    else if (t === 2) band = 0.93;
+    else if (t === 3) band = 0.96;
+    else band = 0.97;
+    var mph = Number(speedMph);
+    if (!isFinite(mph) || mph < 0) mph = 0;
+    // Full haircut in human shift band; ease outside
+    if (mph < 12) return 1.0; // launch handled by µ path
+    if (mph < 25) {
+      var u = (mph - 12) / 13;
+      return 1.0 - u * (1.0 - band);
+    }
+    if (mph <= 110) return band;
+    if (mph < 140) {
+      var v = (mph - 110) / 30;
+      return band + v * (1.0 - band);
+    }
+    return 1.0;
+  }
+
+  /**
+   * Phase 36 — Drag Setup + Track Prep (session toggle; NA/FI only, never EV / light curb).
+   * Does NOT retune µ ladder constants. Applied as force multiplier BEFORE traction clamp
+   * (same pattern as ATC): strong 60′/launch gain, small mid-run from lighter wheels,
+   * biggest on high-grip tires (Soft/Slicks).
+   * Peak launch boost by tire: AS 0.10, Summer 0.14, UHP 0.18, Soft 0.26, Slicks 0.32
+   * Mid-run residual (≥60 mph): AS 0.012, Summer 0.016, UHP 0.020, Soft 0.028, Slicks 0.034
+   */
+  function dragPackForceMult(enabled, tireType, speedMph) {
+    if (!enabled) return 1.0;
+    var t = tireType | 0;
+    if (t < 0) t = 0;
+    if (t > 4) t = 4;
+    var peak = [0.10, 0.14, 0.18, 0.26, 0.32][t];
+    var mid = [0.012, 0.016, 0.020, 0.028, 0.034][t];
+    var mph = Number(speedMph);
+    if (!isFinite(mph) || mph < 0) mph = 0;
+    var boost;
+    if (mph <= 8) {
+      boost = peak;
+    } else if (mph < 60) {
+      var u = (mph - 8) / 52;
+      boost = peak + u * (mid - peak);
+    } else if (mph < 130) {
+      boost = mid;
+    } else {
+      boost = mid * Math.max(0, 1.0 - (mph - 130) / 80);
+    }
+    return 1.0 + boost;
   }
 
 
@@ -275,6 +351,10 @@
     var isEv = !!opts.isEv;
     var engineLayout = opts.engineLayout || 'Front';
     var differential = opts.differential || 'LSD';
+    var transmission = String(opts.transmission || 'auto').trim().toLowerCase();
+    if (transmission === 'mt' || transmission === 'hpattern' || transmission === 'h-pattern') transmission = 'manual';
+    if (transmission === 'seq' || transmission === 'quickshifter' || transmission === 'quick-shifter') transmission = 'sequential';
+    var dragPackOn = !!opts.dragPack && !isEv;
     var maxSpeedMph = (opts.maxSpeedMph != null && isFinite(opts.maxSpeedMph) && opts.maxSpeedMph > 0)
       ? Number(opts.maxSpeedMph) : null;
     var temperatureF = opts.tempF;
@@ -321,6 +401,11 @@
 
     // Differential traction
     mu *= differentialMuMult(differential);
+
+    // Phase 36: H-Pattern Manual launch grip haircut (Sequential = no penalty)
+    if (transmission === 'manual') {
+      mu *= hPatternLaunchMuMult(tireType);
+    }
 
     // Traction compensation by drivetrain (client-side mu model)
     // RWD: baseline (no extra multiply) — former non-AWD behavior
@@ -398,6 +483,18 @@
           stallRpm: atcStallRpm,
           peakTorqueRpm: atcPeakTorqueRpm
         }, mphAtc);
+      }
+
+      var mphNow = mpsToMph(v);
+
+      // Phase 36: H-Pattern human shift-band force haircut (before clamp)
+      if (transmission === 'manual') {
+        forceFromPowerN *= hPatternShiftForceMult(tireType, mphNow);
+      }
+
+      // Phase 36: Drag Setup + Track Prep (caller gates EV/light; physics also skips EV)
+      if (dragPackOn) {
+        forceFromPowerN *= dragPackForceMult(true, tireType, mphNow);
       }
 
       var driveForceN = Math.min(forceFromPowerN, tractionLimitN);
@@ -521,6 +618,11 @@
     computeWeatherAirState: computeWeatherAirState,
     getTireGrip: getTireGrip,
     CalibrationFactor: CalibrationFactor,
+    layoutMuMult: layoutMuMult,
+    differentialMuMult: differentialMuMult,
+    hPatternLaunchMuMult: hPatternLaunchMuMult,
+    hPatternShiftForceMult: hPatternShiftForceMult,
+    dragPackForceMult: dragPackForceMult,
     aftermarketConverterForceMult: aftermarketConverterForceMult,
     atcStallBandIdealBoost: atcStallBandIdealBoost,
     clampAtcStallRpm: clampAtcStallRpm,

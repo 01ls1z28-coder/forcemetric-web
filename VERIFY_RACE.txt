@@ -1135,3 +1135,54 @@ Verify
 
 
 PHASE 34: WeightLbs < 1500 → TireType AllSeason (0) bake default. Loss/HP/Cd/physics/UI untouched. Bikes flipped from Summer/UHP.
+
+
+PHASE 36 — H-Pattern/Sequential TX, Dual EV, Drag Pack, layout, Metric (2026-09-17 CT)
+======================================================================================
+Branch: review/vb-phase36-tx-dragpack-layout-metric
+Base: origin/main @ 8f5ee28 (post garage-admin merges)
+
+1) Transmission
+  - UI: Manual → "H-Pattern Manual" (value manual); new Sequential (value sequential).
+  - Bake: all WeightLbs < 1500 → Transmission Sequential (13 bikes).
+  - Loss: Sequential = former Manual (−2); H-Pattern = −2 + physics penalty.
+  - Physics documented multipliers (µ ladder constants UNCHANGED):
+    H-Pattern launch µ: AS 0.86, Summer 0.88, UHP 0.91, Soft 0.95, Slicks 0.96
+    H-Pattern shift force 25–110 mph: AS/Summer 0.90, UHP 0.93, Soft 0.96, Slicks 0.97
+  - Light-curb locks: bikes Sequential-only (was Manual-only).
+  - Slip labels + admin Transmission select updated.
+
+2) Dual layout EV-only
+  - Dual selectable only when EV; ICE hide/disable Dual (falls back to Rear).
+  - Dual layoutMuMult 1.055 (was tied to Mid 1.00) — slightly quicker than Rear 1.03.
+  - Bug: Dual previously equaled Mid and slower than Rear; fixed via documented boost.
+
+3) Drag Setup + Track Prep
+  - Toggle under Differential on Test + both race lanes; session OFF default.
+  - Eligible: NA or FI only; never EV; never WeightLbs ≤1500 (light curb).
+  - Physics opts.dragPack — force mult before clamp (no µ ladder retune):
+    Peak launch: AS 0.10 / Summer 0.14 / UHP 0.18 / Soft 0.26 / Slicks 0.32
+    Mid residual: 0.012 / 0.016 / 0.020 / 0.028 / 0.034
+
+4) Main layout
+  - Garage button ABOVE Vehicle Parameters (Step 1 brass row).
+  - Edit Vehicle in former Garage slot (quick edit selected params).
+  - Test + Drag Racing + timer moved into atmosphere card: under Air/HP, above Play/Pause/Replay.
+  - Brass retained; Phase 35 mobile containment CSS preserved.
+
+5) Metric EU units
+  - When Units=Metric: frontal area m²; weather/DA/presets/Air+HP use °C + hPa + DA m.
+  - Imperial (Standard) unchanged. Physics still imperial internally.
+
+Holds
+  - Static site; no open DB
+  - Soft/Slicks selectable
+  - Simultaneous leave
+  - DistanceFt X playback
+  - µ ladder getTireGrip numbers unchanged (only Dual/H-Pattern/DragPack documented multipliers)
+
+Bike TX bake count: 13 → Sequential
+
+VERIFY spot checks (node):
+  H-Pattern ET > Sequential/Auto/DCT (AS); Dual EV ET < Rear; DragPack slicks 60′/ET quicker;
+  AS H-Pattern penalty > Soft penalty.

@@ -1999,6 +1999,9 @@ input[type="email"] {
 .tx-row .drive-seg {
   grid-template-columns: 1fr 1fr 1fr;
 }
+.tx-row .drive-seg.drive-seg-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
 
 #loss.is-locked,
 #loss:disabled {
@@ -2423,6 +2426,8 @@ label.field.loss-field-hidden {
   .hp-source-row,
   .diff-seg-row,
   .check-garage-row,
+  .garage-step-row,
+  .drag-pack-row,
   .vehicle-run-actions {
     min-width: 0;
     max-width: 100%;
@@ -2461,3 +2466,126 @@ label.field.loss-field-hidden {
     grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   }
 }
+
+
+/* Phase 36 — Garage above Vehicle Parameters (step 1) */
+.garage-step-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 10px 10px 10px 8px;
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-sm);
+  background: rgba(10, 12, 15, 0.72);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  min-width: 0;
+  max-width: 100%;
+}
+.garage-step-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.garage-step-num {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass-text);
+}
+.garage-step-hint {
+  font-size: 12px;
+  color: rgba(232, 215, 176, 0.78);
+  line-height: 1.25;
+}
+#btnGarage.btn-garage-step,
+.btn-garage-step {
+  /* keep 74×74 brass Garage chrome; sit in step row */
+}
+
+/* Edit Vehicle takes former Garage slot beside NA/FI/EV */
+#btnEditParams.btn-edit-params,
+.btn-edit-params {
+  box-sizing: border-box;
+  width: 74px !important;
+  height: 74px !important;
+  min-width: 74px !important;
+  max-width: 74px !important;
+  min-height: 74px !important;
+  max-height: 74px !important;
+  flex: 0 0 74px !important;
+  margin: 0 !important;
+  padding: 4px 2px !important;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: normal;
+  line-height: 1.15;
+  text-align: center;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: #e8f5ff;
+  border: 1px solid rgba(120, 190, 255, 0.55);
+  background:
+    linear-gradient(90deg, rgba(80, 160, 255, 0.55) 0 3px, transparent 3px),
+    radial-gradient(ellipse at 50% 18%, rgba(120, 190, 255, 0.22), transparent 55%),
+    var(--btn-brass-face-strong);
+  box-shadow:
+    var(--btn-brass-rim),
+    0 0 16px rgba(80, 160, 255, 0.16);
+}
+.btn-edit-params:hover {
+  color: #fff;
+  border-color: rgba(160, 210, 255, 0.75);
+  box-shadow: var(--btn-brass-rim-hover), 0 0 20px rgba(80, 160, 255, 0.28);
+}
+
+/* Drag Setup + Track Prep under Differential */
+.drag-pack-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-sm);
+  background: rgba(10, 12, 15, 0.55);
+  box-shadow: inset 0 0 0 1px var(--brass-inset);
+  min-width: 0;
+}
+.drag-pack-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brass-text);
+  cursor: pointer;
+  min-width: 0;
+}
+.drag-pack-toggle input {
+  accent-color: #c9a227;
+}
+.drag-pack-toggle input:disabled + span {
+  opacity: 0.45;
+}
+.drag-pack-hint {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232, 215, 176, 0.7);
+  white-space: nowrap;
+}
+
+/* Phase 36 — Test/Drag+timer live in atmosphere above Play */
+.atmosphere-card .vehicle-run-actions {
+  margin-top: 12px;
+}
+

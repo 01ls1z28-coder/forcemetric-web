@@ -32,6 +32,17 @@
     txAuto: document.getElementById('txAuto'),
     txDct: document.getElementById('txDct'),
     txManual: document.getElementById('txManual'),
+    txSequential: document.getElementById('txSequential'),
+    chkDragPack: document.getElementById('chkDragPack'),
+    dragPackHint: document.getElementById('dragPackHint'),
+    layoutDualWrap: document.getElementById('layoutDualWrap'),
+    btnEditParams: document.getElementById('btnEditParams'),
+    areaLabel: document.getElementById('areaLabel'),
+    editAreaLabel: document.getElementById('editAreaLabel'),
+    tempLabel: document.getElementById('tempLabel'),
+    pressureLabel: document.getElementById('pressureLabel'),
+    calcTempLabel: document.getElementById('calcTempLabel'),
+    calcPressureLabel: document.getElementById('calcPressureLabel'),
     loss: document.getElementById('loss'),
     tireType: document.getElementById('tireType'),
     chkNA: document.getElementById('chkNA'),
@@ -173,6 +184,9 @@
   var LB_PER_KG = 2.2046226218;
   var M_PER_FT = 0.3048;
   var KMH_PER_MPH = 1.609344;
+  var M2_PER_SQFT = 0.09290304;
+  var HPA_PER_INHG = 33.8639;
+  var DRAG_PACK_SESSION_KEY = 'velocitybench-drag-pack';
 
   function isMetric() { return unitsMode === 'metric'; }
 
@@ -214,6 +228,23 @@
     if (el.driverWeightLabel) el.driverWeightLabel.textContent = 'Driver Weight (' + wSuf + ')';
     if (el.editWeightLabel) el.editWeightLabel.textContent = 'Weight ' + wSuf;
     if (el.daLabel) el.daLabel.textContent = isMetric() ? 'Density Altitude (m)' : 'Density Altitude (ft)';
+    if (el.areaLabel) el.areaLabel.textContent = isMetric() ? 'Frontal Area m²' : 'Frontal Area sq ft';
+    if (el.editAreaLabel) el.editAreaLabel.textContent = isMetric() ? 'Frontal Area m²' : 'Frontal Area sq ft';
+    if (el.tempLabel) el.tempLabel.textContent = isMetric() ? 'Temp (°C)' : 'Temp (°F)';
+    if (el.pressureLabel) el.pressureLabel.textContent = isMetric() ? 'Pressure (hPa)' : 'Pressure (inHg)';
+    if (el.calcTempLabel) el.calcTempLabel.textContent = isMetric() ? 'Temp (°C)' : 'Temp (°F)';
+    if (el.calcPressureLabel) el.calcPressureLabel.textContent = isMetric() ? 'Pressure (hPa)' : 'Pressure (inHg)';
+
+    // Weather preset option text (EU metric labels)
+    if (el.weatherPreset) {
+      var opts = el.weatherPreset.options;
+      for (var oi = 0; oi < opts.length; oi++) {
+        var o = opts[oi];
+        var std = o.getAttribute('data-std');
+        var met = o.getAttribute('data-metric');
+        if (std && met) o.textContent = isMetric() ? met : std;
+      }
+    }
 
     // Progress strip marks (fixed 1/4-mile stations)
     var marks = document.querySelectorAll('.progress-mark[data-ft]');
@@ -235,7 +266,7 @@
 
   function convertWeightInputsOnToggle(fromMetric) {
     // fromMetric = previous mode was metric
-    function conv(inputEl) {
+    function convWeight(inputEl) {
       if (!inputEl) return;
       var raw = parseFloat(String(inputEl.value).trim());
       if (!isFinite(raw)) return;
@@ -245,9 +276,41 @@
         ? String(Math.round(next * 10) / 10)
         : String(Math.round(next));
     }
-    conv(el.weight);
-    conv(el.driverWeight);
-    conv(el.editWeight);
+    function convArea(inputEl) {
+      if (!inputEl) return;
+      var raw = parseFloat(String(inputEl.value).trim());
+      if (!isFinite(raw)) return;
+      var sqft = fromMetric ? raw / M2_PER_SQFT : raw;
+      var next = isMetric() ? sqft * M2_PER_SQFT : sqft;
+      inputEl.value = String(Math.round(next * 1000) / 1000);
+    }
+    function convTemp(inputEl) {
+      if (!inputEl) return;
+      var raw = parseFloat(String(inputEl.value).trim());
+      if (!isFinite(raw)) return;
+      var f = fromMetric ? (raw * 9.0 / 5.0 + 32.0) : raw;
+      var next = isMetric() ? ((f - 32.0) * 5.0 / 9.0) : f;
+      inputEl.value = String(Math.round(next * 10) / 10);
+    }
+    function convPressure(inputEl) {
+      if (!inputEl) return;
+      var raw = parseFloat(String(inputEl.value).trim());
+      if (!isFinite(raw)) return;
+      var inHg = fromMetric ? raw / HPA_PER_INHG : raw;
+      var next = isMetric() ? inHg * HPA_PER_INHG : inHg;
+      inputEl.value = isMetric()
+        ? String(Math.round(next * 10) / 10)
+        : String(Math.round(next * 100) / 100);
+    }
+    convWeight(el.weight);
+    convWeight(el.driverWeight);
+    convWeight(el.editWeight);
+    convArea(el.area);
+    convArea(el.editArea);
+    convTemp(el.temp);
+    convTemp(el.calcTemp);
+    convPressure(el.pressure);
+    convPressure(el.calcPressure);
     // DA field (ft <-> m) when populated
     if (el.da && String(el.da.value).trim() !== '') {
       var daRaw = parseFloat(String(el.da.value).trim());
@@ -265,6 +328,41 @@
         el.calcDAResult.textContent = Math.round(cDisp) + ' ' + distSuffix();
       }
     }
+  }
+
+  function readAreaSqFt(inputEl, name) {
+    var v = parseNum(inputEl, name || 'Frontal Area');
+    return isMetric() ? v / M2_PER_SQFT : v;
+  }
+
+  function setInputAreaSqFt(inputEl, sqft) {
+    if (!inputEl) return;
+    var disp = isMetric() ? sqft * M2_PER_SQFT : sqft;
+    inputEl.value = String(Math.round(disp * 1000) / 1000);
+  }
+
+  function readTempF(inputEl, name) {
+    var v = parseNum(inputEl, name || 'Temperature');
+    return isMetric() ? (v * 9.0 / 5.0 + 32.0) : v;
+  }
+
+  function setInputTempF(inputEl, tempF) {
+    if (!inputEl) return;
+    var disp = isMetric() ? ((tempF - 32.0) * 5.0 / 9.0) : tempF;
+    inputEl.value = String(Math.round(disp * 10) / 10);
+  }
+
+  function readPressureInHg(inputEl, name) {
+    var v = parseNum(inputEl, name || 'Pressure');
+    return isMetric() ? v / HPA_PER_INHG : v;
+  }
+
+  function setInputPressureInHg(inputEl, inHg) {
+    if (!inputEl) return;
+    var disp = isMetric() ? inHg * HPA_PER_INHG : inHg;
+    inputEl.value = isMetric()
+      ? String(Math.round(disp * 10) / 10)
+      : String(Math.round(disp * 100) / 100);
   }
 
   function applyUnitsMode(mode, persist, convertInputs) {
@@ -378,7 +476,14 @@
 
   function normalizeTransmission(tx) {
     var v = String(tx == null ? '' : tx).trim().toLowerCase();
-    if (v === 'manual' || v === 'mt' || v === '6mt' || v === '7mt') return 'manual';
+    if (v === 'manual' || v === 'mt' || v === '6mt' || v === '7mt' ||
+        v === 'hpattern' || v === 'h-pattern' || v === 'h pattern' || v === 'h-pattern manual') {
+      return 'manual';
+    }
+    if (v === 'sequential' || v === 'seq' || v === 'quickshifter' || v === 'quick-shifter' ||
+        v === 'quick shifter' || v === 'sequential / quick-shifter') {
+      return 'sequential';
+    }
     if (v === 'dct' || v === 'dual' || v === 'dual clutch' || v === 'dualclutch' || v === 'pdk' || v === 'dsg') return 'dct';
     if (v === 'auto' || v === 'automatic' || v === 'at') return 'auto';
     return 'auto';
@@ -386,6 +491,9 @@
 
   function transmissionFromBake(car) {
     if (!car) return 'auto';
+    var curb = car.WeightLbs != null ? Number(car.WeightLbs) : NaN;
+    /* Phase 36: light curb / bikes always Sequential (maps old Manual → Sequential). */
+    if (isFinite(curb) && curb < 1500) return 'sequential';
     if (car.Transmission != null && String(car.Transmission).trim() !== '') {
       return normalizeTransmission(car.Transmission);
     }
@@ -394,6 +502,7 @@
 
   function getTransmission() {
     if (el.txManual && el.txManual.checked) return 'manual';
+    if (el.txSequential && el.txSequential.checked) return 'sequential';
     if (el.txDct && el.txDct.checked) return 'dct';
     return 'auto';
   }
@@ -402,12 +511,14 @@
     var v = normalizeTransmission(tx);
     if (el.txAuto) el.txAuto.checked = (v === 'auto');
     if (el.txDct) el.txDct.checked = (v === 'dct');
+    if (el.txSequential) el.txSequential.checked = (v === 'sequential');
     if (el.txManual) el.txManual.checked = (v === 'manual');
   }
 
   function transmissionSlipLabel(tx) {
     var v = normalizeTransmission(tx);
-    if (v === 'manual') return 'Manual';
+    if (v === 'manual') return 'H-Pattern Manual';
+    if (v === 'sequential') return 'Sequential';
     if (v === 'dct') return 'Dual Clutch';
     return 'Automatic';
   }
@@ -415,6 +526,7 @@
   function bakeTransmissionLabel(tx) {
     var v = normalizeTransmission(tx);
     if (v === 'manual') return 'Manual';
+    if (v === 'sequential') return 'Sequential';
     if (v === 'dct') return 'DCT';
     return 'Auto';
   }
@@ -432,10 +544,11 @@
   }
 
   /** HP = base ± TX; DynoJet/Mustang Dyno WHP = loss 0. Clamp 0–35.
-   *  Manual = base−2; DCT = base−1; Auto = base. */
+   *  Sequential = base−2 (former Manual baseline); H-Pattern Manual = base−2
+   *  (physics launch/shift penalty outweighs loss advantage); DCT = base−1; Auto = base. */
   function transmissionLossDelta(tx) {
     var v = normalizeTransmission(tx == null ? getTransmission() : tx);
-    if (v === 'manual') return -2;
+    if (v === 'manual' || v === 'sequential') return -2;
     if (v === 'dct') return -1;
     return 0;
   }
@@ -473,12 +586,14 @@
     if (!Physics || !Physics.computeWeatherAirState) return;
     if (!el.airRhoValue) return;
 
-    var tempF = parseFloat(el.temp && el.temp.value);
+    var tempRaw = parseFloat(el.temp && el.temp.value);
     var humidity = parseFloat(el.humidity && el.humidity.value);
-    var pressure = parseFloat(el.pressure && el.pressure.value);
-    if (!isFinite(tempF)) tempF = 59;
+    var pressRaw = parseFloat(el.pressure && el.pressure.value);
+    if (!isFinite(tempRaw)) tempRaw = isMetric() ? 15 : 59;
     if (!isFinite(humidity)) humidity = 40;
-    if (!isFinite(pressure)) pressure = 29.92;
+    if (!isFinite(pressRaw)) pressRaw = isMetric() ? 1013.25 : 29.92;
+    var tempF = isMetric() ? (tempRaw * 9.0 / 5.0 + 32.0) : tempRaw;
+    var pressure = isMetric() ? pressRaw / HPA_PER_INHG : pressRaw;
 
     var daInput = NaN;
     if (el.da && String(el.da.value).trim() !== '') {
@@ -531,10 +646,10 @@
     }
   }
 
-  /** TX/drive/diff locks: EV → Auto (DCT+Manual disabled); else light curb → Manual+RWD;
+  /** TX/drive/diff locks: EV → Auto (DCT+Manual+Sequential disabled); else light curb → Sequential+RWD;
    *  light curb → Diff LSD (all radios disabled — not a user choice).
    *  EV Auto lock wins over light-curb TX when IsEv; Diff LSD still applies when light.
-   *  Remembers last non-light TX+drive+diff (incl. dct); restores only when leaving light curb. */
+   *  Remembers last non-light TX+drive+diff (incl. dct/sequential); restores only when leaving light curb. */
   function applyLightCurbLocks() {
     var ev = isEvMode();
     var light = isLightCurb();
@@ -549,7 +664,7 @@
     }
 
     if (ev) {
-      /* EV priority: Automatic locked on; DCT + Manual disabled (even if light curb). */
+      /* EV priority: Automatic locked on; DCT + Sequential + H-Pattern disabled. */
       if (el.txAuto) {
         el.txAuto.checked = true;
         el.txAuto.disabled = false;
@@ -558,15 +673,23 @@
         el.txDct.checked = false;
         el.txDct.disabled = true;
       }
+      if (el.txSequential) {
+        el.txSequential.checked = false;
+        el.txSequential.disabled = true;
+      }
       if (el.txManual) {
         el.txManual.checked = false;
         el.txManual.disabled = true;
       }
     } else if (light) {
-      /* Light curb / bikes: Manual-only (DCT + Auto disabled). */
+      /* Light curb / bikes: Sequential-only (Phase 36; was Manual-only). */
+      if (el.txSequential) {
+        el.txSequential.checked = true;
+        el.txSequential.disabled = false;
+      }
       if (el.txManual) {
-        el.txManual.checked = true;
-        el.txManual.disabled = false;
+        el.txManual.checked = false;
+        el.txManual.disabled = true;
       }
       if (el.txAuto) {
         el.txAuto.checked = false;
@@ -579,6 +702,7 @@
     } else {
       if (el.txAuto) el.txAuto.disabled = false;
       if (el.txDct) el.txDct.disabled = false;
+      if (el.txSequential) el.txSequential.disabled = false;
       if (el.txManual) el.txManual.disabled = false;
       if (leavingLight) setTransmission(lastNonLightTx);
     }
@@ -609,6 +733,54 @@
     }
 
     lightCurbLocksActive = light;
+    syncDualLayoutForEv();
+    syncDragPackUi();
+  }
+
+  /** Phase 36: Dual (Front+Rear) selectable only for EV; ICE hide/disable Dual. */
+  function syncDualLayoutForEv() {
+    var ev = isEvMode();
+    var wrap = el.layoutDualWrap;
+    var dual = el.layoutDual;
+    if (wrap) wrap.hidden = !ev;
+    if (dual) {
+      dual.disabled = !ev;
+      if (!ev && dual.checked) {
+        if (el.layoutRear) el.layoutRear.checked = true;
+        else if (el.layoutMid) el.layoutMid.checked = true;
+        else if (el.layoutFront) el.layoutFront.checked = true;
+        dual.checked = false;
+      }
+    }
+  }
+
+  function isDragPackEligible() {
+    if (isEvMode()) return false;
+    if (isLightCurb()) return false;
+    var na = !!(el.chkNA && el.chkNA.checked);
+    var fi = !!(el.chkFI && el.chkFI.checked);
+    return na || fi;
+  }
+
+  function getDragPackOn() {
+    return !!(el.chkDragPack && el.chkDragPack.checked && isDragPackEligible());
+  }
+
+  function syncDragPackUi() {
+    if (!el.chkDragPack) return;
+    var eligible = isDragPackEligible();
+    if (!eligible) {
+      el.chkDragPack.checked = false;
+      el.chkDragPack.disabled = true;
+    } else {
+      el.chkDragPack.disabled = false;
+    }
+    if (el.dragPackHint) {
+      el.dragPackHint.textContent = getDragPackOn() ? 'Session · ON' : 'Session · OFF';
+    }
+    try {
+      sessionStorage.setItem(DRAG_PACK_SESSION_KEY, el.chkDragPack.checked ? '1' : '0');
+    } catch (e) { /* ignore */ }
   }
 
   function syncHpLossUi() {
@@ -625,7 +797,7 @@
       el.loss.disabled = lockLoss;
       el.loss.classList.toggle('is-locked', lockLoss);
     }
-    /* TX selectable on all HP sources for heavy cars; light curb stays Manual-only. */
+    /* TX selectable on all HP sources for heavy cars; light curb stays Sequential-only. */
     applyLightCurbLocks();
   }
 
@@ -880,13 +1052,14 @@
       }
       if (weight < 100) weight = 100;
       var cd = parseNum(el.cd, 'Drag Coefficient');
-      var frontalArea = parseNum(el.area, 'Frontal Area');
+      var frontalArea = readAreaSqFt(el.area, 'Frontal Area');
       syncHpLossUi();
+      syncDragPackUi();
       var drivetrainLossPercent = computeEffectiveLoss();
       horsepower = resolveRunHorsepower(horsepower);
-      var tempF = parseNum(el.temp, 'Temperature');
+      var tempF = readTempF(el.temp, 'Temperature');
       var humidity = parseNum(el.humidity, 'Humidity');
-      var pressure = parseNum(el.pressure, 'Pressure');
+      var pressure = readPressureInHg(el.pressure, 'Pressure');
 
       var daInput = NaN;
       if (String(el.da.value).trim() !== '') {
@@ -906,6 +1079,8 @@
         driveType: getDriveType(),
         engineLayout: getEngineLayout(),
         differential: getDifferential(),
+        transmission: getTransmission(),
+        dragPack: getDragPackOn(),
         isEv: el.chkEv.checked,
         tempF: tempF,
         humidity: humidity,
@@ -950,7 +1125,7 @@
     setInputWeightLbs(el.weight, weightLbs);
     setInputWeightLbs(el.driverWeight, isFinite(dw) ? dw : DEFAULT_DRIVER_WEIGHT_LBS);
     el.cd.value = cd;
-    el.area.value = area;
+    setInputAreaSqFt(el.area, area);
     el.loss.value = loss;
     el.tireType.value = tireLabelFromEnum(tire, 21);
 
@@ -1046,7 +1221,7 @@
       })(),
       DriverWeightLbs: dw,
       DragCoefficient: parseFloat(el.cd.value) || 0.32,
-      FrontalAreaSqFt: parseFloat(el.area.value) || 22,
+      FrontalAreaSqFt: (function () { try { return readAreaSqFt(el.area, 'Frontal Area'); } catch (e) { return 22; } })(),
       DrivetrainLossPercent: parseFloat(el.loss.value) || 15,
       TireType: migrateTireType(parseInt(el.tireType.value, 10), 21),
       TireEnumPhase: 21,
@@ -1092,9 +1267,9 @@
 
   document.getElementById('btnGenerateDA').addEventListener('click', function () {
     try {
-      var tempF = parseNum(el.calcTemp, 'Calc Temp');
+      var tempF = readTempF(el.calcTemp, 'Calc Temp');
       var humidity = parseNum(el.calcHumidity, 'Calc Humidity');
-      var pressure = parseNum(el.calcPressure, 'Calc Pressure');
+      var pressure = readPressureInHg(el.calcPressure, 'Calc Pressure');
       var daFt = Physics.computeDensityAltitude(tempF, humidity, pressure);
       var daDisp = isMetric() ? daFt * M_PER_FT : daFt;
       el.calcDAResult.textContent = Math.round(daDisp) + ' ' + distSuffix();
@@ -1106,25 +1281,25 @@
   });
 
   el.weatherPreset.addEventListener('change', function () {
+    var tF = null;
+    var pIn = null;
+    var hum = null;
     switch (parseInt(el.weatherPreset.value, 10)) {
       case 1:
-        el.temp.value = '59';
-        el.humidity.value = '0';
-        el.pressure.value = '29.92';
-        el.da.value = '';
+        tF = 59; hum = 0; pIn = 29.92;
         break;
       case 2:
-        el.temp.value = '90';
-        el.humidity.value = '60';
-        el.pressure.value = '29.50';
-        el.da.value = '';
+        tF = 90; hum = 60; pIn = 29.50;
         break;
       case 3:
-        el.temp.value = '50';
-        el.humidity.value = '40';
-        el.pressure.value = '30.10';
-        el.da.value = '';
+        tF = 50; hum = 40; pIn = 30.10;
         break;
+    }
+    if (tF != null) {
+      setInputTempF(el.temp, tF);
+      el.humidity.value = String(hum);
+      setInputPressureInHg(el.pressure, pIn);
+      el.da.value = '';
     }
     updateAirHpStrip();
   });
@@ -1140,10 +1315,12 @@
 
   el.chkNA.addEventListener('change', function () {
     if (el.chkNA.checked) el.chkFI.checked = false;
+    syncDragPackUi();
     updateAirHpStrip();
   });
   el.chkFI.addEventListener('change', function () {
     if (el.chkFI.checked) el.chkNA.checked = false;
+    syncDragPackUi();
     updateAirHpStrip();
   });
 
@@ -1171,6 +1348,8 @@
       el.resultsOut.textContent += '\nEV Mode disabled.';
     }
     applyLightCurbLocks();
+    syncDualLayoutForEv();
+    syncDragPackUi();
     updateAirHpStrip();
   });
 
@@ -1198,6 +1377,8 @@
   if (el.txAuto) el.txAuto.addEventListener('change', onHpSourceOrTxChange);
   if (el.txDct) el.txDct.addEventListener('change', onHpSourceOrTxChange);
   if (el.txManual) el.txManual.addEventListener('change', onHpSourceOrTxChange);
+  if (el.txSequential) el.txSequential.addEventListener('change', onHpSourceOrTxChange);
+  if (el.chkDragPack) el.chkDragPack.addEventListener('change', syncDragPackUi);
   if (el.loss) el.loss.addEventListener('input', function () {
     syncHpLossUi();
     updateAirHpStrip();
@@ -1210,6 +1391,15 @@
   setDriverWeightDefault();
   syncHpLossUi();
   syncTransmissionForCurb();
+  /* Phase 36: Dual EV-only + Drag Pack session (OFF default). */
+  syncDualLayoutForEv();
+  try {
+    var dps = sessionStorage.getItem(DRAG_PACK_SESSION_KEY);
+    if (el.chkDragPack && dps === '1' && isDragPackEligible()) {
+      el.chkDragPack.checked = true;
+    }
+  } catch (eDp) { /* ignore */ }
+  syncDragPackUi();
   updateAirHpStrip();
   tryRestoreMainVehicle();
 
@@ -1555,7 +1745,7 @@
     setInputWeightLbs(el.weight, car.WeightLbs);
     setDriverWeightDefault();
     el.cd.value = car.DragCoefficient;
-    el.area.value = car.FrontalAreaSqFt;
+    setInputAreaSqFt(el.area, car.FrontalAreaSqFt);
     el.loss.value = car.DrivetrainLossPercent;
     el.tireType.value = tireLabelFromEnum(car.TireType, 21);
     setDriveType(car.DriveType || 'RWD');
@@ -1615,7 +1805,7 @@
     el.editHp.value = car.Horsepower;
     setInputWeightLbs(el.editWeight, car.WeightLbs);
     el.editCd.value = car.DragCoefficient;
-    el.editArea.value = car.FrontalAreaSqFt;
+    setInputAreaSqFt(el.editArea, car.FrontalAreaSqFt);
     el.editLoss.value = car.DrivetrainLossPercent;
     el.editTireType.value = String(migrateTireType(car.TireType == null ? 0 : car.TireType, 21));
     if (el.editDriveType) {
@@ -1640,7 +1830,7 @@
     var weightDisp = parseFloat(el.editWeight.value);
     var weight = displayToLb(weightDisp);
     var cd = parseFloat(el.editCd.value);
-    var area = parseFloat(el.editArea.value);
+    var area = readAreaSqFt(el.editArea, 'Frontal Area');
     var loss = parseFloat(el.editLoss.value);
     var tire = parseInt(el.editTireType.value, 10);
     if (!isFinite(hp)) throw new Error('Invalid Horsepower.');
@@ -1776,6 +1966,23 @@
   });
 
   document.getElementById('btnGarage').addEventListener('click', openGarage);
+  if (el.btnEditParams) {
+    el.btnEditParams.addEventListener('click', function () {
+      /* Quick edit selected params — open editor with current form snapshot. */
+      var snap = snapshotActiveVehicle();
+      editingOriginalIndex = -1;
+      if (snap && snap.Name) {
+        for (var i = 0; i < garageData.length; i++) {
+          if (garageData[i].Name === snap.Name) {
+            editingOriginalIndex = i;
+            break;
+          }
+        }
+      }
+      openGarage();
+      showCarEditor(editingOriginalIndex >= 0 ? 'edit' : 'add', snap || defaultCar());
+    });
+  }
   document.getElementById('btnCloseGarage').addEventListener('click', closeGarage);
   document.getElementById('btnGarageX').addEventListener('click', closeGarage);
   document.getElementById('btnLoadVehicle').addEventListener('click', loadSelectedVehicle);
@@ -2153,6 +2360,9 @@
     normalizeTransmission: normalizeTransmission,
     transmissionFromBake: transmissionFromBake,
     transmissionLossDelta: transmissionLossDelta,
+    getDragPackOn: getDragPackOn,
+    syncDualLayoutForEv: syncDualLayoutForEv,
+    syncDragPackUi: syncDragPackUi,
     bakeTransmissionLabel: bakeTransmissionLabel,
     isLightCurb: isLightCurb,
     applyLightCurbLocks: applyLightCurbLocks,

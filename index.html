@@ -46,6 +46,13 @@
     <div class="top-grid">
       <!-- Vehicle Parameters -->
       <section class="card vehicle-card">
+        <div class="garage-step-row">
+          <button type="button" class="btn btn-garage btn-garage-step" id="btnGarage" title="Step 1 — open garage">Garage</button>
+          <div class="garage-step-copy">
+            <span class="garage-step-num">Step 1</span>
+            <span class="garage-step-hint">Pick a vehicle from the garage</span>
+          </div>
+        </div>
         <div class="card-title">Vehicle Parameters</div>
         <div class="drive-row hp-source-row">
           <span class="drive-label">HP Source</span>
@@ -59,13 +66,14 @@
         <label class="field"><span id="weightLabel">Curb Weight (lbs)</span><input type="number" id="weight" value="3800" step="1" /></label>
         <label class="field"><span id="driverWeightLabel">Driver Weight (lbs)</span><input type="number" id="driverWeight" value="200" step="1" min="0" /></label>
         <label class="field"><span>Drag Coefficient</span><input type="number" id="cd" value="0.32" step="0.01" /></label>
-        <label class="field"><span>Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
+        <label class="field"><span id="areaLabel">Frontal Area sq ft</span><input type="number" id="area" value="22" step="0.1" /></label>
         <div class="drive-row tx-row">
           <span class="drive-label">Transmission</span>
-          <div class="drive-seg" role="radiogroup" aria-label="Transmission">
+          <div class="drive-seg drive-seg-4" role="radiogroup" aria-label="Transmission">
             <label class="drive-opt"><input type="radio" name="transmission" id="txAuto" value="auto" checked /><span>Automatic</span></label>
             <label class="drive-opt"><input type="radio" name="transmission" id="txDct" value="dct" /><span>Dual Clutch</span></label>
-            <label class="drive-opt"><input type="radio" name="transmission" id="txManual" value="manual" /><span>Manual</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txSequential" value="sequential" /><span>Sequential</span></label>
+            <label class="drive-opt"><input type="radio" name="transmission" id="txManual" value="manual" /><span>H-Pattern Manual</span></label>
           </div>
         </div>
         <label class="field loss-field-hidden" hidden><span>Drivetrain Loss %</span><input type="number" id="loss" value="15" step="0.1" /></label>
@@ -85,7 +93,7 @@
             <label><input type="checkbox" id="chkFI" /> Forced Induction</label>
             <label><input type="checkbox" id="chkEv" /> (Electric Vehicle)</label>
           </div>
-          <button type="button" class="btn btn-garage" id="btnGarage">Garage</button>
+          <button type="button" class="btn btn-edit-params" id="btnEditParams" title="Quick edit selected params">Edit Vehicle</button>
         </div>
         <div class="drive-row">
           <span class="drive-label">Drivetrain</span>
@@ -101,7 +109,7 @@
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutFront" value="Front" checked /><span>Front</span></label>
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutMid" value="Mid" /><span>Mid</span></label>
             <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutRear" value="Rear" /><span>Rear</span></label>
-            <label class="drive-opt"><input type="radio" name="engineLayout" id="layoutDual" value="Dual" /><span>Front + Rear</span></label>
+            <label class="drive-opt" id="layoutDualWrap"><input type="radio" name="engineLayout" id="layoutDual" value="Dual" /><span>Front + Rear</span></label>
           </div>
         </div>
         <div class="drive-row">
@@ -116,12 +124,12 @@
             <span class="diff-wheelie-note" id="diffWheelieNote" hidden>Wheelie control</span>
           </div>
         </div>
-        <div class="vehicle-run-actions" id="vehicleRunActions">
-          <div class="run-controls-actions">
-            <button type="button" class="btn btn-test" id="btnTest">Test</button>
-            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
-          </div>
-          <div class="run-timer" id="runTimer">0.00 s</div>
+        <div class="drag-pack-row" id="dragPackRow">
+          <label class="drag-pack-toggle" title="Session prep: launch + lighter wheels. NA/FI only; not EV or bikes.">
+            <input type="checkbox" id="chkDragPack" />
+            <span>Drag Setup + Track Prep</span>
+          </label>
+          <span class="drag-pack-hint" id="dragPackHint">Session · OFF</span>
         </div>
       </section>
 
@@ -129,9 +137,9 @@
       <section class="card atmosphere-card">
         <div class="card-section da-section">
           <div class="card-title">DA Calculator</div>
-          <label class="field"><span>Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
+          <label class="field"><span id="calcTempLabel">Temp (°F)</span><input type="number" id="calcTemp" value="59" step="0.1" /></label>
           <label class="field"><span>Humidity (%)</span><input type="number" id="calcHumidity" value="40" step="0.1" /></label>
-          <label class="field"><span>Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
+          <label class="field"><span id="calcPressureLabel">Pressure (inHg)</span><input type="number" id="calcPressure" value="29.92" step="0.01" /></label>
           <div class="da-result" id="calcDAResult">—</div>
           <button type="button" class="btn btn-generate" id="btnGenerateDA">Generate</button>
         </div>
@@ -142,14 +150,14 @@
             <span>Preset</span>
             <select id="weatherPreset">
               <option value="0" selected>Custom</option>
-              <option value="1">Standard Day (59°F, 0%, 29.92 inHg)</option>
-              <option value="2">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
-              <option value="3">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
+              <option value="1" data-std="Standard Day (59°F, 0%, 29.92 inHg)" data-metric="Standard Day (15°C, 0%, 1013 hPa)">Standard Day (59°F, 0%, 29.92 inHg)</option>
+              <option value="2" data-std="Hot / High DA (90°F, 60%, 29.50 inHg)" data-metric="Hot / High DA (32°C, 60%, 999 hPa)">Hot / High DA (90°F, 60%, 29.50 inHg)</option>
+              <option value="3" data-std="Cool / Low DA (50°F, 40%, 30.10 inHg)" data-metric="Cool / Low DA (10°C, 40%, 1019 hPa)">Cool / Low DA (50°F, 40%, 30.10 inHg)</option>
             </select>
           </label>
-          <label class="field"><span>Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
+          <label class="field"><span id="tempLabel">Temp (°F)</span><input type="number" id="temp" value="59" step="0.1" /></label>
           <label class="field"><span>Humidity (%)</span><input type="number" id="humidity" value="40" step="0.1" /></label>
-          <label class="field"><span>Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
+          <label class="field"><span id="pressureLabel">Pressure (inHg)</span><input type="number" id="pressure" value="29.92" step="0.01" /></label>
           <label class="field"><span id="daLabel">Density Altitude (ft)</span><input type="number" id="da" value="" placeholder="(auto)" step="1" /></label>
         </div>
         <div class="air-hp-strip" id="airHpStrip" aria-live="polite">
@@ -175,6 +183,13 @@
             </div>
           </div>
           <div class="air-hp-note" id="airHpNote">Compiled estimate from current weather model — not dyno lab cert.</div>
+        </div>
+        <div class="vehicle-run-actions" id="vehicleRunActions">
+          <div class="run-controls-actions">
+            <button type="button" class="btn btn-test" id="btnTest">Test</button>
+            <button type="button" class="btn btn-drag" id="btnDragRace">Drag Racing</button>
+          </div>
+          <div class="run-timer" id="runTimer">0.00 s</div>
         </div>
         <div class="card-divider run-controls-divider" role="separator" aria-hidden="true"></div>
         <div class="run-controls" role="toolbar" aria-label="Playback controls">
@@ -282,7 +297,7 @@
           <label class="field"><span>Horsepower</span><input type="number" id="editHp" step="1" /></label>
           <label class="field"><span id="editWeightLabel">Weight lbs</span><input type="number" id="editWeight" step="1" /></label>
           <label class="field"><span>Drag Coefficient</span><input type="number" id="editCd" step="0.01" /></label>
-          <label class="field"><span>Frontal Area sq ft</span><input type="number" id="editArea" step="0.1" /></label>
+          <label class="field"><span id="editAreaLabel">Frontal Area sq ft</span><input type="number" id="editArea" step="0.1" /></label>
           <label class="field"><span>Drivetrain Loss %</span><input type="number" id="editLoss" step="0.1" /></label>
           <label class="field">
             <span>Tire Type</span>

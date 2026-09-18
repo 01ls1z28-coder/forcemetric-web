@@ -7,6 +7,7 @@
  * Phase 8B batch 1–2: fleet recalib driver 200, Street, trap-first (batch1 ~50 + batch2 rest of fleet).
  * Phase 11: EV EngineLayout bake — FWD→Front, RWD→Rear, AWD→Dual (Rimac Nevera→Mid).
  * Phase 13: Transmission Auto|Manual|DCT; DCT-only loss recalib (driver 200, Street, trap-first).
+ * Phase 36: WeightLbs < 1500 → Transmission Sequential; Manual = H-Pattern UI.
  * Phase 21: five-tire grip ladder + full fleet recalib (driver 200, bake tire All-season default /
  *   Summer/UHP when clear, trap-first, TX Auto|Manual|DCT offsets). Soft/Slicks are user-selectable only.
  * Phase 29: lean TireType (OEM summer/UHP) + trap-first loss recalib; Soft/Slicks remain user-only.
@@ -3072,7 +3073,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 34.4; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2016 Kawasaki Ninja ZX-10R",
@@ -3088,7 +3089,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 34.1; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2011 Kawasaki Ninja ZX-10R (Enrique's)",
@@ -3104,7 +3105,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World ZX-10R class ~2.8 / ~10.3@146 (loss 32, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 34.1; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Suzuki GSX-R1000",
@@ -3120,7 +3121,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer GSX-R1000 ~2.8 / ~10.2@148 (loss 29.2, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 32.7; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Suzuki GSX-R1000R",
@@ -3136,7 +3137,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer GSX-R1000R ~2.7 / ~10.0@150 (loss 26.6, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 32.4; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Yamaha YZF-R1",
@@ -3152,7 +3153,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer YZF-R1 ~2.8 / ~9.9@150 (loss 25.3, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 32.6; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Yamaha YZF-R1M",
@@ -3168,7 +3169,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer YZF-R1M ~2.8 / ~9.9@150 (loss 26.9, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 32.3; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2021 BMW S1000RR",
@@ -3184,7 +3185,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer S1000RR ~2.7 / ~9.9@150 (loss 30.6, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 24.9; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2021 Honda CBR1000RR-R Fireblade",
@@ -3200,7 +3201,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer CBR1000RR-R ~2.8 / ~9.9@150 (loss 30.3, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 33; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2022 Suzuki Hayabusa",
@@ -3216,7 +3217,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World Hayabusa class ~2.7 / ~9.9@145 (loss 17, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire UHP; loss 15.6; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Kawasaki Ninja ZX-14R",
@@ -3232,7 +3233,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer ZX-14R ~2.7 / ~9.7@152 (loss 8.8, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire UHP; loss 21; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2021 Ducati Panigale V4",
@@ -3248,7 +3249,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/peer Panigale V4 ~2.9 / ~10.3@150 (loss 31.2, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire Summer; loss 32.2; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2021 Kawasaki Ninja H2",
@@ -3264,7 +3265,7 @@ window.GARAGE_DATA = [
     "EngineLayout": "Mid",
     "Differential": "LSD",
     "Source": "Perf: Cycle World/Hot Bike H2 class ~2.7 / ~9.6@152 (loss 24.9, TX MANUAL, driver 200, All-season, trap-first) | Phase 32 trap-first; tire UHP; loss 31; driver 200 | Phase 34 AS bake (WeightLbs < 1500)",
-    "Transmission": "Manual"
+    "Transmission": "Sequential"
   },
   {
     "Name": "2020 Ford F-150 Raptor",

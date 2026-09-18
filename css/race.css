@@ -1379,3 +1379,40 @@
    Launch / Back / Load / ctrl / roll-preset / header Replay-Rematch use brass
    bezels with role accents (crimson Launch, green Load). No physics/µ retune.
 */
+
+
+/* Phase 36 — Sequential TX + Drag Pack on race lanes */
+.lane-card .tx-row .drive-seg.drive-seg-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.lane-card .tx-row .drive-opt span {
+  font-size: 9px;
+  padding: 6px 2px;
+}
+.lane-card .drag-pack-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--brass, rgba(215, 196, 160, 0.42));
+  border-radius: 6px;
+  background: rgba(10, 12, 15, 0.55);
+}
+.lane-card .drag-pack-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brass-text, #e8d7b0);
+  cursor: pointer;
+}
+.lane-card .drag-pack-hint {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232, 215, 176, 0.7);
+}

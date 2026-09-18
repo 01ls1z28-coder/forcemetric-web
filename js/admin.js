@@ -25,6 +25,7 @@
       ' * Phase 8B batch 1–2: fleet recalib driver 200, Street, trap-first (batch1 ~50 + batch2 rest of fleet).\n' +
       ' * Phase 11: EV EngineLayout bake — FWD→Front, RWD→Rear, AWD→Dual (Rimac Nevera→Mid).\n' +
       ' * Phase 13: Transmission Auto|Manual|DCT; DCT-only loss recalib (driver 200, Street, trap-first).\n' +
+      ' * Phase 36: WeightLbs < 1500 → Sequential; Manual = H-Pattern UI.\n' +
       ' * Phase 21: five-tire grip ladder + full fleet recalib (driver 200, bake tire All-season default /\n' +
       ' *   Summer/UHP when clear, trap-first, TX Auto|Manual|DCT offsets). Soft/Slicks are user-selectable only.\n' +
       ' * Phase 29: lean TireType (OEM summer/UHP) + trap-first loss recalib; Soft/Slicks remain user-only.\n' +
