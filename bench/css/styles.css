@@ -1990,7 +1990,7 @@ input[type="email"] {
     0 0 0 4px rgba(215, 196, 160, 0.35);
 }
 
-/* HP source / transmission / locked loss (Seraph #2) */
+/* HP source / transmission / locked loss */
 .hp-source-row .drive-opt span,
 .tx-row .drive-opt span {
   font-size: 10px;

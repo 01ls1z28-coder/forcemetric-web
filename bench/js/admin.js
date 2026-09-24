@@ -187,7 +187,7 @@
       IsForcedInduction: false,
       EngineLayout: 'Front',
       Differential: 'Open',
-      Source: 'Admin add — cite sources before Seraph clear',
+      Source: 'Admin add — cite sources before review',
       Transmission: 'Auto'
     };
   }
@@ -471,7 +471,7 @@
               base: CONFIG.baseRef,
               body:
                 '## Garage admin update (Phase 30)\n\n' +
-                'Static admin commit. **Seraph must clear before Merovingian deploys.**\n\n' +
+                'Static admin commit. **Review must clear before deploy.**\n\n' +
                 '- Path: `' + CONFIG.path + '`\n' +
                 '- Branch: `' + branch + '`\n' +
                 '- Commit: `' + commit.sha + '`\n'

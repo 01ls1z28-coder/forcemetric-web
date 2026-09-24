@@ -233,7 +233,7 @@ input:focus, select:focus, textarea:focus, button:focus-visible {
   display: grid;
   gap: 6px;
 }
-.seraph-note {
+.review-note {
   margin-top: 6px;
   font-weight: 600;
   color: var(--lime);
