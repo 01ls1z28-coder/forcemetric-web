@@ -654,3 +654,44 @@ VERIFY
   4. Race you + opp independent restore memory.
   5. Sequential radio reads "Sequential / Quick-Shifter" on index + race.
   6. No physics.js / garage-data.js change; eligibility rules untouched.
+
+HUB CROSS-TOOL POLISH — suite chrome + cards (2026-09-24 CT)
+=============================================================
+Branch: review/hub-cross-tool-polish
+Repo: 01ls1z28-coder/forcemetric-web (live front door velocitybench.com;
+      historically guerra-tools-hub / ForceMetric web — CNAME intact)
+Base: origin/main @ c0ecbec
+
+Goal: stronger cross-tool switcher / back-to-hub consistency so Bench,
+PowerCurve, SDC, GSPS feel like one suite; clearer hub cards; suite-wide
+compiled-estimates disclaimer; Jorge Guerra credits only.
+
+Applied (static Pages only):
+  - Shared vb-chrome: aria-label "VelocityBench suite", Suite label,
+    tool titles; hub aria-current styling; footer suite switcher on hub
+  - Bench + Race chrome matched; footer hub links → "Back to Tool Hub"
+  - Hub hero suite-disclaimer: compiled estimates / not lab-certified /
+    not track-certified
+  - Card blurbs tightened; per-card .card-disclaimer; live path metas
+  - Credits: Jorge Guerra only (public hub/bench/race)
+  - No GoatCounter footer blurb; no Cars/Motorcycles/Firearms header links
+  - CNAME (velocitybench.com) untouched; no workflow/CNAME edits
+
+Tool URLs (verified HTTP 200 before tip):
+  Hub         https://velocitybench.com/
+  Bench       https://velocitybench.com/bench/
+  PowerCurve  https://01ls1z28-coder.github.io/velocitybench-powercurve/
+  SDC         https://01ls1z28-coder.github.io/sound-distance-calculator/
+  GSPS        https://01ls1z28-coder.github.io/gunshot-sound-propagation/
+
+VERIFY
+  1. Open index.html: top + footer suite switcher; Suite label visible
+  2. Hero disclaimer reads compiled estimates / not lab / not track
+  3. Each of 4 cards has .card-disclaimer + Open CTA to live URL above
+  4. View-source: "Created by Jorge Guerra" only — no Sati/Seraph/Merovingian
+  5. No GoatCounter blurb; no Cars · Motorcycles · Firearms header text
+  6. bench/ + race/: chrome matches; "Back to Tool Hub" → velocitybench.com/
+  7. CNAME still "velocitybench.com"; Pages deployable as before
+
+Intentional skips: Merovingian deploy; main push; PowerCurve/SDC/GSPS
+repo edits; SEO mega-pass; new tools; GoatCounter enablement.

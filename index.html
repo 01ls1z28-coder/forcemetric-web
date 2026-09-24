@@ -26,16 +26,17 @@
   <div class="bg-glow" aria-hidden="true"></div>
   <div class="bg-particles" aria-hidden="true"></div>
 
-  <nav class="vb-chrome" aria-label="VelocityBench tools">
-    <a class="vb-chrome-hub" href="https://velocitybench.com/" aria-current="page">
+  <nav class="vb-chrome" aria-label="VelocityBench suite">
+    <a class="vb-chrome-hub" href="https://velocitybench.com/" aria-current="page" title="VelocityBench Tool Hub">
       <span class="vb-chrome-hub-badge">HUB</span>
       <span>Tool Hub</span>
     </a>
+    <p class="vb-chrome-label" aria-hidden="true">Suite</p>
     <div class="vb-chrome-tools" role="list">
-      <a role="listitem" href="https://velocitybench.com/bench/">Bench</a>
-      <a role="listitem" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/">PowerCurve</a>
-      <a role="listitem" href="https://01ls1z28-coder.github.io/sound-distance-calculator/">SDC</a>
-      <a role="listitem" href="https://01ls1z28-coder.github.io/gunshot-sound-propagation/">GSPS</a>
+      <a role="listitem" href="https://velocitybench.com/bench/" title="VelocityBench Bench">Bench</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/" title="VelocityBench PowerCurve">PowerCurve</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/sound-distance-calculator/" title="Sound Distance Calculator">SDC</a>
+      <a role="listitem" href="https://01ls1z28-coder.github.io/gunshot-sound-propagation/" title="Gunshot Sound Propagation">GSPS</a>
     </div>
   </nav>
 
@@ -54,8 +55,12 @@
       <p class="eyebrow">Engineering playground</p>
       <h2>Precision tools for motion, force, and acoustics.</h2>
       <p class="hero-lead">
-        Open any card to jump into a live calculator or simulator.
-        Static Pages only — each tool keeps its own credits and disclaimers.
+        One brass suite — Bench, PowerCurve, SDC, and GSPS. Open any card for a
+        live calculator or simulator. Static Pages only; each tool keeps its own credits.
+      </p>
+      <p class="suite-disclaimer" role="note">
+        Compiled estimates for comparison — <strong>not lab-certified</strong> /
+        <strong>not track-certified</strong>.
       </p>
       <ul class="motif-row" aria-label="Themes">
         <li class="motif-chip" tabindex="0"><span class="motif-ico" aria-hidden="true">▣</span> Vehicles</li>
@@ -80,8 +85,9 @@
           </div>
           <p class="card-goal">
             Quarter-mile drag calculator — garage fleet, weather/DA, tires,
-            time slip, and race compare. Estimates for comparison, not track certified.
+            time slip, and race compare on a gauge-and-chart bench.
           </p>
+          <p class="card-disclaimer">Compiled estimates — not track-certified.</p>
           <p class="card-meta">velocitybench.com/bench/</p>
           <a class="btn-open" href="https://velocitybench.com/bench/" rel="noopener">Open Bench</a>
         </article>
@@ -96,7 +102,8 @@
             Geared-RPM simulator with factory TX, dyno curves, FI/EV/Hybrid,
             quarter-mile markers, and run-to-Vmax.
           </p>
-          <p class="card-meta">GitHub Pages</p>
+          <p class="card-disclaimer">Compiled estimates — not track-certified.</p>
+          <p class="card-meta">01ls1z28-coder.github.io/velocitybench-powercurve/</p>
           <a class="btn-open" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/" rel="noopener">Open PowerCurve</a>
         </article>
 
@@ -107,10 +114,11 @@
             <h4>Sound Distance Calculator</h4>
           </div>
           <p class="card-goal">
-            Estimate how suppressor muzzle levels fall off with distance —
-            inverse-square SPL curves with OSHA reference lines.
+            How suppressor muzzle levels fall off with distance — inverse-square
+            SPL curves with OSHA reference lines for quick comparison.
           </p>
-          <p class="card-meta">GitHub Pages</p>
+          <p class="card-disclaimer">Compiled estimates — not lab-certified.</p>
+          <p class="card-meta">01ls1z28-coder.github.io/sound-distance-calculator/</p>
           <a class="btn-open" href="https://01ls1z28-coder.github.io/sound-distance-calculator/" rel="noopener">Open SDC</a>
         </article>
 
@@ -121,10 +129,11 @@
             <h4>Gunshot Sound Propagation</h4>
           </div>
           <p class="card-goal">
-            Map how a shot’s sound field spreads with wind, terrain, and
-            Thunder Beast Summit–based bare vs suppressed profiles.
+            Map a shot’s sound field with wind, terrain, and Thunder Beast
+            Summit–based bare vs suppressed profiles — plus OSHA distance tables.
           </p>
-          <p class="card-meta">GitHub Pages</p>
+          <p class="card-disclaimer">Compiled estimates — not lab-certified.</p>
+          <p class="card-meta">01ls1z28-coder.github.io/gunshot-sound-propagation/</p>
           <a class="btn-open" href="https://01ls1z28-coder.github.io/gunshot-sound-propagation/" rel="noopener">Open GSPS</a>
         </article>
       </div>
@@ -134,10 +143,22 @@
   <footer class="site-footer">
     <p><strong>Created by Jorge Guerra</strong></p>
     <p class="footer-note">
-      Hub overview only. Individual tools include their own measurement credits,
-      non-affiliation notices, and “compiled estimates / not lab-certified” disclaimers.
-      Static hosting — no server, database, or tracking cookies required.
+      Suite overview only. Individual tools keep their own measurement credits and
+      non-affiliation notices. All figures are <strong>compiled estimates</strong> —
+      not lab-certified / not track-certified. Static hosting — no server or database.
     </p>
+    <nav class="vb-chrome vb-chrome--footer" aria-label="Back to suite tools">
+      <a class="vb-chrome-hub" href="https://velocitybench.com/" aria-current="page">
+        <span class="vb-chrome-hub-badge">HUB</span>
+        <span>Tool Hub</span>
+      </a>
+      <div class="vb-chrome-tools" role="list">
+        <a role="listitem" href="https://velocitybench.com/bench/">Bench</a>
+        <a role="listitem" href="https://01ls1z28-coder.github.io/velocitybench-powercurve/">PowerCurve</a>
+        <a role="listitem" href="https://01ls1z28-coder.github.io/sound-distance-calculator/">SDC</a>
+        <a role="listitem" href="https://01ls1z28-coder.github.io/gunshot-sound-propagation/">GSPS</a>
+      </div>
+    </nav>
   </footer>
 
   <script src="js/goatcounter-config.js"></script>
