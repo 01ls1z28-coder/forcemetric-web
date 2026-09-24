@@ -169,7 +169,7 @@
         <p><strong>Branch:</strong> <code id="outBranch"></code></p>
         <p><strong>Commit SHA:</strong> <code id="outSha"></code></p>
         <p id="outPrWrap" hidden><strong>PR:</strong> <a id="outPr" target="_blank" rel="noopener"></a></p>
-        <p class="seraph-note">Seraph must clear before Merovingian deploys.</p>
+        <p class="review-gate-note">review gate must clear before deployment gate deploys.</p>
       </div>
     </section>
 
@@ -179,7 +179,7 @@
         <li>Create a fine-grained PAT on GitHub with Contents write on <code>01ls1z28-coder/forcemetric-web</code> only; short expiry.</li>
         <li>Paste PAT → Save to session → Load garage from main.</li>
         <li>Search / edit / add / clone / delete vehicles. Soft/Slicks only when Jorge explicitly wants them.</li>
-        <li>Commit → new <code>review/vb-garage-admin-…</code> branch. Seraph reviews before Merovingian deploys.</li>
+        <li>Commit → new <code>review/vb-garage-admin-…</code> branch. the review gate checks before deployment.</li>
       </ol>
       <h3>Security</h3>
       <ul>

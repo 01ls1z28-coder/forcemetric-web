@@ -1,7 +1,7 @@
 Hub polish — flashy Family Brass (2026-09-18 CT)
 =================================================
 Branch: review/vb-hub-polish
-Base: origin/main @ 261bc8e (SEO tip LIVE — Merovingian hold)
+Base: origin/main @ 261bc8e (SEO tip LIVE — deployment gate hold)
 
 Removals (Jorge red circles on velocitybench.com/):
   1. Header tagline “Cars · Motorcycles · Firearms · Sound” — deleted
@@ -25,7 +25,7 @@ VERIFY
   5. goatcounter-config enabled:false; no visitCounterNote element
   6. No deploy from this tip
 
-Intentional skips: deploy; Merovingian ask; git config; tracking activation.
+Intentional skips: deploy; deployment gate ask; git config; tracking activation.
 
 SEO / indexing polish (2026-09-18 CT)
 =====================================
@@ -83,7 +83,7 @@ Checks:
   3. Open race.html / admin.html stubs — land under /bench/
   4. CNAME still velocitybench.com; no second-repo CNAME
   5. Disclaimers unchanged on calculator pages
-  6. No deploy from this tip — Seraph clears
+  6. No deploy from this tip — review gate clears
 
 --- prior VERIFY ---
 ForceMetric — verification notes
@@ -688,10 +688,10 @@ VERIFY
   1. Open index.html: top + footer suite switcher; Suite label visible
   2. Hero disclaimer reads compiled estimates / not lab / not track
   3. Each of 4 cards has .card-disclaimer + Open CTA to live URL above
-  4. View-source: "Created by Jorge Guerra" only — no Sati/Seraph/Merovingian
+  4. View-source: "Created by Jorge Guerra" only — no commit author/review gate/deployment gate
   5. No GoatCounter blurb; no Cars · Motorcycles · Firearms header text
   6. bench/ + race/: chrome matches; "Back to Tool Hub" → velocitybench.com/
   7. CNAME still "velocitybench.com"; Pages deployable as before
 
-Intentional skips: Merovingian deploy; main push; PowerCurve/SDC/GSPS
+Intentional skips: deployment gate deploy; main push; PowerCurve/SDC/GSPS
 repo edits; SEO mega-pass; new tools; GoatCounter enablement.

@@ -1,5 +1,5 @@
 /**
- * VelocityBench Hub — light interactivity (tilt / parallax).
+ * VelocityBench Hub — light interactivity (tilt).
  * Static Pages only; respects prefers-reduced-motion; no tracking.
  */
 (function () {
@@ -36,19 +36,4 @@
     cards[i].addEventListener('mouseleave', onLeave);
   }
 
-  /* Subtle hero parallax vs glow layer */
-  var glow = document.querySelector('.bg-glow');
-  var hero = document.querySelector('.hero');
-  if (glow && hero) {
-    var ticking = false;
-    window.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () {
-        var y = window.scrollY || 0;
-        glow.style.transform = 'translate3d(0, ' + (y * 0.12).toFixed(1) + 'px, 0)';
-        ticking = false;
-      });
-    }, { passive: true });
-  }
 })();

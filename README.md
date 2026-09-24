@@ -33,4 +33,4 @@ Static Pages only · no server/DB/secrets/tracking · disclaimers stay · Family
 
 ## Author
 
-Commits as Sati via env (`GIT_AUTHOR_*` / `GIT_COMMITTER_*`) — never `git config`.
+Commit authorship uses env only (`GIT_AUTHOR_*` / `GIT_COMMITTER_*`) — never `git config`.

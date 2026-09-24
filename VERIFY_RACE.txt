@@ -354,7 +354,7 @@ full unique photoreal studio shoot per all 331 garage rows (class fallback
 executor — mustang/camaro are mockup-derived photoreal; other keys are
 photoreal-textured keyed silhouettes pending further GenerateImage expansion.
 
-PHASE 27b (fleet photoreal reburn — Seraph STOP on dd8108f):
+PHASE 27b (fleet photoreal reburn — review gate STOP on dd8108f):
 - Path (A): photoreal keyed PNGs for all SPRITE_ALL_KEYS via GenerateImage + rembg cutout.
 - Corvette = C8 mid-engine photoreal (replaces broken collage).
 - mustang-lime / camaro-cyan kept Jorge-cleared photoreal quality.
@@ -508,7 +508,7 @@ Summary:
   - Loads/commits js/garage-data.js via GitHub Contents + Git Data APIs.
   - Commits ONLY to new review/vb-garage-admin-YYYYMMDD-HHMM branches.
   - NEVER writes main; NEVER triggers Pages deploy from admin.
-  - After commit: branch + SHA + “Seraph must clear before Merovingian deploys.”
+  - After commit: branch + SHA + “review gate must clear before deployment gate deploys.”
   - Holds: µ ladder, race chrome/sprites, analytics, estimate disclaimers intact.
   - Soft/Slicks selectable with bake guidance (prefer AS/Summer/UHP).
 

@@ -25,7 +25,7 @@ How to use
    from current main tip via Git Data API (blob → tree → commit → create ref).
    Never updates main. Never triggers Pages live deploy from admin.
 6. UI shows branch name + commit SHA + note:
-   “Seraph must clear before Merovingian deploys.”
+   “review gate must clear before deployment gate deploys.”
 
 Repo config (hardcoded)
 -----------------------
@@ -39,7 +39,7 @@ TireType enum (matches garage-data.js)
 0 AllSeason | 1 Summer | 2 UHP | 3 SoftCompound | 4 Slicks
 Guidance: default bake AS/Summer/UHP unless Jorge explicitly sets Soft/Slicks.
 
-Security checklist (Seraph STOP conditions)
+Security checklist (review gate STOP conditions)
 -------------------------------------------
 [ ] No token / PAT in source, URL, localStorage-by-default, or Pages artifacts
 [ ] Token sessionStorage only; clear on tab close; Clear token button works
