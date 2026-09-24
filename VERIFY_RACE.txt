@@ -1026,7 +1026,7 @@ Physics formulas / µ: HOLD. Brass chrome + simultaneous leave + X-from-Distance
 
 Match priority (Jorge explicit): 1) ¼ trap mph >> 2) ¼ ET >> 3) 60–130 >> 4) 0–60 (least)
 Cost weights (norm by tol): trap×8, ET×3, 60–130×1.5, 0–60×0.4
-Prefer lowest TireType that best satisfies that order; Soft/Slicks bake OK when needed.
+Prefer lowest TireType that best meets that order; Soft/Slicks bake OK when needed.
 Controls ONLY: TireType 0–4 × DrivetrainLossPercent 5–35 (0.1 fine). NO Cd/area/HP/µ/TX/Diff unlock.
 
 Tolerance aim (reporting): ≤1 mph trap; ≤0.05s ET; ≤0.10s 60–130; ≤0.05s 0–60.
