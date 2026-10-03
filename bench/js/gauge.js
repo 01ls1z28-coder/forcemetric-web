@@ -1,6 +1,9 @@
 /**
- * ForceMetric analog speedometer — classy modern face, 0–250 MPH.
- * API: setValue / start / stop (unchanged for app.js).
+ * VelocityBench Performance Telemetry speedometer.
+ * Face matches PowerCurve BrassGauge dial:'speed' (LIVE 5aebfb9):
+ * brushed brass bezel, charcoal glass, 260° sweep, white/red needle,
+ * polished brass hub, MPH/KM/H + digital well from the same display value.
+ * API unchanged: setValue / setUnits / start / stop. Live speed still comes from app.js.
  */
 (function (global) {
   'use strict';
@@ -9,10 +12,11 @@
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.value = 0;
+    this.display = 0;
     this.maxValue = 250;
     this.unitText = 'MPH';
-    this.needleAngle = 135;
-    this.targetAngle = 135;
+    this.needleAngle = 140;
+    this.targetAngle = 140;
     this._raf = null;
     this._running = false;
     this._resize();
@@ -21,17 +25,18 @@
 
   ForceMetricGauge.prototype._resize = function () {
     var dpr = window.devicePixelRatio || 1;
-    var css = Math.min(this.canvas.clientWidth || 280, this.canvas.clientHeight || 280);
-    if (!css) css = 280;
+    var css = Math.min(this.canvas.clientWidth || 260, this.canvas.clientHeight || 260);
+    if (!css) css = 260;
     this.canvas.width = Math.round(css * dpr);
     this.canvas.height = Math.round(css * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this._size = css;
+    this.size = css;
   };
 
   ForceMetricGauge.prototype.setValue = function (v) {
     this.value = Math.max(0, Math.min(Math.round(v), this.maxValue));
-    this.targetAngle = this._map(this.value, 0, this.maxValue, 135, 405);
+    this.targetAngle = this._map(this.value, 0, this.maxValue, 140, 400);
   };
 
   /** mode: 'standard' (0–250 MPH) | 'metric' (0–400 km/h). Does not convert the needle value. */
@@ -65,11 +70,11 @@
   };
 
   ForceMetricGauge.prototype._animateNeedle = function () {
-    var speed = 0.18;
-    this.needleAngle = this.needleAngle + (this.targetAngle - this.needleAngle) * speed;
-    if (Math.abs(this.needleAngle - this.targetAngle) < 0.08) {
-      this.needleAngle = this.targetAngle;
-    }
+    // Same slew as PowerCurve BrassGauge so needle and digital stay locked
+    this.display += (this.value - this.display) * 0.28;
+    if (Math.abs(this.value - this.display) < 0.35) this.display = this.value;
+    this.needleAngle = this._map(this.display, 0, this.maxValue, 140, 400);
+    this.targetAngle = this._map(this.value, 0, this.maxValue, 140, 400);
   };
 
   ForceMetricGauge.prototype._map = function (value, inMin, inMax, outMin, outMax) {
@@ -78,182 +83,195 @@
 
   ForceMetricGauge.prototype.draw = function () {
     var ctx = this.ctx;
-    var w = this._size;
-    var h = this._size;
+    var w = this.size;
+    var h = this.size;
     var cx = w / 2;
     var cy = h / 2;
-    var radius = Math.min(w, h) / 2 - 6;
-    var startAngle = 135;
-    var sweepAngle = 270;
-
-    function degToRad(d) {
-      return (d * Math.PI) / 180;
+    var R = Math.min(w, h) / 2 - 4;
+    var fs;
+    if (this.size >= 280) fs = 1;
+    else {
+      fs = this.size / 280;
+      if (!isFinite(fs) || fs <= 0) fs = 1;
+      if (fs < 0.78) fs = 0.78;
+    }
+    var start = 140;
+    var sweep = 260;
+    var min = 0;
+    var max = this.maxValue;
+    var redline = max * 0.9;
+    function rad(d) { return (d * Math.PI) / 180; }
+    function ang(v) {
+      return start + ((v - min) / (max - min)) * sweep;
     }
 
     ctx.clearRect(0, 0, w, h);
 
-    // Outer champagne bezel
-    var bezel = ctx.createLinearGradient(cx - radius, cy - radius, cx + radius, cy + radius);
-    bezel.addColorStop(0, '#d7c4a0');
-    bezel.addColorStop(0.35, '#8f7a55');
-    bezel.addColorStop(0.55, '#f0e2c4');
-    bezel.addColorStop(1, '#6a5738');
+    var bezel = ctx.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+    bezel.addColorStop(0, 'rgba(255,236,196,0.95)');
+    bezel.addColorStop(0.18, 'rgba(168,140,96,0.98)');
+    bezel.addColorStop(0.42, 'rgba(236,214,170,0.95)');
+    bezel.addColorStop(0.62, 'rgba(110,88,58,0.99)');
+    bezel.addColorStop(0.82, 'rgba(210,186,145,0.92)');
+    bezel.addColorStop(1, 'rgba(150,122,82,0.95)');
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = bezel; ctx.fill();
+
+    ctx.beginPath(); ctx.arc(cx, cy, R - 1.2, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,246,224,0.22)';
+    ctx.lineWidth = 1.2; ctx.stroke();
+
+    ctx.beginPath(); ctx.arc(cx, cy, R - 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#12100e'; ctx.fill();
+
+    var face = ctx.createRadialGradient(cx, cy - R * 0.18, R * 0.04, cx, cy, R - 7);
+    face.addColorStop(0, '#2a3140');
+    face.addColorStop(0.28, '#1a202c');
+    face.addColorStop(0.62, '#0e131a');
+    face.addColorStop(1, '#050608');
+    ctx.beginPath(); ctx.arc(cx, cy, R - 7, 0, Math.PI * 2);
+    ctx.fillStyle = face; ctx.fill();
+
+    var rimWash = ctx.createRadialGradient(cx, cy, R * 0.55, cx, cy, R - 7);
+    rimWash.addColorStop(0, 'rgba(0,0,0,0)');
+    rimWash.addColorStop(0.7, 'rgba(0,0,0,0)');
+    rimWash.addColorStop(1, 'rgba(40,28,12,0.35)');
+    ctx.beginPath(); ctx.arc(cx, cy, R - 7, 0, Math.PI * 2);
+    ctx.fillStyle = rimWash; ctx.fill();
+
     ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.fillStyle = bezel;
-    ctx.fill();
+    ctx.arc(cx, cy, R - 10, (Math.PI * 1.15), (Math.PI * 1.85));
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)';
+    ctx.lineWidth = 6.5; ctx.lineCap = 'round'; ctx.stroke();
+    ctx.lineCap = 'butt';
 
-    // Inner dark ring
+    ctx.beginPath(); ctx.arc(cx, cy, R - 8.5, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(240,220,180,0.38)';
+    ctx.lineWidth = 1.15; ctx.stroke();
+
+    var redStart = ang(Math.min(redline, max));
     ctx.beginPath();
-    ctx.arc(cx, cy, radius - 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#12151c';
-    ctx.fill();
+    ctx.arc(cx, cy, R - 16, rad(redStart), rad(start + sweep));
+    ctx.strokeStyle = 'rgba(220, 48, 48, 0.92)';
+    ctx.lineWidth = 5; ctx.lineCap = 'butt'; ctx.stroke();
 
-    // Face
-    var faceR = radius - 8;
-    var face = ctx.createRadialGradient(cx - faceR * 0.25, cy - faceR * 0.3, faceR * 0.1, cx, cy, faceR);
-    face.addColorStop(0, '#2a303c');
-    face.addColorStop(0.55, '#151922');
-    face.addColorStop(1, '#0a0c11');
-    ctx.beginPath();
-    ctx.arc(cx, cy, faceR, 0, Math.PI * 2);
-    ctx.fillStyle = face;
-    ctx.fill();
-
-    // Subtle inner rim highlight
-    ctx.beginPath();
-    ctx.arc(cx, cy, faceR - 0.5, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(230, 210, 170, 0.22)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Thin performance arc (elegant, not chunky)
-    var arcR = faceR - 18;
-    ctx.lineCap = 'round';
-    ctx.lineWidth = 3.5;
-    function strokeArc(color, fromFrac, toFrac) {
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.arc(
-        cx,
-        cy,
-        arcR,
-        degToRad(startAngle + sweepAngle * fromFrac),
-        degToRad(startAngle + sweepAngle * toFrac),
-        false
-      );
-      ctx.stroke();
-    }
-    strokeArc('rgba(72, 187, 120, 0.85)', 0, 0.45);
-    strokeArc('rgba(234, 179, 8, 0.85)', 0.45, 0.75);
-    strokeArc('rgba(239, 68, 68, 0.9)', 0.75, 1);
-
-    // Ticks + numerals
-    for (var i = 0; i <= this.maxValue; i += 5) {
-      var angle = this._map(i, 0, this.maxValue, startAngle, startAngle + sweepAngle);
-      var rad = degToRad(angle);
-      var major = i % 50 === 0;
-      var mid = i % 25 === 0;
-      var tickLen = major ? 14 : mid ? 10 : 6;
-      var inner = faceR - 10 - tickLen;
-      var outer = faceR - 10;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(rad) * inner, cy + Math.sin(rad) * inner);
-      ctx.lineTo(cx + Math.cos(rad) * outer, cy + Math.sin(rad) * outer);
-      ctx.strokeStyle = major ? 'rgba(245, 240, 230, 0.95)' : 'rgba(180, 190, 210, 0.55)';
-      ctx.lineWidth = major ? 2 : 1;
-      ctx.stroke();
-
-      if (major) {
-        var labelR = faceR - 34;
-        var lx = cx + Math.cos(rad) * labelR;
-        var ly = cy + Math.sin(rad) * labelR;
-        ctx.fillStyle = 'rgba(236, 230, 214, 0.92)';
-        ctx.font = '600 11px "Segoe UI", system-ui, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(String(i), lx, ly);
-      }
-    }
-
-    // Needle shadow
-    var nRad = degToRad(this.needleAngle);
-    var tip = faceR - 28;
-    var nx = cx + Math.cos(nRad) * tip;
-    var ny = cy + Math.sin(nRad) * tip;
-    var bx = cx - Math.cos(nRad) * 18;
-    var by = cy - Math.sin(nRad) * 18;
-
-    ctx.save();
-    ctx.translate(1.5, 2);
-    ctx.beginPath();
-    ctx.moveTo(bx, by);
-    ctx.lineTo(nx, ny);
-    ctx.strokeStyle = 'rgba(0,0,0,0.45)';
-    ctx.lineWidth = 3.5;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-    ctx.restore();
-
-    // Needle body (polished red/steel)
-    var needleGrad = ctx.createLinearGradient(bx, by, nx, ny);
-    needleGrad.addColorStop(0, '#f8d7d7');
-    needleGrad.addColorStop(0.35, '#e11d48');
-    needleGrad.addColorStop(1, '#7f1d1d');
-    ctx.beginPath();
-    ctx.moveTo(bx, by);
-    ctx.lineTo(nx, ny);
-    ctx.strokeStyle = needleGrad;
-    ctx.lineWidth = 2.8;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-
-    // Hub
-    var hub = ctx.createRadialGradient(cx - 2, cy - 2, 1, cx, cy, 9);
-    hub.addColorStop(0, '#f5efe2');
-    hub.addColorStop(0.55, '#b09a6e');
-    hub.addColorStop(1, '#4a3d28');
-    ctx.beginPath();
-    ctx.arc(cx, cy, 7.5, 0, Math.PI * 2);
-    ctx.fillStyle = hub;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(cx, cy, 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = '#1a1d24';
-    ctx.fill();
-
-    // Digital window
-    var boxW = 72;
-    var boxH = 28;
-    var boxX = cx - boxW / 2;
-    var boxY = cy + faceR * 0.42;
-    ctx.beginPath();
-    roundRect(ctx, boxX, boxY, boxW, boxH, 6);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(215, 196, 160, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    ctx.fillStyle = '#f8fafc';
-    ctx.font = '700 16px ui-monospace, Cascadia Code, Consolas, monospace';
+    ctx.lineCap = 'butt';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(String(this.value), cx, boxY + boxH / 2 - 1);
 
-    ctx.fillStyle = 'rgba(200, 210, 225, 0.75)';
-    ctx.font = '600 9px "Segoe UI", system-ui, sans-serif';
-    ctx.fillText(this.unitText, cx, boxY + boxH + 10);
-  };
+    var minorMph = 5;
+    var midMph = 10;
+    var majorMph = this.size < 200 ? 40 : 20;
+    var v0 = 0;
+    var v1 = Math.round(max);
+    var labelMid = v1 <= 220 && this.size >= 280;
+    var spOuter = R - 11 * fs;
+    var spMajorIn = R - 30 * fs;
+    var spMidIn = R - 23 * fs;
+    var spMinorIn = R - 17 * fs;
+    var spLabelR = R - (this.size < 220 ? 34 : 42) * fs;
+    var spMajorFont = Math.max(8, Math.round(15 * fs * (this.size < 200 ? 0.92 : 1)));
+    var spMidFont = Math.max(7, Math.round(10 * fs));
+    var spMajorLw = Math.max(1.2, 2.4 * fs);
+    var mph;
+    for (mph = v0; mph <= v1; mph += minorMph) {
+      var val = mph;
+      var a = rad(ang(val));
+      var onMajor = (val % majorMph === 0);
+      var isMajorTick = onMajor || (val === v1);
+      var isMidTick = !isMajorTick && (val % midMph === 0);
+      var outer = spOuter;
+      var inner = isMajorTick ? spMajorIn : (isMidTick ? spMidIn : spMinorIn);
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * outer, cy + Math.sin(a) * outer);
+      ctx.lineTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner);
+      ctx.strokeStyle = isMajorTick ? '#f0e6d0' : (isMidTick ? 'rgba(232,215,176,0.58)' : 'rgba(232,215,176,0.32)');
+      ctx.lineWidth = isMajorTick ? spMajorLw : 1;
+      ctx.stroke();
+      if (isMajorTick || (isMidTick && labelMid)) {
+        var tx = cx + Math.cos(a) * spLabelR;
+        var ty = cy + Math.sin(a) * spLabelR;
+        if (isMajorTick) {
+          ctx.fillStyle = '#eef3fa';
+          ctx.font = 'bold ' + spMajorFont + 'px "Segoe UI", system-ui, sans-serif';
+        } else {
+          ctx.fillStyle = 'rgba(220,227,238,0.55)';
+          ctx.font = spMidFont + 'px "Segoe UI", system-ui, sans-serif';
+        }
+        ctx.fillText(String(val), tx, ty);
+      }
+    }
+    if ((v1 - v0) % minorMph !== 0) {
+      var aMax = rad(ang(v1));
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(aMax) * spOuter, cy + Math.sin(aMax) * spOuter);
+      ctx.lineTo(cx + Math.cos(aMax) * spMajorIn, cy + Math.sin(aMax) * spMajorIn);
+      ctx.strokeStyle = '#f0e6d0';
+      ctx.lineWidth = spMajorLw;
+      ctx.stroke();
+      ctx.fillStyle = '#eef3fa';
+      ctx.font = 'bold ' + spMajorFont + 'px "Segoe UI", system-ui, sans-serif';
+      ctx.fillText(String(v1), cx + Math.cos(aMax) * spLabelR, cy + Math.sin(aMax) * spLabelR);
+    }
 
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
+    ctx.fillStyle = 'rgba(232,215,176,0.75)';
+    ctx.font = Math.max(7, Math.round(10 * fs)) + 'px "Segoe UI", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(this.unitText, cx, cy - R * 0.18);
+
+    ctx.fillStyle = '#e8d7b0';
+    ctx.font = 'bold ' + Math.max(8, Math.round(11 * fs)) + 'px "Segoe UI", sans-serif';
+    ctx.fillText(this.unitText, cx, cy + R * 0.20);
+
+    ctx.fillStyle = '#f4f7fb';
+    var digSize = Math.max(14, Math.round(26 * fs));
+    ctx.font = 'bold ' + digSize + 'px ui-monospace, "Cascadia Code", monospace';
+    ctx.fillText(String(Math.round(this.display)), cx, cy + R * 0.40);
+
+    var na = rad(ang(this.display));
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(na);
+    ctx.beginPath();
+    ctx.moveTo(-R * 0.16, -2.2);
+    ctx.lineTo(-R * 0.16, 2.2);
+    ctx.lineTo(-4, 1.4);
+    ctx.lineTo(-4, -1.4);
     ctx.closePath();
-  }
+    ctx.fillStyle = '#8a7a58';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-4, -1.6);
+    ctx.lineTo(R - 30, -0.7);
+    ctx.lineTo(R - 26, 0);
+    ctx.lineTo(R - 30, 0.7);
+    ctx.lineTo(-4, 1.6);
+    ctx.closePath();
+    var needleGrad = ctx.createLinearGradient(0, 0, R - 28, 0);
+    needleGrad.addColorStop(0, '#f4f7fb');
+    needleGrad.addColorStop(0.75, '#f4f7fb');
+    needleGrad.addColorStop(1, '#e02040');
+    ctx.fillStyle = needleGrad;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(R - 34, -1.1);
+    ctx.lineTo(R - 22, 0);
+    ctx.lineTo(R - 34, 1.1);
+    ctx.closePath();
+    ctx.fillStyle = '#ff3355';
+    ctx.fill();
+    ctx.restore();
+
+    var hub = ctx.createRadialGradient(cx - 2, cy - 2, 1, cx, cy, 11);
+    hub.addColorStop(0, '#fff2d4');
+    hub.addColorStop(0.35, '#d4b889');
+    hub.addColorStop(0.7, '#8a7048');
+    hub.addColorStop(1, '#2e2618');
+    ctx.beginPath(); ctx.arc(cx, cy, 9, 0, Math.PI * 2);
+    ctx.fillStyle = hub; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, 3.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#07090c'; ctx.fill();
+  };
 
   global.ForceMetricGauge = ForceMetricGauge;
 })(typeof window !== 'undefined' ? window : globalThis);
