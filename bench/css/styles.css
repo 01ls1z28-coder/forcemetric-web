@@ -988,52 +988,203 @@ input[type="email"] {
 }
 
 .results-out,
-.results-out.track-slip {
+.results-out.run-board {
   flex: 1 1 0 !important;
   box-sizing: border-box;
   width: 100%;
   min-height: 0;
   height: 0; /* flex child fills card; content never expands card */
   max-height: 100%;
-  /* Classic thermal track-slip paper */
-  background-color: #f3e6c8;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(120, 90, 40, 0.035) 2px,
-      rgba(120, 90, 40, 0.035) 3px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 3px,
-      rgba(90, 60, 20, 0.03) 3px,
-      rgba(90, 60, 20, 0.03) 4px
-    ),
-    radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.45), transparent 55%),
-    radial-gradient(ellipse at 80% 90%, rgba(160, 120, 60, 0.12), transparent 50%),
-    linear-gradient(180deg, #f7ecd4 0%, #efe0bc 48%, #e8d4a8 100%);
-  border: 1px dashed rgba(90, 60, 20, 0.45);
-  border-radius: 3px;
-  padding: 8px 10px;
-  font-family: "Courier New", Courier, ui-monospace, monospace;
+  /* Dark digital board — matches Performance Telemetry page palette */
+  font-family: var(--mono);
   font-size: 11px;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  color: #1a140c;
-  white-space: pre;
-  overflow-x: auto;
+  line-height: 1.25;
+  color: var(--text);
+  white-space: normal;
+  overflow-x: hidden;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  /* Phase 14 — subtle brass outer frame; paper stay readable */
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(76, 201, 240, 0.07), transparent 42%),
+    radial-gradient(90% 70% at 100% 100%, rgba(200, 255, 74, 0.04), transparent 48%),
+    linear-gradient(180deg, #10151c 0%, #07090d 100%);
+  border: 1px solid rgba(215, 196, 160, 0.38);
+  border-radius: 8px;
+  padding: 8px 9px 10px;
   box-shadow:
-    0 0 0 1px var(--brass),
-    0 0 0 3px rgba(0, 0, 0, 0.35),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    inset 0 0 40px rgba(120, 80, 20, 0.08),
-    0 1px 0 rgba(0, 0, 0, 0.25);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.run-board-idle {
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 14px 4px;
+  line-height: 1.45;
+}
+
+.rd-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.rd-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--brass-text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rd-tag {
+  flex: 0 0 auto;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border: 1px solid rgba(76, 201, 240, 0.35);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+.rd-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 8px;
+  margin-bottom: 7px;
+  padding: 5px 7px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(76, 201, 240, 0.12);
+  border-radius: 6px;
+}
+.rd-meta-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+}
+.rd-meta-row .rd-k { flex: 0 0 auto; }
+.rd-meta-row .rd-v {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+.rd-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.rd-panel {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(76, 201, 240, 0.14);
+  border-radius: 6px;
+  padding: 5px 7px 7px;
+  min-width: 0;
+}
+.rd-panel h3 {
+  margin: 0 0 5px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.rd-table { width: 100%; border-collapse: collapse; }
+.rd-table th {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: right;
+  padding: 0 3px 4px;
+}
+.rd-table th:first-child { text-align: left; }
+.rd-table td,
+.rd-table tbody th {
+  padding: 2px 3px;
+  font-weight: 500;
+  font-size: 11px;
+}
+.rd-table tbody th {
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rd-table td { text-align: right; }
+.rd-table tbody tr:nth-child(odd) td,
+.rd-table tbody tr:nth-child(odd) th {
+  background: rgba(255, 255, 255, 0.025);
+}
+.rd-time {
+  color: var(--lime);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rd-mph {
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rd-range {
+  color: #ffb347;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rd-time.is-miss,
+.rd-mph.is-miss,
+.rd-range.is-miss {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.rd-k {
+  color: var(--text-muted);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+.rd-ranges,
+.rd-zeros {
+  display: grid;
+  gap: 3px;
+}
+.rd-ranges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.rd-zeros { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rd-chip {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: rgba(255, 179, 71, 0.06);
+  min-width: 0;
+}
+.rd-chip--zero {
+  flex-direction: column;
+  gap: 1px;
+  padding: 3px 4px;
+  background: rgba(200, 255, 74, 0.05);
+}
+.rd-chip--zero .rd-k { font-size: 8px; }
+.rd-chip--zero .rd-time { font-size: 11px; }
+.rd-foot-note {
+  margin-top: 6px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
 }
 
 /* ── Dashboard ── */
@@ -1937,12 +2088,12 @@ input[type="email"] {
     align-self: stretch;
   }
   .results-out,
-  .results-out.track-slip {
+  .results-out.run-board {
     flex: 0 0 auto !important;
     height: auto !important;
     max-height: none;
     overflow-y: visible;
-    overflow-x: auto;
+    overflow-x: hidden;
     scrollbar-gutter: auto;
   }
   .field {
@@ -2442,12 +2593,12 @@ label.field.loss-field-hidden {
   }
 
   .results-out,
-  .results-out.track-slip {
+  .results-out.run-board {
     min-width: 0;
     max-width: 100%;
     box-sizing: border-box;
-    overflow-x: auto;
-    white-space: pre-wrap;
+    overflow-x: hidden;
+    white-space: normal;
     overflow-wrap: anywhere;
     word-break: break-word;
   }

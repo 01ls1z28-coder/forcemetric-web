@@ -844,22 +844,21 @@
     return n.toFixed(1);
   }
 
-  function slipLine(label, value) {
-    label = String(label);
-    value = String(value);
-    var width = 34; // monospace columns — fills slip, less empty right
-    var dots = width - label.length - value.length;
-    if (dots < 2) dots = 2;
-    return '  ' + label + ' ' + Array(dots + 1).join('.') + ' ' + value;
+  function setResultsStatus(msg) {
+    if (!el.resultsOut) return;
+    el.resultsOut.innerHTML =
+      '<div class="run-board-idle">' + escapeHtml(String(msg || '')).replace(/\n/g, '<br>') + '</div>';
+  }
+
+  function dashCell(text, cls) {
+    var missing = text == null || text === '';
+    return '<span class="' + cls + (missing ? ' is-miss' : '') + '">' +
+      (missing ? '—' : escapeHtml(text)) + '</span>';
   }
 
   function renderResult(result) {
-    var lines = [];
+    if (!el.resultsOut) return;
     var vehicle = (el.activeVehicleLabel && el.activeVehicleLabel.textContent) || 'Custom setup';
-    lines.push('  VELOCITYBENCH TIME SLIP');
-    lines.push('  -----------------------');
-    lines.push(slipLine('VEHICLE', vehicle.slice(0, 22)));
-    lines.push(slipLine('PRINTED', result.Timestamp.toLocaleString()));
 
     var engineLabel = 'Unspecified';
     if (el.chkEv.checked) {
@@ -869,88 +868,127 @@
     } else if (el.chkFI.checked && !el.chkNA.checked) {
       engineLabel = 'Forced ind.';
     }
-    lines.push(slipLine(el.chkEv && el.chkEv.checked ? 'MOTOR' : 'ENGINE', engineLabel));
+    var motorKey = el.chkEv && el.chkEv.checked ? 'Motor' : 'Engine';
     var srcHp = getHpSource();
     var srcLabel = srcHp === 'dynojet' ? 'DynoJet WHP' : (srcHp === 'mustang' ? 'Mustang Dyno WHP' : 'HP');
-    lines.push(slipLine('HP SOURCE', srcLabel));
-    lines.push(slipLine('TRANS', transmissionSlipLabel(getTransmission())));
     var dwDisp = parseFloat(el.driverWeight && el.driverWeight.value) || 0;
+
+    var metaRows = [
+      ['Printed', result.Timestamp.toLocaleString()],
+      [motorKey, engineLabel],
+      ['HP source', srcLabel],
+      ['Trans', transmissionSlipLabel(getTransmission())]
+    ];
     if (dwDisp > 0) {
-      lines.push(slipLine('DRIVER WT', Math.round(dwDisp) + ' ' + (isMetric() ? 'kg' : 'lb')));
+      metaRows.push(['Driver', Math.round(dwDisp) + ' ' + (isMetric() ? 'kg' : 'lb')]);
     }
-    lines.push('  -----------------------');
+    var metaHtml = metaRows.map(function (row) {
+      return '<div class="rd-meta-row"><span class="rd-k">' + escapeHtml(row[0]) + '</span>' +
+        '<span class="rd-v">' + escapeHtml(row[1]) + '</span></div>';
+    }).join('');
 
-    function mark(ft, label) {
-      var val = result.DistanceMarkers[ft];
-      var distLabel = label;
+    function distLabelFor(ft, label) {
       if (isMetric() && /FT|MILE/.test(label)) {
-        if (label === '1 MILE') distLabel = '1.6 KM';
-        else {
-          var m = Math.round(ft * M_PER_FT);
-          distLabel = m + ' M';
-        }
+        if (label === '1 MILE') return '1.6 km';
+        return Math.round(ft * M_PER_FT) + ' m';
       }
-      if (val && val.Time >= 0) {
-        lines.push(slipLine(distLabel, fmt2(val.Time) + ' s'));
-        lines.push(slipLine(distLabel + ' ' + speedSuffixUpper(), fmt1(mphToDisplay(val.SpeedMph))));
-      } else {
-        lines.push(slipLine(distLabel, '--'));
-      }
+      if (label === '60 FT') return '60 ft';
+      if (label === '330 FT') return '330';
+      if (label === '1000 FT') return '1000 ft';
+      if (label === '1 MILE') return '1 mile';
+      return label;
     }
 
-    mark(60, '60 FT');
-    mark(330, '330 FT');
-    mark(660, '1/8');
-    mark(1000, '1000 FT');
-    mark(1320, '1/4');
-    mark(2640, '1/2');
-    mark(5280, '1 MILE');
+    var distMarks = [
+      [60, '60 FT'],
+      [330, '330 FT'],
+      [660, '1/8'],
+      [1000, '1000 FT'],
+      [1320, '1/4'],
+      [2640, '1/2'],
+      [5280, '1 MILE']
+    ];
+    var speedHdr = speedSuffixUpper().toLowerCase();
+    var distRows = distMarks.map(function (pair) {
+      var ft = pair[0];
+      var label = distLabelFor(ft, pair[1]);
+      var val = result.DistanceMarkers && result.DistanceMarkers[ft];
+      var t = (val && val.Time >= 0) ? fmt2(val.Time) : null;
+      var s = (val && val.Time >= 0) ? fmt1(mphToDisplay(val.SpeedMph)) : null;
+      return '<tr><th scope="row">' + escapeHtml(label) + '</th><td>' +
+        dashCell(t, 'rd-time') + '</td><td>' +
+        dashCell(s, 'rd-mph') + '</td></tr>';
+    }).join('');
 
-    lines.push('  -----------------------');
+    var ranges = [];
     if (isMetric()) {
-      if (result.ZeroToSixty != null) lines.push(slipLine('0-' + Math.round(60 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToSixty) + ' s'));
-      if (result.ZeroToHundred != null) lines.push(slipLine('0-' + Math.round(100 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToHundred) + ' s'));
-      if (result.ZeroToOneThirty != null) lines.push(slipLine('0-' + Math.round(130 * KMH_PER_MPH) + ' KM/H', fmt2(result.ZeroToOneThirty) + ' s'));
-      if (result.SixtyToOneThirty != null) lines.push(slipLine(Math.round(60 * KMH_PER_MPH) + '-' + Math.round(130 * KMH_PER_MPH), fmt2(result.SixtyToOneThirty) + ' s'));
-      if (result.HundredToOneFifty != null) lines.push(slipLine(Math.round(100 * KMH_PER_MPH) + '-' + Math.round(150 * KMH_PER_MPH), fmt2(result.HundredToOneFifty) + ' s'));
+      if (result.ZeroToSixty != null) ranges.push(['0–' + Math.round(60 * KMH_PER_MPH), result.ZeroToSixty]);
+      if (result.ZeroToHundred != null) ranges.push(['0–' + Math.round(100 * KMH_PER_MPH), result.ZeroToHundred]);
+      if (result.ZeroToOneThirty != null) ranges.push(['0–' + Math.round(130 * KMH_PER_MPH), result.ZeroToOneThirty]);
+      if (result.SixtyToOneThirty != null) ranges.push([Math.round(60 * KMH_PER_MPH) + '–' + Math.round(130 * KMH_PER_MPH), result.SixtyToOneThirty]);
+      if (result.HundredToOneFifty != null) ranges.push([Math.round(100 * KMH_PER_MPH) + '–' + Math.round(150 * KMH_PER_MPH), result.HundredToOneFifty]);
     } else {
-      if (result.ZeroToSixty != null) lines.push(slipLine('0-60 MPH', fmt2(result.ZeroToSixty) + ' s'));
-      if (result.ZeroToHundred != null) lines.push(slipLine('0-100 MPH', fmt2(result.ZeroToHundred) + ' s'));
-      if (result.ZeroToOneThirty != null) lines.push(slipLine('0-130 MPH', fmt2(result.ZeroToOneThirty) + ' s'));
-      if (result.SixtyToOneThirty != null) lines.push(slipLine('60-130', fmt2(result.SixtyToOneThirty) + ' s'));
-      if (result.HundredToOneFifty != null) lines.push(slipLine('100-150', fmt2(result.HundredToOneFifty) + ' s'));
+      if (result.ZeroToSixty != null) ranges.push(['0–60', result.ZeroToSixty]);
+      if (result.ZeroToHundred != null) ranges.push(['0–100', result.ZeroToHundred]);
+      if (result.ZeroToOneThirty != null) ranges.push(['0–130', result.ZeroToOneThirty]);
+      if (result.SixtyToOneThirty != null) ranges.push(['60–130', result.SixtyToOneThirty]);
+      if (result.HundredToOneFifty != null) ranges.push(['100–150', result.HundredToOneFifty]);
     }
-    if (result.HundredToTwoHundredKmh != null) lines.push(slipLine('100-200 KM/H', fmt2(result.HundredToTwoHundredKmh) + ' s'));
-    if (result.TwoHundredToTwoFiftyKmh != null) lines.push(slipLine('200-250 KM/H', fmt2(result.TwoHundredToTwoFiftyKmh) + ' s'));
-
-    lines.push('  -----------------------');
+    if (result.HundredToTwoHundredKmh != null) ranges.push(['100–200 km/h', result.HundredToTwoHundredKmh]);
+    if (result.TwoHundredToTwoFiftyKmh != null) ranges.push(['200–250 km/h', result.TwoHundredToTwoFiftyKmh]);
     if (result.RunDistanceFt != null) {
-      lines.push(slipLine('RUN DIST', fmt1(ftToDisplay(result.RunDistanceFt)) + ' ' + distSuffix()));
+      ranges.push(['Run dist', fmt1(ftToDisplay(result.RunDistanceFt)) + ' ' + distSuffix()]);
     }
     if (result.RunTimeS != null) {
-      lines.push(slipLine('RUN TIME', fmt2(result.RunTimeS) + ' s'));
+      ranges.push(['Run time', fmt2(result.RunTimeS) + ' s']);
     }
     if (result.StopReason === 'vmax') {
-      lines.push(slipLine('STOP', 'mech top speed'));
+      ranges.push(['Stop', 'mech top speed']);
     } else if (result.StopReason === 'safety') {
-      lines.push(slipLine('STOP', 'safety limit'));
+      ranges.push(['Stop', 'safety limit']);
     }
+    var rangeHtml = ranges.map(function (row) {
+      var isTime = typeof row[1] === 'number';
+      var text = isTime ? fmt2(row[1]) : String(row[1]);
+      return '<div class="rd-chip"><span class="rd-k">' + escapeHtml(row[0]) + '</span>' +
+        dashCell(text, isTime ? 'rd-range' : 'rd-mph') + '</div>';
+    }).join('');
 
-    lines.push('  -----------------------');
-    lines.push('  0-X ' + speedSuffixUpper() + ' BREAKDOWN');
-    var keys = Object.keys(result.ZeroToMphTimes).map(Number).sort(function (a, b) { return a - b; });
+    var zeroHtml = '';
+    var zTimes = result.ZeroToMphTimes || {};
+    var keys = Object.keys(zTimes).map(Number).sort(function (a, b) { return a - b; });
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
-      var tv = result.ZeroToMphTimes[k];
+      var tv = zTimes[k];
       if (k >= 0 && tv >= 0) {
         var kLabel = isMetric() ? Math.round(k * KMH_PER_MPH) : k;
-        lines.push(slipLine('0-' + kLabel, fmt2(tv) + ' s'));
+        zeroHtml += '<div class="rd-chip rd-chip--zero"><span class="rd-k">0–' + escapeHtml(String(kLabel)) + '</span>' +
+          dashCell(fmt2(tv), 'rd-time') + '</div>';
       }
     }
-    lines.push('  -----------------------');
-    lines.push('  Estimates — not lab ET');
 
-    el.resultsOut.textContent = lines.join('\n');
+    el.resultsOut.innerHTML =
+      '<div class="rd-head">' +
+        '<div class="rd-name">' + escapeHtml(vehicle) + '</div>' +
+        '<div class="rd-tag">RUN</div>' +
+      '</div>' +
+      '<div class="rd-meta">' + metaHtml + '</div>' +
+      '<div class="rd-stack">' +
+        '<section class="rd-panel" aria-label="Distance marks">' +
+          '<h3>Distance</h3>' +
+          '<table class="rd-table"><thead><tr><th></th><th>sec</th><th>' + escapeHtml(speedHdr) + '</th></tr></thead><tbody>' +
+          distRows + '</tbody></table>' +
+        '</section>' +
+        '<section class="rd-panel" aria-label="Speed ranges">' +
+          '<h3>Splits &amp; run</h3>' +
+          '<div class="rd-ranges">' + rangeHtml + '</div>' +
+        '</section>' +
+        '<section class="rd-panel" aria-label="Zero to speed">' +
+          '<h3>0–' + escapeHtml(speedHdr) + '</h3>' +
+          '<div class="rd-zeros">' + (zeroHtml || '<div class="run-board-idle">—</div>') + '</div>' +
+        '</section>' +
+      '</div>' +
+      '<div class="rd-foot-note">Estimates — not lab ET</div>';
   }
 
   function stopPlaybackLoop() {
@@ -1191,7 +1229,7 @@
     setActiveVehicleLabel(name);
     updateAirHpStrip();
     if (el.resultsOut) {
-      el.resultsOut.textContent = 'Restored: ' + name + ' (after Drag Racing).';
+      setResultsStatus('Restored: ' + name + ' (after Drag Racing).');
     }
     return true;
   }
@@ -1343,11 +1381,11 @@
         currentLayout: getEngineLayout()
       }));
       /* Preserve user drivetrain loss % and tire selection across EV toggle. */
-      el.resultsOut.textContent += '\nEV Mode enabled.';
+      setResultsStatus('EV Mode enabled.');
     } else {
       el.chkNA.disabled = false;
       el.chkFI.disabled = false;
-      el.resultsOut.textContent += '\nEV Mode disabled.';
+      setResultsStatus('EV Mode disabled.');
     }
     applyLightCurbLocks();
     syncDualLayoutForEv();
@@ -1363,7 +1401,7 @@
         currentLayout: getEngineLayout()
       }));
     }
-    el.resultsOut.textContent += '\nDrivetrain: ' + dt + '.';
+    setResultsStatus('Drivetrain: ' + dt + '.');
   }
   if (el.driveFWD) el.driveFWD.addEventListener('change', onDriveTypeChange);
   if (el.driveRWD) el.driveRWD.addEventListener('change', onDriveTypeChange);
@@ -1777,7 +1815,7 @@
     if (!carIsEv(car) && (car.WeightLbs || 0) <= 1500) tags.push('RWD');
     var loadMsg = 'Loaded: ' + car.Name + ' (' + (car.DriveType || 'RWD') + ', ' + tags.join(', ') + ')\nReady to simulate.';
     if (car.Source) loadMsg += '\nSource: ' + car.Source;
-    el.resultsOut.textContent = loadMsg;
+    setResultsStatus(loadMsg);
     updateAirHpStrip();
     closeGarage();
   }
@@ -1964,7 +2002,7 @@
     garageData = (window.GARAGE_DATA || []).slice();
     hideCarEditor();
     refreshList(null);
-    el.resultsOut.textContent = 'Garage reset to defaults (' + garageData.length + ' vehicles).';
+    setResultsStatus('Garage reset to defaults (' + garageData.length + ' vehicles).');
   });
 
   document.getElementById('btnGarage').addEventListener('click', openGarage);
