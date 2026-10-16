@@ -2760,3 +2760,16 @@ body.race-page > .vb-chrome,
 body > .vb-chrome {
   box-sizing: border-box;
 }
+
+/* 2026 Tesla Roadster estimates disclaimer (shown only when a Roadster trim is loaded) */
+.roadster-est {
+  margin: 6px 0 8px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 184, 77, 0.55);
+  border-left: 3px solid #ffb84d;
+  border-radius: 6px;
+  background: rgba(255, 184, 77, 0.08);
+  color: #f0dfc2;
+  font-size: 12px;
+  line-height: 1.45;
+}

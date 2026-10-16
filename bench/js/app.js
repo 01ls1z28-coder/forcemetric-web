@@ -177,6 +177,24 @@
   }
 
   var activeMaxSpeedMph = null;
+  /** 2026 Tesla Roadster only: PowerCurve car id carried from its garage entry (null for every other car). */
+  var activeRoadsterPcId = null;
+  function syncRoadsterNote(result) {
+    var n = document.getElementById('roadsterEstNote');
+    if (!n) return;
+    var rb = window.VBRoadsterBench;
+    if (!activeRoadsterPcId || !rb) { n.hidden = true; n.textContent = ''; return; }
+    var txt = rb.DISCLAIMER;
+    if (result && result.Roadster) {
+      var rs = result.Roadster;
+      txt += ' This run: 0–60 ' + (result.ZeroToSixty != null ? result.ZeroToSixty.toFixed(3) : '—') + ' s (no rollout) · ' +
+        (rs.zeroToSixtyRollout1ft != null ? rs.zeroToSixtyRollout1ft.toFixed(3) : '—') + ' s (1-ft rollout)';
+      if (rs.thruster) txt += ' · thrust burn ' + rs.thruster.burnEndS.toFixed(2) + ' s, ' + rs.thruster.gasMassKg.toFixed(1) + ' kg air vented';
+      txt += '.';
+    }
+    n.textContent = txt;
+    n.hidden = false;
+  }
 
   // ---- Units (display only; physics stays imperial) ----
   var UNITS_KEY = 'velocitybench-units';
@@ -1133,7 +1151,9 @@
       if (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph) && activeMaxSpeedMph > 0) {
         calcOpts.maxSpeedMph = activeMaxSpeedMph;
       }
+      if (activeRoadsterPcId) calcOpts.roadsterPcId = activeRoadsterPcId;
       var result = Physics.calculate(calcOpts);
+      syncRoadsterNote(result);
 
       renderResult(result);
       startPlayback(result);
@@ -1214,6 +1234,8 @@
 
     activeMaxSpeedMph = (snap.MaxSpeedMph != null && isFinite(snap.MaxSpeedMph) && snap.MaxSpeedMph > 0)
       ? Number(snap.MaxSpeedMph) : null;
+    activeRoadsterPcId = snap.RoadsterPcId || null;
+    syncRoadsterNote(null);
 
     if (el.temp && isFinite(snap.tempF)) el.temp.value = snap.tempF;
     if (el.humidity && isFinite(snap.humidity)) el.humidity.value = snap.humidity;
@@ -1274,6 +1296,7 @@
       isFI: !!(el.chkFI && el.chkFI.checked),
       isEv: !!(el.chkEv && el.chkEv.checked),
       MaxSpeedMph: (activeMaxSpeedMph != null && isFinite(activeMaxSpeedMph)) ? activeMaxSpeedMph : undefined,
+      RoadsterPcId: activeRoadsterPcId || undefined,
       tempF: parseFloat(el.temp.value),
       humidity: parseFloat(el.humidity.value),
       pressureInHg: parseFloat(el.pressure.value),
@@ -1794,6 +1817,8 @@
     lastNonLightDiff = peekDifferential();
     activeMaxSpeedMph = (car.MaxSpeedMph != null && isFinite(car.MaxSpeedMph) && car.MaxSpeedMph > 0)
       ? Number(car.MaxSpeedMph) : null;
+    activeRoadsterPcId = car.RoadsterPcId || null;
+    syncRoadsterNote(null);
     /* Bake Transmission: Auto | Manual | DCT (missing → Auto). EVs still force Auto via locks. */
     if (!carIsEv(car)) {
       setTransmission(transmissionFromBake(car));

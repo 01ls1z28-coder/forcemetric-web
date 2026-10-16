@@ -5442,5 +5442,43 @@ window.GARAGE_DATA = [
     "Differential": "Open",
     "Source": "Don't modify",
     "Transmission": "Auto"
+  },
+  {
+    "Name": "2026 Tesla Roadster (Performance)",
+    "Horsepower": 1073,
+    "WeightLbs": 3900,
+    "DragCoefficient": 0.3,
+    "FrontalAreaSqFt": 20.45,
+    "DrivetrainLossPercent": 8,
+    "TireType": 3,
+    "DriveType": "RWD",
+    "IsEv": true,
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "Open",
+    "MaxSpeedMph": 230,
+    "Transmission": "Auto",
+    "RoadsterPcId": "2026-tesla-roadster",
+    "EstimatesDisclaimer": true,
+    "Source": "ESTIMATES — runs on VelocityBench PowerCurve physics 15e74e3 (same car, fan suction). Bench curb convention: published ~3700 lb + 200-lb driver baseline = 3900 lb. Tire: Soft compound = PowerCurve R-Compound. Tesla Roadster 2nd gen, revealed Oct 15 2026; no instrumented test exists. [3P-REPORT] RWD 0/100, 800+ kW (1,073 hp), 885 lb-ft, ~3,700 lb (InsideEVs/Top Gear). [TESLA] 0-60 <1.6 s claim, >300 mi. ESTIMATES: EV curve flat 885 lb-ft to base rpm then constant 1,073 hp, -15% taper above 80% of 23,000 rpm motor max; single ratio 8.4 (230 mph @ 23,000 rpm, Tesla >230 mph claim); Cd 0.30 / 1.90 m²; tire r 14.1 in R-Compound; 40/60 F/R; CG 1.4 ft; WB 8.2 ft; loss 8%; fan suction 3,700 lbf constant; 230 mph limiter (Tesla site >230). Credit Jorge Guerra"
+  },
+  {
+    "Name": "2026 Tesla Roadster (Thrust, cold-gas)",
+    "Horsepower": 1341,
+    "WeightLbs": 4264,
+    "DragCoefficient": 0.3,
+    "FrontalAreaSqFt": 20.45,
+    "DrivetrainLossPercent": 8,
+    "TireType": 3,
+    "DriveType": "RWD",
+    "IsEv": true,
+    "IsForcedInduction": false,
+    "EngineLayout": "Rear",
+    "Differential": "Open",
+    "MaxSpeedMph": 230,
+    "Transmission": "Auto",
+    "RoadsterPcId": "2026-tesla-roadster-thrust",
+    "EstimatesDisclaimer": true,
+    "Source": "ESTIMATES — runs on VelocityBench PowerCurve physics 15e74e3 (same car, fan suction and cold-gas thrusters). Bench curb convention: published ~4064 lb + 200-lb driver baseline = 4264 lb. Tire: Soft compound = PowerCurve R-Compound. Thrust trim: [3P-REPORT] 1,000+ kW (1,341 hp) / 1,033 lb-ft higher variant; [TESLA] 0-60 <0.9 s claim, rear cold-gas thrusters >80 kN (C&D). ESTIMATES: 120 L Type IV COPV at 700 bar dry air (Peng-Robinson 70.7 kg), tank 74 kg + 20 kg valves/nozzles → 4064 lb; 4 nozzles, ε=6, Cd 0.98, η 0.95; A* sized for 80 kN at t=0; isentropic blowdown to 3 bar; gas mass vents off the car. Other inputs as Performance. Credit Jorge Guerra"
   }
 ]

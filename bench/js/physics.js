@@ -361,6 +361,11 @@
    * @returns {object} RunResult-like object
    */
   function calculate(opts) {
+    // 2026 Tesla Roadster ONLY: runs on the embedded PowerCurve physics (roadster-pc.js), gated by its id.
+    // Every other car has no roadsterPcId and continues on the stock path below, unchanged.
+    if (opts && opts.roadsterPcId != null && global.VBRoadsterBench && global.VBRoadsterBench.handles(opts.roadsterPcId)) {
+      return global.VBRoadsterBench.calculate(opts);
+    }
     var horsepower = opts.hp;
     var weightLbs = opts.weightLbs;
     var tireType = opts.tireType; // Phase 21: 0 AllSeason, 1 Summer, 2 UHP, 3 SoftCompound, 4 Slicks

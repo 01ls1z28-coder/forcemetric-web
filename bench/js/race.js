@@ -864,8 +864,17 @@
       differential: getDifferential(prefix),
       maxSpeedMph: (snap.MaxSpeedMph != null && isFinite(snap.MaxSpeedMph) && snap.MaxSpeedMph > 0)
         ? Number(snap.MaxSpeedMph) : null,
-      transmission: getTransmission(prefix)
+      transmission: getTransmission(prefix),
+      // 2026 Tesla Roadster only (absent for every other car).
+      roadsterPcId: snap.RoadsterPcId || null
     };
+    (function () {
+      var n = document.getElementById(prefix + 'RoadsterEst');
+      if (!n) return;
+      var on = !!(laneExtras[prefix].roadsterPcId && window.VBRoadsterBench);
+      n.hidden = !on;
+      n.textContent = on ? window.VBRoadsterBench.DISCLAIMER : '';
+    })();
 
     applyLightCurbLocks(prefix);
     updateLaneLabel(prefix);
@@ -909,6 +918,7 @@
       differential: getDifferential(prefix),
       maxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
         ? laneExtras[prefix].maxSpeedMph : null,
+      roadsterPcId: (laneExtras[prefix] && laneExtras[prefix].roadsterPcId) || null,
       transmission: getTransmission(prefix),
       dragPack: getDragPackOn(prefix),
       hpSource: getHpSource(prefix),
@@ -945,6 +955,7 @@
         : (car.Differential || (carIsEv(car) ? 'Open' : 'LSD')),
       Transmission: car.Transmission,
       MaxSpeedMph: car.MaxSpeedMph,
+      RoadsterPcId: car.RoadsterPcId,
       IsEv: carIsEv(car),
       IsForcedInduction: carIsFi(car),
       isNA: !carIsEv(car) && !carIsFi(car),
@@ -983,6 +994,7 @@
       HpSource: getHpSource(prefix),
       MaxSpeedMph: (laneExtras[prefix] && laneExtras[prefix].maxSpeedMph != null)
         ? laneExtras[prefix].maxSpeedMph : undefined,
+      RoadsterPcId: (laneExtras[prefix] && laneExtras[prefix].roadsterPcId) || undefined,
       IsEv: isEvMode(prefix),
       IsForcedInduction: $(prefix + 'FI').checked,
       isNA: $(prefix + 'NA').checked,
@@ -2480,6 +2492,7 @@
       pressureInHg: weather.pressureInHg,
       densityAltitudeFtInput: weather.densityAltitudeFtInput
     };
+    if (lane.roadsterPcId) opts.roadsterPcId = lane.roadsterPcId;
     return opts;
   }
 
