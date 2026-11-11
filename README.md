@@ -25,7 +25,9 @@ GitHub Pages cannot emit HTTP 301. Root `race.html` / `admin.html` are **meta re
 
 ## Shared chrome
 
-`css/vb-chrome.css` (+ copy under `bench/css/`) — Hub link + tool switcher on Hub and Bench pages. Absolute URLs only.
+`bench/css/vb-chrome.css` — Hub link + tool switcher on the Bench pages. Absolute URLs only.
+
+The Hub (`index.html`) inlines its own CSS and JS (no render-blocking requests) and uses responsive AVIF/WebP images from `img/hub/`. Root `css/vb-chrome.css`, `css/hub-v3.css`, `js/hub-v3.js`, `js/goatcounter-*.js` and `img/tools/` are no longer loaded by the Hub; they are kept unchanged in case anything else links to them.
 
 ## Holds
 
